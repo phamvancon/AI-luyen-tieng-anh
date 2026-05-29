@@ -3987,7 +3987,7 @@ window.renderReadingBoard = function(){
                     🔊 Nghe
                 </button>
 
-                <button onclick="practiceBoardWord(this,'${item.word}','${item.pronunciation}')"
+                <button onclick="startRealPronunciationCheck(this,'${item.word}','${item.pronunciation}')"
                         class="px-4 py-3 rounded-2xl bg-emerald-500 text-white font-black">
                     🎙️ Kiểm tra phát âm
                 </button>
@@ -4136,6 +4136,217 @@ document.addEventListener('DOMContentLoaded', ()=>{
         renderReadingBoard();
 
     }, 300);
+
+});
+
+</script>
+
+
+<script>
+
+window.startRealPronunciationCheck = function(btn, targetWord, pronunciation){
+
+    const SpeechRecognition =
+        window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    const card = btn.closest('.bg-white');
+    const feedback = card.querySelector('.board-feedback');
+
+    feedback.classList.remove('hidden');
+
+    if(!SpeechRecognition){
+
+        feedback.innerHTML = `
+            <div class="text-red-600 font-black text-lg">
+                ❌ Trình duyệt chưa hỗ trợ nhận diện giọng nói.
+            </div>
+        `;
+
+        return;
+    }
+
+    const recognition = new SpeechRecognition();
+
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    btn.disabled = true;
+
+    feedback.innerHTML = `
+        <div class="text-indigo-900 font-black text-lg mb-2">
+            🎧 AI đang nghe bé đọc...
+        </div>
+
+        <div class="text-slate-600 font-bold">
+            Hãy đọc từ: <b>${targetWord}</b>
+        </div>
+    `;
+
+    recognition.start();
+
+    recognition.onresult = function(event){
+
+        const transcript =
+            event.results[0][0].transcript.trim().toLowerCase();
+
+        const target =
+            targetWord.toLowerCase();
+
+        const isCorrect =
+            transcript.includes(target) ||
+            target.includes(transcript);
+
+        if(isCorrect){
+
+            feedback.innerHTML = `
+                <div class="text-emerald-700 font-black text-2xl mb-3">
+                    ✅ Chính xác!
+                </div>
+
+                <div class="bg-white border border-emerald-100 rounded-2xl p-4 text-slate-700 font-bold">
+                    AI nghe được: "${transcript}"
+                </div>
+
+                <div class="bg-emerald-50 border border-emerald-100 rounded-2xl p-4 mt-3 text-sm font-bold text-emerald-800">
+                    🌟 Bé đã phát âm đúng từ <b>${targetWord}</b>
+                </div>
+            `;
+
+            if(!btn.dataset.completed){
+
+                btn.dataset.completed = 'true';
+
+                window.readingMissionCorrect++;
+
+                document.getElementById('mission-correct-count').innerText =
+                    Math.min(window.readingMissionCorrect, 10);
+            }
+
+            btn.innerText = '🏆 Đã hoàn thành';
+            btn.classList.remove('bg-emerald-500');
+            btn.classList.add('bg-emerald-700');
+
+        } else {
+
+            feedback.innerHTML = `
+                <div class="text-orange-600 font-black text-2xl mb-3">
+                    😊 Chưa chính xác
+                </div>
+
+                <div class="bg-white border border-yellow-100 rounded-2xl p-4 text-slate-700 font-bold mb-3">
+                    AI nghe được: "${transcript}"
+                </div>
+
+                <div class="bg-red-50 border border-red-100 rounded-2xl p-4 text-sm font-bold text-red-700 mb-3">
+                    🔊 Hướng dẫn đọc lại:
+                    <br><br>
+                    <span class="text-lg">${pronunciation}</span>
+                </div>
+
+                <div class="bg-indigo-50 border border-indigo-100 rounded-2xl p-4 text-sm font-bold text-indigo-800">
+                    💡 Hãy đọc chậm từng âm tiết và mở khẩu hình lớn hơn.
+                </div>
+            `;
+
+            speakBoardWord(targetWord);
+        }
+
+        btn.disabled = false;
+
+        if(window.readingMissionCorrect >= 10){
+
+            setTimeout(()=>{
+
+                alert('🎉 Bé đã hoàn thành nhiệm vụ phát âm hôm nay!');
+
+            }, 600);
+        }
+    };
+
+    recognition.onerror = function(){
+
+        feedback.innerHTML = `
+            <div class="text-red-600 font-black text-lg">
+                ❌ AI chưa nghe rõ. Bé hãy thử lại nhé!
+            </div>
+        `;
+
+        btn.disabled = false;
+    };
+};
+
+</script>
+
+
+<!-- Firebase Cloud Sync -->
+<script type="module">
+
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js';
+import { getAnalytics } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js';
+import { getFirestore, doc, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD-UguuvOlvqGKOPYtn9mB5rxx4EDkvKEg",
+  authDomain: "ai-tieng-anh-ec892.firebaseapp.com",
+  projectId: "ai-tieng-anh-ec892",
+  storageBucket: "ai-tieng-anh-ec892.firebasestorage.app",
+  messagingSenderId: "446730469601",
+  appId: "1:446730469601:web:476a30694f3f0f32c437a0",
+  measurementId: "G-5PV0L2YH4K"
+};
+
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const db = getFirestore(app);
+
+window.firebaseDB = db;
+
+window.saveChildProgress = async function(profileName, progressData){
+
+    try {
+
+        await setDoc(
+            doc(db, "children_progress", profileName),
+            progressData
+        );
+
+        console.log("✅ Đã lưu tiến độ đám mây");
+
+    } catch(error){
+
+        console.error("❌ Lỗi lưu Firebase:", error);
+    }
+};
+
+window.loadChildProgress = async function(profileName){
+
+    try {
+
+        const docRef =
+            doc(db, "children_progress", profileName);
+
+        const docSnap =
+            await getDoc(docRef);
+
+        if(docSnap.exists()){
+
+            console.log("☁️ Đã tải dữ liệu cloud");
+
+            return docSnap.data();
+        }
+
+    } catch(error){
+
+        console.error("❌ Lỗi tải dữ liệu:", error);
+    }
+
+    return null;
+};
+
+document.addEventListener('DOMContentLoaded', ()=>{
+
+    console.log("🚀 Firebase Cloud Sync Ready");
 
 });
 
