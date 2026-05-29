@@ -38,11 +38,11 @@
         }
         @keyframes pulseSoft {
             0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(147, 197, 253, 0.5); }
-            50% { transform: scale(1.03); box-shadow: 0 0 0 15px rgba(147, 197, 253, 0); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(147, 197, 253, 0); }
         }
         /* Glassmorphism kids cards */
         .kids-card {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.9);
             border: 4px solid #E2E8F0;
             box-shadow: 0 10px 0 0 #CBD5E1;
             transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -179,7 +179,7 @@
 
             <!-- Informational Tip of the Day -->
             <div class="mt-8 p-4 bg-indigo-50 border-2 border-indigo-200 rounded-2xl max-w-xl text-center shadow-inner">
-                <span class="text-xl">💡</span> <strong class="text-indigo-900" id="tip-title">Góc Cha Mẹ:</strong> <span id="tip-text">Bố mẹ hãy nhấn vào nút ⚙️ phía trên để nhập khóa Gemini API nếu muốn sử dụng tính năng "Nói Chuyện Live" của bé nhé! (Nếu chưa có, trò chơi sẽ chạy ở chế độ mô phỏng cực kỳ sinh động).</span>
+                <span class="text-xl">💡</span> <strong class="text-indigo-900" id="tip-title">Góc Cha Mẹ:</strong> <span id="tip-text">Bố mẹ hãy nhấn vào nút ⚙️ phía trên để nhập khóa Gemini API nếu muốn sử dụng tính năng "Nói Chuyện Live" của bé nhé!</span>
             </div>
         </section>
 
@@ -258,7 +258,7 @@
                                     <div class="animate-spin text-4xl text-purple-600"><i class="fa-solid fa-spinner"></i></div>
                                     <p class="text-xs text-slate-500 font-bold" id="story-loading-art">AI đang vẽ bức tranh câu chuyện cho con...</p>
                                 </div>
-                                <div id="story-illustration-placeholder" class="text-8xl flex items-center justify-center select-none">🎨</div>
+                                <div id="story-illustration-placeholder" class="text-6xl flex items-center justify-center">🎨</div>
                             </div>
 
                             <!-- English text bubble -->
@@ -298,6 +298,16 @@
                                     </div>
                                     <div id="story-evaluation-text" class="text-md font-extrabold text-slate-700 hidden"></div>
                                 </div>
+                            </div>
+
+                            <!-- Playful Vietnamese Tips for Parents on Stories Page -->
+                            <div class="mt-4 p-4 bg-amber-50 border-2 border-amber-200 rounded-2xl text-slate-700">
+                                <h5 class="font-extrabold text-amber-900 text-sm mb-1.5 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-lightbulb"></i> <span>💡 Góc Phụ Huynh: Hướng Dẫn Bé Đọc Nhé!</span>
+                                </h5>
+                                <p id="story-parent-hint-text" class="text-xs text-amber-800 font-semibold leading-relaxed">
+                                    Hãy khuyến khích bé nghe đi nghe lại câu chuyện bằng cách bấm nút "Bấm Để Nghe Nhé!" màu xanh trước khi đọc to từ khóa vượt qua thử thách.
+                                </p>
                             </div>
                         </div>
 
@@ -343,6 +353,16 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" id="vocab-cards-grid">
                         <!-- Active Cards will load dynamically here -->
                     </div>
+
+                    <!-- Playful Parent Guidelines for Vocab Page -->
+                    <div class="p-4 bg-emerald-50 border-2 border-emerald-200 rounded-2xl text-slate-700 w-full">
+                        <h5 class="font-extrabold text-emerald-900 text-sm mb-1.5 flex items-center gap-1.5">
+                            <i class="fa-solid fa-graduation-cap"></i> <span>💡 Đồng Hành Cùng Bé: Góc Cha Mẹ</span>
+                        </h5>
+                        <p id="vocab-parent-hint-text" class="text-xs text-emerald-800 font-semibold leading-relaxed">
+                            Bố mẹ hãy che nghĩa Tiếng Việt để đố con đoán nghĩa của từ trước, sau đó cho con tự bấm nút "Speak" để nghe mẫu giọng nữ chuẩn và "Practice" để phát âm kiếm điểm sao nhé!
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -382,10 +402,10 @@
                     <div class="border-t-2 border-slate-100 pt-4 mt-2">
                         <label class="block text-sm font-bold text-slate-600 mb-2" id="select-tone-label">Tông Giọng Trợ Lý</label>
                         <select id="live-voice-name" class="w-full p-3 border-2 border-slate-200 rounded-xl text-slate-700 font-bold focus:outline-none">
-                            <option value="Zephyr">Zephyr (Bright & Friendly)</option>
-                            <option value="Puck" selected>Puck (Cheerful & Playful)</option>
-                            <option value="Fenrir">Fenrir (Excitable & High-energy)</option>
-                            <option value="Sadachbia">Sadachbia (Lively & Conversational)</option>
+                            <option value="Aoede" selected>Aoede (Giọng nữ chuẩn, ngọt ngào)</option>
+                            <option value="Leda">Leda (Giọng nữ trẻ trung, trong trẻo)</option>
+                            <option value="Puck">Puck (Giọng nam tinh nghịch, vui vẻ)</option>
+                            <option value="Zephyr">Zephyr (Giọng nam trầm ấm, rõ nét)</option>
                         </select>
                     </div>
                 </div>
@@ -396,7 +416,7 @@
                         <div class="absolute inset-0 bg-radial-gradient from-indigo-500/10 to-transparent pointer-events-none"></div>
 
                         <!-- Active Bouncing Companion Avatar -->
-                        <div class="w-48 h-48 rounded-full bg-slate-800 border-8 border-indigo-400 shadow-2xl flex items-center justify-center text-8xl mb-6 relative pulse-soft select-none animate-none" id="buddy-live-avatar">
+                        <div class="w-48 h-48 rounded-full bg-slate-800 border-8 border-indigo-400 shadow-2xl flex items-center justify-center text-8xl mb-6 relative pulse-soft" id="buddy-live-avatar">
                             🧸
                             <div class="absolute -bottom-2 bg-indigo-500 px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest border border-white" id="buddy-status-tag">Barnaby</div>
                         </div>
@@ -424,6 +444,19 @@
                                     <span>Đang lắng nghe bé...</span>
                                 </p>
                             </div>
+
+                            <!-- Playful Vietnamese Tips on Conversation Starters -->
+                            <div class="mt-4 p-4 bg-slate-800/80 border border-slate-700 rounded-2xl text-left">
+                                <h5 class="font-extrabold text-indigo-300 text-xs mb-1.5 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-comments"></i> <span id="live-parent-hint-title">💡 Gợi ý câu hỏi bố mẹ có thể bảo con nói với AI:</span>
+                                </h5>
+                                <ul id="live-parent-hint-list" class="text-[11px] text-slate-300 font-bold space-y-1 list-disc pl-4 leading-relaxed">
+                                    <li>"Bảo con nói: 'Hello! My name is [Tên bé]' để tự giới thiệu."</li>
+                                    <li>"Hướng dẫn con hỏi: 'What is your favorite food?' (Bạn thích ăn gì?)"</li>
+                                    <li>"Nhắc con nói: 'I like space rocket!' (Tớ thích tàu vũ trụ lắm!)."</li>
+                                    <li>"Hỏi Trợ lý ảo: 'Do you want to sing a song?' (Bạn có muốn hát một bài không?)"</li>
+                                </ul>
+                            </div>
                         </div>
 
                         <div class="flex flex-wrap items-center justify-center gap-4">
@@ -438,6 +471,7 @@
 
     </main>
 
+    
     <!-- Profile Selection/Creation Modal -->
     <div id="modal-profiles" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
         <div class="kids-card bg-white p-6 rounded-3xl max-w-md w-full border-slate-300 relative">
@@ -453,7 +487,7 @@
             </div>
 
             <div class="border-t-2 border-slate-100 pt-4">
-                <h4 class="text-sm font-bold text-slate-600 mb-2" id="add-new-profile-label">✨ Thêm Bé Mới</h4>
+                <h4 class="text-sm font-bold text-slate-600 mb-2" id="add-new-profile-label">✨ Thêm hoặc Chỉnh Sửa Bé</h4>
                 <div class="flex gap-2">
                     <input type="text" id="new-profile-name" class="flex-grow p-3 border-2 border-slate-200 rounded-xl font-bold focus:outline-none focus:ring-2 focus:ring-purple-400" placeholder="Tên của bé (Ví dụ: Minh, Andy)" />
                     <select id="new-profile-emoji" class="p-3 border-2 border-slate-200 rounded-xl text-lg">
@@ -463,7 +497,7 @@
                         <option value="🦁">🦁</option>
                         <option value="🦖">🦖</option>
                     </select>
-                    <button onclick="addNewProfile()" class="kids-btn-secondary px-5 py-3 text-white font-extrabold rounded-xl">Thêm</button>
+                    <button id="btn-add-profile" onclick="addNewProfile()" class="kids-btn-secondary px-5 py-3 text-white font-extrabold rounded-xl">Thêm</button>
                 </div>
             </div>
         </div>
@@ -517,7 +551,7 @@
                 <div>
                     <label class="block text-sm font-extrabold text-slate-600 mb-1.5">Gemini API Key</label>
                     <input type="password" id="gemini-api-key" class="w-full p-3.5 border-2 border-slate-200 rounded-xl font-mono text-sm focus:outline-none focus:ring-2 focus:ring-purple-400" placeholder="AI-generated key..." />
-                    <p class="text-[10px] text-slate-400 mt-1 font-semibold leading-relaxed">Để trống nếu bạn sử dụng chế độ chạy thử nghiệm mô phỏng chất lượng cao (không cần key).</p>
+                    <p class="text-[10px] text-slate-400 mt-1 font-semibold leading-relaxed">Để trống nếu bạn sử dụng thông tin đăng nhập nền tảng mặc định được định cấu hình trước.</p>
                 </div>
 
                 <button onclick="saveConfig()" class="kids-btn-primary w-full py-4 text-white font-extrabold text-lg rounded-2xl mt-4">
@@ -532,6 +566,12 @@
         <span id="notif-emoji" class="text-2xl">🎉</span>
         <span id="notif-message">Great job speaking!</span>
     </div>
+
+    <!-- Playful Background Floating Elements -->
+    <div class="fixed top-24 left-10 text-4xl opacity-20 bounce-slow pointer-events-none select-none">🎈</div>
+    <div class="fixed bottom-32 left-24 text-4xl opacity-25 bounce-slow pointer-events-none select-none" style="animation-delay: 1.5s">🚀</div>
+    <div class="fixed top-36 right-16 text-4xl opacity-20 bounce-slow pointer-events-none select-none" style="animation-delay: 0.8s">🌟</div>
+    <div class="fixed bottom-16 right-36 text-5xl opacity-20 bounce-slow pointer-events-none select-none" style="animation-delay: 2.2s">🦕</div>
 
     <script type="module">
         // Translation Map for complete Bilingual Support
@@ -551,7 +591,7 @@
                 cardLiveDesc: "Thỏa sức nói chuyện tiếng Anh! Trực tiếp giao lưu cực kỳ tự nhiên với chú Gấu Barnaby hoặc Rồng Sparky.",
                 btnLiveStart: "Nói Chuyện Live! 🎙️",
                 tipTitle: "Góc Cha Mẹ:",
-                tipText: "Bố mẹ hãy nhấn vào nút ⚙️ phía trên để nhập khóa Gemini API nếu muốn sử dụng tính năng 'Nói Chuyện Live' của bé nhé! (Nếu chưa có, trò chơi sẽ chạy ở chế độ mô phỏng cực kỳ sinh động).",
+                tipText: "Bố mẹ hãy nhấn vào nút ⚙️ phía trên để nhập khóa Gemini API nếu muốn sử dụng tính năng 'Nói Chuyện Live' của bé nhé!",
                 backHome: "Trang Chủ",
                 storiesPageTitle: "🦖 Truyện Cổ Tích Phép Thuật",
                 chooseTopicLabel: "Chọn Chủ Đề Truyện",
@@ -667,11 +707,11 @@
             // Update Active Lang Buttons
             const btnVi = document.getElementById('lang-vi');
             if (btnVi) {
-                btnVi.className = lang === 'vi' ? "px-3 py-1 text-xs font-bold rounded-full bg-indigo-600 text-white transition animate-pulse" : "px-3 py-1 text-xs font-bold rounded-full text-slate-600 hover:bg-slate-100 transition";
+                btnVi.className = lang === 'vi' ? "px-3 py-1 text-xs font-bold rounded-full bg-indigo-600 text-white transition" : "px-3 py-1 text-xs font-bold rounded-full text-slate-600 hover:bg-slate-100 transition";
             }
             const btnEn = document.getElementById('lang-en');
             if (btnEn) {
-                btnEn.className = lang === 'en' ? "px-3 py-1 text-xs font-bold rounded-full bg-indigo-600 text-white transition animate-pulse" : "px-3 py-1 text-xs font-bold rounded-full text-slate-600 hover:bg-slate-100 transition";
+                btnEn.className = lang === 'en' ? "px-3 py-1 text-xs font-bold rounded-full bg-indigo-600 text-white transition" : "px-3 py-1 text-xs font-bold rounded-full text-slate-600 hover:bg-slate-100 transition";
             }
 
             // Localize text components safely
@@ -715,7 +755,7 @@
             safeSetText('story-space-desc', loc.storySpaceDesc);
             safeSetText('story-forest-title', loc.storyForestTitle);
             safeSetText('story-forest-desc', loc.storyForestDesc);
-            safeSetText('story-ocean-title', loc.storyStoryTitle);
+            safeSetText('story-ocean-title', loc.storyOceanTitle);
             safeSetText('story-ocean-desc', loc.storyOceanDesc);
             safeSetText('custom-story-title', loc.customStoryTitle);
             safeSetPlaceholder('custom-story-prompt', loc.customStoryPlaceholder);
@@ -760,12 +800,12 @@
         window.closeProfileSelector = function() {
             document.getElementById('modal-profiles').classList.add('hidden');
             document.getElementById('modal-profiles').classList.remove('flex');
+            resetProfileForm();
             playFeedbackSound('pop');
         };
 
         function renderProfilesList() {
             const container = document.getElementById('profiles-list-container');
-            if (!container) return;
             container.innerHTML = '';
 
             state.profiles.forEach(profile => {
@@ -780,19 +820,90 @@
                             <div class="text-xs text-slate-500 font-bold">⭐ ${profile.stars} Stars • ${profile.masteredWords.length} Words</div>
                         </div>
                     </div>
-                    ${state.profiles.length > 1 ? `
-                    <button onclick="deleteProfile('${profile.id}')" class="text-slate-300 hover:text-red-500 p-2 transition">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </button>` : ''}
+                    <div class="flex items-center gap-1">
+                        <!-- Student edit profile action -->
+                        <button onclick="editProfile('${profile.id}')" class="text-indigo-400 hover:text-indigo-600 p-2 transition" title="Chỉnh sửa tên">
+                            <i class="fa-solid fa-pen text-sm"></i>
+                        </button>
+                        ${state.profiles.length > 1 ? `
+                        <button onclick="deleteProfile('${profile.id}')" class="text-slate-300 hover:text-red-500 p-2 transition">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>` : ''}
+                    </div>
                 `;
                 container.appendChild(card);
             });
         }
 
+        window.editProfile = function(profileId) {
+            const profile = state.profiles.find(p => p.id === profileId);
+            if (!profile) return;
+
+            const nameInput = document.getElementById('new-profile-name');
+            const emojiInput = document.getElementById('new-profile-emoji');
+            
+            // Fill existing info to form
+            nameInput.value = profile.name;
+            emojiInput.value = profile.emoji;
+
+            const addBtn = document.getElementById('btn-add-profile');
+            addBtn.textContent = state.currentLang === 'vi' ? 'Lưu' : 'Save';
+            addBtn.classList.replace('kids-btn-secondary', 'kids-btn-primary');
+            
+            // Wire the button action to save instead of add
+            addBtn.onclick = function() {
+                const newName = nameInput.value.trim();
+                if (!newName) {
+                    showNotification('💭 Lỗi', 'Vui lòng điền tên mới của bé!', false);
+                    return;
+                }
+                
+                profile.name = newName;
+                profile.emoji = emojiInput.value;
+
+                saveStateToStorage();
+                renderProfilesList();
+
+                // If currently active, sync headers
+                if (state.activeProfileId === profileId) {
+                    document.getElementById('active-profile-emoji').textContent = profile.emoji;
+                    document.getElementById('active-profile-name').textContent = profile.name;
+                }
+
+                showNotification('✨ Hoàn thành!', `Đã chỉnh sửa thông tin bé thành ${newName}!`);
+                resetProfileForm();
+            };
+
+            // Inject close/cancel editing button dynamically
+            let cancelBtn = document.getElementById('btn-cancel-profile-edit');
+            if (!cancelBtn) {
+                cancelBtn = document.createElement('button');
+                cancelBtn.id = 'btn-cancel-profile-edit';
+                cancelBtn.className = 'kids-btn-accent px-4 py-3 text-white font-extrabold rounded-xl bg-slate-500 border-slate-700 ml-2';
+                cancelBtn.textContent = state.currentLang === 'vi' ? 'Hủy' : 'Cancel';
+                cancelBtn.onclick = resetProfileForm;
+                addBtn.parentNode.appendChild(cancelBtn);
+            }
+        };
+
+        function resetProfileForm() {
+            const nameInput = document.getElementById('new-profile-name');
+            nameInput.value = '';
+            
+            const addBtn = document.getElementById('btn-add-profile');
+            addBtn.textContent = state.currentLang === 'vi' ? 'Thêm' : 'Add';
+            addBtn.classList.replace('kids-btn-primary', 'kids-btn-secondary');
+            addBtn.onclick = window.addNewProfile;
+
+            const cancelBtn = document.getElementById('btn-cancel-profile-edit');
+            if (cancelBtn) {
+                cancelBtn.remove();
+            }
+        }
+
         window.selectProfile = function(profileId) {
             state.activeProfileId = profileId;
             const profile = state.profiles.find(p => p.id === profileId);
-            if (!profile) return;
             
             document.getElementById('active-profile-emoji').textContent = profile.emoji;
             document.getElementById('active-profile-name').textContent = profile.name;
@@ -845,6 +956,8 @@
 
         window.checkParentAccess = function(targetModal) {
             state.verificationTarget = targetModal;
+            
+            // Generate simple math verification
             const num1 = Math.floor(Math.random() * 8) + 2;
             const num2 = Math.floor(Math.random() * 8) + 2;
             state.mathAnswer = num1 + num2;
@@ -882,7 +995,6 @@
 
         function openParentDashboard() {
             const dashboardGrid = document.getElementById('parent-dashboard-grid');
-            if (!dashboardGrid) return;
             dashboardGrid.innerHTML = '';
 
             state.profiles.forEach(profile => {
@@ -942,6 +1054,7 @@
 
         // UI Initial Setup
         window.addEventListener('load', () => {
+            // Load state from local storage if available
             const savedKey = localStorage.getItem('gemini_api_key');
             if (savedKey) {
                 state.apiKey = savedKey;
@@ -955,16 +1068,19 @@
                 state.activeProfileId = savedActiveId;
             }
 
+            // Sync Header UI elements
             const activeProfile = state.profiles.find(p => p.id === state.activeProfileId) || state.profiles[0];
             document.getElementById('active-profile-emoji').textContent = activeProfile.emoji;
             document.getElementById('active-profile-name').textContent = activeProfile.name;
             state.stars = activeProfile.stars;
             updateStarDisplay();
 
+            // Load default vocab theme
             loadVocabTheme('animals');
-            setLanguage('vi');
+            setLanguage('vi'); // Start default Vietnamese helper
         });
 
+        // Config Controls
         window.openConfigModal = function() {
             document.getElementById('modal-config').classList.remove('hidden');
             document.getElementById('modal-config').classList.add('flex');
@@ -1020,7 +1136,6 @@
             const box = document.getElementById('notification-box');
             const em = document.getElementById('notif-emoji');
             const msg = document.getElementById('notif-message');
-            if (!box || !em || !msg) return;
             
             em.textContent = emoji;
             msg.textContent = message;
@@ -1039,6 +1154,7 @@
             state.stars += num;
             updateStarDisplay();
             
+            // Sync dynamically to active profile
             const profile = state.profiles.find(p => p.id === state.activeProfileId);
             if (profile) {
                 profile.stars = state.stars;
@@ -1144,18 +1260,13 @@
             }
 
             ['home', 'stories', 'vocab', 'live'].forEach(id => {
-                const el = document.getElementById(`page-${id}`);
-                if (el) {
-                    el.classList.add('hidden');
-                    el.classList.remove('flex');
-                }
+                document.getElementById(`page-${id}`).classList.add('hidden');
+                document.getElementById(`page-${id}`).classList.remove('flex');
             });
 
             const targetPage = document.getElementById(`page-${pageId}`);
-            if (targetPage) {
-                targetPage.classList.remove('hidden');
-                targetPage.classList.add('flex');
-            }
+            targetPage.classList.remove('hidden');
+            targetPage.classList.add('flex');
             
             state.activePage = pageId;
             playFeedbackSound('bubble');
@@ -1180,48 +1291,9 @@
             btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Writing...`;
             btn.disabled = true;
 
-            // CHECK API KEY: If missing, generate dynamically from client-side template to support zero-setup online running!
-            if (!state.apiKey) {
-                setTimeout(() => {
-                    const mockPrompt = promptInput.toLowerCase();
-                    state.storyChapters = [
-                        {
-                            chapter: 1,
-                            text: `Once upon a time, a cute character wanted to learn about ${mockPrompt}. They found a bright golden magic path.`,
-                            vietnamese: `Ngày xửa ngày xưa, một nhân vật dễ thương muốn tìm hiểu về ${mockPrompt}. Họ tìm thấy một lối đi bằng vàng lấp lánh.`,
-                            instruction: "Say: 'Magic path'",
-                            targetPhrase: "magic path",
-                            prompt: `A cute children character looking at a glowing golden path, Disney Pixar style`
-                        },
-                        {
-                            chapter: 2,
-                            text: `Suddenly, a happy friendly companion appeared from the sky! They smiled and danced around with joy.`,
-                            vietnamese: `Đột nhiên, một người bạn đồng hành vui vẻ xuất hiện từ trên trời! Họ mỉm cười và nhảy múa chung vui.`,
-                            instruction: "Say: 'Happy companion'",
-                            targetPhrase: "happy companion",
-                            prompt: `A cute fluffy creature waving hands, bright stars around, colorful concept art`
-                        },
-                        {
-                            chapter: 3,
-                            text: `They traveled together to a magical sky castle, celebrating and learning wonderful things.`,
-                            vietnamese: `Họ cùng nhau du hành đến một tòa lâu đài trên mây lộng lẫy, ăn mừng và học nhiều điều bổ ích.`,
-                            instruction: "Say: 'Sky castle'",
-                            targetPhrase: "sky castle",
-                            prompt: `A gorgeous cartoon pastel castle floating on clouds, rainbow background`
-                        }
-                    ];
-                    state.currentStoryType = 'custom';
-                    state.currentChapterIndex = 0;
-                    loadStoryChapter();
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                    showNotification('✨ Demo Mode', 'Story successfully simulated! Enter API key in ⚙️ for real Gemini AI writing!');
-                }, 1500);
-                return;
-            }
-
             try {
                 const systemPrompt = "You are a professional children's storyteller who writes interactive 3-chapter tales to teach kids English. Each chapter must have exactly: 1) text: 2 simple English sentences suitable for 5-8 year old kids (under 25 words). 2) vietnamese: natural Vietnamese translation. 3) targetPhrase: 1 key vocabulary phrase of 2-3 words. 4) instruction: simple sentence instruction. 5) prompt: a highly detailed visual illustration prompt for an image generation tool (style: bright 3D vector, Pixar character, children storybook). Return a JSON array representing these 3 chapters.";
+                
                 const userQuery = `Write a magical interactive story based on this prompt: "${promptInput}". Let the character learn simple words. Make it super positive. Return exactly a JSON list of 3 items matching the schema schema.`;
                 
                 const payload = {
@@ -1249,7 +1321,8 @@
                     }
                 };
 
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${state.apiKey}`;
+                const apiKeyParam = state.apiKey ? `?key=${state.apiKey}` : '';
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent${apiKeyParam}`;
                 
                 const response = await fetch(apiUrl, {
                     method: 'POST',
@@ -1278,35 +1351,55 @@
             }
         };
 
+        // Custom phonetics and guide tips to help parents instruct their children
+        const parentSpeakGuides = {
+            "rocket ship": "Phát âm: /'rɒkɪt ʃɪp/. Nhắc bé đọc dứt khoát âm 'p' ở cuối từ 'ship' và nhấn mạnh âm đầu 'rock'.",
+            "friendly alien": "Phát âm: /'frendli 'eɪliən/. Bố mẹ bảo bé đọc nối mềm 'friend-ly' và tròn âm 'alien'.",
+            "dance and sing": "Phát âm: /dæns ænd sɪŋ/. Hãy bảo bé phát âm rõ âm xì hơi 's' của từ 'dance'.",
+            "dancing squirrel": "Phát âm: /'dænsɪŋ 'skwɪrəl/. Nhắc bé đọc uốn lưỡi nhẹ ở cuối từ 'squirrel'.",
+            "magic butterfly": "Phát âm: /'mædʒɪk 'bʌtəflaɪ/. Nhắc bé bật âm gió 'j' ở giữa 'magic' và phát âm rõ 'butterfly'.",
+            "sing a song": "Phát âm: /sɪŋ eɪ sɒŋ/. Bố mẹ hãy gợi ý bé đọc lướt nhanh nối âm 'sing a' thành 'sin-gơ' thật sành điệu!",
+            "warm water": "Phát âm: /wɔːm 'wɔːtə/. Bố mẹ khuyên bé kéo dài hơi âm 'o' kéo dài khi đọc cả hai từ nhé.",
+            "treasure box": "Phát âm: /'treʒə bɒks/. Từ 'treasure' phát âm hơi gió trung, 'box' kết thúc bằng âm xì 'ks' gió mạnh.",
+            "joyful party": "Phát âm: /'dʒɔɪfʊl 'pɑːti/. Khuyên con đọc nhấn mạnh âm tiết đầu tiên của cả hai từ để tạo nhạc điệu."
+        };
+
         async function loadStoryChapter() {
-            const placeholderEl = document.getElementById('story-placeholder');
-            const activeEl = document.getElementById('story-active-content');
-            if (placeholderEl) placeholderEl.classList.add('hidden');
-            if (activeEl) activeEl.classList.remove('hidden');
+            document.getElementById('story-placeholder').classList.add('hidden');
+            document.getElementById('story-active-content').classList.remove('hidden');
 
             const chapterData = state.storyChapters[state.currentChapterIndex];
-            if (!chapterData) return;
             
+            // Render text
             document.getElementById('story-chapter').textContent = `Chapter ${state.currentChapterIndex + 1} of ${state.storyChapters.length}`;
             document.getElementById('story-title').textContent = `Adventure: ${state.currentStoryType.toUpperCase()}`;
             document.getElementById('story-text-english').textContent = chapterData.text;
             document.getElementById('story-text-vietnamese').textContent = chapterData.vietnamese;
             
+            // Render comprehension targets
             document.getElementById('story-quest-instruction').textContent = chapterData.instruction;
             document.getElementById('story-target-phrase').textContent = `"${chapterData.targetPhrase}"`;
 
+            // Setup customized parent guidelines dynamically
+            const phrase = chapterData.targetPhrase.toLowerCase();
+            const parentHintEl = document.getElementById('story-parent-hint-text');
+            if (parentSpeakGuides[phrase]) {
+                parentHintEl.textContent = parentSpeakGuides[phrase];
+            } else {
+                parentHintEl.textContent = `Hãy hướng dẫn bé bấm nút "Bấm Để Nghe Nhé!" để nghe âm chuẩn giọng nữ trước, rồi động viên bé tự tin nhấn "Nhấn Để Đọc" và phát âm chuẩn xác từ "${chapterData.targetPhrase}".`;
+            }
+
+            // Reset evaluation box
             const evalBox = document.getElementById('story-evaluation-text');
-            if (evalBox) {
-                evalBox.classList.add('hidden');
-                evalBox.textContent = '';
-            }
+            evalBox.classList.add('hidden');
+            evalBox.textContent = '';
 
+            // Reset Next Button
             const nextBtn = document.getElementById('btn-story-next');
-            if (nextBtn) {
-                nextBtn.disabled = true;
-                nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
-            }
+            nextBtn.disabled = true;
+            nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
 
+            // Trigger AI Art generation
             triggerIllustrationGeneration(chapterData.prompt);
         }
 
@@ -1315,30 +1408,20 @@
             const loader = document.getElementById('story-illustration-loader');
             const placeholder = document.getElementById('story-illustration-placeholder');
 
-            if (imgElement) imgElement.classList.add('hidden');
-            if (loader) loader.classList.remove('hidden');
-            if (placeholder) placeholder.classList.add('hidden');
-
-            if (!state.apiKey) {
-                setTimeout(() => {
-                    if (loader) loader.classList.add('hidden');
-                    if (placeholder) {
-                        placeholder.classList.remove('hidden');
-                        const fallbackEmojis = ['🧚', '🚀', '🌲', '🦄', '🐙', '🦖', '🏰', '🪐'];
-                        placeholder.textContent = fallbackEmojis[state.currentChapterIndex % fallbackEmojis.length];
-                    }
-                }, 800);
-                return;
-            }
+            imgElement.classList.add('hidden');
+            loader.classList.remove('hidden');
+            placeholder.classList.add('hidden');
 
             try {
                 const creativePrompt = `Cute cartoon illustration for kids book: ${imagePrompt}, high fidelity, colorful disney concept art style, clear focus, white background, high-quality detailed 3D look, joyful vibe`;
+                
                 const payload = {
                     instances: [{ prompt: creativePrompt }],
                     parameters: { sampleCount: 1 }
                 };
 
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict?key=${state.apiKey}`;
+                const apiKeyParam = state.apiKey ? `?key=${state.apiKey}` : '';
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict${apiKeyParam}`;
 
                 const response = await fetch(apiUrl, {
                     method: 'POST',
@@ -1358,12 +1441,10 @@
                 }
             } catch (err) {
                 console.warn("Imagen generation failed, using playful fallback emoji illustration", err);
-                if (loader) loader.classList.add('hidden');
-                if (placeholder) {
-                    placeholder.classList.remove('hidden');
-                    const fallbackEmojis = ['🧚', '🚀', '🌲', '🦄', '🐙', '🦖', '🏰', '🪐'];
-                    placeholder.textContent = fallbackEmojis[state.currentChapterIndex % fallbackEmojis.length];
-                }
+                loader.classList.add('hidden');
+                placeholder.classList.remove('hidden');
+                const fallbackEmojis = ['🧚', '🦄', '🐳', '🚀', '🌲', '🎪'];
+                placeholder.textContent = fallbackEmojis[Math.floor(Math.random() * fallbackEmojis.length)];
             }
         }
 
@@ -1376,19 +1457,8 @@
             btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Speaking...`;
             btn.disabled = true;
 
-            // CHECK API KEY: If missing, fallback instantly to high-quality speechSynthesis to support online demo!
-            if (!state.apiKey) {
-                setTimeout(() => {
-                    const synthUtterance = new SpeechSynthesisUtterance(chapterData.text);
-                    synthUtterance.rate = 0.8;
-                    synthUtterance.pitch = 1.1;
-                    synthUtterance.lang = 'en-US';
-                    window.speechSynthesis.speak(synthUtterance);
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                }, 200);
-                return;
-            }
+            // Voice settings matching selected voice tone
+            const selectedVoice = document.getElementById('live-voice-name').value;
 
             try {
                 const payload = {
@@ -1399,13 +1469,14 @@
                         responseModalities: ["AUDIO"],
                         speechConfig: {
                             voiceConfig: {
-                                prebuiltVoiceConfig: { voiceName: "Puck" }
+                                prebuiltVoiceConfig: { voiceName: selectedVoice }
                             }
                         }
                     }
                 };
 
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${state.apiKey}`;
+                const apiKeyParam = state.apiKey ? `?key=${state.apiKey}` : '';
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent${apiKeyParam}`;
 
                 const response = await fetch(apiUrl, {
                     method: 'POST',
@@ -1418,20 +1489,23 @@
                 const base64Audio = part?.inlineData?.data;
 
                 if (base64Audio) {
-                    const bytes = decodeBase64(base64Audio);
+                    const binaryString = atob(base64Audio);
+                    const len = binaryString.length;
+                    const bytes = new Uint8Array(len);
+                    for (let i = 0; i < len; i++) {
+                        bytes[i] = binaryString.charCodeAt(i);
+                    }
                     const pcm16 = new Int16Array(bytes.buffer);
                     const wavBlob = pcmToWav(pcm16, 24000);
                     const audioUrl = URL.createObjectURL(wavBlob);
                     const audio = new Audio(audioUrl);
                     audio.play();
                 } else {
-                    throw new Error("TTS payload incomplete");
+                    fallbackLocalSpeech(chapterData.text);
                 }
             } catch (err) {
-                console.error("TTS failed, using local fallback:", err);
-                const synthUtterance = new SpeechSynthesisUtterance(chapterData.text);
-                synthUtterance.rate = 0.8;
-                window.speechSynthesis.speak(synthUtterance);
+                console.error("TTS failed:", err);
+                fallbackLocalSpeech(chapterData.text);
             } finally {
                 btn.innerHTML = originalText;
                 btn.disabled = false;
@@ -1450,9 +1524,9 @@
                 if (storyRecognitionInstance) storyRecognitionInstance.stop();
                 state.storyIsRecording = false;
                 btn.classList.replace('bg-red-600', 'bg-red-500');
-                if (status) status.classList.add('hidden');
-                if (icon) icon.className = "fa-solid fa-microphone text-lg";
-                if (textSpan) textSpan.textContent = state.currentLang === 'vi' ? "Nhấn Để Đọc" : "Tap to Speak";
+                status.classList.add('hidden');
+                icon.className = "fa-solid fa-microphone text-lg";
+                textSpan.textContent = state.currentLang === 'vi' ? "Nhấn Để Đọc" : "Tap to Speak";
             } else {
                 const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
                 if (!SpeechRec) {
@@ -1468,9 +1542,9 @@
                 storyRecognitionInstance.onstart = () => {
                     state.storyIsRecording = true;
                     btn.classList.replace('bg-red-500', 'bg-red-600');
-                    if (status) status.classList.remove('hidden');
-                    if (icon) icon.className = "fa-solid fa-square text-lg animate-pulse";
-                    if (textSpan) textSpan.textContent = state.currentLang === 'vi' ? "Dừng Đọc" : "Tap to Finish";
+                    status.classList.remove('hidden');
+                    icon.className = "fa-solid fa-square text-lg animate-pulse";
+                    textSpan.textContent = state.currentLang === 'vi' ? "Dừng Đọc" : "Tap to Finish";
                     playFeedbackSound('bubble');
                 };
 
@@ -1482,7 +1556,7 @@
                 storyRecognitionInstance.onerror = (err) => {
                     console.error("Speech Recognition Error:", err);
                     showNotification('🎤 Speaking Quest', 'Chưa thu được tiếng của bé. Con hãy thử lại nhé!', false);
-                    if (state.storyIsRecording) toggleStoryRecording();
+                    toggleStoryRecording();
                 };
 
                 storyRecognitionInstance.onend = () => {
@@ -1503,24 +1577,24 @@
             const matched = spokenClean.includes(target) || target.includes(spokenClean);
 
             const evalBox = document.getElementById('story-evaluation-text');
-            if (evalBox) evalBox.classList.remove('hidden');
+            evalBox.classList.remove('hidden');
 
             if (matched) {
-                if (evalBox) evalBox.innerHTML = `🌟 Tuyệt vời! Con vừa nói: <span class="text-green-600">"${spokenText}"</span>. Thật giỏi!`;
+                evalBox.innerHTML = `🌟 Tuyệt vời! Con vừa nói: <span class="text-green-600">"${spokenText}"</span>. Thật giỏi!`;
                 addStars(5);
                 
+                // Unlock Next Button
                 const nextBtn = document.getElementById('btn-story-next');
-                if (nextBtn) {
-                    nextBtn.disabled = false;
-                    nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-                }
+                nextBtn.disabled = false;
+                nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
 
+                // Track Vocabulary to parent's profile
                 const profile = state.profiles.find(p => p.id === state.activeProfileId);
                 if (profile && !profile.masteredWords.includes(chapterData.targetPhrase)) {
                     profile.masteredWords.push(chapterData.targetPhrase);
                 }
             } else {
-                if (evalBox) evalBox.innerHTML = `😅 Cố lên nào! Con vừa nói: <span class="text-amber-600">"${spokenText}"</span>.<br><span class="text-xs font-bold text-slate-500">Con hãy phát âm lại từ "${chapterData.targetPhrase}" nhé!</span>`;
+                evalBox.innerHTML = `😅 Cố lên nào! Con vừa nói: <span class="text-amber-600">"${spokenText}"</span>.<br><span class="text-xs font-bold text-slate-500">Con hãy phát âm lại từ "${chapterData.targetPhrase}" nhé!</span>`;
                 playFeedbackSound('fail');
             }
         }
@@ -1531,6 +1605,7 @@
                 loadStoryChapter();
                 playFeedbackSound('bubble');
             } else {
+                // Completed Story
                 showNotification('🏆 Chúc Mừng Bé!', 'Con đã hoàn thành trọn vẹn câu chuyện cổ tích!', true);
                 addStars(15);
 
@@ -1615,13 +1690,6 @@
             const loader = document.getElementById(`vocab-loader-${index}`);
             if (!imgEl) return;
 
-            if (!state.apiKey) {
-                setTimeout(() => {
-                    if (loader) loader.classList.add('hidden');
-                }, 400);
-                return;
-            }
-
             try {
                 const creativePrompt = `Cute cartoon child sticker of ${imagePrompt}, solid white backdrop, clean vector 3D look, Pixar design`;
                 const payload = {
@@ -1629,7 +1697,8 @@
                     parameters: { sampleCount: 1 }
                 };
 
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict?key=${state.apiKey}`;
+                const apiKeyParam = state.apiKey ? `?key=${state.apiKey}` : '';
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict${apiKeyParam}`;
 
                 const response = await fetch(apiUrl, {
                     method: 'POST',
@@ -1654,9 +1723,20 @@
         }
 
         window.speakVocabWord = function(word) {
+            const selectedVoice = document.getElementById('live-voice-name').value;
+            const isFemale = (selectedVoice === 'Aoede' || selectedVoice === 'Leda');
+
             const synthUtterance = new SpeechSynthesisUtterance(word);
             synthUtterance.rate = 0.8;
             synthUtterance.lang = 'en-US';
+
+            // Select female voice locally if compatible
+            if (window.speechSynthesis && isFemale) {
+                const voices = window.speechSynthesis.getVoices();
+                const femaleVoice = voices.find(v => v.lang.startsWith('en') && (v.name.toLowerCase().includes('female') || v.name.toLowerCase().includes('zira') || v.name.toLowerCase().includes('samantha') || v.name.toLowerCase().includes('google us english')));
+                if (femaleVoice) synthUtterance.voice = femaleVoice;
+            }
+
             window.speechSynthesis.speak(synthUtterance);
         };
 
@@ -1672,13 +1752,11 @@
             rec.maxAlternatives = 1;
 
             const cardTitle = document.getElementById(`vocab-word-${index}`);
-            const originalColor = cardTitle ? cardTitle.style.color : '';
+            const originalColor = cardTitle.style.color;
 
             rec.onstart = () => {
-                if (cardTitle) {
-                    cardTitle.style.color = '#EC4899';
-                    cardTitle.classList.add('animate-pulse');
-                }
+                cardTitle.style.color = '#EC4899';
+                cardTitle.classList.add('animate-pulse');
                 playFeedbackSound('bubble');
             };
 
@@ -1702,10 +1780,8 @@
             };
 
             rec.onend = () => {
-                if (cardTitle) {
-                    cardTitle.style.color = originalColor;
-                    cardTitle.classList.remove('animate-pulse');
-                }
+                cardTitle.style.color = originalColor;
+                cardTitle.classList.remove('animate-pulse');
             };
 
             rec.start();
@@ -1718,33 +1794,26 @@
                 sparky: '🐉'
             };
             
-            const buddyAvatarNode = document.getElementById('buddy-live-avatar');
-            if (buddyAvatarNode) {
-                buddyAvatarNode.firstChild.textContent = avatars[buddyId];
-            }
-            
-            const statusTag = document.getElementById('buddy-status-tag');
-            if (statusTag) {
-                statusTag.textContent = buddyId === 'barnaby' ? 'Barnaby' : 'Sparky';
-            }
+            document.getElementById('buddy-live-avatar').firstChild.textContent = avatars[buddyId];
+            document.getElementById('buddy-status-tag').textContent = buddyId === 'barnaby' ? 'Barnaby' : 'Sparky';
             
             ['barnaby', 'sparky'].forEach(id => {
                 const btn = document.getElementById(`buddy-${id}`);
-                if (btn) {
-                    if (id === buddyId) {
-                        btn.className = `p-4 rounded-2xl border-4 border-${id === 'barnaby' ? 'amber' : 'emerald'}-400 bg-${id === 'barnaby' ? 'amber' : 'emerald'}-50 text-left flex items-center gap-3 transition`;
-                    } else {
-                        btn.className = "p-4 rounded-2xl border-2 border-slate-100 hover:border-slate-300 text-left flex items-center gap-3 transition";
-                    }
+                if (id === buddyId) {
+                    btn.className = `p-4 rounded-2xl border-4 border-${id === 'barnaby' ? 'amber' : 'emerald'}-400 bg-${id === 'barnaby' ? 'amber' : 'emerald'}-50 text-left flex items-center gap-3 transition`;
+                } else {
+                    btn.className = "p-4 rounded-2xl border-2 border-slate-100 hover:border-slate-300 text-left flex items-center gap-3 transition";
                 }
             });
 
             playFeedbackSound('pop');
             if (state.isLiveConnected) {
+                // Instantly greet with new voice when swapped
                 greetChildWithSelectedBuddy();
             }
         };
 
+        // ROBUST ZERO-WEBSOCKET REST INTERACTIVE LIVE BUDDY PATTERN
         window.toggleLiveSession = async function() {
             if (state.isLiveConnected) {
                 disconnectLive();
@@ -1759,31 +1828,30 @@
             const statusTag = document.getElementById('buddy-status-tag');
             const subtitlesContainer = document.getElementById('live-subtitles-container');
 
-            if (btn) btn.disabled = true;
-            if (connectText) connectText.textContent = "Connecting Buddy...";
+            btn.disabled = true;
+            connectText.textContent = "Connecting Buddy...";
 
             try {
                 state.isLiveConnected = true;
-                if (btn) {
-                    btn.disabled = false;
-                    btn.classList.replace('kids-btn-secondary', 'kids-btn-primary');
-                }
-                if (connectText) connectText.textContent = state.currentLang === 'vi' ? uiLocales.vi.disconnectLive : uiLocales.en.disconnectLive;
+                btn.disabled = false;
+                btn.classList.replace('kids-btn-secondary', 'kids-btn-primary');
+                connectText.textContent = state.currentLang === 'vi' ? uiLocales.vi.disconnectLive : uiLocales.en.disconnectLive;
                 
-                if (statusTag) {
-                    statusTag.classList.add('bg-green-500');
-                    statusTag.textContent = "CONNECTED";
-                }
-                if (subtitlesContainer) subtitlesContainer.classList.remove('hidden');
+                statusTag.classList.add('bg-green-500');
+                statusTag.textContent = "CONNECTED";
+                subtitlesContainer.classList.remove('hidden');
 
+                // Play soft welcome bubble sound
                 playFeedbackSound('bubble');
+
+                // Instantly trigger greeting sequence
                 await greetChildWithSelectedBuddy();
 
             } catch (err) {
                 console.error("Setup failed:", err);
-                showNotification('🎙', 'Không thể kết nối. Kiểm tra cài đặt của bạn.', false);
-                if (btn) btn.disabled = false;
-                if (connectText) connectText.textContent = state.currentLang === 'vi' ? uiLocales.vi.connectLive : uiLocales.en.connectLive;
+                showNotification('🎙️ Voice Companion', 'Không thể khởi động trợ lý ảo. Hãy mở cài đặt ⚙️', false);
+                btn.disabled = false;
+                connectText.textContent = state.currentLang === 'vi' ? uiLocales.vi.connectLive : uiLocales.en.connectLive;
             }
         }
 
@@ -1794,38 +1862,25 @@
             const kidName = activeProfile ? activeProfile.name : "Explorer";
             
             let greetingPrompt = "";
-            let localGreeting = "";
             if (state.selectedBuddy === 'barnaby') {
                 greetingPrompt = `Greet the cute child named "${kidName}" as Barnaby the warm cuddly teddy bear. Speak slow, warm, simplified English. Ask them what exciting adventure they want to play today! Under 15 words.`;
-                localGreeting = `Hello ${kidName}! I am Barnaby. Let's learn English and play! What is your favorite animal?`;
             } else {
                 greetingPrompt = `Greet the enthusiastic child named "${kidName}" as Sparky the energetic cartoon fire dragon. Speak high energy, playful, simple English. Ask if they are ready to talk! Under 15 words.`;
-                localGreeting = `Roar! Hey ${kidName}, I'm Sparky! Ready for some cool English games? Speak to me!`;
             }
 
-            const subtitlesText = document.getElementById('live-subtitles-text');
-            const subtitlesStatus = document.getElementById('live-subtitles-status');
-
-            if (subtitlesText) subtitlesText.textContent = "Barnaby is thinking...";
-            if (subtitlesStatus) subtitlesStatus.classList.add('hidden');
-
-            // If no API key, simulate greeting using client-side fallback
-            if (!state.apiKey) {
-                setTimeout(async () => {
-                    if (subtitlesText) subtitlesText.textContent = localGreeting;
-                    await speakAndAnimateCompanion(localGreeting);
-                }, 800);
-                return;
-            }
+            document.getElementById('live-subtitles-text').textContent = "Barnaby is thinking...";
+            document.getElementById('live-subtitles-status').classList.add('hidden');
 
             try {
                 const responseText = await queryGeminiText(greetingPrompt, getBuddySystemInstruction());
-                if (subtitlesText) subtitlesText.textContent = responseText;
+                document.getElementById('live-subtitles-text').textContent = responseText;
+                
+                // Convert response to speech and play
                 await speakAndAnimateCompanion(responseText);
             } catch (err) {
                 console.error("Greeting generation failed:", err);
-                if (subtitlesText) subtitlesText.textContent = localGreeting;
-                await speakAndAnimateCompanion(localGreeting);
+                document.getElementById('live-subtitles-text').textContent = "Hi there, let's play!";
+                await speakAndAnimateCompanion("Hi there! I am happy to meet you today. Let's speak English!");
             }
         }
 
@@ -1838,7 +1893,9 @@
         }
 
         async function queryGeminiText(userQuery, systemPrompt) {
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${state.apiKey}`;
+            const apiKey = state.apiKey || "";
+            const apiKeyParam = apiKey ? `?key=${apiKey}` : '';
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent${apiKeyParam}`;
 
             const payload = {
                 contents: [{ parts: [{ text: userQuery }] }],
@@ -1862,18 +1919,15 @@
         async function speakAndAnimateCompanion(textToSpeak) {
             if (!state.isLiveConnected) return;
 
-            stopCompanionSpeech();
-            animateBuddyAvatar(true);
-
-            if (!state.apiKey) {
-                setTimeout(() => {
-                    fallbackLocalSpeech(textToSpeak);
-                }, 100);
-                return;
-            }
-
             const selectedVoice = document.getElementById('live-voice-name').value;
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${state.apiKey}`;
+            const apiKey = state.apiKey || "";
+            const apiKeyParam = apiKey ? `?key=${apiKey}` : '';
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent${apiKeyParam}`;
+
+            // Stop any playing sound
+            stopCompanionSpeech();
+
+            animateBuddyAvatar(true);
 
             try {
                 const payload = {
@@ -1915,6 +1969,7 @@
                     };
                     await state.liveAudioPlayer.play();
                 } else {
+                    // Local browser TTS fallback
                     fallbackLocalSpeech(textToSpeak);
                 }
 
@@ -1927,8 +1982,26 @@
         function fallbackLocalSpeech(textToSpeak) {
             const synthUtterance = new SpeechSynthesisUtterance(textToSpeak);
             synthUtterance.rate = 0.8;
-            synthUtterance.pitch = 1.15;
             synthUtterance.lang = 'en-US';
+
+            // Find standard female voice if Aoede/Leda is selected as dialog voice
+            const selectedVoiceName = document.getElementById('live-voice-name').value;
+            const isFemaleSelected = (selectedVoiceName === 'Aoede' || selectedVoiceName === 'Leda');
+
+            if (window.speechSynthesis) {
+                const voices = window.speechSynthesis.getVoices();
+                let chosenVoice = null;
+                if (isFemaleSelected) {
+                    chosenVoice = voices.find(v => v.lang.startsWith('en') && (v.name.toLowerCase().includes('female') || v.name.toLowerCase().includes('zira') || v.name.toLowerCase().includes('samantha') || v.name.toLowerCase().includes('google us english')));
+                }
+                if (!chosenVoice) {
+                    chosenVoice = voices.find(v => v.lang.startsWith('en'));
+                }
+                if (chosenVoice) {
+                    synthUtterance.voice = chosenVoice;
+                }
+            }
+
             synthUtterance.onend = () => {
                 animateBuddyAvatar(false);
                 startListeningToChild();
@@ -1950,10 +2023,7 @@
             state.liveSpeechRec.interimResults = false;
             state.liveSpeechRec.maxAlternatives = 1;
 
-            const subtitlesStatus = document.getElementById('live-subtitles-status');
-            const subtitlesText = document.getElementById('live-subtitles-text');
-
-            if (subtitlesStatus) subtitlesStatus.classList.remove('hidden');
+            document.getElementById('live-subtitles-status').classList.remove('hidden');
 
             state.liveSpeechRec.onstart = () => {
                 console.log("Listening loop active...");
@@ -1964,48 +2034,19 @@
                 if (!spokenText) return;
 
                 console.log("Child spoke:", spokenText);
-                if (subtitlesStatus) subtitlesStatus.classList.add('hidden');
-                if (subtitlesText) subtitlesText.textContent = `Con: "${spokenText}"`;
+                document.getElementById('live-subtitles-status').classList.add('hidden');
+                document.getElementById('live-subtitles-text').textContent = `Con: "${spokenText}"`;
 
+                // Temporarily disable listener while processing response
                 if (state.liveSpeechRec) state.liveSpeechRec.stop();
 
-                // CLIENT SIMULATION DEMO ENGINE (Works seamlessly without key!)
-                if (!state.apiKey) {
-                    setTimeout(async () => {
-                        let demoAnswer = "";
-                        const cleanedInput = spokenText.toLowerCase();
-
-                        if (state.selectedBuddy === 'barnaby') {
-                            if (cleanedInput.includes("apple") || cleanedInput.includes("fruit")) {
-                                demoAnswer = "Yum! Apples are sweet. I like strawberries too. Do you like strawberries?";
-                            } else if (cleanedInput.includes("animal") || cleanedInput.includes("bear") || cleanedInput.includes("cat") || cleanedInput.includes("dog")) {
-                                demoAnswer = "Animals are amazing! I love lions and teddy bears. What is your favorite?";
-                            } else {
-                                demoAnswer = "That is so wonderful! Let's say: 'happy bear' together!";
-                            }
-                        } else {
-                            if (cleanedInput.includes("play") || cleanedInput.includes("yes") || cleanedInput.includes("game")) {
-                                demoAnswer = "Great! Let's play astronaut and rocket! Can you say: 'rocket'?";
-                            } else {
-                                demoAnswer = "Haha, that's fun! I can breathe colorful sparks! What can you do?";
-                            }
-                        }
-
-                        if (subtitlesText) subtitlesText.textContent = demoAnswer;
-                        await speakAndAnimateCompanion(demoAnswer);
-                        addStars(2);
-                    }, 1000);
-                    return;
-                }
-
-                // AI Real Integration with Gemini
+                // Call Gemini for response
                 try {
                     const prompt = `The child said: "${spokenText}". Respond to them in simple, short, interactive English. Keep it cute and under 15 words.`;
                     const aiResponse = await queryGeminiText(prompt, getBuddySystemInstruction());
                     
-                    if (subtitlesText) subtitlesText.textContent = aiResponse;
+                    document.getElementById('live-subtitles-text').textContent = aiResponse;
                     await speakAndAnimateCompanion(aiResponse);
-                    addStars(2);
                 } catch (err) {
                     console.error("Failed responding to child speech:", err);
                     await speakAndAnimateCompanion("That sounds so cool! What else?");
@@ -2014,6 +2055,7 @@
 
             state.liveSpeechRec.onerror = (err) => {
                 console.warn("Speech input silent or timed out:", err);
+                // Automatically restart listening on silent timeout to keep conversation fluid
                 if (state.isLiveConnected) {
                     setTimeout(() => startListeningToChild(), 1000);
                 }
@@ -2072,10 +2114,7 @@
             if (state.animationInterval) clearInterval(state.animationInterval);
 
             if (isTalking) {
-                if (avatar) {
-                    avatar.classList.remove('animate-none');
-                    avatar.classList.add('animate-bounce');
-                }
+                avatar.classList.add('animate-bounce');
                 state.animationInterval = setInterval(() => {
                     Array.from(lines).forEach((line) => {
                         line.style.height = `${Math.floor(Math.random() * 32) + 8}px`;
@@ -2083,10 +2122,7 @@
                     });
                 }, 100);
             } else {
-                if (avatar) {
-                    avatar.classList.remove('animate-bounce');
-                    avatar.classList.add('animate-none');
-                }
+                avatar.classList.remove('animate-bounce');
                 Array.from(lines).forEach((line) => {
                     line.style.height = '12px';
                     line.classList.replace('bg-pink-400', 'bg-indigo-400');
@@ -2111,17 +2147,13 @@
             const statusTag = document.getElementById('buddy-status-tag');
             const subtitlesContainer = document.getElementById('live-subtitles-container');
 
-            if (btn) {
-                btn.classList.replace('kids-btn-primary', 'kids-btn-secondary');
-                btn.disabled = false;
-            }
-            if (connectText) connectText.textContent = state.currentLang === 'vi' ? uiLocales.vi.connectLive : uiLocales.en.connectLive;
+            btn.classList.replace('kids-btn-primary', 'kids-btn-secondary');
+            connectText.textContent = state.currentLang === 'vi' ? uiLocales.vi.connectLive : uiLocales.en.connectLive;
+            btn.disabled = false;
             
-            if (statusTag) {
-                statusTag.classList.remove('bg-green-500');
-                statusTag.textContent = state.selectedBuddy === 'barnaby' ? 'Barnaby' : 'Sparky';
-            }
-            if (subtitlesContainer) subtitlesContainer.classList.add('hidden');
+            statusTag.classList.remove('bg-green-500');
+            statusTag.textContent = state.selectedBuddy === 'barnaby' ? 'Barnaby' : 'Sparky';
+            subtitlesContainer.classList.add('hidden');
 
             stopCompanionSpeech();
 
