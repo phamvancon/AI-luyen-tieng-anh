@@ -9,7 +9,7 @@
     <!-- Google Fonts: Inter and Fredoka for a playful rounded cartoon look -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Inter:wght@300..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght=300..700&family=Inter:wght=300..900&display=swap" rel="stylesheet">
     <!-- FontAwesome for cute icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -179,7 +179,7 @@
 
             <!-- Informational Tip of the Day -->
             <div class="mt-8 p-4 bg-indigo-50 border-2 border-indigo-200 rounded-2xl max-w-xl text-center shadow-inner">
-                <span class="text-xl">💡</span> <strong class="text-indigo-900" id="tip-title">Góc Cha Mẹ:</strong> <span id="tip-text">Bố mẹ hãy nhấn vào nút ⚙️ phía trên để nhập khóa Gemini API nếu muốn sử dụng tính năng "Nói Chuyện Live" của bé nhé!</span>
+                <span class="text-xl">💡</span> <strong class="text-indigo-900" id="tip-title">Góc Cha Mẹ:</strong> <span id="tip-text">Bố mẹ hãy nhấn vào nút ⚙️ phía trên để nhập khóa Gemini API hoặc mã mật khẩu Admin mặc định để thay đổi thông tin bé nhé!</span>
             </div>
         </section>
 
@@ -300,13 +300,13 @@
                                 </div>
                             </div>
 
-                            <!-- Playful Vietnamese Tips for Parents on Stories Page -->
+                            <!-- Parent Guidelines Corner (Stories View) -->
                             <div class="mt-4 p-4 bg-amber-50 border-2 border-amber-200 rounded-2xl text-slate-700">
                                 <h5 class="font-extrabold text-amber-900 text-sm mb-1.5 flex items-center gap-1.5">
                                     <i class="fa-solid fa-lightbulb"></i> <span>💡 Góc Phụ Huynh: Hướng Dẫn Bé Đọc Nhé!</span>
                                 </h5>
                                 <p id="story-parent-hint-text" class="text-xs text-amber-800 font-semibold leading-relaxed">
-                                    Hãy khuyến khích bé nghe đi nghe lại câu chuyện bằng cách bấm nút "Bấm Để Nghe Nhé!" màu xanh trước khi đọc to từ khóa vượt qua thử thách.
+                                    Hãy khuyến khích bé bấm nút nghe nhiều lần trước khi tự tin đọc to từ khóa vượt qua thử thách. Bé có thể nhìn vào phần phiên âm mẫu hoặc các mẹo đọc tiếng Việt dưới đây để cải thiện âm gió.
                                 </p>
                             </div>
                         </div>
@@ -346,6 +346,24 @@
                 </div>
             </div>
 
+            <!-- New Section Progress bar -->
+            <div id="vocab-progress-container" class="w-full bg-white border-4 border-indigo-100 p-4 rounded-3xl flex flex-wrap items-center justify-between shadow-sm">
+                <div class="flex items-center gap-3">
+                    <span class="text-3xl">🎯</span>
+                    <div>
+                        <h3 class="font-extrabold text-indigo-900 text-lg" id="vocab-progress-title">Tiến Độ Chinh Phục Chủ Đề</h3>
+                        <p class="text-xs text-slate-500 font-bold" id="vocab-progress-subtitle">Bé hãy nói chuẩn xác hết tất cả các từ để nhận Tràng Vỗ Tay khích lệ nhé!</p>
+                    </div>
+                </div>
+                <!-- Progress Bar -->
+                <div class="flex items-center gap-4 w-full md:w-auto flex-grow md:flex-grow-0 mt-3 md:mt-0">
+                    <div class="w-full md:w-48 bg-slate-100 rounded-full h-4 overflow-hidden border-2 border-slate-200">
+                        <div id="vocab-progress-bar" class="bg-gradient-to-r from-emerald-400 to-green-500 h-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                    <span class="font-black text-emerald-600 text-lg" id="vocab-progress-text">0 / 4</span>
+                </div>
+            </div>
+
             <div class="grid grid-cols-1 gap-6 mt-4">
                 <!-- Active Flashcard Arena -->
                 <div class="flex flex-col gap-6">
@@ -353,13 +371,13 @@
                         <!-- Active Cards will load dynamically here -->
                     </div>
 
-                    <!-- Playful Parent Guidelines for Vocab Page -->
+                    <!-- Guidelines and details for parents inside Vocab view -->
                     <div class="p-5 bg-emerald-50 border-2 border-emerald-200 rounded-3xl text-slate-700 w-full shadow-sm">
                         <h5 class="font-extrabold text-emerald-950 text-base mb-2 flex items-center gap-1.5">
                             <i class="fa-solid fa-users-gear text-emerald-600"></i> <span>💡 Góc Đồng Hành Cho Cha Mẹ (Parent Guide)</span>
                         </h5>
                         <p id="vocab-parent-hint-text" class="text-xs text-emerald-800 font-semibold leading-relaxed">
-                            Mỗi bậc học có độ khó từ vựng và câu khác nhau. Đối với <strong>Cấp 1</strong>, hãy khuyến khích con nhớ nghĩa từ qua tranh vẽ. Đối với <strong>Cấp 2, 3 và Giao Tiếp</strong>, hãy khuyến khích con đọc to cả cụm từ/câu để tăng phản xạ nói trôi chảy. Bố mẹ có thể hướng dẫn bé tự rèn luyện qua phiên âm chuẩn và các ghi chú hướng dẫn phát âm tiếng Việt được tích hợp dưới từng thẻ từ.
+                            Mỗi bậc học có độ khó từ vựng khác nhau. Đối với <strong>Cấp 1</strong>, hãy khuyến khích con nhớ nghĩa qua tranh vẽ. Đối với <strong>Cấp 2, 3 và Giao Tiếp</strong>, hãy khuyên con đọc to cả cụm từ/câu để tăng phản xạ nói trôi chảy. Bố mẹ có thể hướng dẫn bé tự rèn luyện qua các phiên âm chuẩn và mẹo phát âm tiếng Việt được tích hợp dưới từng thẻ từ.
                         </p>
                     </div>
                 </div>
@@ -372,7 +390,7 @@
                 <button onclick="navigate('home')" class="kids-card bg-white px-5 py-2.5 rounded-2xl font-extrabold text-slate-600 flex items-center gap-2 border-2 border-slate-300">
                     <i class="fa-solid fa-arrow-left"></i> <span id="back-home-btn3">Trang Chủ</span>
                 </button>
-                <h2 class="text-3xl font-black text-indigo-900 flex items-center gap-2" id="live-page-title">🎙 league; Bạn Đồng Hành Trực Tiếp</h2>
+                <h2 class="text-3xl font-black text-indigo-900 flex items-center gap-2" id="live-page-title">🎙️ Bạn Đồng Hành Trực Tiếp</h2>
                 <div class="w-24"></div> <!-- Spacer -->
             </div>
 
@@ -470,7 +488,7 @@
 
     </main>
 
-    <!-- Profile Selection/Creation/Editing Modal -->
+    <!-- Profile Selection/Creation/Editing Modal with Custom Admin Unlock -->
     <div id="modal-profiles" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
         <div class="kids-card bg-white p-6 rounded-3xl max-w-md w-full border-slate-300 relative">
             <button onclick="closeProfileSelector()" class="absolute right-4 top-4 w-10 h-10 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center text-slate-500 font-bold border-2 border-slate-300 transition">
@@ -484,7 +502,7 @@
                 <!-- Dynamically loaded child profiles -->
             </div>
 
-            <!-- Profile Form: Dual Add/Edit Purpose -->
+            <!-- Profile Form: Dual Add/Edit Purpose (Admin Mode editable) -->
             <div class="border-t-2 border-slate-100 pt-4">
                 <h4 class="text-sm font-bold text-slate-600 mb-2" id="add-new-profile-label">✨ Thêm Bé Mới</h4>
                 <div class="flex flex-col gap-3">
@@ -527,13 +545,13 @@
         </div>
     </div>
 
-    <!-- Math Verification Question to guard Parent's Corner -->
+    <!-- Math & Admin Verification Gate -->
     <div id="modal-verification" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
         <div class="kids-card bg-white p-6 rounded-3xl max-w-sm w-full border-slate-300 text-center">
-            <h3 class="text-xl font-black text-indigo-900 mb-2">🔒 Khu vực của phụ huynh</h3>
-            <p class="text-sm text-slate-500 font-medium mb-4">Vui lòng giải phép toán đơn giản sau để xác minh bạn là phụ huynh:</p>
+            <h3 class="text-xl font-black text-indigo-900 mb-2">🔒 Xác minh Phụ huynh / Admin</h3>
+            <p class="text-sm text-slate-500 font-medium mb-4">Giải phép toán để vào Góc Phụ huynh HOẶC nhập mật khẩu đặc quyền Admin:</p>
             <div class="text-3xl font-black text-pink-600 mb-4 bg-pink-50 p-4 rounded-2xl" id="verification-math-question">5 + 7 = ?</div>
-            <input type="number" id="verification-answer" class="w-full p-3.5 border-2 border-slate-200 rounded-xl font-bold text-center text-xl focus:outline-none focus:ring-2 focus:ring-purple-400 mb-4" placeholder="Nhập đáp án..." />
+            <input type="text" id="verification-answer" class="w-full p-3.5 border-2 border-slate-200 rounded-xl font-bold text-center text-xl focus:outline-none focus:ring-2 focus:ring-purple-400 mb-4" placeholder="Nhập đáp án hoặc Mật khẩu..." />
             <div class="flex gap-2">
                 <button onclick="cancelParentVerification()" class="flex-1 bg-slate-100 hover:bg-slate-200 py-3 rounded-xl font-bold text-slate-600 border border-slate-300">Hủy bỏ</button>
                 <button onclick="submitParentVerification()" class="flex-1 kids-btn-primary py-3 text-white font-bold rounded-xl">Xác nhận</button>
@@ -565,6 +583,25 @@
         </div>
     </div>
 
+    <!-- Section Completion Celebrations Modal -->
+    <div id="modal-completion" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md hidden items-center justify-center z-50 p-4">
+        <div class="kids-card bg-gradient-to-br from-yellow-50 to-amber-50 p-8 rounded-3xl max-w-md w-full border-yellow-300 text-center relative overflow-hidden">
+            <div class="absolute -right-10 -top-10 text-9xl opacity-15">🏆</div>
+            <div class="text-7xl mb-4 bounce-slow">🎉</div>
+            <h3 class="text-3xl font-black text-amber-900 mb-2" id="completion-title">Quá Xuất Sắc!</h3>
+            <p class="text-slate-700 font-extrabold text-base mb-6" id="completion-desc">Bé đã hoàn thành xuất sắc bài học hôm nay! Nghe tiếng vỗ tay khen ngợi bé kìa!</p>
+            
+            <div class="bg-white/80 p-4 rounded-2xl border-2 border-yellow-200 inline-flex items-center gap-2 mb-6">
+                <span class="text-2xl">⭐</span>
+                <span class="text-2xl font-black text-yellow-600">+15 Stars Bonus!</span>
+            </div>
+            
+            <button onclick="closeCompletionModal()" class="kids-btn-primary w-full py-4 text-white font-extrabold text-lg rounded-2xl">
+                Tiếp Tục Phiêu Lưu! 🚀
+            </button>
+        </div>
+    </div>
+
     <!-- Generic message boxes replacing native alerts -->
     <div id="notification-box" class="fixed bottom-6 right-6 p-4 rounded-2xl text-white font-extrabold shadow-2xl transition transform translate-y-24 opacity-0 z-50 flex items-center gap-3">
         <span id="notif-emoji" class="text-2xl">🎉</span>
@@ -582,7 +619,7 @@
         const uiLocales = {
             vi: {
                 subtitle: "Cuộc Phiêu Lưu Tiếng Anh AI",
-                parentBtn: "Bố Mẹ",
+                parentBtn: "Bố Mẹ / Admin",
                 homeTitle: "Chào người bạn nhỏ! 👋",
                 homeSub: "Con muốn chơi, nghe và nói tiếng Anh cùng các bạn AI dễ thương hôm nay không? Chọn một chuyến phiêu lưu nhé!",
                 cardStoriesTitle: "Truyện Thần Kỳ",
@@ -595,7 +632,7 @@
                 cardLiveDesc: "Thỏa sức nói chuyện tiếng Anh! Trực tiếp giao lưu cực kỳ tự nhiên với chú Gấu Barnaby hoặc Rồng Sparky.",
                 btnLiveStart: "Nói Chuyện Live! 🎙️",
                 tipTitle: "Góc Cha Mẹ:",
-                tipText: "Bố mẹ hãy nhấn vào nút ⚙️ phía trên để nhập khóa Gemini API nếu muốn sử dụng tính năng 'Nói Chuyện Live' của bé nhé!",
+                tipText: "Bố mẹ hãy nhấn vào nút ⚙️ phía trên để nhập khóa Gemini API hoặc mã mật khẩu Admin mặc định để thay đổi thông tin bé nhé!",
                 backHome: "Trang Chủ",
                 storiesPageTitle: "🦖 Truyện Cổ Tích Phép Thuật",
                 chooseTopicLabel: "Chọn Chủ Đề Truyện",
@@ -624,7 +661,7 @@
             },
             en: {
                 subtitle: "AI English Adventure",
-                parentBtn: "Parents",
+                parentBtn: "Parents / Admin",
                 homeTitle: "Hi there, English Explorer! 👋",
                 homeSub: "Ready to play, listen, and speak English with your friendly AI companions? Pick an adventure!",
                 cardStoriesTitle: "Magic Stories",
@@ -637,7 +674,7 @@
                 cardLiveDesc: "Talk in real-time! Speak, laugh, and learn naturally with your friendly helper.",
                 btnLiveStart: "Talk Live! 🎙️",
                 tipTitle: "Kid's Tip:",
-                tipText: "Click on your Settings gear ⚙️ to add your customized Gemini API Key if you want to use the Live Buddy feature!",
+                tipText: "Click on your Settings gear ⚙️ to add your customized Gemini API Key or input Default Admin Passcode to configure child profiles!",
                 backHome: "Home",
                 storiesPageTitle: "🦖 Magic Adventure Stories",
                 chooseTopicLabel: "Choose a Story Topic",
@@ -666,6 +703,7 @@
             }
         };
 
+        // Online Multi-level Vocabulary Database structure
         const vocabLevels = {
             cap1: {
                 label: { vi: "🏫 Cấp 1 (Tiểu Học)", en: "🏫 Elementary" },
@@ -773,16 +811,16 @@
             "joyful party": "Con đọc là 'Dzoi-phùl Pa-ti' nhé! Nhấn mạnh ở âm đầu tiên nha."
         };
 
-        // System state containing localization and profiles
         const state = {
             currentLang: 'vi',
             profiles: [
-                { id: '1', name: 'Bé Na', emoji: '👧', stars: 12, completedStories: ['Leo du hành vũ trụ'], masteredWords: ['Father', 'Apple', 'Nice to meet you'] },
-                { id: '2', name: 'Bé Bin', emoji: '👦', stars: 5, completedStories: [], masteredWords: [] }
+                { id: '1', name: 'Bé Na', emoji: '👧', stars: 12, completedStories: ['space'], masteredWords: ['Father', 'Apple', 'Nice to meet you'], completedVocabThemes: [] },
+                { id: '2', name: 'Bé Bin', emoji: '👦', stars: 5, completedStories: [], masteredWords: [], completedVocabThemes: [] }
             ],
             activeProfileId: '1',
             editingProfileId: null, // Track profile currently under edition
             apiKey: '',
+            isAdminMode: false, // Default Admin passcode mode status
             
             // Story active state
             currentStoryType: '',
@@ -793,6 +831,7 @@
             // Vocab active state
             currentVocabLevel: 'cap1',
             currentVocabTheme: 'family',
+            completedWordsInActiveTheme: [], // Tracks student's correctness in active session
             
             // Live companion state (REST based)
             selectedBuddy: 'barnaby',
@@ -828,11 +867,13 @@
                 const isActive = profile.id === state.activeProfileId;
                 const card = document.createElement('div');
                 card.className = `p-3.5 rounded-2xl border-2 flex items-center justify-between cursor-pointer transition active:scale-98 ${isActive ? 'border-pink-500 bg-pink-50' : 'border-slate-200 hover:bg-slate-50'}`;
+                
+                // Admin Mode or standard parent mode lets you edit profile names directly
                 card.innerHTML = `
                     <div class="flex items-center gap-3 flex-grow" onclick="selectProfile('${profile.id}')">
                         <span class="text-3xl">${profile.emoji}</span>
                         <div>
-                            <div class="font-extrabold text-slate-800">${profile.name}</div>
+                            <div class="font-extrabold text-slate-800">${profile.name} ${state.isAdminMode ? '<span class="text-[10px] bg-red-100 text-red-700 px-1.5 py-0.5 rounded ml-1 font-bold">ADMIN</span>' : ''}</div>
                             <div class="text-xs text-slate-500 font-bold">⭐ ${profile.stars} Stars • ${profile.masteredWords.length} Words</div>
                         </div>
                     </div>
@@ -862,6 +903,9 @@
             closeProfileSelector();
             showNotification('😊 Bé đã sẵn sàng!', `Chào mừng ${profile.name} trở lại cuộc phiêu lưu!`);
             saveStateToStorage();
+            
+            // Reload vocab session state for new student
+            resetVocabProgress();
         };
 
         window.addNewProfile = function() {
@@ -880,7 +924,8 @@
                 emoji: emojiInput.value,
                 stars: 0,
                 completedStories: [],
-                masteredWords: []
+                masteredWords: [],
+                completedVocabThemes: []
             };
 
             state.profiles.push(newProfile);
@@ -899,12 +944,12 @@
             document.getElementById('new-profile-name').value = profile.name;
             document.getElementById('new-profile-emoji').value = profile.emoji;
             
-            document.getElementById('add-new-profile-label').innerHTML = `✏️ Chỉnh Sửa Bé: <span class="text-pink-600">${profile.name}</span>`;
+            document.getElementById('add-new-profile-label').innerHTML = `✏️ Sửa Tên Học Sinh: <span class="text-pink-600">${profile.name}</span>`;
             
             // Swap Add Button with Save and Cancel buttons
             const btnContainer = document.getElementById('add-profile-btn-container');
             btnContainer.innerHTML = `
-                <button onclick="saveProfileEdit()" class="kids-btn-secondary px-4 py-3 text-white font-extrabold rounded-xl text-sm w-1/2">Lưu</button>
+                <button onclick="saveProfileEdit()" class="kids-btn-secondary px-4 py-3 text-white font-extrabold rounded-xl text-sm w-1/2">Lưu Thay Đổi</button>
                 <button onclick="cancelProfileEdit()" class="bg-slate-100 hover:bg-slate-200 border-2 border-slate-300 px-4 py-3 text-slate-600 font-bold rounded-xl text-sm w-1/2">Hủy</button>
             `;
             playFeedbackSound('pop');
@@ -934,7 +979,7 @@
                 profile.name = name;
                 profile.emoji = emojiInput.value;
                 
-                // Live sync current header if edited
+                // Live sync current header if active profile edited
                 if (state.activeProfileId === state.editingProfileId) {
                     document.getElementById('active-profile-emoji').textContent = profile.emoji;
                     document.getElementById('active-profile-name').textContent = profile.name;
@@ -982,10 +1027,18 @@
         };
 
         window.submitParentVerification = function() {
-            const answer = parseInt(document.getElementById('verification-answer').value, 10);
-            if (answer === state.mathAnswer) {
+            const answerInput = document.getElementById('verification-answer').value.trim();
+            const answer = parseInt(answerInput, 10);
+            
+            // Check default hardcoded admin password "215151365" or math answer
+            if (answer === state.mathAnswer || answerInput === '215151365') {
                 document.getElementById('modal-verification').classList.add('hidden');
                 document.getElementById('modal-verification').classList.remove('flex');
+                
+                if (answerInput === '215151365') {
+                    state.isAdminMode = true;
+                    showNotification('🗝️ Admin Unlock', 'Đăng nhập mật khẩu Admin thành công! Đã cho phép thay đổi tên học sinh tùy chọn.');
+                }
                 
                 if (state.verificationTarget === 'parent') {
                     openParentDashboard();
@@ -993,7 +1046,7 @@
                     openConfigModal();
                 }
             } else {
-                showNotification('❌ Sai rồi!', 'Vui lòng giải đúng phép toán để xác minh cha mẹ.', false);
+                showNotification('❌ Sai rồi!', 'Vui lòng giải đúng phép toán hoặc nhập mật khẩu Admin đặc quyền.', false);
                 playFeedbackSound('fail');
             }
         };
@@ -1010,6 +1063,10 @@
                 const wordsList = profile.masteredWords.length > 0 
                     ? profile.masteredWords.map(w => `<span class="bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-full border border-indigo-200 text-xs font-bold">${w}</span>`).join(' ') 
                     : '<span class="text-slate-400 italic text-xs">Chưa có từ vựng</span>';
+
+                const themesCompleted = (profile.completedVocabThemes && profile.completedVocabThemes.length > 0)
+                    ? profile.completedVocabThemes.map(t => `<span class="bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full border border-emerald-200 text-xs font-bold">✓ ${t}</span>`).join(' ')
+                    : '<span class="text-slate-400 italic text-xs">Chưa hoàn thành chủ đề nào</span>';
 
                 const card = document.createElement('div');
                 card.className = "kids-card p-5 bg-slate-50 rounded-3xl border-slate-200";
@@ -1032,8 +1089,15 @@
 
                         <div>
                             <h5 class="font-bold text-sm text-slate-600 mb-2"><i class="fa-solid fa-graduation-cap text-emerald-500"></i> Từ vựng đã nắm vững:</h5>
-                            <div class="flex flex-wrap gap-2">
+                            <div class="flex flex-wrap gap-2 mb-3">
                                 ${wordsList}
+                            </div>
+                        </div>
+
+                        <div>
+                            <h5 class="font-bold text-sm text-slate-600 mb-2"><i class="fa-solid fa-circle-check text-indigo-500"></i> Bài đọc từ vựng hoàn thành:</h5>
+                            <div class="flex flex-wrap gap-2">
+                                ${themesCompleted}
                             </div>
                         </div>
                     </div>
@@ -1110,11 +1174,12 @@
 
         window.selectVocabLevel = function(levelKey) {
             state.currentVocabLevel = levelKey;
-            // Set default subtheme for the selected level automatically
+            // Set default subtheme for selected level automatically
             const firstThemeKey = Object.keys(vocabLevels[levelKey].themes)[0];
             state.currentVocabTheme = firstThemeKey;
 
             buildVocabLevelSelectors();
+            resetVocabProgress();
             loadVocabTheme();
             playFeedbackSound('bubble');
         };
@@ -1122,9 +1187,31 @@
         window.selectVocabSubtheme = function(themeKey) {
             state.currentVocabTheme = themeKey;
             buildVocabSubthemeSelectors();
+            resetVocabProgress();
             loadVocabTheme();
             playFeedbackSound('bubble');
         };
+
+        function resetVocabProgress() {
+            state.completedWordsInActiveTheme = [];
+            updateVocabProgressBar();
+        }
+
+        function updateVocabProgressBar() {
+            const levelData = vocabLevels[state.currentVocabLevel];
+            const themeData = levelData.themes[state.currentVocabTheme];
+            if (!themeData) return;
+
+            const total = themeData.items.length;
+            const completedCount = state.completedWordsInActiveTheme.length;
+            const percentage = (completedCount / total) * 100;
+
+            const progressBar = document.getElementById('vocab-progress-bar');
+            const progressText = document.getElementById('vocab-progress-text');
+
+            if (progressBar) progressBar.style.width = `${percentage}%`;
+            if (progressText) progressText.textContent = `${completedCount} / ${total}`;
+        }
 
         window.loadVocabTheme = function() {
             const cardGrid = document.getElementById('vocab-cards-grid');
@@ -1138,8 +1225,13 @@
             const items = themeData.items;
             items.forEach((item, index) => {
                 const subLabel = state.currentLang === 'vi' ? `<span class="text-sm font-semibold text-slate-400 block">${item.vn}</span>` : '';
+                const isMastered = state.completedWordsInActiveTheme.includes(item.word);
+                
                 const card = document.createElement('div');
-                card.className = "kids-card bg-white p-5 rounded-3xl border-slate-200 flex flex-col items-center gap-4 relative justify-between";
+                card.id = `vocab-card-element-${index}`;
+                card.className = `kids-card p-5 rounded-3xl border-slate-200 flex flex-col items-center gap-4 relative justify-between transition-all ${
+                    isMastered ? 'bg-emerald-50 border-emerald-400 shadow-md ring-4 ring-emerald-200' : 'bg-white'
+                }`;
                 card.innerHTML = `
                     <div class="flex flex-col items-center gap-2">
                         <div class="text-5xl mb-1">${item.emoji}</div>
@@ -1163,7 +1255,9 @@
                     </div>
 
                     <!-- Practice feedback dynamic element -->
-                    <div id="vocab-feedback-${index}" class="w-full p-2 bg-green-50 border border-green-200 rounded-xl text-xs font-semibold text-green-800 text-center hidden"></div>
+                    <div id="vocab-feedback-${index}" class="w-full p-2 bg-green-50 border border-green-200 rounded-xl text-xs font-semibold text-green-800 text-center ${isMastered ? '' : 'hidden'}">
+                        ${isMastered ? '🎉 Đã hoàn thành!' : ''}
+                    </div>
 
                     <div class="flex gap-2 w-full mt-2">
                         <button onclick="speakVocabWord('${item.word}')" class="flex-1 bg-sky-100 hover:bg-sky-200 text-sky-700 py-2.5 rounded-xl font-bold border-b-2 border-sky-300 transition text-sm flex items-center justify-center gap-1.5">
@@ -1178,6 +1272,8 @@
 
                 triggerVocabStickerGen(item.prompt, index);
             });
+
+            updateVocabProgressBar();
         };
 
         async function triggerVocabStickerGen(imagePrompt, index) {
@@ -1247,6 +1343,7 @@
             rec.maxAlternatives = 1;
 
             const cardTitle = document.getElementById(`vocab-word-${index}`);
+            const cardEl = document.getElementById(`vocab-card-element-${index}`);
             const originalColor = cardTitle.style.color;
             const feedbackEl = document.getElementById(`vocab-feedback-${index}`);
 
@@ -1269,15 +1366,26 @@
                     
                     if (feedbackEl) {
                         feedbackEl.textContent = "🎉 Chuẩn 100%!";
-                        feedbackEl.className = "w-full p-2 bg-green-50 border border-green-200 rounded-xl text-xs font-bold text-green-800 text-center mt-2";
+                        feedbackEl.className = "w-full p-2 bg-green-100 border border-green-300 rounded-xl text-xs font-bold text-green-800 text-center mt-2";
                         feedbackEl.classList.remove('hidden');
+                    }
+
+                    if (cardEl) {
+                        cardEl.classList.add('bg-emerald-50', 'border-emerald-400', 'shadow-md', 'ring-4', 'ring-emerald-200');
                     }
 
                     const profile = state.profiles.find(p => p.id === state.activeProfileId);
                     if (profile && !profile.masteredWords.includes(word)) {
                         profile.masteredWords.push(word);
-                        saveStateToStorage();
                     }
+
+                    // Save word completion in active vocabulary theme tracking
+                    if (!state.completedWordsInActiveTheme.includes(word)) {
+                        state.completedWordsInActiveTheme.push(word);
+                        updateVocabProgressBar();
+                        checkThemeCompletion();
+                    }
+                    saveStateToStorage();
                 } else {
                     showNotification('✊ Cố lên con!', `Con vừa nói là: "${spoken}". Luyện tập lại nhé!`, false);
                     playFeedbackSound('fail');
@@ -1296,6 +1404,94 @@
             };
 
             rec.start();
+        };
+
+        function checkThemeCompletion() {
+            const levelData = vocabLevels[state.currentVocabLevel];
+            const themeData = levelData.themes[state.currentVocabTheme];
+            if (!themeData) return;
+
+            const total = themeData.items.length;
+            if (state.completedWordsInActiveTheme.length === total) {
+                // Section completely finished! Let's celebrate with APPLAUSE!
+                const activeProfile = state.profiles.find(p => p.id === state.activeProfileId);
+                const themeName = state.currentLang === 'vi' ? themeData.label.vi : themeData.label.en;
+                
+                if (activeProfile) {
+                    activeProfile.completedVocabThemes = activeProfile.completedVocabThemes || [];
+                    if (!activeProfile.completedVocabThemes.includes(state.currentVocabTheme)) {
+                        activeProfile.completedVocabThemes.push(state.currentVocabTheme);
+                    }
+                }
+
+                saveStateToStorage();
+
+                // Trigger celebration
+                document.getElementById('completion-title').textContent = state.currentLang === 'vi' ? "🎉 Hoàn Thành Bài Học!" : "🎉 Theme Completed!";
+                document.getElementById('completion-desc').textContent = state.currentLang === 'vi' 
+                    ? `Bé đã chinh phục xuất sắc chủ đề "${themeName}"! Nghe tiếng tràng vỗ tay cổ vũ vang dội dành cho con kìa!` 
+                    : `You have mastered the "${themeName}" theme! Listen to the loud applause celebrating your victory!`;
+                
+                document.getElementById('modal-completion').classList.remove('hidden');
+                document.getElementById('modal-completion').classList.add('flex');
+
+                // Reward Bonus Stars & Play Applause Sound
+                addStars(15);
+                playApplauseSound();
+            }
+        }
+
+        window.closeCompletionModal = function() {
+            document.getElementById('modal-completion').classList.add('hidden');
+            document.getElementById('modal-completion').classList.remove('flex');
+            playFeedbackSound('pop');
+        };
+
+        // Synthesize cheering & applause sequences using Tone.js
+        window.playApplauseSound = function() {
+            try {
+                if (Tone.context.state !== 'running') {
+                    Tone.start();
+                }
+                const now = Tone.now();
+                
+                // PolySynth chord sequence representing high-energy children's cheer
+                const synth = new Tone.PolySynth(Tone.Synth).toDestination();
+                synth.volume.value = -10;
+                synth.set({
+                    oscillator: { type: "triangle" },
+                    envelope: { attack: 0.1, decay: 0.3, sustain: 0.8, release: 1.5 }
+                });
+                
+                // Cheerful scale sequence
+                synth.triggerAttackRelease(["C4", "E4", "G4"], "2n", now);
+                synth.triggerAttackRelease(["F4", "A4", "C5"], "2n", now + 0.4);
+                synth.triggerAttackRelease(["G4", "B4", "D5"], "2n", now + 0.8);
+                synth.triggerAttackRelease(["C4", "E4", "G4", "C5"], "1n", now + 1.2);
+
+                // Synthetic clapping: fast transient impulses using filtered noise envelope triggers
+                const noise = new Tone.Noise("pink").start();
+                const filter = new Tone.Filter({
+                    type: "highpass",
+                    frequency: 1800
+                }).toDestination();
+                
+                const envelope = new Tone.AmplitudeEnvelope({
+                    attack: 0.005,
+                    decay: 0.07,
+                    sustain: 0,
+                    release: 0.07
+                }).connect(filter);
+                noise.connect(envelope);
+
+                // Simulate multi-person applause clapping with rapid triggers
+                for (let i = 0; i < 50; i++) {
+                    const clapTime = now + Math.random() * 3.5;
+                    envelope.triggerAttack(clapTime);
+                }
+            } catch (err) {
+                console.warn("Applause audio synthesis failed:", err);
+            }
         };
 
         window.setLanguage = function(lang) {
@@ -1349,8 +1545,8 @@
             safeSetText('story-space-desc', loc.storySpaceDesc);
             safeSetText('story-forest-title', loc.storyForestTitle);
             safeSetText('story-forest-desc', loc.storyForestDesc);
-            safeSetText('story-ocean-title', loc.storyTheme);
-            safeSetText('story-ocean-desc', loc.storyTheme);
+            safeSetText('story-ocean-title', loc.storyOceanTitle);
+            safeSetText('story-ocean-desc', loc.storyOceanDesc);
             safeSetText('custom-story-title', loc.customStoryTitle);
             safeSetPlaceholder('custom-story-prompt', loc.customStoryPlaceholder);
             safeSetText('btn-story-listen-label', loc.btnStoryListen);
@@ -1750,37 +1946,6 @@
             }
         };
 
-        function evaluateKidsSpeech(spokenText) {
-            const chapterData = state.storyChapters[state.currentChapterIndex];
-            if (!chapterData) return;
-
-            const target = chapterData.targetPhrase.toLowerCase().replace(/[^a-zA-Z0-9\s]/g, "");
-            const spokenClean = spokenText.toLowerCase().replace(/[^a-zA-Z0-9\s]/g, "");
-
-            const matched = spokenClean.includes(target) || target.includes(spokenClean);
-
-            const evalBox = document.getElementById('story-evaluation-text');
-            evalBox.classList.remove('hidden');
-
-            if (matched) {
-                evalBox.innerHTML = `🌟 Tuyệt vời! Con vừa nói: <span class="text-green-600 font-extrabold">"${spokenText}"</span>. Thật giỏi!`;
-                addStars(5);
-                
-                const nextBtn = document.getElementById('btn-story-next');
-                nextBtn.disabled = false;
-                nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-
-                const profile = state.profiles.find(p => p.id === state.activeProfileId);
-                if (profile && !profile.masteredWords.includes(chapterData.targetPhrase)) {
-                    profile.masteredWords.push(chapterData.targetPhrase);
-                }
-            } else {
-                const guide = kidsPronunciationGuides[target] || `Con hãy cố gắng phát âm lại từ "${chapterData.targetPhrase}" thật rõ ràng nhé!`;
-                evalBox.innerHTML = `😅 Cố lên nào! Con vừa nói: <span class="text-amber-600 font-bold">"${spokenText}"</span>.<br><span class="text-xs font-bold text-slate-500 block mt-1">Hướng dẫn cho con: ${guide}</span>`;
-                playFeedbackSound('fail');
-            }
-        }
-
         window.nextChapter = function() {
             if (state.currentChapterIndex < state.storyChapters.length - 1) {
                 state.currentChapterIndex++;
@@ -2169,19 +2334,6 @@
             playFeedbackSound('pop');
         }
 
-        // Config Controls
-        window.openConfigModal = function() {
-            document.getElementById('modal-config').classList.remove('hidden');
-            document.getElementById('modal-config').classList.add('flex');
-            playFeedbackSound('bubble');
-        };
-
-        window.closeConfigModal = function() {
-            document.getElementById('modal-config').classList.add('hidden');
-            document.getElementById('modal-config').classList.remove('flex');
-            playFeedbackSound('pop');
-        };
-
         window.saveConfig = function() {
             const key = document.getElementById('gemini-api-key').value.trim();
             state.apiKey = key;
@@ -2250,8 +2402,8 @@
             saveStateToStorage();
 
             confetti({
-                particleCount: 50,
-                spread: 60,
+                particleCount: 80,
+                spread: 70,
                 origin: { y: 0.8 }
             });
             playFeedbackSound('success');
@@ -2282,6 +2434,7 @@
             updateStarDisplay();
 
             setLanguage('vi'); 
+            resetVocabProgress();
         });
 
     </script>
