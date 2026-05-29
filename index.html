@@ -1,0 +1,2150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WonderVoice AI - English Playground for Kids</title>
+    <!-- Tailwind CSS for modern adaptive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter and Fredoka for a playful rounded cartoon look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Inter:wght@300..900&display=swap" rel="stylesheet">
+    <!-- FontAwesome for cute icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Fredoka', 'Inter', sans-serif;
+            background: linear-gradient(135deg, #FFF5F5 0%, #EEF2FF 50%, #E0F2FE 100%);
+            overflow-x: hidden;
+        }
+        .wiggle-hover:hover {
+            animation: wiggle 0.5s ease-in-out infinite alternate;
+        }
+        @keyframes wiggle {
+            0% { transform: rotate(-3deg); }
+            100% { transform: rotate(3deg); }
+        }
+        .bounce-slow {
+            animation: bounceSlow 3s ease-in-out infinite;
+        }
+        @keyframes bounceSlow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        .pulse-soft {
+            animation: pulseSoft 2s ease-in-out infinite;
+        }
+        @keyframes pulseSoft {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(147, 197, 253, 0.5); }
+            50% { transform: scale(1.03); box-shadow: 0 0 0 15px rgba(147, 197, 253, 0); }
+        }
+        /* Glassmorphism kids cards */
+        .kids-card {
+            background: rgba(255, 255, 255, 0.95);
+            border: 4px solid #E2E8F0;
+            box-shadow: 0 10px 0 0 #CBD5E1;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .kids-card:active {
+            transform: translateY(4px);
+            box-shadow: 0 6px 0 0 #CBD5E1;
+        }
+        .kids-btn-primary {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            border: 4px solid #E11D48;
+            box-shadow: 0 8px 0 0 #9F1239;
+            transition: all 0.1s ease;
+        }
+        .kids-btn-primary:active {
+            transform: translateY(4px);
+            box-shadow: 0 4px 0 0 #9F1239;
+        }
+        .kids-btn-secondary {
+            background: linear-gradient(135deg, #4ADE80 0%, #22C55E 100%);
+            border: 4px solid #16A34A;
+            box-shadow: 0 8px 0 0 #15803D;
+            transition: all 0.1s ease;
+        }
+        .kids-btn-secondary:active {
+            transform: translateY(4px);
+            box-shadow: 0 4px 0 0 #15803D;
+        }
+        .kids-btn-accent {
+            background: linear-gradient(135deg, #38BDF8 0%, #0EA5E9 100%);
+            border: 4px solid #0284C7;
+            box-shadow: 0 8px 0 0 #0369A1;
+            transition: all 0.1s ease;
+        }
+        .kids-btn-accent:active {
+            transform: translateY(4px);
+            box-shadow: 0 4px 0 0 #0369A1;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-800 flex flex-col">
+
+    <!-- Sound synth for instant auditory responses -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    <!-- Confetti effects for successfully repeating words or finishing quests -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <header class="w-full max-w-7xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-4 z-10">
+        <div class="flex items-center gap-3 cursor-pointer select-none" onclick="navigate('home')">
+            <div class="w-14 h-14 bg-gradient-to-tr from-pink-400 to-yellow-300 rounded-full flex items-center justify-center text-3xl shadow-lg border-2 border-white wiggle-hover">
+                🦄
+            </div>
+            <div>
+                <h1 class="text-3xl font-extrabold tracking-wide bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 bg-clip-text text-transparent">WonderVoice</h1>
+                <p class="text-xs text-slate-500 font-bold uppercase tracking-widest" id="header-subtitle">AI English Adventure</p>
+            </div>
+        </div>
+        
+        <!-- Multi-User Profiles & Language selector -->
+        <div class="flex items-center flex-wrap gap-3">
+            <!-- Language Selector Switch -->
+            <div class="bg-white/90 border-2 border-slate-200 px-2 py-1 rounded-full flex gap-1 shadow-sm">
+                <button onclick="setLanguage('vi')" id="lang-vi" class="px-3 py-1 text-xs font-bold rounded-full bg-indigo-600 text-white transition">🇻🇳 VI</button>
+                <button onclick="setLanguage('en')" id="lang-en" class="px-3 py-1 text-xs font-bold rounded-full text-slate-600 hover:bg-slate-100 transition">🇬🇧 EN</button>
+            </div>
+
+            <!-- Profile Badge Indicator -->
+            <button onclick="openProfileSelector()" class="bg-white border-2 border-pink-300 shadow px-4 py-1.5 rounded-full flex items-center gap-2 hover:bg-pink-50 transition active:scale-95">
+                <span id="active-profile-emoji" class="text-xl">👦</span>
+                <span id="active-profile-name" class="font-bold text-sm text-pink-700">Bé Na</span>
+            </button>
+
+            <!-- Star Count -->
+            <div class="bg-white/90 border-2 border-yellow-300 shadow px-4 py-1.5 rounded-full flex items-center gap-2">
+                <span class="text-xl">⭐</span>
+                <span id="star-count" class="font-extrabold text-lg text-yellow-600">12</span>
+            </div>
+
+            <!-- Settings / Parent Dashboard button -->
+            <button onclick="checkParentAccess('parent')" class="kids-card bg-amber-50 hover:bg-amber-100 px-4 py-1.5 rounded-2xl flex items-center gap-2 text-sm font-bold border-2 border-amber-300 text-amber-700">
+                <i class="fa-solid fa-lock text-sm"></i> <span id="btn-parent-corner">Bố Mẹ</span>
+            </button>
+            
+            <button onclick="checkParentAccess('config')" class="kids-card bg-white px-3 py-1.5 rounded-2xl flex items-center gap-2 text-sm font-bold border-2 border-slate-300 text-slate-600">
+                <i class="fa-solid fa-gear"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-grow w-full max-w-7xl mx-auto px-4 py-4 flex flex-col items-center justify-center">
+
+        <!-- HOME PAGE -->
+        <section id="page-home" class="w-full flex flex-col items-center gap-8 py-4">
+            <div class="text-center max-w-2xl">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-indigo-900 mb-3 drop-shadow-sm" id="home-title">Chào người bạn nhỏ! 👋</h2>
+                <p class="text-lg text-slate-600 font-medium" id="home-sub">Con muốn chơi, nghe và nói tiếng Anh cùng các bạn AI dễ thương hôm nay không? Chọn một chuyến phiêu lưu nhé!</p>
+            </div>
+
+            <!-- Mascot Selector Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl px-4 mt-4">
+                <!-- Mascot 1: Adventure Mode -->
+                <div class="kids-card p-6 rounded-3xl bg-amber-50 border-amber-300 flex flex-col items-center text-center relative overflow-hidden group">
+                    <div class="absolute -right-6 -top-6 w-24 h-24 bg-amber-200/50 rounded-full blur-xl"></div>
+                    <div class="text-7xl mb-4 bounce-slow">🦖</div>
+                    <h3 class="text-2xl font-black text-amber-800 mb-2" id="card-stories-title">Truyện Thần Kỳ</h3>
+                    <p class="text-sm text-slate-600 font-semibold mb-6 flex-grow" id="card-stories-desc">Nghe những câu chuyện cổ tích kỳ diệu tự động vẽ tranh và rèn luyện nói tiếng Anh vượt qua thử thách!</p>
+                    <button onclick="navigate('stories')" class="kids-btn-primary w-full py-3.5 text-lg font-extrabold text-white rounded-2xl" id="btn-stories-start">
+                        Đọc Truyện Ngay! 📖
+                    </button>
+                </div>
+
+                <!-- Mascot 2: Vocab Quest -->
+                <div class="kids-card p-6 rounded-3xl bg-pink-50 border-pink-300 flex flex-col items-center text-center relative overflow-hidden group">
+                    <div class="absolute -left-6 -bottom-6 w-24 h-24 bg-pink-200/50 rounded-full blur-xl"></div>
+                    <div class="text-7xl mb-4 bounce-slow" style="animation-delay: 0.5s">🦉</div>
+                    <h3 class="text-2xl font-black text-pink-800 mb-2" id="card-vocab-title">Đấu Trường Từ Vựng</h3>
+                    <p class="text-sm text-slate-600 font-semibold mb-6 flex-grow" id="card-vocab-desc">Học những từ tiếng Anh mới siêu thú vị, xem tranh hoạt hình, và phát âm thật chuẩn để đạt 5 sao!</p>
+                    <button onclick="navigate('vocab')" class="kids-btn-secondary w-full py-3.5 text-lg font-extrabold text-white rounded-2xl" id="btn-vocab-start">
+                        Bắt Đầu Chơi! 🌟
+                    </button>
+                </div>
+
+                <!-- Mascot 3: Live Companion -->
+                <div class="kids-card p-6 rounded-3xl bg-sky-50 border-sky-300 flex flex-col items-center text-center relative overflow-hidden group">
+                    <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-sky-200/50 rounded-full blur-xl"></div>
+                    <div class="text-7xl mb-4 bounce-slow" style="animation-delay: 1s">🧸</div>
+                    <h3 class="text-2xl font-black text-sky-800 mb-2" id="card-live-title">Bạn Trò Chuyện</h3>
+                    <p class="text-sm text-slate-600 font-semibold mb-6 flex-grow" id="card-live-desc">Kết nối và trò chuyện trực tiếp! Tập nói tiếng Anh tự nhiên với chú Gấu Barnaby hoặc Rồng Sparky cực kỳ kiên nhẫn.</p>
+                    <button onclick="navigate('live')" class="kids-btn-accent w-full py-3.5 text-lg font-extrabold text-white rounded-2xl" id="btn-live-start">
+                        Nói Chuyện Live! 🎙️
+                    </button>
+                </div>
+            </div>
+
+            <!-- Informational Tip of the Day -->
+            <div class="mt-8 p-4 bg-indigo-50 border-2 border-indigo-200 rounded-2xl max-w-xl text-center shadow-inner">
+                <span class="text-xl">💡</span> <strong class="text-indigo-900" id="tip-title">Góc Cha Mẹ:</strong> <span id="tip-text">Bố mẹ hãy nhấn vào nút ⚙️ phía trên để nhập khóa Gemini API nếu muốn sử dụng tính năng "Nói Chuyện Live" của bé nhé! (Nếu chưa có, trò chơi sẽ chạy ở chế độ mô phỏng cực kỳ sinh động).</span>
+            </div>
+        </section>
+
+        <!-- STORIES PAGE -->
+        <section id="page-stories" class="w-full max-w-5xl hidden flex-col gap-6 py-4">
+            <div class="flex items-center justify-between flex-wrap gap-4">
+                <button onclick="navigate('home')" class="kids-card bg-white px-5 py-2.5 rounded-2xl font-extrabold text-slate-600 flex items-center gap-2 border-2 border-slate-300">
+                    <i class="fa-solid fa-arrow-left"></i> <span id="back-home-btn">Trang Chủ</span>
+                </button>
+                <h2 class="text-3xl font-black text-indigo-900 flex items-center gap-2" id="stories-page-title">🦖 Truyện Cổ Tích Phép Thuật</h2>
+                <div class="w-24"></div> <!-- Spacer for balance -->
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+                <!-- Left panel: Select/Create Custom Story -->
+                <div class="md:col-span-1 flex flex-col gap-4">
+                    <div class="kids-card p-5 bg-white rounded-3xl border-slate-200">
+                        <h3 class="text-xl font-bold text-slate-700 mb-4" id="choose-topic-label">Chọn Chủ Đề Truyện</h3>
+                        
+                        <div class="flex flex-col gap-3">
+                            <button onclick="selectPremadeStory('space')" class="w-full text-left p-3.5 rounded-2xl border-2 border-indigo-100 hover:border-indigo-400 bg-indigo-50/50 hover:bg-indigo-50 flex items-center gap-3 transition font-extrabold">
+                                <span class="text-3xl">🚀</span>
+                                <div>
+                                    <div class="text-indigo-900" id="story-space-title">Leo du hành vũ trụ</div>
+                                    <div class="text-xs text-indigo-500 font-semibold" id="story-space-desc">Tìm hiểu từ vựng về không gian</div>
+                                </div>
+                            </button>
+                            <button onclick="selectPremadeStory('forest')" class="w-full text-left p-3.5 rounded-2xl border-2 border-emerald-100 hover:border-emerald-400 bg-emerald-50/50 hover:bg-emerald-50 flex items-center gap-3 transition font-extrabold">
+                                <span class="text-3xl">🌲</span>
+                                <div>
+                                    <div class="text-emerald-900" id="story-forest-title">Chú sóc nhảy múa</div>
+                                    <div class="text-xs text-emerald-500 font-semibold" id="story-forest-desc">Những người bạn rừng sâu rực rỡ</div>
+                                </div>
+                            </button>
+                            <button onclick="selectPremadeStory('ocean')" class="w-full text-left p-3.5 rounded-2xl border-2 border-sky-100 hover:border-sky-400 bg-sky-50/50 hover:bg-sky-50 flex items-center gap-3 transition font-extrabold">
+                                <span class="text-3xl">🐬</span>
+                                <div>
+                                    <div class="text-sky-900" id="story-ocean-title">Chú cá heo tốt bụng</div>
+                                    <div class="text-xs text-sky-500 font-semibold" id="story-ocean-desc">Kho báu dưới lòng đại dương</div>
+                                </div>
+                            </button>
+                        </div>
+
+                        <div class="border-t-2 border-slate-100 my-4 pt-4">
+                            <h4 class="text-md font-bold text-slate-700 mb-2" id="custom-story-title">✨ Tự viết câu chuyện của riêng con!</h4>
+                            <textarea id="custom-story-prompt" class="w-full p-3 rounded-xl border-2 border-slate-200 text-sm font-medium focus:ring-2 focus:ring-purple-400 focus:outline-none mb-3" rows="2" placeholder="Ví dụ: Một chú khỉ dễ thương ăn chuối hồng khổng lồ trên đỉnh núi kẹo ngọt màu sắc..."></textarea>
+                            <button onclick="generateCustomStory()" id="btn-generate-story" class="kids-btn-primary w-full py-3 text-sm font-black text-white rounded-xl">
+                                Tạo Câu Chuyện Này! 🪄
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right panel: Story content & Interactive elements -->
+                <div class="md:col-span-2 flex flex-col gap-4">
+                    <div id="story-display-card" class="kids-card p-6 bg-white rounded-3xl border-slate-200 flex flex-col gap-6 relative min-h-[400px]">
+                        
+                        <!-- Initial Placeholder screen -->
+                        <div id="story-placeholder" class="flex flex-col items-center justify-center flex-grow py-12 text-center">
+                            <div class="text-7xl mb-4 bounce-slow">🪄</div>
+                            <h3 class="text-2xl font-black text-slate-700 mb-2" id="story-waiting-title">Xứ sở cổ tích đang đợi bé!</h3>
+                            <p class="text-slate-500 font-medium max-w-sm" id="story-waiting-desc">Bấm chọn một chủ đề câu chuyện bên trái hoặc tự viết ý tưởng để bắt đầu trò chơi nghe nói.</p>
+                        </div>
+
+                        <div id="story-active-content" class="hidden flex-col gap-4">
+                            <!-- Story Chapter Tracker -->
+                            <div class="flex items-center justify-between flex-wrap gap-2">
+                                <span id="story-chapter" class="bg-purple-100 text-purple-700 font-extrabold text-sm px-4 py-1.5 rounded-full border-2 border-purple-300">Chương 1 / 3</span>
+                                <span id="story-title" class="font-extrabold text-indigo-900 text-lg">Hành Trình Diệu Kỳ</span>
+                            </div>
+
+                            <!-- Generated Scene Illustration -->
+                            <div class="relative w-full aspect-[16/9] bg-slate-100 rounded-2xl overflow-hidden border-2 border-slate-200 flex items-center justify-center">
+                                <img id="story-illustration" src="" alt="Story Illustration" class="w-full h-full object-cover hidden" />
+                                <div id="story-illustration-loader" class="flex flex-col items-center justify-center gap-3">
+                                    <div class="animate-spin text-4xl text-purple-600"><i class="fa-solid fa-spinner"></i></div>
+                                    <p class="text-xs text-slate-500 font-bold" id="story-loading-art">AI đang vẽ bức tranh câu chuyện cho con...</p>
+                                </div>
+                                <div id="story-illustration-placeholder" class="text-8xl flex items-center justify-center select-none">🎨</div>
+                            </div>
+
+                            <!-- English text bubble -->
+                            <div class="p-4 bg-sky-50 rounded-2xl border-2 border-sky-100 flex flex-col gap-2 relative">
+                                <div class="absolute -top-3 left-6 px-3 py-0.5 bg-sky-400 text-white font-extrabold text-xs rounded-full shadow" id="story-readout-label">Luyện Nghe & Dịch</div>
+                                <p id="story-text-english" class="text-xl font-bold text-slate-800 leading-relaxed mt-2">Connecting space elements...</p>
+                                <p id="story-text-vietnamese" class="text-sm text-slate-500 font-medium italic">Tiếng Việt dịch...</p>
+                            </div>
+
+                            <!-- Control actions -->
+                            <div class="flex flex-wrap items-center gap-4 mt-2">
+                                <button onclick="speakStoryText()" id="btn-story-listen" class="kids-btn-accent flex items-center gap-3 px-6 py-3.5 text-white font-black text-lg rounded-2xl">
+                                    <i class="fa-solid fa-volume-high"></i> <span id="btn-story-listen-label">Bấm Để Nghe Nhé!</span>
+                                </button>
+                                
+                                <div class="flex-grow"></div>
+
+                                <button id="btn-story-next" onclick="nextChapter()" class="kids-btn-secondary flex items-center gap-2 px-6 py-3.5 text-white font-black text-lg rounded-2xl opacity-50 cursor-not-allowed" disabled>
+                                    <span id="next-chapter-label">Chương Kế Tiếp</span> <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                            </div>
+
+                            <!-- Speaking comprehension quest -->
+                            <div id="story-comprehension" class="mt-4 p-5 bg-pink-50 border-4 border-pink-200 rounded-3xl flex flex-col gap-3 relative">
+                                <div class="absolute -top-3.5 left-8 px-4 py-1 bg-pink-400 text-white font-extrabold text-sm rounded-full shadow-md" id="challenge-label">🎯 Thử Thách Đọc Tiếng Anh!</div>
+                                <p id="story-quest-instruction" class="text-slate-700 font-bold mt-2">Đọc to cụm từ này để vượt qua nhé:</p>
+                                <div class="bg-white p-3 rounded-xl border-2 border-pink-100 text-pink-700 font-extrabold text-lg text-center" id="story-target-phrase">
+                                    "rocket ship"
+                                </div>
+                                
+                                <div class="flex items-center gap-4 mt-1">
+                                    <button id="btn-story-record" onclick="toggleStoryRecording()" class="flex items-center gap-2 px-6 py-3 bg-red-500 hover:bg-red-600 text-white font-black rounded-xl border-b-4 border-red-700 active:translate-y-1 transition">
+                                        <i class="fa-solid fa-microphone text-lg" id="story-record-icon"></i> <span id="story-record-text">Nhấn Để Đọc</span>
+                                    </button>
+                                    <div id="story-record-status" class="text-sm text-slate-500 font-bold animate-pulse hidden">
+                                        <span id="listening-label">Đang nghe bé đọc... 🎧</span>
+                                    </div>
+                                    <div id="story-evaluation-text" class="text-md font-extrabold text-slate-700 hidden"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VOCAB PAGE -->
+        <section id="page-vocab" class="w-full max-w-5xl hidden flex-col gap-6 py-4">
+            <div class="flex items-center justify-between flex-wrap gap-4">
+                <button onclick="navigate('home')" class="kids-card bg-white px-5 py-2.5 rounded-2xl font-extrabold text-slate-600 flex items-center gap-2 border-2 border-slate-300">
+                    <i class="fa-solid fa-arrow-left"></i> <span id="back-home-btn2">Trang Chủ</span>
+                </button>
+                <h2 class="text-3xl font-black text-indigo-900 flex items-center gap-2" id="vocab-page-title">🦉 Đấu Trường Từ Vựng Kỳ Thú</h2>
+                <div class="w-24"></div> <!-- Spacer -->
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-4">
+                <!-- Theme selection panel -->
+                <div class="md:col-span-1 flex flex-col gap-4">
+                    <div class="kids-card p-5 bg-white rounded-3xl border-slate-200">
+                        <h3 class="text-lg font-bold text-slate-700 mb-3" id="categories-label">Nhóm Chủ Đề</h3>
+                        <div class="flex flex-col gap-2">
+                            <button onclick="loadVocabTheme('animals')" class="w-full text-left px-4 py-3 rounded-xl font-black border-2 border-emerald-100 hover:border-emerald-300 bg-emerald-50/30 text-emerald-800 transition" id="cat-animals">
+                                🦁 Động Vật Đáng Yêu
+                            </button>
+                            <button onclick="loadVocabTheme('fruits')" class="w-full text-left px-4 py-3 rounded-xl font-black border-2 border-orange-100 hover:border-orange-300 bg-orange-50/30 text-orange-800 transition" id="cat-fruits">
+                                🍓 Trái Cây Thơm Ngon
+                            </button>
+                            <button onclick="loadVocabTheme('vehicles')" class="w-full text-left px-4 py-3 rounded-xl font-black border-2 border-blue-100 hover:border-blue-300 bg-blue-50/30 text-blue-800 transition" id="cat-vehicles">
+                                🚒 Xe & Phương Tiện
+                            </button>
+                            <button onclick="loadVocabTheme('space')" class="w-full text-left px-4 py-3 rounded-xl font-black border-2 border-purple-100 hover:border-purple-300 bg-purple-50/30 text-purple-800 transition" id="cat-space">
+                                🛰️ Bí Ẩn Vũ Trụ
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Flashcard Arena -->
+                <div class="md:col-span-3 flex flex-col gap-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" id="vocab-cards-grid">
+                        <!-- Active Cards will load dynamically here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LIVE COMPANION PAGE -->
+        <section id="page-live" class="w-full max-w-4xl hidden flex-col gap-6 py-4">
+            <div class="flex items-center justify-between flex-wrap gap-4">
+                <button onclick="navigate('home')" class="kids-card bg-white px-5 py-2.5 rounded-2xl font-extrabold text-slate-600 flex items-center gap-2 border-2 border-slate-300">
+                    <i class="fa-solid fa-arrow-left"></i> <span id="back-home-btn3">Trang Chủ</span>
+                </button>
+                <h2 class="text-3xl font-black text-indigo-900 flex items-center gap-2" id="live-page-title">🎙️ Bạn Đồng Hành Trực Tiếp</h2>
+                <div class="w-24"></div> <!-- Spacer -->
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+                <!-- Companion Setup & Personality Controls -->
+                <div class="kids-card p-6 bg-white rounded-3xl border-slate-200 flex flex-col gap-4">
+                    <h3 class="text-xl font-bold text-slate-800" id="choose-buddy-label">Chọn Bạn Đồng Hành</h3>
+                    
+                    <div class="flex flex-col gap-3">
+                        <button onclick="selectBuddy('barnaby')" id="buddy-barnaby" class="p-4 rounded-2xl border-4 border-amber-400 bg-amber-50 text-left flex items-center gap-3 transition">
+                            <span class="text-4xl">🧸</span>
+                            <div>
+                                <h4 class="font-bold text-amber-900 text-lg">Barnaby the Bear</h4>
+                                <p class="text-xs text-amber-700" id="buddy-barnaby-desc">Nói chậm, hiền lành, động viên</p>
+                            </div>
+                        </button>
+                        <button onclick="selectBuddy('sparky')" id="buddy-sparky" class="p-4 rounded-2xl border-2 border-slate-100 hover:border-slate-300 text-left flex items-center gap-3 transition">
+                            <span class="text-4xl">🐉</span>
+                            <div>
+                                <h4 class="font-bold text-slate-700 text-lg">Sparky the Dragon</h4>
+                                <p class="text-xs text-slate-500" id="buddy-sparky-desc">Sôi nổi, tinh nghịch, thích chơi game</p>
+                            </div>
+                        </button>
+                    </div>
+
+                    <div class="border-t-2 border-slate-100 pt-4 mt-2">
+                        <label class="block text-sm font-bold text-slate-600 mb-2" id="select-tone-label">Tông Giọng Trợ Lý</label>
+                        <select id="live-voice-name" class="w-full p-3 border-2 border-slate-200 rounded-xl text-slate-700 font-bold focus:outline-none">
+                            <option value="Zephyr">Zephyr (Bright & Friendly)</option>
+                            <option value="Puck" selected>Puck (Cheerful & Playful)</option>
+                            <option value="Fenrir">Fenrir (Excitable & High-energy)</option>
+                            <option value="Sadachbia">Sadachbia (Lively & Conversational)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2 flex flex-col gap-6">
+                    <div class="kids-card p-8 bg-gradient-to-br from-indigo-900 to-slate-900 text-white rounded-3xl border-slate-800 flex flex-col items-center justify-center text-center relative overflow-hidden min-h-[420px]">
+                        
+                        <div class="absolute inset-0 bg-radial-gradient from-indigo-500/10 to-transparent pointer-events-none"></div>
+
+                        <!-- Active Bouncing Companion Avatar -->
+                        <div class="w-48 h-48 rounded-full bg-slate-800 border-8 border-indigo-400 shadow-2xl flex items-center justify-center text-8xl mb-6 relative pulse-soft select-none animate-none" id="buddy-live-avatar">
+                            🧸
+                            <div class="absolute -bottom-2 bg-indigo-500 px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest border border-white" id="buddy-status-tag">Barnaby</div>
+                        </div>
+
+                        <!-- Audio waveform display -->
+                        <div class="w-full max-w-xs flex items-center justify-center gap-1 h-12 mb-6" id="audio-waveform">
+                            <span class="w-1.5 h-3 bg-indigo-400 rounded-full transition-all duration-100"></span>
+                            <span class="w-1.5 h-6 bg-indigo-400 rounded-full transition-all duration-100"></span>
+                            <span class="w-1.5 h-9 bg-indigo-400 rounded-full transition-all duration-100"></span>
+                            <span class="w-1.5 h-4 bg-indigo-400 rounded-full transition-all duration-100"></span>
+                            <span class="w-1.5 h-10 bg-indigo-400 rounded-full transition-all duration-100"></span>
+                            <span class="w-1.5 h-6 bg-indigo-400 rounded-full transition-all duration-100"></span>
+                            <span class="w-1.5 h-3 bg-indigo-400 rounded-full transition-all duration-100"></span>
+                        </div>
+
+                        <div class="flex flex-col gap-2 mb-8 w-full">
+                            <h4 class="text-xl font-bold" id="live-chat-headline">Con đã sẵn sàng trò chuyện cùng bạn chưa?</h4>
+                            <p class="text-slate-300 text-sm max-w-md font-medium mx-auto" id="live-chat-sub">Hãy nhấn "Kết nối Bạn Nói Chuyện" để thỏa thích học nói tiếng Anh nhé.</p>
+                            <!-- Live Transcription Feed -->
+                            <div class="mt-4 p-4 bg-slate-800/80 rounded-2xl text-slate-200 border border-slate-700 min-h-[90px] text-sm text-left max-w-md w-full mx-auto hidden" id="live-subtitles-container">
+                                <span class="text-xs text-indigo-400 font-bold block mb-1" id="live-transcript-label">Bản dịch trực tiếp:</span>
+                                <p id="live-subtitles-text" class="italic text-base text-white font-semibold">Đang đợi tiếng nói của con...</p>
+                                <p id="live-subtitles-status" class="text-xs text-slate-400 mt-2 font-bold flex items-center gap-1.5">
+                                    <span class="inline-block w-2.5 h-2.5 rounded-full bg-red-500 animate-ping"></span>
+                                    <span>Đang lắng nghe bé...</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap items-center justify-center gap-4">
+                            <button id="btn-connect-live" onclick="toggleLiveSession()" class="kids-btn-secondary px-8 py-4 text-white font-black text-xl rounded-2xl flex items-center gap-3">
+                                <i class="fa-solid fa-plug"></i> <span id="connect-live-text">Kết Nối Bạn Nói Chuyện</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Profile Selection/Creation Modal -->
+    <div id="modal-profiles" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+        <div class="kids-card bg-white p-6 rounded-3xl max-w-md w-full border-slate-300 relative">
+            <button onclick="closeProfileSelector()" class="absolute right-4 top-4 w-10 h-10 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center text-slate-500 font-bold border-2 border-slate-300 transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <h3 class="text-2xl font-black text-indigo-900 mb-2" id="modal-profile-title">👦 Chọn Hồ Sơ Của Bé</h3>
+            <p class="text-xs text-slate-500 font-bold mb-4" id="modal-profile-desc">Mỗi bé sẽ có số sao và lịch sử học tập riêng.</p>
+
+            <div id="profiles-list-container" class="flex flex-col gap-3 max-h-64 overflow-y-auto mb-4 p-1">
+                <!-- Dynamically loaded child profiles -->
+            </div>
+
+            <div class="border-t-2 border-slate-100 pt-4">
+                <h4 class="text-sm font-bold text-slate-600 mb-2" id="add-new-profile-label">✨ Thêm Bé Mới</h4>
+                <div class="flex gap-2">
+                    <input type="text" id="new-profile-name" class="flex-grow p-3 border-2 border-slate-200 rounded-xl font-bold focus:outline-none focus:ring-2 focus:ring-purple-400" placeholder="Tên của bé (Ví dụ: Minh, Andy)" />
+                    <select id="new-profile-emoji" class="p-3 border-2 border-slate-200 rounded-xl text-lg">
+                        <option value="👦">👦</option>
+                        <option value="👧">👧</option>
+                        <option value="🦄">🦄</option>
+                        <option value="🦁">🦁</option>
+                        <option value="🦖">🦖</option>
+                    </select>
+                    <button onclick="addNewProfile()" class="kids-btn-secondary px-5 py-3 text-white font-extrabold rounded-xl">Thêm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Parent Progress Tracking Corner Modal -->
+    <div id="modal-parent-dashboard" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+        <div class="kids-card bg-white p-6 rounded-3xl max-w-3xl w-full border-slate-300 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeParentDashboard()" class="absolute right-4 top-4 w-10 h-10 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center text-slate-500 font-bold border-2 border-slate-300 transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <h3 class="text-2xl font-black text-indigo-900 mb-2">📊 Bảng Tiến Độ Của Các Bé</h3>
+            <p class="text-xs text-slate-500 font-bold mb-6">Thống kê học tập chi tiết của toàn bộ thành viên nhí trong nhà.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="parent-dashboard-grid">
+                <!-- Dynamically generated child progress graphs -->
+            </div>
+
+            <div class="mt-6 border-t-2 border-slate-100 pt-4 flex justify-end">
+                <button onclick="closeParentDashboard()" class="kids-btn-primary px-6 py-3 text-white font-bold rounded-xl">Hoàn Tất</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Math Verification Question to guard Parent's Corner -->
+    <div id="modal-verification" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+        <div class="kids-card bg-white p-6 rounded-3xl max-w-sm w-full border-slate-300 text-center">
+            <h3 class="text-xl font-black text-indigo-900 mb-2">🔒 Khu vực của phụ huynh</h3>
+            <p class="text-sm text-slate-500 font-medium mb-4">Vui lòng giải phép toán đơn giản sau để xác minh bạn là phụ huynh:</p>
+            <div class="text-3xl font-black text-pink-600 mb-4 bg-pink-50 p-4 rounded-2xl" id="verification-math-question">5 + 7 = ?</div>
+            <input type="number" id="verification-answer" class="w-full p-3.5 border-2 border-slate-200 rounded-xl font-bold text-center text-xl focus:outline-none focus:ring-2 focus:ring-purple-400 mb-4" placeholder="Nhập đáp án..." />
+            <div class="flex gap-2">
+                <button onclick="cancelParentVerification()" class="flex-1 bg-slate-100 hover:bg-slate-200 py-3 rounded-xl font-bold text-slate-600 border border-slate-300">Hủy bỏ</button>
+                <button onclick="submitParentVerification()" class="flex-1 kids-btn-primary py-3 text-white font-bold rounded-xl">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- API Credentials and settings -->
+    <div id="modal-config" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+        <div class="kids-card bg-white p-6 rounded-3xl max-w-md w-full border-slate-300 relative">
+            <button onclick="closeConfigModal()" class="absolute right-4 top-4 w-10 h-10 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center text-slate-500 font-bold border-2 border-slate-300 transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <h3 class="text-2xl font-black text-indigo-900 mb-2">⚙️ Thiết Lập Gemini API Key</h3>
+            <p class="text-xs text-slate-500 font-bold mb-6">Nhập chìa khóa để chạy tính năng trò chuyện AI Live.</p>
+
+            <div class="flex flex-col gap-4">
+                <div>
+                    <label class="block text-sm font-extrabold text-slate-600 mb-1.5">Gemini API Key</label>
+                    <input type="password" id="gemini-api-key" class="w-full p-3.5 border-2 border-slate-200 rounded-xl font-mono text-sm focus:outline-none focus:ring-2 focus:ring-purple-400" placeholder="AI-generated key..." />
+                    <p class="text-[10px] text-slate-400 mt-1 font-semibold leading-relaxed">Để trống nếu bạn sử dụng chế độ chạy thử nghiệm mô phỏng chất lượng cao (không cần key).</p>
+                </div>
+
+                <button onclick="saveConfig()" class="kids-btn-primary w-full py-4 text-white font-extrabold text-lg rounded-2xl mt-4">
+                    Lưu cấu hình! 🚀
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Generic message boxes replacing native alerts -->
+    <div id="notification-box" class="fixed bottom-6 right-6 p-4 rounded-2xl text-white font-extrabold shadow-2xl transition transform translate-y-24 opacity-0 z-50 flex items-center gap-3">
+        <span id="notif-emoji" class="text-2xl">🎉</span>
+        <span id="notif-message">Great job speaking!</span>
+    </div>
+
+    <script type="module">
+        // Translation Map for complete Bilingual Support
+        const uiLocales = {
+            vi: {
+                subtitle: "Cuộc Phiêu Lưu Tiếng Anh AI",
+                parentBtn: "Bố Mẹ",
+                homeTitle: "Chào người bạn nhỏ! 👋",
+                homeSub: "Con muốn chơi, nghe và nói tiếng Anh cùng các bạn AI dễ thương hôm nay không? Chọn một chuyến phiêu lưu nhé!",
+                cardStoriesTitle: "Truyện Thần Kỳ",
+                cardStoriesDesc: "Nghe câu chuyện diệu kỳ vẽ bằng AI và thi nói tiếng Anh vượt qua chương học!",
+                btnStoriesStart: "Đọc Truyện Ngay! 📖",
+                cardVocabTitle: "Đấu Trường Từ Vựng",
+                cardVocabDesc: "Học từ vựng mới siêu đáng yêu, xem tranh hoạt hình, và phát âm đúng chuẩn để đạt 5 sao!",
+                btnVocabStart: "Bắt Đầu Chơi! 🌟",
+                cardLiveTitle: "Bạn Trò Chuyện",
+                cardLiveDesc: "Thỏa sức nói chuyện tiếng Anh! Trực tiếp giao lưu cực kỳ tự nhiên với chú Gấu Barnaby hoặc Rồng Sparky.",
+                btnLiveStart: "Nói Chuyện Live! 🎙️",
+                tipTitle: "Góc Cha Mẹ:",
+                tipText: "Bố mẹ hãy nhấn vào nút ⚙️ phía trên để nhập khóa Gemini API nếu muốn sử dụng tính năng 'Nói Chuyện Live' của bé nhé! (Nếu chưa có, trò chơi sẽ chạy ở chế độ mô phỏng cực kỳ sinh động).",
+                backHome: "Trang Chủ",
+                storiesPageTitle: "🦖 Truyện Cổ Tích Phép Thuật",
+                chooseTopicLabel: "Chọn Chủ Đề Truyện",
+                storySpaceTitle: "Leo du hành vũ trụ",
+                storySpaceDesc: "Tìm hiểu từ vựng không gian",
+                storyForestTitle: "Chú sóc nhảy múa",
+                storyForestDesc: "Những người bạn rừng xanh",
+                storyOceanTitle: "Chú cá heo tốt bụng",
+                storyOceanDesc: "Kho báu đại dương sâu",
+                customStoryTitle: "✨ Tự viết câu chuyện của riêng con!",
+                btnStoryListen: "Bấm Để Nghe Nhé!",
+                nextChapter: "Chương Kế Tiếp",
+                challengeLabel: "🎯 Thử Thách Đọc Tiếng Anh!",
+                listeningLabel: "Đang nghe bé đọc... 🎧",
+                categoriesLabel: "Nhóm Chủ Đề",
+                catAnimals: "🦁 Động Vật Đáng Yêu",
+                catFruits: "🍓 Trái Cây Thơm Ngon",
+                catVehicles: "🚒 Xe & Phương Tiện",
+                catSpace: "🛰️ Bí Ẩn Vũ Trụ",
+                chooseBuddyLabel: "Chọn Bạn Đồng Hành",
+                buddyBarnabyDesc: "Nói chậm, hiền lành, động viên",
+                buddySparkyDesc: "Sôi nổi, tinh nghịch, thích chơi",
+                selectToneLabel: "Tông Giọng Trợ Lý",
+                liveChatHeadline: "Con đã sẵn sàng trò chuyện cùng bạn chưa?",
+                liveChatSub: "Hãy nhấn 'Kết nối Bạn Nói Chuyện' để thỏa thích học nói tiếng Anh nhé.",
+                liveTranscriptLabel: "Bản dịch trực tiếp:",
+                connectLive: "Kết Nối Bạn Nói Chuyện",
+                disconnectLive: "Ngắt Kết Nối Trợ Lý",
+                customStoryPlaceholder: "Ví dụ: Một chú khỉ dễ thương ăn chuối hồng khổng lồ trên đỉnh núi kẹo ngọt màu sắc..."
+            },
+            en: {
+                subtitle: "AI English Adventure",
+                parentBtn: "Parents",
+                homeTitle: "Hi there, English Explorer! 👋",
+                homeSub: "Ready to play, listen, and speak English with your friendly AI companions? Pick an adventure!",
+                cardStoriesTitle: "Magic Stories",
+                cardStoriesDesc: "Listen to magical, custom-illustrated tales and speak to complete chapters!",
+                btnStoriesStart: "Let's Read! 📖",
+                cardVocabTitle: "Word Quest",
+                cardVocabDesc: "Learn amazing new words, see cute pictures, and practice speaking like a pro!",
+                btnVocabStart: "Start Quest! 🌟",
+                cardLiveTitle: "Live Buddy",
+                cardLiveDesc: "Talk in real-time! Speak, laugh, and learn naturally with your friendly helper.",
+                btnLiveStart: "Talk Live! 🎙️",
+                tipTitle: "Kid's Tip:",
+                tipText: "Click on your Settings gear ⚙️ to add your customized Gemini API Key if you want to use the Live Buddy feature!",
+                backHome: "Home",
+                storiesPageTitle: "🦖 Magic Adventure Stories",
+                chooseTopicLabel: "Choose a Story Topic",
+                storySpaceTitle: "Leo's Rocket Adventure",
+                storySpaceDesc: "Learn space and star words",
+                storyForestTitle: "The Dancing Squirrel",
+                storyForestDesc: "Animal friends & forest secrets",
+                storyOceanTitle: "The Helpful Dolphin",
+                storyOceanDesc: "Treasures under the sea",
+                customStoryTitle: "✨ Make your own Magic Story!",
+                btnStoryListen: "Listen & Learn!",
+                nextChapter: "Next Chapter",
+                challengeLabel: "🎯 Kids Speaking Challenge!",
+                listeningLabel: "Listening to you... 🎧",
+                categoriesLabel: "Quest Categories",
+                catAnimals: "🦁 Cute Animals",
+                catFruits: "🍓 Delicious Fruits",
+                catVehicles: "🚒 Things That Go",
+                catSpace: "🛰️ Cosmic Wonders",
+                chooseBuddyLabel: "Select Buddy Profile",
+                buddyBarnabyDesc: "Warm, slow talking, encouraging",
+                buddySparkyDesc: "Excitable, funny, plays games",
+                selectToneLabel: "Prebuilt Voice Tone",
+                liveChatHeadline: "Ready to start our adventure?",
+                liveChatSub: "Click 'Connect Voice Buddy' to begin talking directly in English.",
+                liveTranscriptLabel: "Live Transcription:",
+                connectLive: "Connect Voice Buddy",
+                disconnectLive: "Disconnect Voice Buddy",
+                customStoryPlaceholder: "E.g., A funny monkey eats delicious pink bananas on a giant candy mountain."
+            }
+        };
+
+        // System state containing localization and profiles
+        const state = {
+            currentLang: 'vi',
+            profiles: [
+                { id: '1', name: 'Bé Na', emoji: '👧', stars: 12, completedStories: ['Leo du hành vũ trụ'], masteredWords: ['Elephant', 'Apple'] },
+                { id: '2', name: 'Bé Bin', emoji: '👦', stars: 5, completedStories: [], masteredWords: [] }
+            ],
+            activeProfileId: '1',
+            apiKey: '',
+            
+            // Story active state
+            currentStoryType: '',
+            storyChapters: [],
+            currentChapterIndex: 0,
+            storyIsRecording: false,
+            
+            // Vocab active state
+            currentVocabTheme: 'animals',
+            
+            // Live companion state (REST based)
+            selectedBuddy: 'barnaby',
+            isLiveConnected: false,
+            liveSpeechRec: null,
+            liveAudioPlayer: null,
+            animationInterval: null,
+
+            // Verification Guard target
+            verificationTarget: null,
+            mathAnswer: 0
+        };
+
+        window.setLanguage = function(lang) {
+            state.currentLang = lang;
+            
+            // Update Active Lang Buttons
+            const btnVi = document.getElementById('lang-vi');
+            if (btnVi) {
+                btnVi.className = lang === 'vi' ? "px-3 py-1 text-xs font-bold rounded-full bg-indigo-600 text-white transition animate-pulse" : "px-3 py-1 text-xs font-bold rounded-full text-slate-600 hover:bg-slate-100 transition";
+            }
+            const btnEn = document.getElementById('lang-en');
+            if (btnEn) {
+                btnEn.className = lang === 'en' ? "px-3 py-1 text-xs font-bold rounded-full bg-indigo-600 text-white transition animate-pulse" : "px-3 py-1 text-xs font-bold rounded-full text-slate-600 hover:bg-slate-100 transition";
+            }
+
+            // Localize text components safely
+            const loc = uiLocales[lang];
+            const safeSetText = (id, txt) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = txt;
+            };
+            const safeSetHTML = (id, html) => {
+                const el = document.getElementById(id);
+                if (el) el.innerHTML = html;
+            };
+            const safeSetPlaceholder = (id, placeholder) => {
+                const el = document.getElementById(id);
+                if (el) el.placeholder = placeholder;
+            };
+
+            safeSetText('header-subtitle', loc.subtitle);
+            safeSetText('btn-parent-corner', loc.parentBtn);
+            safeSetText('home-title', loc.homeTitle);
+            safeSetText('home-sub', loc.homeSub);
+            safeSetText('card-stories-title', loc.cardStoriesTitle);
+            safeSetText('card-stories-desc', loc.cardStoriesDesc);
+            safeSetText('btn-stories-start', loc.btnStoriesStart);
+            safeSetText('card-vocab-title', loc.cardVocabTitle);
+            safeSetText('card-vocab-desc', loc.cardVocabDesc);
+            safeSetText('btn-vocab-start', loc.btnVocabStart);
+            safeSetText('card-live-title', loc.cardLiveTitle);
+            safeSetText('card-live-desc', loc.cardLiveDesc);
+            safeSetText('btn-live-start', loc.btnLiveStart);
+            safeSetText('tip-title', loc.tipTitle);
+            safeSetText('tip-text', loc.tipText);
+
+            // Page Navigation headers
+            safeSetText('back-home-btn', loc.backHome);
+            safeSetText('back-home-btn2', loc.backHome);
+            safeSetText('back-home-btn3', loc.backHome);
+            safeSetText('stories-page-title', loc.storiesPageTitle);
+            safeSetText('choose-topic-label', loc.chooseTopicLabel);
+            safeSetText('story-space-title', loc.storySpaceTitle);
+            safeSetText('story-space-desc', loc.storySpaceDesc);
+            safeSetText('story-forest-title', loc.storyForestTitle);
+            safeSetText('story-forest-desc', loc.storyForestDesc);
+            safeSetText('story-ocean-title', loc.storyStoryTitle);
+            safeSetText('story-ocean-desc', loc.storyOceanDesc);
+            safeSetText('custom-story-title', loc.customStoryTitle);
+            safeSetPlaceholder('custom-story-prompt', loc.customStoryPlaceholder);
+            safeSetText('btn-story-listen-label', loc.btnStoryListen);
+            safeSetText('next-chapter-label', loc.nextChapter);
+            safeSetText('challenge-label', loc.challengeLabel);
+            safeSetText('listening-label', loc.listeningLabel);
+            
+            safeSetText('vocab-page-title', loc.vocabPageTitle);
+            safeSetText('categories-label', loc.categoriesLabel);
+            safeSetHTML('cat-animals', loc.catAnimals);
+            safeSetHTML('cat-fruits', loc.catFruits);
+            safeSetHTML('cat-vehicles', loc.catVehicles);
+            safeSetHTML('cat-space', loc.catSpace);
+
+            safeSetText('live-page-title', loc.livePageTitle);
+            safeSetText('choose-buddy-label', loc.chooseBuddyLabel);
+            safeSetText('buddy-barnaby-desc', loc.buddyBarnabyDesc);
+            safeSetText('buddy-sparky-desc', loc.buddySparkyDesc);
+            safeSetText('select-tone-label', loc.selectToneLabel);
+            safeSetText('live-chat-headline', loc.liveChatHeadline);
+            safeSetText('live-chat-sub', loc.liveChatSub);
+            safeSetText('live-transcript-label', loc.liveTranscriptLabel);
+            
+            const liveBtn = document.getElementById('connect-live-text');
+            if (liveBtn) {
+                liveBtn.textContent = state.isLiveConnected ? loc.disconnectLive : loc.connectLive;
+            }
+
+            // Reload vocabulary names with current language
+            loadVocabTheme(state.currentVocabTheme);
+            playFeedbackSound('pop');
+        };
+
+        window.openProfileSelector = function() {
+            renderProfilesList();
+            document.getElementById('modal-profiles').classList.remove('hidden');
+            document.getElementById('modal-profiles').classList.add('flex');
+            playFeedbackSound('bubble');
+        };
+
+        window.closeProfileSelector = function() {
+            document.getElementById('modal-profiles').classList.add('hidden');
+            document.getElementById('modal-profiles').classList.remove('flex');
+            playFeedbackSound('pop');
+        };
+
+        function renderProfilesList() {
+            const container = document.getElementById('profiles-list-container');
+            if (!container) return;
+            container.innerHTML = '';
+
+            state.profiles.forEach(profile => {
+                const isActive = profile.id === state.activeProfileId;
+                const card = document.createElement('div');
+                card.className = `p-3.5 rounded-2xl border-2 flex items-center justify-between cursor-pointer transition active:scale-98 ${isActive ? 'border-pink-500 bg-pink-50' : 'border-slate-200 hover:bg-slate-50'}`;
+                card.innerHTML = `
+                    <div class="flex items-center gap-3 flex-grow" onclick="selectProfile('${profile.id}')">
+                        <span class="text-3xl">${profile.emoji}</span>
+                        <div>
+                            <div class="font-extrabold text-slate-800">${profile.name}</div>
+                            <div class="text-xs text-slate-500 font-bold">⭐ ${profile.stars} Stars • ${profile.masteredWords.length} Words</div>
+                        </div>
+                    </div>
+                    ${state.profiles.length > 1 ? `
+                    <button onclick="deleteProfile('${profile.id}')" class="text-slate-300 hover:text-red-500 p-2 transition">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>` : ''}
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        window.selectProfile = function(profileId) {
+            state.activeProfileId = profileId;
+            const profile = state.profiles.find(p => p.id === profileId);
+            if (!profile) return;
+            
+            document.getElementById('active-profile-emoji').textContent = profile.emoji;
+            document.getElementById('active-profile-name').textContent = profile.name;
+            state.stars = profile.stars;
+            updateStarDisplay();
+
+            closeProfileSelector();
+            showNotification('😊 Bé đã sẵn sàng!', `Chào mừng ${profile.name} trở lại cuộc phiêu lưu!`);
+            saveStateToStorage();
+        };
+
+        window.addNewProfile = function() {
+            const nameInput = document.getElementById('new-profile-name');
+            const emojiInput = document.getElementById('new-profile-emoji');
+            const name = nameInput.value.trim();
+
+            if (!name) {
+                showNotification('💭 Lỗi', 'Vui lòng điền tên của bé!', false);
+                return;
+            }
+
+            const newProfile = {
+                id: Date.now().toString(),
+                name: name,
+                emoji: emojiInput.value,
+                stars: 0,
+                completedStories: [],
+                masteredWords: []
+            };
+
+            state.profiles.push(newProfile);
+            nameInput.value = '';
+            
+            renderProfilesList();
+            showNotification('✨ Tuyệt vời!', `Đã tạo hồ sơ cho bé ${name}!`);
+            saveStateToStorage();
+        };
+
+        window.deleteProfile = function(profileId) {
+            if (state.profiles.length <= 1) return;
+            state.profiles = state.profiles.filter(p => p.id !== profileId);
+            
+            if (state.activeProfileId === profileId) {
+                selectProfile(state.profiles[0].id);
+            } else {
+                renderProfilesList();
+            }
+            saveStateToStorage();
+        };
+
+        window.checkParentAccess = function(targetModal) {
+            state.verificationTarget = targetModal;
+            const num1 = Math.floor(Math.random() * 8) + 2;
+            const num2 = Math.floor(Math.random() * 8) + 2;
+            state.mathAnswer = num1 + num2;
+
+            document.getElementById('verification-math-question').textContent = `${num1} + ${num2} = ?`;
+            document.getElementById('verification-answer').value = '';
+            
+            document.getElementById('modal-verification').classList.remove('hidden');
+            document.getElementById('modal-verification').classList.add('flex');
+            playFeedbackSound('bubble');
+        };
+
+        window.cancelParentVerification = function() {
+            document.getElementById('modal-verification').classList.add('hidden');
+            document.getElementById('modal-verification').classList.remove('flex');
+            playFeedbackSound('pop');
+        };
+
+        window.submitParentVerification = function() {
+            const answer = parseInt(document.getElementById('verification-answer').value, 10);
+            if (answer === state.mathAnswer) {
+                document.getElementById('modal-verification').classList.add('hidden');
+                document.getElementById('modal-verification').classList.remove('flex');
+                
+                if (state.verificationTarget === 'parent') {
+                    openParentDashboard();
+                } else if (state.verificationTarget === 'config') {
+                    openConfigModal();
+                }
+            } else {
+                showNotification('❌ Sai rồi!', 'Vui lòng giải đúng phép toán để xác minh cha mẹ.', false);
+                playFeedbackSound('fail');
+            }
+        };
+
+        function openParentDashboard() {
+            const dashboardGrid = document.getElementById('parent-dashboard-grid');
+            if (!dashboardGrid) return;
+            dashboardGrid.innerHTML = '';
+
+            state.profiles.forEach(profile => {
+                const storiesList = profile.completedStories.length > 0 
+                    ? profile.completedStories.map(s => `<li>• ${s}</li>`).join('') 
+                    : '<li class="text-slate-400 italic">Chưa hoàn thành</li>';
+
+                const wordsList = profile.masteredWords.length > 0 
+                    ? profile.masteredWords.map(w => `<span class="bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-full border border-indigo-200 text-xs font-bold">${w}</span>`).join(' ') 
+                    : '<span class="text-slate-400 italic text-xs">Chưa có từ vựng</span>';
+
+                const card = document.createElement('div');
+                card.className = "kids-card p-5 bg-slate-50 rounded-3xl border-slate-200";
+                card.innerHTML = `
+                    <div class="flex items-center gap-3 border-b-2 border-slate-100 pb-3 mb-4">
+                        <span class="text-4xl">${profile.emoji}</span>
+                        <div>
+                            <h4 class="text-xl font-black text-slate-800">${profile.name}</h4>
+                            <p class="text-xs text-slate-500 font-bold">⭐ Tổng điểm sao: ${profile.stars}</p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-4">
+                        <div>
+                            <h5 class="font-bold text-sm text-slate-600 mb-1.5"><i class="fa-solid fa-book-open text-purple-500"></i> Truyện đã hoàn thành:</h5>
+                            <ul class="text-xs font-semibold text-slate-600 space-y-1">
+                                ${storiesList}
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h5 class="font-bold text-sm text-slate-600 mb-2"><i class="fa-solid fa-graduation-cap text-emerald-500"></i> Từ vựng đã nắm vững:</h5>
+                            <div class="flex flex-wrap gap-2">
+                                ${wordsList}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                dashboardGrid.appendChild(card);
+            });
+
+            document.getElementById('modal-parent-dashboard').classList.remove('hidden');
+            document.getElementById('modal-parent-dashboard').classList.add('flex');
+            playFeedbackSound('bubble');
+        }
+
+        window.closeParentDashboard = function() {
+            document.getElementById('modal-parent-dashboard').classList.add('hidden');
+            document.getElementById('modal-parent-dashboard').classList.remove('flex');
+            playFeedbackSound('pop');
+        };
+
+        function saveStateToStorage() {
+            localStorage.setItem('wv_profiles', JSON.stringify(state.profiles));
+            localStorage.setItem('wv_active_profile_id', state.activeProfileId);
+        }
+
+        // UI Initial Setup
+        window.addEventListener('load', () => {
+            const savedKey = localStorage.getItem('gemini_api_key');
+            if (savedKey) {
+                state.apiKey = savedKey;
+                document.getElementById('gemini-api-key').value = savedKey;
+            }
+
+            const savedProfiles = localStorage.getItem('wv_profiles');
+            const savedActiveId = localStorage.getItem('wv_active_profile_id');
+            if (savedProfiles && savedActiveId) {
+                state.profiles = JSON.parse(savedProfiles);
+                state.activeProfileId = savedActiveId;
+            }
+
+            const activeProfile = state.profiles.find(p => p.id === state.activeProfileId) || state.profiles[0];
+            document.getElementById('active-profile-emoji').textContent = activeProfile.emoji;
+            document.getElementById('active-profile-name').textContent = activeProfile.name;
+            state.stars = activeProfile.stars;
+            updateStarDisplay();
+
+            loadVocabTheme('animals');
+            setLanguage('vi');
+        });
+
+        window.openConfigModal = function() {
+            document.getElementById('modal-config').classList.remove('hidden');
+            document.getElementById('modal-config').classList.add('flex');
+            playFeedbackSound('bubble');
+        };
+
+        window.closeConfigModal = function() {
+            document.getElementById('modal-config').classList.add('hidden');
+            document.getElementById('modal-config').classList.remove('flex');
+            playFeedbackSound('pop');
+        };
+
+        window.saveConfig = function() {
+            const key = document.getElementById('gemini-api-key').value.trim();
+            state.apiKey = key;
+            localStorage.setItem('gemini_api_key', key);
+            showNotification('⚙️ Settings Saved!', `Successfully integrated settings!`);
+            closeConfigModal();
+        };
+
+        const synth = new Tone.Synth({
+            oscillator: { type: "sine" },
+            envelope: { attack: 0.05, decay: 0.1, sustain: 0.3, release: 1 }
+        }).toDestination();
+
+        window.playFeedbackSound = function(type) {
+            try {
+                if (Tone.context.state !== 'running') {
+                    Tone.start();
+                }
+                
+                if (type === 'bubble') {
+                    synth.triggerAttackRelease("C5", "8n", "+0.01", 0.5);
+                    synth.triggerAttackRelease("E5", "8n", "+0.1", 0.5);
+                } else if (type === 'success') {
+                    const now = Tone.now();
+                    synth.triggerAttackRelease("C5", "16n", now);
+                    synth.triggerAttackRelease("E5", "16n", now + 0.1);
+                    synth.triggerAttackRelease("G5", "16n", now + 0.2);
+                    synth.triggerAttackRelease("C6", "4n", now + 0.3);
+                } else if (type === 'pop') {
+                    synth.triggerAttackRelease("F4", "16n", undefined, 0.4);
+                } else if (type === 'fail') {
+                    synth.triggerAttackRelease("E4", "8n", undefined, 0.5);
+                    synth.triggerAttackRelease("C4", "4n", "+0.15", 0.5);
+                }
+            } catch (err) {
+                console.warn('Audio feedback failed to initialize:', err);
+            }
+        };
+
+        window.showNotification = function(emoji, message, success = true) {
+            const box = document.getElementById('notification-box');
+            const em = document.getElementById('notif-emoji');
+            const msg = document.getElementById('notif-message');
+            if (!box || !em || !msg) return;
+            
+            em.textContent = emoji;
+            msg.textContent = message;
+            
+            box.style.backgroundColor = success ? '#22C55E' : '#EF4444';
+            box.classList.remove('translate-y-24', 'opacity-0');
+            box.classList.add('translate-y-0', 'opacity-100');
+            
+            setTimeout(() => {
+                box.classList.add('translate-y-24', 'opacity-0');
+                box.classList.remove('translate-y-0', 'opacity-100');
+            }, 3000);
+        };
+
+        function addStars(num) {
+            state.stars += num;
+            updateStarDisplay();
+            
+            const profile = state.profiles.find(p => p.id === state.activeProfileId);
+            if (profile) {
+                profile.stars = state.stars;
+            }
+            saveStateToStorage();
+
+            confetti({
+                particleCount: 50,
+                spread: 60,
+                origin: { y: 0.8 }
+            });
+            playFeedbackSound('success');
+        }
+
+        function updateStarDisplay() {
+            document.getElementById('star-count').textContent = state.stars;
+        }
+
+        const premadeStories = {
+            space: [
+                {
+                    chapter: 1,
+                    text: "Leo puts on a big silver space helmet. He steps inside a shiny red rocket ship. Zoom! The rocket flies high into the yellow stars.",
+                    vietnamese: "Leo đội chiếc mũ bảo hiểm vũ trụ lớn màu bạc. Cậu ấy bước vào chiếc tàu vũ trụ màu đỏ sáng lấp lánh. Vút! Tàu vũ trụ bay cao vào những ngôi sao màu vàng.",
+                    instruction: "Say: 'Rocket ship'",
+                    targetPhrase: "rocket ship",
+                    prompt: "A cute little space explorer boy sitting inside a retro red rocket ship, Disney Pixar vector style, space galaxy background, friendly cartoon style"
+                },
+                {
+                    chapter: 2,
+                    text: "The rocket lands on a happy green planet. Leo meets a tiny blue alien named Pip. Pip has friendly big eyes and cute purple spots.",
+                    vietnamese: "Tàu vũ trụ hạ cánh xuống một hành tinh xanh lục tươi vui. Leo gặp một người ngoài hành tinh nhỏ xíu màu xanh dương tên là Pip. Pip có đôi mắt to thân thiện và những đốm màu tím dễ thương.",
+                    instruction: "Say: 'Friendly alien'",
+                    targetPhrase: "friendly alien",
+                    prompt: "A cute tiny happy blue alien creature with big eyes and spots waving, Disney Pixar 3D style, colorful playful space backdrop"
+                },
+                {
+                    chapter: 3,
+                    text: "Leo and Pip eat sweet pink candy stars together. They sing high-pitched songs and dance in circles around the rocket.",
+                    vietnamese: "Leo và Pip cùng nhau ăn những ngôi sao kẹo hồng ngọt ngào. Họ hát những bài hát giọng cao vút và nhảy múa vòng quanh tàu vũ trụ.",
+                    instruction: "Say: 'Dance and sing'",
+                    targetPhrase: "dance and sing",
+                    prompt: "A boy and a friendly alien holding hands, dancing and laughing near a cartoon rocket ship under candy stars, Disney Pixar vector illustration"
+                }
+            ],
+            forest: [
+                {
+                    chapter: 1,
+                    text: "Sammy the dancing squirrel lives in an old oak tree. Every morning, he leaps down to find tasty golden acorns.",
+                    vietnamese: "Sammy, chú sóc nhảy múa, sống trong một cây sồi già. Mỗi buổi sáng, chú nhảy xuống đất để tìm những quả sồi vàng thơm ngon.",
+                    instruction: "Say: 'Dancing squirrel'",
+                    targetPhrase: "dancing squirrel",
+                    prompt: "A friendly happy cartoon squirrel with a big fluffy tail dancing on grass, colorful forest landscape, sunbeams, vibrant vector style"
+                },
+                {
+                    chapter: 2,
+                    text: "A magical butterfly whispers a secret: 'The giant yellow sunflowers can sing!' Sammy smiles and claps his hands with joy.",
+                    vietnamese: "Một chú bướm kỳ diệu thì thầm một bí mật: 'Những bông hoa hướng dương khổng lồ màu vàng biết hát!' Sammy mỉm cười và vỗ tay vui sướng.",
+                    instruction: "Say: 'Magic butterfly'",
+                    targetPhrase: "magic butterfly",
+                    prompt: "A glowing blue magic butterfly flying next to a cute cartoon squirrel, giant yellow sunflowers background, whimsical cartoon illustration"
+                },
+                {
+                    chapter: 3,
+                    text: "Sammy and the sunflowers sing a funny song. The whole forest sways to the music, making the colorful flowers bloom.",
+                    vietnamese: "Sammy và những bông hoa hướng dương cùng nhau hát một bài hát vui nhộn. Cả khu rừng đung đưa theo điệu nhạc, làm những bông hoa sặc sỡ nở rộ.",
+                    instruction: "Say: 'Sing a song'",
+                    targetPhrase: "sing a song",
+                    prompt: "Smiling sunflowers with cartoon faces singing together with a squirrel under a bright blue sky, cute pixar sticker style"
+                }
+            ],
+            ocean: [
+                {
+                    chapter: 1,
+                    text: "Marina the dolphin swims in the warm turquoise water. She spots a colorful coral reef covered in glowing jellyfish.",
+                    vietnamese: "Cá heo Marina bơi lội trong làn nước màu xanh ngọc ấm áp. Cô ấy phát hiện ra một rạn san hô rực rỡ đầy những chú sứa phát sáng.",
+                    instruction: "Say: 'Warm water'",
+                    targetPhrase: "warm water",
+                    prompt: "A playful smiling blue cartoon dolphin jumping out of tropical turquoise ocean water, coral reef underwater visible, cute design"
+                },
+                {
+                    chapter: 2,
+                    text: "Under a deep reef, she finds a golden treasure box! The box is open, showing sparkling pearls and shiny silver coins.",
+                    vietnamese: "Dưới rạn san hô sâu thẳm, cô ấy tìm thấy một chiếc rương kho báu bằng vàng! Chiếc rương đang mở, lấp lánh những viên ngọc trai và tiền xu bạc sáng bóng.",
+                    instruction: "Say: 'Treasure box'",
+                    targetPhrase: "treasure box",
+                    prompt: "An open gold treasure chest with shiny pearls and silver coins underwater, colorful sea weed and fishes, child illustration vector"
+                },
+                {
+                    chapter: 3,
+                    text: "A friendly crab helps her carry the bright pearls. They invite all the fish for a joyful ocean celebration party.",
+                    vietnamese: "Một chú cua thân thiện giúp cô ấy mang những viên ngọc trai lấp lánh. Họ mời tất cả các loài cá đến tham dự một bữa tiệc kỷ niệm vui vẻ ở đại dương.",
+                    instruction: "Say: 'Joyful party'",
+                    targetPhrase: "joyful party",
+                    prompt: "Cartoon dolphin, sea turtle, and crab wearing party hats under the sea, celebration balloons made of bubbles, colorful pastel colors"
+                }
+            ]
+        };
+
+        window.navigate = function(pageId) {
+            if (state.isLiveConnected && pageId !== 'live') {
+                disconnectLive();
+            }
+
+            ['home', 'stories', 'vocab', 'live'].forEach(id => {
+                const el = document.getElementById(`page-${id}`);
+                if (el) {
+                    el.classList.add('hidden');
+                    el.classList.remove('flex');
+                }
+            });
+
+            const targetPage = document.getElementById(`page-${pageId}`);
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+                targetPage.classList.add('flex');
+            }
+            
+            state.activePage = pageId;
+            playFeedbackSound('bubble');
+        };
+
+        window.selectPremadeStory = async function(type) {
+            state.currentStoryType = type;
+            state.storyChapters = premadeStories[type];
+            state.currentChapterIndex = 0;
+            loadStoryChapter();
+        };
+
+        window.generateCustomStory = async function() {
+            const promptInput = document.getElementById('custom-story-prompt').value.trim();
+            if (!promptInput) {
+                showNotification('💭 Story Maker', 'Hãy nhập một ý tưởng thú vị trước nhé!', false);
+                return;
+            }
+
+            const btn = document.getElementById('btn-generate-story');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Writing...`;
+            btn.disabled = true;
+
+            // CHECK API KEY: If missing, generate dynamically from client-side template to support zero-setup online running!
+            if (!state.apiKey) {
+                setTimeout(() => {
+                    const mockPrompt = promptInput.toLowerCase();
+                    state.storyChapters = [
+                        {
+                            chapter: 1,
+                            text: `Once upon a time, a cute character wanted to learn about ${mockPrompt}. They found a bright golden magic path.`,
+                            vietnamese: `Ngày xửa ngày xưa, một nhân vật dễ thương muốn tìm hiểu về ${mockPrompt}. Họ tìm thấy một lối đi bằng vàng lấp lánh.`,
+                            instruction: "Say: 'Magic path'",
+                            targetPhrase: "magic path",
+                            prompt: `A cute children character looking at a glowing golden path, Disney Pixar style`
+                        },
+                        {
+                            chapter: 2,
+                            text: `Suddenly, a happy friendly companion appeared from the sky! They smiled and danced around with joy.`,
+                            vietnamese: `Đột nhiên, một người bạn đồng hành vui vẻ xuất hiện từ trên trời! Họ mỉm cười và nhảy múa chung vui.`,
+                            instruction: "Say: 'Happy companion'",
+                            targetPhrase: "happy companion",
+                            prompt: `A cute fluffy creature waving hands, bright stars around, colorful concept art`
+                        },
+                        {
+                            chapter: 3,
+                            text: `They traveled together to a magical sky castle, celebrating and learning wonderful things.`,
+                            vietnamese: `Họ cùng nhau du hành đến một tòa lâu đài trên mây lộng lẫy, ăn mừng và học nhiều điều bổ ích.`,
+                            instruction: "Say: 'Sky castle'",
+                            targetPhrase: "sky castle",
+                            prompt: `A gorgeous cartoon pastel castle floating on clouds, rainbow background`
+                        }
+                    ];
+                    state.currentStoryType = 'custom';
+                    state.currentChapterIndex = 0;
+                    loadStoryChapter();
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    showNotification('✨ Demo Mode', 'Story successfully simulated! Enter API key in ⚙️ for real Gemini AI writing!');
+                }, 1500);
+                return;
+            }
+
+            try {
+                const systemPrompt = "You are a professional children's storyteller who writes interactive 3-chapter tales to teach kids English. Each chapter must have exactly: 1) text: 2 simple English sentences suitable for 5-8 year old kids (under 25 words). 2) vietnamese: natural Vietnamese translation. 3) targetPhrase: 1 key vocabulary phrase of 2-3 words. 4) instruction: simple sentence instruction. 5) prompt: a highly detailed visual illustration prompt for an image generation tool (style: bright 3D vector, Pixar character, children storybook). Return a JSON array representing these 3 chapters.";
+                const userQuery = `Write a magical interactive story based on this prompt: "${promptInput}". Let the character learn simple words. Make it super positive. Return exactly a JSON list of 3 items matching the schema schema.`;
+                
+                const payload = {
+                    contents: [{ parts: [{ text: userQuery }] }],
+                    generationConfig: {
+                        responseMimeType: "application/json",
+                        responseSchema: {
+                            type: "ARRAY",
+                            items: {
+                                type: "OBJECT",
+                                properties: {
+                                    "chapter": { "type": "NUMBER" },
+                                    "text": { "type": "STRING" },
+                                    "vietnamese": { "type": "STRING" },
+                                    "instruction": { "type": "STRING" },
+                                    "targetPhrase": { "type": "STRING" },
+                                    "prompt": { "type": "STRING" }
+                                },
+                                "required": ["chapter", "text", "vietnamese", "instruction", "targetPhrase", "prompt"]
+                            }
+                        }
+                    },
+                    systemInstruction: {
+                        parts: [{ text: systemPrompt }]
+                    }
+                };
+
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${state.apiKey}`;
+                
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                const result = await response.json();
+                const generatedJson = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                
+                if (generatedJson) {
+                    const parsed = JSON.parse(generatedJson);
+                    state.storyChapters = parsed;
+                    state.currentStoryType = 'custom';
+                    state.currentChapterIndex = 0;
+                    loadStoryChapter();
+                } else {
+                    throw new Error("Invalid model response structure");
+                }
+            } catch (error) {
+                console.error("Failed generating custom story:", error);
+                showNotification('❌ Story Error', 'Không thể tạo được truyện lúc này. Hãy thử lại.', false);
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        };
+
+        async function loadStoryChapter() {
+            const placeholderEl = document.getElementById('story-placeholder');
+            const activeEl = document.getElementById('story-active-content');
+            if (placeholderEl) placeholderEl.classList.add('hidden');
+            if (activeEl) activeEl.classList.remove('hidden');
+
+            const chapterData = state.storyChapters[state.currentChapterIndex];
+            if (!chapterData) return;
+            
+            document.getElementById('story-chapter').textContent = `Chapter ${state.currentChapterIndex + 1} of ${state.storyChapters.length}`;
+            document.getElementById('story-title').textContent = `Adventure: ${state.currentStoryType.toUpperCase()}`;
+            document.getElementById('story-text-english').textContent = chapterData.text;
+            document.getElementById('story-text-vietnamese').textContent = chapterData.vietnamese;
+            
+            document.getElementById('story-quest-instruction').textContent = chapterData.instruction;
+            document.getElementById('story-target-phrase').textContent = `"${chapterData.targetPhrase}"`;
+
+            const evalBox = document.getElementById('story-evaluation-text');
+            if (evalBox) {
+                evalBox.classList.add('hidden');
+                evalBox.textContent = '';
+            }
+
+            const nextBtn = document.getElementById('btn-story-next');
+            if (nextBtn) {
+                nextBtn.disabled = true;
+                nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            }
+
+            triggerIllustrationGeneration(chapterData.prompt);
+        }
+
+        async function triggerIllustrationGeneration(imagePrompt) {
+            const imgElement = document.getElementById('story-illustration');
+            const loader = document.getElementById('story-illustration-loader');
+            const placeholder = document.getElementById('story-illustration-placeholder');
+
+            if (imgElement) imgElement.classList.add('hidden');
+            if (loader) loader.classList.remove('hidden');
+            if (placeholder) placeholder.classList.add('hidden');
+
+            if (!state.apiKey) {
+                setTimeout(() => {
+                    if (loader) loader.classList.add('hidden');
+                    if (placeholder) {
+                        placeholder.classList.remove('hidden');
+                        const fallbackEmojis = ['🧚', '🚀', '🌲', '🦄', '🐙', '🦖', '🏰', '🪐'];
+                        placeholder.textContent = fallbackEmojis[state.currentChapterIndex % fallbackEmojis.length];
+                    }
+                }, 800);
+                return;
+            }
+
+            try {
+                const creativePrompt = `Cute cartoon illustration for kids book: ${imagePrompt}, high fidelity, colorful disney concept art style, clear focus, white background, high-quality detailed 3D look, joyful vibe`;
+                const payload = {
+                    instances: [{ prompt: creativePrompt }],
+                    parameters: { sampleCount: 1 }
+                };
+
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict?key=${state.apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+                const base64Data = result.predictions?.[0]?.bytesBase64Encoded;
+
+                if (base64Data) {
+                    imgElement.src = `data:image/png;base64,${base64Data}`;
+                    imgElement.classList.remove('hidden');
+                    loader.classList.add('hidden');
+                } else {
+                    throw new Error("No image generated");
+                }
+            } catch (err) {
+                console.warn("Imagen generation failed, using playful fallback emoji illustration", err);
+                if (loader) loader.classList.add('hidden');
+                if (placeholder) {
+                    placeholder.classList.remove('hidden');
+                    const fallbackEmojis = ['🧚', '🚀', '🌲', '🦄', '🐙', '🦖', '🏰', '🪐'];
+                    placeholder.textContent = fallbackEmojis[state.currentChapterIndex % fallbackEmojis.length];
+                }
+            }
+        }
+
+        window.speakStoryText = async function() {
+            const chapterData = state.storyChapters[state.currentChapterIndex];
+            if (!chapterData) return;
+
+            const btn = document.getElementById('btn-story-listen');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Speaking...`;
+            btn.disabled = true;
+
+            // CHECK API KEY: If missing, fallback instantly to high-quality speechSynthesis to support online demo!
+            if (!state.apiKey) {
+                setTimeout(() => {
+                    const synthUtterance = new SpeechSynthesisUtterance(chapterData.text);
+                    synthUtterance.rate = 0.8;
+                    synthUtterance.pitch = 1.1;
+                    synthUtterance.lang = 'en-US';
+                    window.speechSynthesis.speak(synthUtterance);
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }, 200);
+                return;
+            }
+
+            try {
+                const payload = {
+                    contents: [{
+                        parts: [{ text: `Read this cute story sentence slowly and cheerfully for a young child: "${chapterData.text}"` }]
+                    }],
+                    generationConfig: {
+                        responseModalities: ["AUDIO"],
+                        speechConfig: {
+                            voiceConfig: {
+                                prebuiltVoiceConfig: { voiceName: "Puck" }
+                            }
+                        }
+                    }
+                };
+
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${state.apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+                const part = result?.candidates?.[0]?.content?.parts?.[0];
+                const base64Audio = part?.inlineData?.data;
+
+                if (base64Audio) {
+                    const bytes = decodeBase64(base64Audio);
+                    const pcm16 = new Int16Array(bytes.buffer);
+                    const wavBlob = pcmToWav(pcm16, 24000);
+                    const audioUrl = URL.createObjectURL(wavBlob);
+                    const audio = new Audio(audioUrl);
+                    audio.play();
+                } else {
+                    throw new Error("TTS payload incomplete");
+                }
+            } catch (err) {
+                console.error("TTS failed, using local fallback:", err);
+                const synthUtterance = new SpeechSynthesisUtterance(chapterData.text);
+                synthUtterance.rate = 0.8;
+                window.speechSynthesis.speak(synthUtterance);
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        };
+
+        let storyRecognitionInstance = null;
+
+        window.toggleStoryRecording = function() {
+            const btn = document.getElementById('btn-story-record');
+            const status = document.getElementById('story-record-status');
+            const icon = document.getElementById('story-record-icon');
+            const textSpan = document.getElementById('story-record-text');
+
+            if (state.storyIsRecording) {
+                if (storyRecognitionInstance) storyRecognitionInstance.stop();
+                state.storyIsRecording = false;
+                btn.classList.replace('bg-red-600', 'bg-red-500');
+                if (status) status.classList.add('hidden');
+                if (icon) icon.className = "fa-solid fa-microphone text-lg";
+                if (textSpan) textSpan.textContent = state.currentLang === 'vi' ? "Nhấn Để Đọc" : "Tap to Speak";
+            } else {
+                const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+                if (!SpeechRec) {
+                    showNotification('🎙️ Mic Error', 'Speech recognition not supported on this browser.', false);
+                    return;
+                }
+
+                storyRecognitionInstance = new SpeechRec();
+                storyRecognitionInstance.lang = 'en-US';
+                storyRecognitionInstance.interimResults = false;
+                storyRecognitionInstance.maxAlternatives = 1;
+
+                storyRecognitionInstance.onstart = () => {
+                    state.storyIsRecording = true;
+                    btn.classList.replace('bg-red-500', 'bg-red-600');
+                    if (status) status.classList.remove('hidden');
+                    if (icon) icon.className = "fa-solid fa-square text-lg animate-pulse";
+                    if (textSpan) textSpan.textContent = state.currentLang === 'vi' ? "Dừng Đọc" : "Tap to Finish";
+                    playFeedbackSound('bubble');
+                };
+
+                storyRecognitionInstance.onresult = (event) => {
+                    const resultText = event.results[0][0].transcript.trim().toLowerCase();
+                    evaluateKidsSpeech(resultText);
+                };
+
+                storyRecognitionInstance.onerror = (err) => {
+                    console.error("Speech Recognition Error:", err);
+                    showNotification('🎤 Speaking Quest', 'Chưa thu được tiếng của bé. Con hãy thử lại nhé!', false);
+                    if (state.storyIsRecording) toggleStoryRecording();
+                };
+
+                storyRecognitionInstance.onend = () => {
+                    if (state.storyIsRecording) toggleStoryRecording();
+                };
+
+                storyRecognitionInstance.start();
+            }
+        };
+
+        function evaluateKidsSpeech(spokenText) {
+            const chapterData = state.storyChapters[state.currentChapterIndex];
+            if (!chapterData) return;
+
+            const target = chapterData.targetPhrase.toLowerCase().replace(/[^a-zA-Z0-9\s]/g, "");
+            const spokenClean = spokenText.toLowerCase().replace(/[^a-zA-Z0-9\s]/g, "");
+
+            const matched = spokenClean.includes(target) || target.includes(spokenClean);
+
+            const evalBox = document.getElementById('story-evaluation-text');
+            if (evalBox) evalBox.classList.remove('hidden');
+
+            if (matched) {
+                if (evalBox) evalBox.innerHTML = `🌟 Tuyệt vời! Con vừa nói: <span class="text-green-600">"${spokenText}"</span>. Thật giỏi!`;
+                addStars(5);
+                
+                const nextBtn = document.getElementById('btn-story-next');
+                if (nextBtn) {
+                    nextBtn.disabled = false;
+                    nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                }
+
+                const profile = state.profiles.find(p => p.id === state.activeProfileId);
+                if (profile && !profile.masteredWords.includes(chapterData.targetPhrase)) {
+                    profile.masteredWords.push(chapterData.targetPhrase);
+                }
+            } else {
+                if (evalBox) evalBox.innerHTML = `😅 Cố lên nào! Con vừa nói: <span class="text-amber-600">"${spokenText}"</span>.<br><span class="text-xs font-bold text-slate-500">Con hãy phát âm lại từ "${chapterData.targetPhrase}" nhé!</span>`;
+                playFeedbackSound('fail');
+            }
+        }
+
+        window.nextChapter = function() {
+            if (state.currentChapterIndex < state.storyChapters.length - 1) {
+                state.currentChapterIndex++;
+                loadStoryChapter();
+                playFeedbackSound('bubble');
+            } else {
+                showNotification('🏆 Chúc Mừng Bé!', 'Con đã hoàn thành trọn vẹn câu chuyện cổ tích!', true);
+                addStars(15);
+
+                const activeProfile = state.profiles.find(p => p.id === state.activeProfileId);
+                if (activeProfile && !activeProfile.completedStories.includes(state.currentStoryType)) {
+                    activeProfile.completedStories.push(state.currentStoryType);
+                }
+                saveStateToStorage();
+                navigate('home');
+            }
+        };
+
+        const vocabThemes = {
+            animals: [
+                { word: "Elephant", emoji: "🐘", vn: "Con voi", prompt: "A friendly giant cartoon elephant spraying water from trunk, cute 3D vector character" },
+                { word: "Lion", emoji: "🦁", vn: "Sư tử", prompt: "A adorable young lion cub with a fluffy mane smiling on African savannah, cute pixar cartoon style" },
+                { word: "Penguin", emoji: "🐧", vn: "Chim cánh cụt", prompt: "A sweet little cartoon penguin wearing a cozy red scarf standing on ice, cartoon vector style" },
+                { word: "Giraffe", emoji: "🦒", vn: "Hươu cao cổ", prompt: "A friendly cartoon giraffe with a long neck smiling, wearing a tiny bowtie, happy colorful style" }
+            ],
+            fruits: [
+                { word: "Apple", emoji: "🍎", vn: "Quả táo", prompt: "A happy cartoon red apple with a shiny green leaf, cute smiling face, vector icon style" },
+                { word: "Banana", emoji: "🍌", vn: "Quả chuối", prompt: "A funny banana cartoon character slipping and waving, vibrant colors, bright yellow look" },
+                { word: "Watermelon", emoji: "🍉", vn: "Dưa hấu", prompt: "A giant juicy slice of watermelon cartoon with happy black eyes smiling, fresh pink seeds" },
+                { word: "Strawberry", emoji: "🍓", vn: "Dâu tây", prompt: "A sweet tiny cartoon strawberry character blushing and smiling, cute Disney vector illustration" }
+            ],
+            vehicles: [
+                { word: "Police Car", emoji: "🚓", vn: "Xe cảnh sát", prompt: "A friendly cartoon blue police car with flashing lights on top, cute big headlights" },
+                { word: "Fire Engine", emoji: "🚒", vn: "Xe cứu hỏa", prompt: "A brave little red fire truck cartoon with a ladder, smiling friendly face, cartoon style" },
+                { word: "Train", emoji: "🚂", vn: "Tàu hỏa", prompt: "A colorful steam train cartoon engine chugging down a green hill, puffy smoke clouds" },
+                { word: "Helicopter", emoji: "🚁", vn: "Máy bay trực thăng", prompt: "A cute little yellow helicopter cartoon with happy eyes flying through clouds" }
+            ],
+            space: [
+                { word: "Rocket", emoji: "🚀", vn: "Tên lửa", prompt: "A retro rocket ship flying upwards with fiery trail, starry sky, colorful cartoon style" },
+                { word: "Astronaut", emoji: "👩‍🚀", vn: "Phi hành gia", prompt: "A little cartoon child astronaut floating in space next to a cute moon, friendly Pixar look" },
+                { word: "Planet", emoji: "🪐", vn: "Hành tinh", prompt: "A whimsical pink and blue planet with a golden ring around it, sparkling stars backdrop" },
+                { word: "Telescope", emoji: "🔭", vn: "Kính viễn vọng", prompt: "A big purple cartoon telescope pointing to the starry space, cute learning design" }
+            ]
+        };
+
+        window.loadVocabTheme = function(themeId) {
+            state.currentVocabTheme = themeId;
+            const cardGrid = document.getElementById('vocab-cards-grid');
+            if (!cardGrid) return;
+            cardGrid.innerHTML = '';
+
+            const items = vocabThemes[themeId];
+            items.forEach((item, index) => {
+                const subLabel = state.currentLang === 'vi' ? `<span class="text-sm font-semibold text-slate-400 block">${item.vn}</span>` : '';
+                const card = document.createElement('div');
+                card.className = "kids-card bg-white p-5 rounded-3xl border-slate-200 flex flex-col items-center gap-4 relative";
+                card.innerHTML = `
+                    <div class="text-5xl mb-1">${item.emoji}</div>
+                    <div class="text-center">
+                        <h4 class="text-2xl font-black text-slate-800" id="vocab-word-${index}">${item.word}</h4>
+                        ${subLabel}
+                    </div>
+                    
+                    <div class="w-full h-32 bg-slate-50 rounded-xl overflow-hidden border border-slate-100 flex items-center justify-center relative">
+                        <img id="vocab-img-${index}" src="" alt="${item.word}" class="w-full h-full object-cover hidden" />
+                        <div id="vocab-loader-${index}" class="absolute inset-0 flex items-center justify-center bg-white/80">
+                            <i class="fa-solid fa-spinner animate-spin text-purple-600 text-lg"></i>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-2 w-full">
+                        <button onclick="speakVocabWord('${item.word}')" class="flex-1 bg-sky-100 hover:bg-sky-200 text-sky-700 py-2 rounded-xl font-bold border-b-2 border-sky-300 transition text-sm">
+                            🔊 Speak
+                        </button>
+                        <button onclick="listenToVocabRepeat('${item.word}', ${index})" class="flex-1 bg-pink-100 hover:bg-pink-200 text-pink-700 py-2 rounded-xl font-bold border-b-2 border-pink-300 transition text-sm">
+                            🎤 Practice
+                        </button>
+                    </div>
+                `;
+                cardGrid.appendChild(card);
+
+                triggerVocabStickerGen(item.prompt, index);
+            });
+        };
+
+        async function triggerVocabStickerGen(imagePrompt, index) {
+            const imgEl = document.getElementById(`vocab-img-${index}`);
+            const loader = document.getElementById(`vocab-loader-${index}`);
+            if (!imgEl) return;
+
+            if (!state.apiKey) {
+                setTimeout(() => {
+                    if (loader) loader.classList.add('hidden');
+                }, 400);
+                return;
+            }
+
+            try {
+                const creativePrompt = `Cute cartoon child sticker of ${imagePrompt}, solid white backdrop, clean vector 3D look, Pixar design`;
+                const payload = {
+                    instances: [{ prompt: creativePrompt }],
+                    parameters: { sampleCount: 1 }
+                };
+
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict?key=${state.apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+                const base64Data = result.predictions?.[0]?.bytesBase64Encoded;
+
+                if (base64Data) {
+                    imgEl.src = `data:image/png;base64,${base64Data}`;
+                    imgEl.classList.remove('hidden');
+                    loader.classList.add('hidden');
+                } else {
+                    throw new Error("No sticker image generated");
+                }
+            } catch (err) {
+                console.warn("Vocab image generation error, falling back", err);
+                if (loader) loader.classList.add('hidden');
+            }
+        }
+
+        window.speakVocabWord = function(word) {
+            const synthUtterance = new SpeechSynthesisUtterance(word);
+            synthUtterance.rate = 0.8;
+            synthUtterance.lang = 'en-US';
+            window.speechSynthesis.speak(synthUtterance);
+        };
+
+        window.listenToVocabRepeat = function(word, index) {
+            const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRec) {
+                showNotification('🎙️ Mic Error', 'Speech recognition not supported on this browser.', false);
+                return;
+            }
+
+            const rec = new SpeechRec();
+            rec.lang = 'en-US';
+            rec.maxAlternatives = 1;
+
+            const cardTitle = document.getElementById(`vocab-word-${index}`);
+            const originalColor = cardTitle ? cardTitle.style.color : '';
+
+            rec.onstart = () => {
+                if (cardTitle) {
+                    cardTitle.style.color = '#EC4899';
+                    cardTitle.classList.add('animate-pulse');
+                }
+                playFeedbackSound('bubble');
+            };
+
+            rec.onresult = (event) => {
+                const spoken = event.results[0][0].transcript.trim().toLowerCase();
+                const cleanWord = word.trim().toLowerCase();
+
+                if (spoken === cleanWord || spoken.includes(cleanWord)) {
+                    addStars(2);
+                    showNotification('⭐️ Yay!', `Con phát âm đúng rồi: "${word}"!`);
+                    
+                    const profile = state.profiles.find(p => p.id === state.activeProfileId);
+                    if (profile && !profile.masteredWords.includes(word)) {
+                        profile.masteredWords.push(word);
+                        saveStateToStorage();
+                    }
+                } else {
+                    showNotification('✊ Cố lên!', `Con nói là: "${spoken}". Hãy đọc lại từ "${word}" nhé!`, false);
+                    playFeedbackSound('fail');
+                }
+            };
+
+            rec.onend = () => {
+                if (cardTitle) {
+                    cardTitle.style.color = originalColor;
+                    cardTitle.classList.remove('animate-pulse');
+                }
+            };
+
+            rec.start();
+        };
+
+        window.selectBuddy = function(buddyId) {
+            state.selectedBuddy = buddyId;
+            const avatars = {
+                barnaby: '🧸',
+                sparky: '🐉'
+            };
+            
+            const buddyAvatarNode = document.getElementById('buddy-live-avatar');
+            if (buddyAvatarNode) {
+                buddyAvatarNode.firstChild.textContent = avatars[buddyId];
+            }
+            
+            const statusTag = document.getElementById('buddy-status-tag');
+            if (statusTag) {
+                statusTag.textContent = buddyId === 'barnaby' ? 'Barnaby' : 'Sparky';
+            }
+            
+            ['barnaby', 'sparky'].forEach(id => {
+                const btn = document.getElementById(`buddy-${id}`);
+                if (btn) {
+                    if (id === buddyId) {
+                        btn.className = `p-4 rounded-2xl border-4 border-${id === 'barnaby' ? 'amber' : 'emerald'}-400 bg-${id === 'barnaby' ? 'amber' : 'emerald'}-50 text-left flex items-center gap-3 transition`;
+                    } else {
+                        btn.className = "p-4 rounded-2xl border-2 border-slate-100 hover:border-slate-300 text-left flex items-center gap-3 transition";
+                    }
+                }
+            });
+
+            playFeedbackSound('pop');
+            if (state.isLiveConnected) {
+                greetChildWithSelectedBuddy();
+            }
+        };
+
+        window.toggleLiveSession = async function() {
+            if (state.isLiveConnected) {
+                disconnectLive();
+            } else {
+                connectLive();
+            }
+        };
+
+        async function connectLive() {
+            const btn = document.getElementById('btn-connect-live');
+            const connectText = document.getElementById('connect-live-text');
+            const statusTag = document.getElementById('buddy-status-tag');
+            const subtitlesContainer = document.getElementById('live-subtitles-container');
+
+            if (btn) btn.disabled = true;
+            if (connectText) connectText.textContent = "Connecting Buddy...";
+
+            try {
+                state.isLiveConnected = true;
+                if (btn) {
+                    btn.disabled = false;
+                    btn.classList.replace('kids-btn-secondary', 'kids-btn-primary');
+                }
+                if (connectText) connectText.textContent = state.currentLang === 'vi' ? uiLocales.vi.disconnectLive : uiLocales.en.disconnectLive;
+                
+                if (statusTag) {
+                    statusTag.classList.add('bg-green-500');
+                    statusTag.textContent = "CONNECTED";
+                }
+                if (subtitlesContainer) subtitlesContainer.classList.remove('hidden');
+
+                playFeedbackSound('bubble');
+                await greetChildWithSelectedBuddy();
+
+            } catch (err) {
+                console.error("Setup failed:", err);
+                showNotification('🎙', 'Không thể kết nối. Kiểm tra cài đặt của bạn.', false);
+                if (btn) btn.disabled = false;
+                if (connectText) connectText.textContent = state.currentLang === 'vi' ? uiLocales.vi.connectLive : uiLocales.en.connectLive;
+            }
+        }
+
+        async function greetChildWithSelectedBuddy() {
+            if (!state.isLiveConnected) return;
+
+            const activeProfile = state.profiles.find(p => p.id === state.activeProfileId);
+            const kidName = activeProfile ? activeProfile.name : "Explorer";
+            
+            let greetingPrompt = "";
+            let localGreeting = "";
+            if (state.selectedBuddy === 'barnaby') {
+                greetingPrompt = `Greet the cute child named "${kidName}" as Barnaby the warm cuddly teddy bear. Speak slow, warm, simplified English. Ask them what exciting adventure they want to play today! Under 15 words.`;
+                localGreeting = `Hello ${kidName}! I am Barnaby. Let's learn English and play! What is your favorite animal?`;
+            } else {
+                greetingPrompt = `Greet the enthusiastic child named "${kidName}" as Sparky the energetic cartoon fire dragon. Speak high energy, playful, simple English. Ask if they are ready to talk! Under 15 words.`;
+                localGreeting = `Roar! Hey ${kidName}, I'm Sparky! Ready for some cool English games? Speak to me!`;
+            }
+
+            const subtitlesText = document.getElementById('live-subtitles-text');
+            const subtitlesStatus = document.getElementById('live-subtitles-status');
+
+            if (subtitlesText) subtitlesText.textContent = "Barnaby is thinking...";
+            if (subtitlesStatus) subtitlesStatus.classList.add('hidden');
+
+            // If no API key, simulate greeting using client-side fallback
+            if (!state.apiKey) {
+                setTimeout(async () => {
+                    if (subtitlesText) subtitlesText.textContent = localGreeting;
+                    await speakAndAnimateCompanion(localGreeting);
+                }, 800);
+                return;
+            }
+
+            try {
+                const responseText = await queryGeminiText(greetingPrompt, getBuddySystemInstruction());
+                if (subtitlesText) subtitlesText.textContent = responseText;
+                await speakAndAnimateCompanion(responseText);
+            } catch (err) {
+                console.error("Greeting generation failed:", err);
+                if (subtitlesText) subtitlesText.textContent = localGreeting;
+                await speakAndAnimateCompanion(localGreeting);
+            }
+        }
+
+        function getBuddySystemInstruction() {
+            if (state.selectedBuddy === 'barnaby') {
+                return "You are Barnaby, a giant chubby cuddly teddy bear talking to a young child. Speak in extremely simple English. Be slow, warm, and highly encouraging. Keep your responses super short (max 15 words). Always ask a simple fun follow-up question.";
+            } else {
+                return "You are Sparky, a playful cartoon little fire dragon. You love high-energy games. Speak excitingly but in very simple English. Keep responses under 15 words.";
+            }
+        }
+
+        async function queryGeminiText(userQuery, systemPrompt) {
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${state.apiKey}`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] }
+            };
+
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                throw new Error(`API failed with status ${response.status}`);
+            }
+
+            const result = await response.json();
+            return result.candidates?.[0]?.content?.parts?.[0]?.text || "Hello little explorer!";
+        }
+
+        async function speakAndAnimateCompanion(textToSpeak) {
+            if (!state.isLiveConnected) return;
+
+            stopCompanionSpeech();
+            animateBuddyAvatar(true);
+
+            if (!state.apiKey) {
+                setTimeout(() => {
+                    fallbackLocalSpeech(textToSpeak);
+                }, 100);
+                return;
+            }
+
+            const selectedVoice = document.getElementById('live-voice-name').value;
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${state.apiKey}`;
+
+            try {
+                const payload = {
+                    contents: [{
+                        parts: [{ text: `Speak this happily for a child: "${textToSpeak}"` }]
+                    }],
+                    generationConfig: {
+                        responseModalities: ["AUDIO"],
+                        speechConfig: {
+                            voiceConfig: {
+                                prebuiltVoiceConfig: { voiceName: selectedVoice }
+                            }
+                        }
+                    }
+                };
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) throw new Error("TTS endpoint error");
+
+                const result = await response.json();
+                const part = result?.candidates?.[0]?.content?.parts?.[0];
+                const base64Audio = part?.inlineData?.data;
+
+                if (base64Audio) {
+                    const bytes = decodeBase64(base64Audio);
+                    const pcm16 = new Int16Array(bytes.buffer);
+                    const wavBlob = pcmToWav(pcm16, 24000);
+                    const audioUrl = URL.createObjectURL(wavBlob);
+                    
+                    state.liveAudioPlayer = new Audio(audioUrl);
+                    state.liveAudioPlayer.onended = () => {
+                        animateBuddyAvatar(false);
+                        startListeningToChild();
+                    };
+                    await state.liveAudioPlayer.play();
+                } else {
+                    fallbackLocalSpeech(textToSpeak);
+                }
+
+            } catch (err) {
+                console.warn("TTS failed, using local synthesis fallback:", err);
+                fallbackLocalSpeech(textToSpeak);
+            }
+        }
+
+        function fallbackLocalSpeech(textToSpeak) {
+            const synthUtterance = new SpeechSynthesisUtterance(textToSpeak);
+            synthUtterance.rate = 0.8;
+            synthUtterance.pitch = 1.15;
+            synthUtterance.lang = 'en-US';
+            synthUtterance.onend = () => {
+                animateBuddyAvatar(false);
+                startListeningToChild();
+            };
+            window.speechSynthesis.speak(synthUtterance);
+        }
+
+        function startListeningToChild() {
+            if (!state.isLiveConnected) return;
+
+            const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRec) {
+                console.warn("Speech recognition not supported");
+                return;
+            }
+
+            state.liveSpeechRec = new SpeechRec();
+            state.liveSpeechRec.lang = 'en-US';
+            state.liveSpeechRec.interimResults = false;
+            state.liveSpeechRec.maxAlternatives = 1;
+
+            const subtitlesStatus = document.getElementById('live-subtitles-status');
+            const subtitlesText = document.getElementById('live-subtitles-text');
+
+            if (subtitlesStatus) subtitlesStatus.classList.remove('hidden');
+
+            state.liveSpeechRec.onstart = () => {
+                console.log("Listening loop active...");
+            };
+
+            state.liveSpeechRec.onresult = async (event) => {
+                const spokenText = event.results[0][0].transcript.trim();
+                if (!spokenText) return;
+
+                console.log("Child spoke:", spokenText);
+                if (subtitlesStatus) subtitlesStatus.classList.add('hidden');
+                if (subtitlesText) subtitlesText.textContent = `Con: "${spokenText}"`;
+
+                if (state.liveSpeechRec) state.liveSpeechRec.stop();
+
+                // CLIENT SIMULATION DEMO ENGINE (Works seamlessly without key!)
+                if (!state.apiKey) {
+                    setTimeout(async () => {
+                        let demoAnswer = "";
+                        const cleanedInput = spokenText.toLowerCase();
+
+                        if (state.selectedBuddy === 'barnaby') {
+                            if (cleanedInput.includes("apple") || cleanedInput.includes("fruit")) {
+                                demoAnswer = "Yum! Apples are sweet. I like strawberries too. Do you like strawberries?";
+                            } else if (cleanedInput.includes("animal") || cleanedInput.includes("bear") || cleanedInput.includes("cat") || cleanedInput.includes("dog")) {
+                                demoAnswer = "Animals are amazing! I love lions and teddy bears. What is your favorite?";
+                            } else {
+                                demoAnswer = "That is so wonderful! Let's say: 'happy bear' together!";
+                            }
+                        } else {
+                            if (cleanedInput.includes("play") || cleanedInput.includes("yes") || cleanedInput.includes("game")) {
+                                demoAnswer = "Great! Let's play astronaut and rocket! Can you say: 'rocket'?";
+                            } else {
+                                demoAnswer = "Haha, that's fun! I can breathe colorful sparks! What can you do?";
+                            }
+                        }
+
+                        if (subtitlesText) subtitlesText.textContent = demoAnswer;
+                        await speakAndAnimateCompanion(demoAnswer);
+                        addStars(2);
+                    }, 1000);
+                    return;
+                }
+
+                // AI Real Integration with Gemini
+                try {
+                    const prompt = `The child said: "${spokenText}". Respond to them in simple, short, interactive English. Keep it cute and under 15 words.`;
+                    const aiResponse = await queryGeminiText(prompt, getBuddySystemInstruction());
+                    
+                    if (subtitlesText) subtitlesText.textContent = aiResponse;
+                    await speakAndAnimateCompanion(aiResponse);
+                    addStars(2);
+                } catch (err) {
+                    console.error("Failed responding to child speech:", err);
+                    await speakAndAnimateCompanion("That sounds so cool! What else?");
+                }
+            };
+
+            state.liveSpeechRec.onerror = (err) => {
+                console.warn("Speech input silent or timed out:", err);
+                if (state.isLiveConnected) {
+                    setTimeout(() => startListeningToChild(), 1000);
+                }
+            };
+
+            state.liveSpeechRec.start();
+        }
+
+        function decodeBase64(base64) {
+            const binaryString = atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes;
+        }
+
+        function pcmToWav(pcm16, sampleRate) {
+            const buffer = new ArrayBuffer(44 + pcm16.length * 2);
+            const view = new DataView(buffer);
+            
+            writeString(view, 0, 'RIFF');
+            view.setUint32(4, 36 + pcm16.length * 2, true);
+            writeString(view, 8, 'WAVE');
+            writeString(view, 12, 'fmt ');
+            view.setUint32(16, 16, true);
+            view.setUint16(20, 1, true);
+            view.setUint16(22, 1, true);
+            view.setUint32(24, sampleRate, true);
+            view.setUint32(28, sampleRate * 2, true);
+            view.setUint16(32, 2, true);
+            view.setUint16(34, 16, true);
+            writeString(view, 36, 'data');
+            view.setUint32(40, pcm16.length * 2, true);
+
+            let offset = 44;
+            for (let i = 0; i < pcm16.length; i++, offset += 2) {
+                view.setInt16(offset, pcm16[i], true);
+            }
+            return new Blob([view], { type: 'audio/wav' });
+        }
+
+        function writeString(view, offset, string) {
+            for (let i = 0; i < string.length; i++) {
+                view.setUint8(offset + i, string.charCodeAt(i));
+            }
+        }
+
+        function animateBuddyAvatar(isTalking) {
+            const avatar = document.getElementById('buddy-live-avatar');
+            const waveformNode = document.getElementById('audio-waveform');
+            if (!waveformNode) return;
+            const lines = waveformNode.children;
+
+            if (state.animationInterval) clearInterval(state.animationInterval);
+
+            if (isTalking) {
+                if (avatar) {
+                    avatar.classList.remove('animate-none');
+                    avatar.classList.add('animate-bounce');
+                }
+                state.animationInterval = setInterval(() => {
+                    Array.from(lines).forEach((line) => {
+                        line.style.height = `${Math.floor(Math.random() * 32) + 8}px`;
+                        line.classList.replace('bg-indigo-400', 'bg-pink-400');
+                    });
+                }, 100);
+            } else {
+                if (avatar) {
+                    avatar.classList.remove('animate-bounce');
+                    avatar.classList.add('animate-none');
+                }
+                Array.from(lines).forEach((line) => {
+                    line.style.height = '12px';
+                    line.classList.replace('bg-pink-400', 'bg-indigo-400');
+                });
+            }
+        }
+
+        function stopCompanionSpeech() {
+            if (state.liveAudioPlayer) {
+                state.liveAudioPlayer.pause();
+                state.liveAudioPlayer = null;
+            }
+            window.speechSynthesis.cancel();
+            animateBuddyAvatar(false);
+        }
+
+        function disconnectLive() {
+            state.isLiveConnected = false;
+            
+            const btn = document.getElementById('btn-connect-live');
+            const connectText = document.getElementById('connect-live-text');
+            const statusTag = document.getElementById('buddy-status-tag');
+            const subtitlesContainer = document.getElementById('live-subtitles-container');
+
+            if (btn) {
+                btn.classList.replace('kids-btn-primary', 'kids-btn-secondary');
+                btn.disabled = false;
+            }
+            if (connectText) connectText.textContent = state.currentLang === 'vi' ? uiLocales.vi.connectLive : uiLocales.en.connectLive;
+            
+            if (statusTag) {
+                statusTag.classList.remove('bg-green-500');
+                statusTag.textContent = state.selectedBuddy === 'barnaby' ? 'Barnaby' : 'Sparky';
+            }
+            if (subtitlesContainer) subtitlesContainer.classList.add('hidden');
+
+            stopCompanionSpeech();
+
+            if (state.liveSpeechRec) {
+                state.liveSpeechRec.onstart = null;
+                state.liveSpeechRec.onresult = null;
+                state.liveSpeechRec.onerror = null;
+                state.liveSpeechRec.onend = null;
+                try {
+                    state.liveSpeechRec.stop();
+                } catch(e) {}
+                state.liveSpeechRec = null;
+            }
+
+            if (state.animationInterval) {
+                clearInterval(state.animationInterval);
+                state.animationInterval = null;
+            }
+
+            animateBuddyAvatar(false);
+            playFeedbackSound('pop');
+        }
+
+    </script>
+</body>
+</html>
