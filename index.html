@@ -722,7 +722,89 @@
             </div>
         </section>
 
-    </main>
+    
+<section class="w-full max-w-6xl mx-auto mt-10 mb-10">
+    <div class="kids-card p-6 rounded-3xl bg-gradient-to-br from-indigo-50 to-sky-50 border-indigo-200">
+
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+            <div>
+                <h2 class="text-3xl font-black text-indigo-950">
+                    🏆 Đấu Trường Từ Vựng Thông Minh
+                </h2>
+                <p class="text-sm text-slate-600 font-bold mt-1">
+                    Mỗi ngày hoàn thành 10 bài luyện đọc từ vựng để nâng cấp khả năng giao tiếp.
+                </p>
+            </div>
+
+            <div class="bg-white px-5 py-3 rounded-2xl border-2 border-indigo-100 shadow-sm">
+                <div class="text-xs uppercase tracking-widest text-indigo-600 font-black">
+                    Nhiệm vụ hôm nay
+                </div>
+                <div class="text-2xl font-black text-indigo-900">
+                    <span id="daily-vocab-progress">0</span> / 10
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+
+            <button onclick="setArenaLevel('basic')" class="arena-level-btn border-4 border-emerald-400 bg-emerald-50 rounded-3xl p-4 text-left">
+                <div class="text-2xl mb-2">🌱</div>
+                <div class="font-black text-emerald-900 text-lg">Cơ bản</div>
+                <div class="text-xs text-emerald-700 font-bold mt-1">
+                    Mẫu giáo / Cấp 1
+                </div>
+            </button>
+
+            <button onclick="setArenaLevel('extended')" class="arena-level-btn border-2 border-slate-200 bg-white rounded-3xl p-4 text-left">
+                <div class="text-2xl mb-2">🎒</div>
+                <div class="font-black text-indigo-900 text-lg">Mở rộng</div>
+                <div class="text-xs text-indigo-700 font-bold mt-1">
+                    Tiểu học / Cấp 2
+                </div>
+            </button>
+
+            <button onclick="setArenaLevel('advanced')" class="arena-level-btn border-2 border-slate-200 bg-white rounded-3xl p-4 text-left">
+                <div class="text-2xl mb-2">🚀</div>
+                <div class="font-black text-purple-900 text-lg">Nâng cao</div>
+                <div class="text-xs text-purple-700 font-bold mt-1">
+                    Giao tiếp phản xạ
+                </div>
+            </button>
+
+            <button onclick="setArenaLevel('expert')" class="arena-level-btn border-2 border-slate-200 bg-white rounded-3xl p-4 text-left">
+                <div class="text-2xl mb-2">🎓</div>
+                <div class="font-black text-amber-900 text-lg">Chuyên ngành</div>
+                <div class="text-xs text-amber-700 font-bold mt-1">
+                    AI • Space • Science
+                </div>
+            </button>
+
+        </div>
+
+        <div class="bg-white border-2 border-indigo-100 rounded-3xl p-5 mb-6">
+            <div class="flex items-center justify-between mb-3">
+                <div>
+                    <div class="text-xs uppercase tracking-widest text-indigo-600 font-black">
+                        Chủ đề học hôm nay
+                    </div>
+                    <div id="arena-topic-title" class="text-xl font-black text-indigo-950">
+                        👋 Chào hỏi cơ bản
+                    </div>
+                </div>
+
+                <div class="text-sm font-bold text-slate-500">
+                    AI sẽ tăng độ khó mỗi ngày 📈
+                </div>
+            </div>
+
+            <div id="arena-vocab-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+        </div>
+
+    </div>
+</section>
+
+</main>
 
     <div id="modal-profiles" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
         <div class="kids-card bg-white p-6 rounded-3xl max-w-md w-full border-slate-300 relative">
@@ -2820,6 +2902,206 @@ document.addEventListener('DOMContentLoaded', ()=>{
         }
     }, 300);
 });
+</script>
+
+
+<script>
+
+window.dailyMissionCount = 0;
+
+window.vocabArenaData = {
+
+    basic: {
+        topic: "👋 Chào hỏi cơ bản",
+        words: [
+            {icon:"👋", word:"Hello", pronunciation:"Hờ-lôu", vi:"Xin chào"},
+            {icon:"😊", word:"Happy", pronunciation:"Hép-pi", vi:"Vui vẻ"},
+            {icon:"🍎", word:"Apple", pronunciation:"Ép-pồ", vi:"Quả táo"},
+            {icon:"🐶", word:"Dog", pronunciation:"Đóc", vi:"Con chó"},
+            {icon:"🎨", word:"Color", pronunciation:"Cơ-lờ", vi:"Màu sắc"},
+            {icon:"🌞", word:"Sun", pronunciation:"Sân", vi:"Mặt trời"},
+            {icon:"🚗", word:"Car", pronunciation:"Ca", vi:"Xe hơi"},
+            {icon:"🏠", word:"House", pronunciation:"Hao-sờ", vi:"Ngôi nhà"},
+            {icon:"👦", word:"Boy", pronunciation:"Bôi", vi:"Bạn nam"},
+            {icon:"👧", word:"Girl", pronunciation:"Gơl", vi:"Bạn nữ"}
+        ]
+    },
+
+    extended: {
+        topic: "🎒 Trường học & Bạn bè",
+        words: [
+            {icon:"🏫", word:"School", pronunciation:"Sku-lờ", vi:"Trường học"},
+            {icon:"📚", word:"Library", pronunciation:"Lai-bờ-rì", vi:"Thư viện"},
+            {icon:"⚽", word:"Football", pronunciation:"Phút-bol", vi:"Bóng đá"},
+            {icon:"🧑‍🤝‍🧑", word:"Friendship", pronunciation:"Ph-ren-đờ-síp", vi:"Tình bạn"},
+            {icon:"✈️", word:"Travel", pronunciation:"Tra-vồ", vi:"Du lịch"},
+            {icon:"🍕", word:"Pizza", pronunciation:"Pít-sa", vi:"Bánh pizza"},
+            {icon:"🎵", word:"Music", pronunciation:"Miu-zịch", vi:"Âm nhạc"},
+            {icon:"🏊", word:"Swimming", pronunciation:"Suy-ming", vi:"Bơi lội"},
+            {icon:"🎮", word:"Gaming", pronunciation:"Gây-ming", vi:"Trò chơi điện tử"},
+            {icon:"🌦️", word:"Weather", pronunciation:"Que-thờ", vi:"Thời tiết"}
+        ]
+    },
+
+    advanced: {
+        topic: "🚀 Giao tiếp nâng cao",
+        words: [
+            {icon:"🎤", word:"Presentation", pronunciation:"Pờ-rê-sen-tây-shần", vi:"Thuyết trình"},
+            {icon:"🧠", word:"Creative", pronunciation:"Kri-ây-tịp", vi:"Sáng tạo"},
+            {icon:"🌍", word:"Environment", pronunciation:"En-vai-rần-mần", vi:"Môi trường"},
+            {icon:"📖", word:"Knowledge", pronunciation:"No-lịch", vi:"Kiến thức"},
+            {icon:"🗣️", word:"Conversation", pronunciation:"Con-vờ-sây-shần", vi:"Hội thoại"},
+            {icon:"🏆", word:"Champion", pronunciation:"Cham-pi-ần", vi:"Nhà vô địch"},
+            {icon:"💡", word:"Innovation", pronunciation:"In-nơ-vây-shần", vi:"Đổi mới"},
+            {icon:"🎯", word:"Strategy", pronunciation:"Strá-tơ-gi", vi:"Chiến lược"},
+            {icon:"🌟", word:"Confidence", pronunciation:"Con-fi-đần", vi:"Sự tự tin"},
+            {icon:"🤝", word:"Leadership", pronunciation:"Li-đờ-síp", vi:"Khả năng lãnh đạo"}
+        ]
+    },
+
+    expert: {
+        topic: "🎓 AI & Khoa học",
+        words: [
+            {icon:"🤖", word:"Artificial Intelligence", pronunciation:"Ar-ti-fi-shồl In-te-li-gần", vi:"Trí tuệ nhân tạo"},
+            {icon:"🚀", word:"Astronaut", pronunciation:"Át-trơ-nót", vi:"Phi hành gia"},
+            {icon:"🛰️", word:"Satellite", pronunciation:"Sa-tơ-lai", vi:"Vệ tinh"},
+            {icon:"♻️", word:"Recycling", pronunciation:"Ri-sai-kling", vi:"Tái chế"},
+            {icon:"🌌", word:"Galaxy", pronunciation:"Ga-lắc-si", vi:"Dải ngân hà"},
+            {icon:"🔬", word:"Laboratory", pronunciation:"La-bo-ra-to-ri", vi:"Phòng thí nghiệm"},
+            {icon:"⚡", word:"Technology", pronunciation:"Téc-no-lơ-gi", vi:"Công nghệ"},
+            {icon:"🧬", word:"Genetics", pronunciation:"Gi-né-tịch", vi:"Di truyền học"},
+            {icon:"🌱", word:"Ecology", pronunciation:"I-co-lơ-gi", vi:"Sinh thái học"},
+            {icon:"🌍", word:"Civilization", pronunciation:"Si-vi-lai-zây-shần", vi:"Nền văn minh"}
+        ]
+    }
+
+};
+
+window.setArenaLevel = function(level){
+
+    document.querySelectorAll('.arena-level-btn').forEach(btn=>{
+        btn.classList.remove('border-emerald-400','bg-emerald-50','border-indigo-500','bg-indigo-50','border-purple-500','bg-purple-50','border-amber-500','bg-amber-50');
+        btn.classList.add('border-slate-200','bg-white');
+    });
+
+    const current = event.currentTarget;
+
+    if(level === 'basic'){
+        current.classList.add('border-emerald-400','bg-emerald-50');
+    }
+
+    if(level === 'extended'){
+        current.classList.add('border-indigo-500','bg-indigo-50');
+    }
+
+    if(level === 'advanced'){
+        current.classList.add('border-purple-500','bg-purple-50');
+    }
+
+    if(level === 'expert'){
+        current.classList.add('border-amber-500','bg-amber-50');
+    }
+
+    const data = window.vocabArenaData[level];
+
+    document.getElementById('arena-topic-title').innerText = data.topic;
+
+    const grid = document.getElementById('arena-vocab-grid');
+    grid.innerHTML = '';
+
+    data.words.forEach((item, index)=>{
+
+        const card = document.createElement('div');
+
+        card.className =
+            'bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 rounded-3xl p-5 shadow-sm flex flex-col gap-4';
+
+        card.innerHTML = `
+            <div class="flex items-center gap-4">
+                <div class="w-16 h-16 rounded-2xl bg-indigo-100 flex items-center justify-center text-4xl">
+                    ${item.icon}
+                </div>
+
+                <div>
+                    <div class="text-2xl font-black text-indigo-950">
+                        ${item.word}
+                    </div>
+
+                    <div class="text-sm font-bold text-pink-600">
+                        🔊 ${item.pronunciation}
+                    </div>
+
+                    <div class="text-sm text-slate-600 font-semibold mt-1">
+                        🇻🇳 ${item.vi}
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+
+                <button onclick="speakArenaWord('${item.word}')" class="px-4 py-2 rounded-2xl bg-indigo-600 text-white font-black text-sm">
+                    🔊 Nghe phát âm
+                </button>
+
+                <button onclick="practiceArenaWord(this,'${item.word}')" class="px-4 py-2 rounded-2xl bg-emerald-500 text-white font-black text-sm">
+                    🎙️ Luyện đọc
+                </button>
+
+            </div>
+
+            <div class="text-xs font-bold text-slate-500 bg-slate-50 border border-slate-200 rounded-2xl p-3">
+                💡 Gợi ý: Hãy đọc chậm và rõ từng âm tiết để AI dễ nhận diện hơn.
+            </div>
+        `;
+
+        grid.appendChild(card);
+    });
+};
+
+window.speakArenaWord = function(word){
+
+    const speech = new SpeechSynthesisUtterance(word);
+
+    speech.lang = 'en-US';
+    speech.rate = 0.75;
+
+    speechSynthesis.speak(speech);
+};
+
+window.practiceArenaWord = function(btn, word){
+
+    btn.innerText = '🎧 Đang nghe...';
+
+    setTimeout(()=>{
+
+        btn.innerText = '✅ Hoàn thành';
+
+        window.dailyMissionCount++;
+
+        document.getElementById('daily-vocab-progress').innerText =
+            Math.min(window.dailyMissionCount, 10);
+
+        if(window.dailyMissionCount >= 10){
+
+            alert('🎉 Bé đã hoàn thành 10 bài luyện đọc hôm nay! AI sẽ nâng cấp từ vựng ngày mai.');
+        }
+
+    }, 1800);
+};
+
+document.addEventListener('DOMContentLoaded', ()=>{
+
+    setTimeout(()=>{
+
+        const firstBtn = document.querySelector('.arena-level-btn');
+
+        if(firstBtn){
+            firstBtn.click();
+        }
+
+    }, 300);
+});
+
 </script>
 
 </body>
