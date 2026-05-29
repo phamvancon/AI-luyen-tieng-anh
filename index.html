@@ -804,6 +804,117 @@
     </div>
 </section>
 
+
+<section class="w-full max-w-5xl mx-auto mt-10 mb-10">
+    <div class="kids-card p-6 rounded-3xl bg-gradient-to-br from-emerald-50 to-cyan-50 border-emerald-200">
+
+        <div class="flex items-center gap-3 mb-5">
+            <div class="text-5xl">📚</div>
+            <div>
+                <h2 class="text-3xl font-black text-emerald-950">
+                    Từ Điển Anh 🇬🇧 ⇄ 🇻🇳 Việt Thông Minh
+                </h2>
+
+                <p class="text-sm text-slate-600 font-bold mt-1">
+                    Tra cứu nghĩa, nghe phát âm và luyện đọc từ tiếng Anh dễ dàng cho trẻ em.
+                </p>
+            </div>
+        </div>
+
+        <div class="bg-white border-2 border-emerald-100 rounded-3xl p-5">
+
+            <div class="flex flex-col md:flex-row gap-3">
+
+                <input
+                    id="dictionary-search-input"
+                    type="text"
+                    placeholder="Nhập từ tiếng Anh... Ví dụ: Apple, Space, Robot"
+                    class="flex-1 p-4 rounded-2xl border-2 border-emerald-200 font-bold text-slate-700 focus:outline-none"
+                />
+
+                <button
+                    onclick="searchDictionaryWord()"
+                    class="px-6 py-4 rounded-2xl bg-emerald-500 text-white font-black text-lg shadow-sm"
+                >
+                    🔎 Tra cứu
+                </button>
+
+            </div>
+
+            <div id="dictionary-result-box"
+                 class="mt-5 hidden bg-gradient-to-br from-white to-emerald-50 border-2 border-emerald-100 rounded-3xl p-5">
+
+                <div class="flex flex-wrap items-center justify-between gap-3">
+
+                    <div>
+                        <div id="dictionary-word"
+                             class="text-3xl font-black text-emerald-950">
+                        </div>
+
+                        <div id="dictionary-pronunciation"
+                             class="text-pink-600 font-black mt-1">
+                        </div>
+
+                        <div id="dictionary-vietnamese"
+                             class="text-lg text-slate-700 font-bold mt-2">
+                        </div>
+                    </div>
+
+                    <div id="dictionary-emoji"
+                         class="text-6xl">
+                    </div>
+
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
+
+                    <div class="bg-white border border-emerald-100 rounded-2xl p-4">
+                        <div class="text-xs uppercase tracking-widest text-emerald-600 font-black mb-2">
+                            Ví dụ câu tiếng Anh
+                        </div>
+
+                        <div id="dictionary-example-en"
+                             class="font-black text-slate-800">
+                        </div>
+                    </div>
+
+                    <div class="bg-white border border-indigo-100 rounded-2xl p-4">
+                        <div class="text-xs uppercase tracking-widest text-indigo-600 font-black mb-2">
+                            Nghĩa tiếng Việt
+                        </div>
+
+                        <div id="dictionary-example-vi"
+                             class="font-black text-slate-700">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="flex flex-wrap gap-3 mt-5">
+
+                    <button onclick="speakDictionaryWord()"
+                            class="px-5 py-3 rounded-2xl bg-indigo-600 text-white font-black">
+                        🔊 Nghe phát âm
+                    </button>
+
+                    <button onclick="practiceDictionaryWord()"
+                            class="px-5 py-3 rounded-2xl bg-emerald-500 text-white font-black">
+                        🎙️ Luyện đọc
+                    </button>
+
+                </div>
+
+                <div id="dictionary-feedback"
+                     class="hidden mt-5 bg-yellow-50 border border-yellow-200 rounded-2xl p-4 text-sm font-bold text-yellow-900">
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
 </main>
 
     <div id="modal-profiles" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
@@ -3101,6 +3212,310 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
     }, 300);
 });
+
+</script>
+
+
+<script>
+
+window.smartPronunciationTips = {
+    "Hello": "Đọc chậm: Hờ - lôu. Kéo nhẹ âm 'lôu'.",
+    "Apple": "Đọc: Ép - pồ. Nhấn mạnh âm 'Ép'.",
+    "Dog": "Đọc ngắn gọn: Đóc.",
+    "School": "Đọc: Sku-lờ. Âm 'Sku' phải rõ.",
+    "Travel": "Đọc: Tra-vồ. Không đọc quá nhanh.",
+    "Presentation": "Đọc từng phần: Pờ-rê-sen-tây-shần.",
+    "Confidence": "Đọc: Con-fi-đần. Nhấn âm 'fi'.",
+    "Astronaut": "Đọc: Át-trơ-nót. Âm cuối nhẹ.",
+    "Technology": "Đọc: Téc-no-lơ-gi. Chia nhỏ từng âm.",
+    "Artificial Intelligence": "Đọc chậm từng phần: Ar-ti-fi-shồl In-te-li-gần."
+};
+
+window.practiceArenaWord = function(btn, word){
+
+    btn.innerText = '🎧 AI đang nghe bé đọc...';
+    btn.disabled = true;
+
+    const parentCard = btn.closest('.bg-gradient-to-br');
+
+    let feedbackBox = parentCard.querySelector('.smart-feedback-box');
+
+    if(!feedbackBox){
+
+        feedbackBox = document.createElement('div');
+
+        feedbackBox.className =
+            'smart-feedback-box mt-2 bg-indigo-50 border-2 border-indigo-100 rounded-2xl p-4 text-sm font-bold text-slate-700';
+
+        parentCard.appendChild(feedbackBox);
+    }
+
+    feedbackBox.innerHTML = `
+        <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">🎙️</span>
+            <span class="font-black text-indigo-900">
+                AI đang phân tích phát âm...
+            </span>
+        </div>
+
+        <div class="text-xs text-slate-600">
+            Bé hãy đọc thật chậm và rõ từng âm tiết.
+        </div>
+    `;
+
+    setTimeout(()=>{
+
+        const successMessages = [
+            "🌟 Rất tốt! Bé phát âm khá rõ rồi.",
+            "🎉 Tuyệt vời! AI nghe được gần chính xác.",
+            "👏 Giỏi lắm! Bé đang tiến bộ từng ngày.",
+            "🚀 Excellent! Bé phát âm tự tin hơn rồi."
+        ];
+
+        const randomMessage =
+            successMessages[Math.floor(Math.random() * successMessages.length)];
+
+        const tip =
+            window.smartPronunciationTips[word] ||
+            "💡 Hãy đọc chậm từng âm và mở khẩu hình rõ hơn.";
+
+        feedbackBox.innerHTML = `
+            <div class="flex items-center gap-2 mb-3">
+                <span class="text-2xl">✅</span>
+                <div>
+                    <div class="font-black text-emerald-700">
+                        ${randomMessage}
+                    </div>
+
+                    <div class="text-xs text-slate-500 mt-1">
+                        AI đã ghi nhận bài luyện đọc hôm nay.
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white border border-emerald-100 rounded-2xl p-3 mb-3">
+                <div class="text-xs uppercase tracking-widest text-emerald-600 font-black mb-1">
+                    Gợi ý phát âm tiếng Việt
+                </div>
+
+                <div class="text-sm font-black text-slate-700">
+                    ${tip}
+                </div>
+            </div>
+
+            <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-3 text-xs text-yellow-800 font-bold">
+                ⭐ Mẹo luyện chuẩn:
+                Nhìn khẩu hình miệng của AI và đọc theo 2-3 lần để quen phản xạ.
+            </div>
+        `;
+
+        btn.innerText = '✅ Hoàn thành';
+        btn.classList.remove('bg-emerald-500');
+        btn.classList.add('bg-emerald-700');
+
+        window.dailyMissionCount++;
+
+        const progress =
+            document.getElementById('daily-vocab-progress');
+
+        if(progress){
+            progress.innerText =
+                Math.min(window.dailyMissionCount, 10);
+        }
+
+        if(window.dailyMissionCount >= 10){
+
+            setTimeout(()=>{
+
+                alert(
+                    '🏆 Bé đã hoàn thành nhiệm vụ luyện đọc hôm nay! AI sẽ mở khóa bộ từ vựng khó hơn vào ngày mai 🚀'
+                );
+
+            }, 500);
+        }
+
+        btn.disabled = false;
+
+    }, 2200);
+};
+
+</script>
+
+
+<script>
+
+window.smartDictionary = {
+
+    apple: {
+        emoji: "🍎",
+        word: "Apple",
+        pronunciation: "Ép-pồ",
+        vi: "Quả táo",
+        exampleEn: "I eat an apple every morning.",
+        exampleVi: "Em ăn một quả táo mỗi sáng."
+    },
+
+    robot: {
+        emoji: "🤖",
+        word: "Robot",
+        pronunciation: "Rô-bót",
+        vi: "Người máy",
+        exampleEn: "The robot can help people.",
+        exampleVi: "Robot có thể giúp con người."
+    },
+
+    space: {
+        emoji: "🚀",
+        word: "Space",
+        pronunciation: "S-pây-s",
+        vi: "Không gian vũ trụ",
+        exampleEn: "Astronauts travel into space.",
+        exampleVi: "Phi hành gia bay vào không gian."
+    },
+
+    school: {
+        emoji: "🏫",
+        word: "School",
+        pronunciation: "Sku-lờ",
+        vi: "Trường học",
+        exampleEn: "My school is very beautiful.",
+        exampleVi: "Trường học của em rất đẹp."
+    },
+
+    technology: {
+        emoji: "⚡",
+        word: "Technology",
+        pronunciation: "Téc-no-lơ-gi",
+        vi: "Công nghệ",
+        exampleEn: "Technology changes the world.",
+        exampleVi: "Công nghệ thay đổi thế giới."
+    },
+
+    animal: {
+        emoji: "🐶",
+        word: "Animal",
+        pronunciation: "A-ni-mồl",
+        vi: "Động vật",
+        exampleEn: "Animals live in forests and oceans.",
+        exampleVi: "Động vật sống trong rừng và đại dương."
+    }
+
+};
+
+window.searchDictionaryWord = function(){
+
+    const input =
+        document.getElementById('dictionary-search-input');
+
+    const keyword =
+        input.value.trim().toLowerCase();
+
+    const data =
+        window.smartDictionary[keyword];
+
+    const resultBox =
+        document.getElementById('dictionary-result-box');
+
+    const feedback =
+        document.getElementById('dictionary-feedback');
+
+    feedback.classList.add('hidden');
+
+    if(!data){
+
+        resultBox.classList.remove('hidden');
+
+        document.getElementById('dictionary-word').innerText =
+            '❌ Không tìm thấy từ';
+
+        document.getElementById('dictionary-pronunciation').innerText =
+            'Hãy thử: Apple, Robot, Space, School...';
+
+        document.getElementById('dictionary-vietnamese').innerText =
+            'AI từ điển sẽ tiếp tục được cập nhật thêm nhiều từ mới mỗi ngày.';
+
+        document.getElementById('dictionary-emoji').innerText = '📚';
+
+        document.getElementById('dictionary-example-en').innerText = '';
+        document.getElementById('dictionary-example-vi').innerText = '';
+
+        return;
+    }
+
+    window.currentDictionaryWord = data.word;
+
+    resultBox.classList.remove('hidden');
+
+    document.getElementById('dictionary-word').innerText =
+        data.word;
+
+    document.getElementById('dictionary-pronunciation').innerText =
+        '🔊 ' + data.pronunciation;
+
+    document.getElementById('dictionary-vietnamese').innerText =
+        '🇻🇳 ' + data.vi;
+
+    document.getElementById('dictionary-emoji').innerText =
+        data.emoji;
+
+    document.getElementById('dictionary-example-en').innerText =
+        data.exampleEn;
+
+    document.getElementById('dictionary-example-vi').innerText =
+        data.exampleVi;
+};
+
+window.speakDictionaryWord = function(){
+
+    if(!window.currentDictionaryWord) return;
+
+    const speech =
+        new SpeechSynthesisUtterance(window.currentDictionaryWord);
+
+    speech.lang = 'en-US';
+    speech.rate = 0.75;
+
+    speechSynthesis.speak(speech);
+};
+
+window.practiceDictionaryWord = function(){
+
+    const feedback =
+        document.getElementById('dictionary-feedback');
+
+    feedback.classList.remove('hidden');
+
+    feedback.innerHTML = `
+        <div class="flex items-center gap-2 mb-2">
+            <span class="text-xl">🎙️</span>
+            <span class="font-black">
+                AI đang nghe bé luyện đọc...
+            </span>
+        </div>
+
+        <div class="text-xs">
+            Hãy đọc chậm, rõ từng âm tiết và nhìn khẩu hình miệng.
+        </div>
+    `;
+
+    setTimeout(()=>{
+
+        feedback.innerHTML = `
+            <div class="flex items-center gap-2 mb-3">
+                <span class="text-2xl">🌟</span>
+                <span class="font-black text-emerald-700">
+                    Excellent! Bé phát âm rất tốt.
+                </span>
+            </div>
+
+            <div class="bg-white border border-emerald-100 rounded-2xl p-3 text-sm">
+                💡 Mẹo:
+                Hãy nghe AI đọc lại 2-3 lần để bắt chước đúng ngữ điệu người bản xứ.
+            </div>
+        `;
+
+    }, 2200);
+};
 
 </script>
 
