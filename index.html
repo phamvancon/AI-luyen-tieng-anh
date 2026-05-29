@@ -91,7 +91,7 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <header class="w-full max-w-7xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-4 z-10">
-        <div class="flex items-center gap-3 cursor-pointer select-none" onclick="navigate('home')">
+        <div class="flex items-center gap-3 cursor-pointer" onclick="navigate('home')">
             <div class="w-14 h-14 bg-gradient-to-tr from-pink-400 to-yellow-300 rounded-full flex items-center justify-center text-3xl shadow-lg border-2 border-white wiggle-hover">
                 🦄
             </div>
@@ -143,7 +143,7 @@
 
             <!-- Mascot Selector Cards -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl px-4 mt-4">
-                <!-- Mascot 1: Adventure Mode -->
+                <!-- Mascot 1: Adventure Storyteller -->
                 <div class="kids-card p-6 rounded-3xl bg-amber-50 border-amber-300 flex flex-col items-center text-center relative overflow-hidden group">
                     <div class="absolute -right-6 -top-6 w-24 h-24 bg-amber-200/50 rounded-full blur-xl"></div>
                     <div class="text-7xl mb-4 bounce-slow">🦖</div>
@@ -326,41 +326,40 @@
                 <div class="w-24"></div> <!-- Spacer -->
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-4">
-                <!-- Theme selection panel -->
-                <div class="md:col-span-1 flex flex-col gap-4">
-                    <div class="kids-card p-5 bg-white rounded-3xl border-slate-200">
-                        <h3 class="text-lg font-bold text-slate-700 mb-3" id="categories-label">Nhóm Chủ Đề</h3>
-                        <div class="flex flex-col gap-2">
-                            <button onclick="loadVocabTheme('animals')" class="w-full text-left px-4 py-3 rounded-xl font-black border-2 border-emerald-100 hover:border-emerald-300 bg-emerald-50/30 text-emerald-800 transition" id="cat-animals">
-                                🦁 Động Vật Đáng Yêu
-                            </button>
-                            <button onclick="loadVocabTheme('fruits')" class="w-full text-left px-4 py-3 rounded-xl font-black border-2 border-orange-100 hover:border-orange-300 bg-orange-50/30 text-orange-800 transition" id="cat-fruits">
-                                🍓 Trái Cây Thơm Ngon
-                            </button>
-                            <button onclick="loadVocabTheme('vehicles')" class="w-full text-left px-4 py-3 rounded-xl font-black border-2 border-blue-100 hover:border-blue-300 bg-blue-50/30 text-blue-800 transition" id="cat-vehicles">
-                                🚒 Xe & Phương Tiện
-                            </button>
-                            <button onclick="loadVocabTheme('space')" class="w-full text-left px-4 py-3 rounded-xl font-black border-2 border-purple-100 hover:border-purple-300 bg-purple-50/30 text-purple-800 transition" id="cat-space">
-                                🛰️ Bí Ẩn Vũ Trụ
-                            </button>
-                        </div>
+            <!-- Online Vocabulary Level Selector Dashboard -->
+            <div class="w-full bg-indigo-50 border-4 border-indigo-100 p-5 rounded-3xl flex flex-col gap-4 shadow-inner">
+                <div>
+                    <h3 class="text-md font-extrabold text-indigo-950 mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-graduation-cap text-indigo-600"></i>
+                        <span>Chọn Cấp Độ Phù Hợp Cho Con:</span>
+                    </h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="vocab-level-selectors">
+                        <!-- Dynamically filled with level buttons -->
                     </div>
                 </div>
 
+                <div class="border-t-2 border-indigo-100 pt-3">
+                    <h4 class="text-xs font-bold text-indigo-600 mb-2">Chủ Đề Từ Vựng / Giao Tiếp:</h4>
+                    <div class="flex flex-wrap gap-2" id="vocab-subtheme-selectors">
+                        <!-- Dynamically filled subthemes buttons -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-6 mt-4">
                 <!-- Active Flashcard Arena -->
-                <div class="md:col-span-3 flex flex-col gap-6">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" id="vocab-cards-grid">
+                <div class="flex flex-col gap-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6" id="vocab-cards-grid">
                         <!-- Active Cards will load dynamically here -->
                     </div>
 
                     <!-- Playful Parent Guidelines for Vocab Page -->
-                    <div class="p-4 bg-emerald-50 border-2 border-emerald-200 rounded-2xl text-slate-700 w-full">
-                        <h5 class="font-extrabold text-emerald-900 text-sm mb-1.5 flex items-center gap-1.5">
-                            <i class="fa-solid fa-graduation-cap"></i> <span>💡 Đồng Hành Cùng Bé: Góc Cha Mẹ</span>
+                    <div class="p-5 bg-emerald-50 border-2 border-emerald-200 rounded-3xl text-slate-700 w-full shadow-sm">
+                        <h5 class="font-extrabold text-emerald-950 text-base mb-2 flex items-center gap-1.5">
+                            <i class="fa-solid fa-users-gear text-emerald-600"></i> <span>💡 Góc Đồng Hành Cho Cha Mẹ (Parent Guide)</span>
                         </h5>
                         <p id="vocab-parent-hint-text" class="text-xs text-emerald-800 font-semibold leading-relaxed">
-                            Bố mẹ hãy che nghĩa Tiếng Việt để đố con đoán nghĩa của từ trước, sau đó cho con tự bấm nút "Speak" để nghe mẫu giọng nữ chuẩn và "Practice" để phát âm kiếm điểm sao nhé!
+                            Mỗi bậc học có độ khó từ vựng và câu khác nhau. Đối với <strong>Cấp 1</strong>, hãy khuyến khích con nhớ nghĩa từ qua tranh vẽ. Đối với <strong>Cấp 2, 3 và Giao Tiếp</strong>, hãy khuyến khích con đọc to cả cụm từ/câu để tăng phản xạ nói trôi chảy. Bố mẹ có thể hướng dẫn bé tự rèn luyện qua phiên âm chuẩn và các ghi chú hướng dẫn phát âm tiếng Việt được tích hợp dưới từng thẻ từ.
                         </p>
                     </div>
                 </div>
@@ -373,7 +372,7 @@
                 <button onclick="navigate('home')" class="kids-card bg-white px-5 py-2.5 rounded-2xl font-extrabold text-slate-600 flex items-center gap-2 border-2 border-slate-300">
                     <i class="fa-solid fa-arrow-left"></i> <span id="back-home-btn3">Trang Chủ</span>
                 </button>
-                <h2 class="text-3xl font-black text-indigo-900 flex items-center gap-2" id="live-page-title">🎙️ Bạn Đồng Hành Trực Tiếp</h2>
+                <h2 class="text-3xl font-black text-indigo-900 flex items-center gap-2" id="live-page-title">🎙 league; Bạn Đồng Hành Trực Tiếp</h2>
                 <div class="w-24"></div> <!-- Spacer -->
             </div>
 
@@ -400,7 +399,7 @@
                     </div>
 
                     <div class="border-t-2 border-slate-100 pt-4 mt-2">
-                        <label class="block text-sm font-bold text-slate-600 mb-2" id="select-tone-label">Tông Giọng Trợ Lý</label>
+                        <label class="block text-sm font-bold text-slate-600 mb-2" id="select-tone-label">Giọng Trợ Lý (Nữ Chuẩn)</label>
                         <select id="live-voice-name" class="w-full p-3 border-2 border-slate-200 rounded-xl text-slate-700 font-bold focus:outline-none">
                             <option value="Aoede" selected>Aoede (Giọng nữ chuẩn, ngọt ngào)</option>
                             <option value="Leda">Leda (Giọng nữ trẻ trung, trong trẻo)</option>
@@ -448,7 +447,7 @@
                             <!-- Playful Vietnamese Tips on Conversation Starters -->
                             <div class="mt-4 p-4 bg-slate-800/80 border border-slate-700 rounded-2xl text-left">
                                 <h5 class="font-extrabold text-indigo-300 text-xs mb-1.5 flex items-center gap-1.5">
-                                    <i class="fa-solid fa-comments"></i> <span id="live-parent-hint-title">💡 Gợi ý câu hỏi bố mẹ có thể bảo con nói với AI:</span>
+                                    <i class="fa-solid fa-comments"></i> <span id="live-parent-hint-title">💡 Gợi ý cho phụ huynh hướng dẫn bé nói chuyện:</span>
                                 </h5>
                                 <ul id="live-parent-hint-list" class="text-[11px] text-slate-300 font-bold space-y-1 list-disc pl-4 leading-relaxed">
                                     <li>"Bảo con nói: 'Hello! My name is [Tên bé]' để tự giới thiệu."</li>
@@ -471,33 +470,38 @@
 
     </main>
 
-    
-    <!-- Profile Selection/Creation Modal -->
+    <!-- Profile Selection/Creation/Editing Modal -->
     <div id="modal-profiles" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
         <div class="kids-card bg-white p-6 rounded-3xl max-w-md w-full border-slate-300 relative">
             <button onclick="closeProfileSelector()" class="absolute right-4 top-4 w-10 h-10 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center text-slate-500 font-bold border-2 border-slate-300 transition">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
 
-            <h3 class="text-2xl font-black text-indigo-900 mb-2" id="modal-profile-title">👦 Chọn Hồ Sơ Của Bé</h3>
-            <p class="text-xs text-slate-500 font-bold mb-4" id="modal-profile-desc">Mỗi bé sẽ có số sao và lịch sử học tập riêng.</p>
+            <h3 class="text-2xl font-black text-indigo-900 mb-2" id="modal-profile-title">👦 Hồ Sơ Các Bé</h3>
+            <p class="text-xs text-slate-500 font-bold mb-4" id="modal-profile-desc">Mỗi bé sẽ có số sao tích lũy và tiến độ học tiếng Anh riêng biệt.</p>
 
             <div id="profiles-list-container" class="flex flex-col gap-3 max-h-64 overflow-y-auto mb-4 p-1">
                 <!-- Dynamically loaded child profiles -->
             </div>
 
+            <!-- Profile Form: Dual Add/Edit Purpose -->
             <div class="border-t-2 border-slate-100 pt-4">
-                <h4 class="text-sm font-bold text-slate-600 mb-2" id="add-new-profile-label">✨ Thêm hoặc Chỉnh Sửa Bé</h4>
-                <div class="flex gap-2">
-                    <input type="text" id="new-profile-name" class="flex-grow p-3 border-2 border-slate-200 rounded-xl font-bold focus:outline-none focus:ring-2 focus:ring-purple-400" placeholder="Tên của bé (Ví dụ: Minh, Andy)" />
-                    <select id="new-profile-emoji" class="p-3 border-2 border-slate-200 rounded-xl text-lg">
-                        <option value="👦">👦</option>
-                        <option value="👧">👧</option>
-                        <option value="🦄">🦄</option>
-                        <option value="🦁">🦁</option>
-                        <option value="🦖">🦖</option>
-                    </select>
-                    <button id="btn-add-profile" onclick="addNewProfile()" class="kids-btn-secondary px-5 py-3 text-white font-extrabold rounded-xl">Thêm</button>
+                <h4 class="text-sm font-bold text-slate-600 mb-2" id="add-new-profile-label">✨ Thêm Bé Mới</h4>
+                <div class="flex flex-col gap-3">
+                    <div class="flex gap-2">
+                        <input type="text" id="new-profile-name" class="flex-grow p-3 border-2 border-slate-200 rounded-xl font-bold focus:outline-none focus:ring-2 focus:ring-purple-400 text-sm" placeholder="Tên của bé (Ví dụ: Minh, Na)" />
+                        <select id="new-profile-emoji" class="p-3 border-2 border-slate-200 rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-purple-400">
+                            <option value="👦">👦 Cậu bé</option>
+                            <option value="👧">👧 Cô bé</option>
+                            <option value="🦄">🦄 Kỳ lân</option>
+                            <option value="🦁">🦁 Sư tử</option>
+                            <option value="🦖">🦖 Khủng long</option>
+                            <option value="🦊">🦊 Cáo nhỏ</option>
+                        </select>
+                    </div>
+                    <div id="add-profile-btn-container" class="flex gap-2 justify-end">
+                        <button onclick="addNewProfile()" class="kids-btn-secondary px-6 py-3 text-white font-extrabold rounded-xl text-sm w-full">Thêm Bé</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -511,7 +515,7 @@
             </button>
 
             <h3 class="text-2xl font-black text-indigo-900 mb-2">📊 Bảng Tiến Độ Của Các Bé</h3>
-            <p class="text-xs text-slate-500 font-bold mb-6">Thống kê học tập chi tiết của toàn bộ thành viên nhí trong nhà.</p>
+            <p class="text-xs text-slate-500 font-bold mb-6">Thống kê chi tiết những từ bé đã thuộc và hành trình truyện tranh đã vượt qua.</p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="parent-dashboard-grid">
                 <!-- Dynamically generated child progress graphs -->
@@ -551,7 +555,7 @@
                 <div>
                     <label class="block text-sm font-extrabold text-slate-600 mb-1.5">Gemini API Key</label>
                     <input type="password" id="gemini-api-key" class="w-full p-3.5 border-2 border-slate-200 rounded-xl font-mono text-sm focus:outline-none focus:ring-2 focus:ring-purple-400" placeholder="AI-generated key..." />
-                    <p class="text-[10px] text-slate-400 mt-1 font-semibold leading-relaxed">Để trống nếu bạn sử dụng thông tin đăng nhập nền tảng mặc định được định cấu hình trước.</p>
+                    <p class="text-[10px] text-slate-400 mt-1 font-semibold leading-relaxed">Để trống nếu bạn sử dụng thông tin cấu hình mặc định ngoại tuyến.</p>
                 </div>
 
                 <button onclick="saveConfig()" class="kids-btn-primary w-full py-4 text-white font-extrabold text-lg rounded-2xl mt-4">
@@ -574,7 +578,7 @@
     <div class="fixed bottom-16 right-36 text-5xl opacity-20 bounce-slow pointer-events-none select-none" style="animation-delay: 2.2s">🦕</div>
 
     <script type="module">
-        // Translation Map for complete Bilingual Support
+        // Complete bilingual translations map
         const uiLocales = {
             vi: {
                 subtitle: "Cuộc Phiêu Lưu Tiếng Anh AI",
@@ -607,14 +611,10 @@
                 challengeLabel: "🎯 Thử Thách Đọc Tiếng Anh!",
                 listeningLabel: "Đang nghe bé đọc... 🎧",
                 categoriesLabel: "Nhóm Chủ Đề",
-                catAnimals: "🦁 Động Vật Đáng Yêu",
-                catFruits: "🍓 Trái Cây Thơm Ngon",
-                catVehicles: "🚒 Xe & Phương Tiện",
-                catSpace: "🛰️ Bí Ẩn Vũ Trụ",
                 chooseBuddyLabel: "Chọn Bạn Đồng Hành",
                 buddyBarnabyDesc: "Nói chậm, hiền lành, động viên",
                 buddySparkyDesc: "Sôi nổi, tinh nghịch, thích chơi",
-                selectToneLabel: "Tông Giọng Trợ Lý",
+                selectToneLabel: "Giọng Trợ Lý (Nữ Chuẩn)",
                 liveChatHeadline: "Con đã sẵn sàng trò chuyện cùng bạn chưa?",
                 liveChatSub: "Hãy nhấn 'Kết nối Bạn Nói Chuyện' để thỏa thích học nói tiếng Anh nhé.",
                 liveTranscriptLabel: "Bản dịch trực tiếp:",
@@ -653,14 +653,10 @@
                 challengeLabel: "🎯 Kids Speaking Challenge!",
                 listeningLabel: "Listening to you... 🎧",
                 categoriesLabel: "Quest Categories",
-                catAnimals: "🦁 Cute Animals",
-                catFruits: "🍓 Delicious Fruits",
-                catVehicles: "🚒 Things That Go",
-                catSpace: "🛰️ Cosmic Wonders",
                 chooseBuddyLabel: "Select Buddy Profile",
                 buddyBarnabyDesc: "Warm, slow talking, encouraging",
                 buddySparkyDesc: "Excitable, funny, plays games",
-                selectToneLabel: "Prebuilt Voice Tone",
+                selectToneLabel: "Assistant Voice (Female)",
                 liveChatHeadline: "Ready to start our adventure?",
                 liveChatSub: "Click 'Connect Voice Buddy' to begin talking directly in English.",
                 liveTranscriptLabel: "Live Transcription:",
@@ -670,14 +666,122 @@
             }
         };
 
+        const vocabLevels = {
+            cap1: {
+                label: { vi: "🏫 Cấp 1 (Tiểu Học)", en: "🏫 Elementary" },
+                themes: {
+                    family: {
+                        label: { vi: "👨‍👩‍👦 Gia Đình", en: "👨‍👩‍👦 Family" },
+                        items: [
+                            { word: "Father", emoji: "👨", vn: "Bố / Cha", prompt: "A kind happy father holding his baby, smiling cartoon vector illustration", guide: "Con đọc là 'Phá-đờ' nhé! Hãy chú ý rung lưỡi nhẹ ở âm 'th' nha." },
+                            { word: "Mother", emoji: "👩", vn: "Mẹ", prompt: "A beautiful happy mother holding a cute kitten, smiling 3D render look", guide: "Con đọc là 'Má-đờ' nhé! Chú ý rung lưỡi ở âm 'th' giống từ 'Father' nha." },
+                            { word: "Brother", emoji: "👦", vn: "Anh / Em trai", prompt: "A young playful boy wearing a green cap, smiling friendly face", guide: "Con đọc là 'Brá-đờ' nhé! Chú ý âm 'Br' ở đầu uốn lưỡi nhẹ một chút nha." },
+                            { word: "Sister", emoji: "👧", vn: "Chị / Em gái", prompt: "A sweet young girl with pigtails, smiling and waving, cartoon style", guide: "Con đọc là 'Sís-tờ' nhé! Nhớ bật hơi xì nhẹ 's' ở giữa từ 'Sister' nha." }
+                        ]
+                    },
+                    school: {
+                        label: { vi: "✏️ Trường Học", en: "✏️ School" },
+                        items: [
+                            { word: "Teacher", emoji: "👩‍🏫", vn: "Giáo viên", prompt: "A friendly cartoon female teacher pointing at a blackboard with stars, Disney style", guide: "Con đọc là 'Tí-chờ' nhé! Nhớ chu môi bật nhẹ âm /tʃ/ ở cuối từ nha." },
+                            { word: "Backpack", emoji: "🎒", vn: "Cặp sách / Balo", prompt: "A colorful blue and red school backpack filled with books, 3D style", guide: "Con đọc là 'Bác-pác' nhé! Chú ý bật hơi nhẹ âm /k/ ở cuối cả hai vế nha." },
+                            { word: "Pencil", emoji: "✏️", vn: "Bút chì", prompt: "A cute smiling yellow pencil cartoon character writing on paper", guide: "Con đọc là 'Pen-sơl' nhé! Tròn môi uốn nhẹ đầu lưỡi ở cuối âm 'sơl' nha." },
+                            { word: "Library", emoji: "📚", vn: "Thư viện", prompt: "A cozy cartoon school library with bookshelves, warm soft lighting", guide: "Con đọc là 'Lai-brơ-ri' nhé! Nhớ đọc rõ cả ba âm tiết nghe thật Tây nha." }
+                        ]
+                    }
+                }
+            },
+            cap2: {
+                label: { vi: "🎒 Cấp 2 (THCS)", en: "🎒 Middle School" },
+                themes: {
+                    hobbies: {
+                        label: { vi: "🎨 Sở Thích", en: "🎨 Hobbies" },
+                        items: [
+                            { word: "Photography", emoji: "📷", vn: "Nhiếp ảnh / Chụp hình", prompt: "A cute cartoon camera with happy eyes, capturing a colorful landscape", guide: "Con đọc là 'Phơ-tó-grơ-phi' nhé! Nhấn trọng âm mạnh ở âm 'tó' nha." },
+                            { word: "Gardening", emoji: "🌱", vn: "Làm vườn", prompt: "A young kid wearing a straw hat watering small green plants, 3D render", guide: "Con đọc là 'Gá-đơ-ning' nhé! Nhấn mạnh âm 'Gá' đầu tiên nha con." },
+                            { word: "Baking", emoji: "🧁", vn: "Nướng bánh", prompt: "Delicious colorful cupcakes in a warm kitchen oven, cartoon style", guide: "Con đọc là 'Bấy-king' nhé! Nhớ có âm hơi /k/ nhẹ ở giữa từ nha." },
+                            { word: "Drawing", emoji: "🎨", vn: "Vẽ tranh", prompt: "A cute canvas stand with a bright rainbow painted on it, color palette", guide: "Con đọc là 'Dró-ing' nhé! Uốn lưỡi nhẹ âm 'Dr' ở đầu thật tự nhiên nha." }
+                        ]
+                    },
+                    sports: {
+                        label: { vi: "⚽ Thể Thao", en: "⚽ Sports" },
+                        items: [
+                            { word: "Basketball", emoji: "🏀", vn: "Bóng rổ", prompt: "An orange basketball swishing through a hoop with sparkles, vector design", guide: "Con đọc là 'Bát-skịt-bòl' nhé! Nhớ có âm xì nhẹ /s/ ở giữa 'Bát' nha." },
+                            { word: "Badminton", emoji: "🏸", vn: "Cầu lông", prompt: "A badminton racket hitting a shuttlecock in the air, blue sky background", guide: "Con đọc là 'Bát-min-tần' nhé! Đọc dứt khoát ba âm nghe thật khỏe khoắn." },
+                            { word: "Swimming", emoji: "🏊", vn: "Bơi lội", prompt: "A happy cartoon child splashing water in a sunny swimming pool", guide: "Con đọc là 'Sư-wim-ming' nhé! Đọc lướt nhanh âm 'sư' để nối vào 'wim' nha." },
+                            { word: "Gymnastics", emoji: "🤸", vn: "Thể dục dụng cụ", prompt: "A flexible cute cartoon girl doing a flip on a gymnastics mat", guide: "Con đọc là 'Dzim-nás-tịks' nhé! Nhớ bật hơi xì gió ở cuối từ nha con." }
+                        ]
+                    }
+                }
+            },
+            cap3: {
+                label: { vi: "🎓 Cấp 3 (THPT)", en: "🎓 High School" },
+                themes: {
+                    technology: {
+                        label: { vi: "💻 Công Nghệ", en: "💻 Technology" },
+                        items: [
+                            { word: "Artificial Intelligence", emoji: "🤖", vn: "Trí tuệ nhân tạo (AI)", prompt: "A cute tiny friendly white robot waving, blue glowing digital background", guide: "Con đọc là 'Á-ti-phi-sơl In-té-li-dzơns' nhé! Từ này dài, hãy luyện nói chậm rãi nha." },
+                            { word: "Cybersecurity", emoji: "🛡️", vn: "An ninh mạng", prompt: "A secure glowing neon blue lock shield with digital code lines", guide: "Con đọc là 'Sai-bờ-si-kyu-rơ-ti' nhé! Nhấn mạnh ở âm 'sai' và 'kyu' nha." },
+                            { word: "Smartphone", emoji: "📱", vn: "Điện thoại thông minh", prompt: "A sleek modern holographic smartphone with colorful icons, 3D style", guide: "Con đọc là 'Smát-phôn' nhé! Chú ý xì hơi 's' ở đầu và kéo dài âm 'smát' ra chút nha." },
+                            { word: "Programming", emoji: "💻", vn: "Lập trình", prompt: "A computer screen displaying colorful glowing lines of code, cozy desk", guide: "Con đọc là 'Prố-græ-ming' nhé! Đọc âm 'prố' uốn lưỡi nhẹ thật sang xịn nha." }
+                        ]
+                    },
+                    environment: {
+                        label: { vi: "🍀 Môi Trường", en: "🍀 Environment" },
+                        items: [
+                            { word: "Biodegradable", emoji: "♻️", vn: "Có thể phân hủy sinh học", prompt: "A cute green leaf wrapping around a paper straw, clean ecology look", guide: "Con đọc là 'Bai-ô-đi-gré-đơ-bồ' nhé! Từ này cực kỳ ý nghĩa bảo vệ môi trường." },
+                            { word: "Renewable Energy", emoji: "☀️", vn: "Năng lượng tái tạo", prompt: "Cute cartoon solar panels and white wind turbines on green hills", guide: "Con đọc là 'Ri-nyu-ơ-bồ Én-ơ-dzi' nhé! Chú ý uốn lưỡi ở chữ 'energy' nha." },
+                            { word: "Conservation", emoji: "🌳", vn: "Sự bảo tồn", prompt: "Two hands holding a tiny glowing earth globe with a small tree growing on top", guide: "Con đọc là 'Cọn-sơ-véy-sơn' nhé! Nhấn mạnh ở âm 'véy' nha con." },
+                            { word: "Pollution", emoji: "🏭", vn: "Sự ô nhiễm", prompt: "A smoky factory silhouette in pastel colors, soft warning concept, cartoon", guide: "Con đọc là 'Pơ-lú-shơn' nhé! Chu môi phát âm âm 'shơn' thật rõ nha." }
+                        ]
+                    }
+                }
+            },
+            giaotiep: {
+                label: { vi: "💬 Giao Tiếp Hàng Ngày", en: "💬 Everyday English" },
+                themes: {
+                    greetings: {
+                        label: { vi: "👋 Chào Hỏi", en: "👋 Greetings" },
+                        items: [
+                            { word: "Nice to meet you", emoji: "🤝", vn: "Rất vui được gặp bạn", prompt: "Two happy cartoon children shaking hands in front of a school, warm colors", guide: "Con đọc nối là 'Nai-s tu mít yu' nhé! Nhớ xì gió nhẹ âm /s/ ở từ 'Nice' nha." },
+                            { word: "Have a nice day", emoji: "☀️", vn: "Chúc một ngày tốt lành", prompt: "A cheerful shining sun wearing sunglasses, waving and smiling, vector", guide: "Con đọc là 'Hæv ơ nai-s đây' nhé! Chú ý bật hơi gió âm /v/ ở 'Have' và xì hơi ở 'nice' nha." },
+                            { word: "How is it going", emoji: "❓", vn: "Dạo này thế nào rồi?", prompt: "Two cute animals chatting on a park bench under a big tree, cozy illustration", guide: "Con đọc nối là 'Hao íz ít gô-ing' nhé! Đây là câu hỏi han bạn bè rất thân thiện." },
+                            { word: "See you later", emoji: "👋", vn: "Hẹn gặp lại bạn sau nhé", prompt: "A cute little bird waving goodbye from a tree branch, pastel soft colors", guide: "Con đọc là 'Si yu lêi-tờ' nhé! Đọc nhẹ nhàng lướt nhanh tình cảm nha con." }
+                        ]
+                    },
+                    shopping: {
+                        label: { vi: "🛍️ Mua Sắm", en: "🛍️ Shopping" },
+                        items: [
+                            { word: "How much is this", emoji: "💰", vn: "Cái này giá bao nhiêu?", prompt: "A cute price tag on a cozy teddy bear sitting on a shelf, warm toy store", guide: "Con đọc nối là 'Hao mất-ch íz đít-s' nhé! Nhớ chu môi bật hơi âm 'ch' ở từ 'much' nha." },
+                            { word: "Do you have a discount", emoji: "🏷️", vn: "Có được giảm giá không ạ?", prompt: "A happy cartoon character holding a percentage sign coupon, shopping mall", guide: "Con đọc là 'Du yu hæv ơ đís-cao-nt' nhé! Nhớ bật nhẹ âm /t/ ở cuối từ 'discount' nha." },
+                            { word: "Can I pay by card", emoji: "💳", vn: "Tôi có thể thanh toán bằng thẻ?", prompt: "A cute smiling credit card character jumping with sparkles, neon colors", guide: "Con đọc là 'Kæn ai pây bai cát' nhé! Nhớ bật hơi nhẹ âm /d/ ở cuối từ 'card' nha." },
+                            { word: "Where is the cashier", emoji: "🏪", vn: "Quầy thu ngân ở đâu vậy?", prompt: "A friendly cartoon grocery store checkout lane with shopping cart, 3D style", guide: "Con đọc là 'We-ơ íz đờ ca-shi-ơ' nhé! Chú ý chu môi ở âm 'sh' của từ 'cashier' nha." }
+                        ]
+                    }
+                }
+            }
+        };
+
+        const kidsPronunciationGuides = {
+            "rocket ship": "Con đọc là 'Róc-kịt shíp' nhé! Chú ý chu môi phát âm 'sh' và bật hơi âm 'p' ở cuối từ 'ship' nha.",
+            "friendly alien": "Con đọc là 'Fờ-ren-dli Ê-li-ần' nhé! Đọc nối thật mềm mại nha.",
+            "dance and sing": "Con đọc là 'Đoán-s èn Sing' nhé! Nhớ xì hơi nhẹ âm 's' của từ 'dance' nha.",
+            "dancing squirrel": "Con đọc là 'Đán-sing Skwi-rờl' nhé! Uốn lưỡi nhẹ ở cuối từ 'squirrel' nha.",
+            "magic butterfly": "Con đọc là 'Me-džik Bắt-tờ-phlai' nhé! Đọc rõ âm 'phlai' rực rỡ nào.",
+            "sing a song": "Con đọc là 'Sing-ơ-song' nhé! Nối âm 'sing a' thành 'sing-ơ' nghe cực xịn nha.",
+            "warm water": "Con đọc là 'Woam Wo-tờ' nhé! Kéo dài âm 'o' một chút nha.",
+            "treasure box": "Con đọc là 'Tre-zhờ Bóc-s' nhé! Nhớ xì hơi gió mạnh ở cuối chữ 'box' nha.",
+            "joyful party": "Con đọc là 'Dzoi-phùl Pa-ti' nhé! Nhấn mạnh ở âm đầu tiên nha."
+        };
+
         // System state containing localization and profiles
         const state = {
             currentLang: 'vi',
             profiles: [
-                { id: '1', name: 'Bé Na', emoji: '👧', stars: 12, completedStories: ['Leo du hành vũ trụ'], masteredWords: ['Elephant', 'Apple'] },
+                { id: '1', name: 'Bé Na', emoji: '👧', stars: 12, completedStories: ['Leo du hành vũ trụ'], masteredWords: ['Father', 'Apple', 'Nice to meet you'] },
                 { id: '2', name: 'Bé Bin', emoji: '👦', stars: 5, completedStories: [], masteredWords: [] }
             ],
             activeProfileId: '1',
+            editingProfileId: null, // Track profile currently under edition
             apiKey: '',
             
             // Story active state
@@ -687,7 +791,8 @@
             storyIsRecording: false,
             
             // Vocab active state
-            currentVocabTheme: 'animals',
+            currentVocabLevel: 'cap1',
+            currentVocabTheme: 'family',
             
             // Live companion state (REST based)
             selectedBuddy: 'barnaby',
@@ -701,97 +806,9 @@
             mathAnswer: 0
         };
 
-        window.setLanguage = function(lang) {
-            state.currentLang = lang;
-            
-            // Update Active Lang Buttons
-            const btnVi = document.getElementById('lang-vi');
-            if (btnVi) {
-                btnVi.className = lang === 'vi' ? "px-3 py-1 text-xs font-bold rounded-full bg-indigo-600 text-white transition" : "px-3 py-1 text-xs font-bold rounded-full text-slate-600 hover:bg-slate-100 transition";
-            }
-            const btnEn = document.getElementById('lang-en');
-            if (btnEn) {
-                btnEn.className = lang === 'en' ? "px-3 py-1 text-xs font-bold rounded-full bg-indigo-600 text-white transition" : "px-3 py-1 text-xs font-bold rounded-full text-slate-600 hover:bg-slate-100 transition";
-            }
-
-            // Localize text components safely
-            const loc = uiLocales[lang];
-            const safeSetText = (id, txt) => {
-                const el = document.getElementById(id);
-                if (el) el.textContent = txt;
-            };
-            const safeSetHTML = (id, html) => {
-                const el = document.getElementById(id);
-                if (el) el.innerHTML = html;
-            };
-            const safeSetPlaceholder = (id, placeholder) => {
-                const el = document.getElementById(id);
-                if (el) el.placeholder = placeholder;
-            };
-
-            safeSetText('header-subtitle', loc.subtitle);
-            safeSetText('btn-parent-corner', loc.parentBtn);
-            safeSetText('home-title', loc.homeTitle);
-            safeSetText('home-sub', loc.homeSub);
-            safeSetText('card-stories-title', loc.cardStoriesTitle);
-            safeSetText('card-stories-desc', loc.cardStoriesDesc);
-            safeSetText('btn-stories-start', loc.btnStoriesStart);
-            safeSetText('card-vocab-title', loc.cardVocabTitle);
-            safeSetText('card-vocab-desc', loc.cardVocabDesc);
-            safeSetText('btn-vocab-start', loc.btnVocabStart);
-            safeSetText('card-live-title', loc.cardLiveTitle);
-            safeSetText('card-live-desc', loc.cardLiveDesc);
-            safeSetText('btn-live-start', loc.btnLiveStart);
-            safeSetText('tip-title', loc.tipTitle);
-            safeSetText('tip-text', loc.tipText);
-
-            // Page Navigation headers
-            safeSetText('back-home-btn', loc.backHome);
-            safeSetText('back-home-btn2', loc.backHome);
-            safeSetText('back-home-btn3', loc.backHome);
-            safeSetText('stories-page-title', loc.storiesPageTitle);
-            safeSetText('choose-topic-label', loc.chooseTopicLabel);
-            safeSetText('story-space-title', loc.storySpaceTitle);
-            safeSetText('story-space-desc', loc.storySpaceDesc);
-            safeSetText('story-forest-title', loc.storyForestTitle);
-            safeSetText('story-forest-desc', loc.storyForestDesc);
-            safeSetText('story-ocean-title', loc.storyOceanTitle);
-            safeSetText('story-ocean-desc', loc.storyOceanDesc);
-            safeSetText('custom-story-title', loc.customStoryTitle);
-            safeSetPlaceholder('custom-story-prompt', loc.customStoryPlaceholder);
-            safeSetText('btn-story-listen-label', loc.btnStoryListen);
-            safeSetText('next-chapter-label', loc.nextChapter);
-            safeSetText('challenge-label', loc.challengeLabel);
-            safeSetText('listening-label', loc.listeningLabel);
-            
-            safeSetText('vocab-page-title', loc.vocabPageTitle);
-            safeSetText('categories-label', loc.categoriesLabel);
-            safeSetHTML('cat-animals', loc.catAnimals);
-            safeSetHTML('cat-fruits', loc.catFruits);
-            safeSetHTML('cat-vehicles', loc.catVehicles);
-            safeSetHTML('cat-space', loc.catSpace);
-
-            safeSetText('live-page-title', loc.livePageTitle);
-            safeSetText('choose-buddy-label', loc.chooseBuddyLabel);
-            safeSetText('buddy-barnaby-desc', loc.buddyBarnabyDesc);
-            safeSetText('buddy-sparky-desc', loc.buddySparkyDesc);
-            safeSetText('select-tone-label', loc.selectToneLabel);
-            safeSetText('live-chat-headline', loc.liveChatHeadline);
-            safeSetText('live-chat-sub', loc.liveChatSub);
-            safeSetText('live-transcript-label', loc.liveTranscriptLabel);
-            
-            const liveBtn = document.getElementById('connect-live-text');
-            if (liveBtn) {
-                liveBtn.textContent = state.isLiveConnected ? loc.disconnectLive : loc.connectLive;
-            }
-
-            // Reload vocabulary names with current language
-            loadVocabTheme(state.currentVocabTheme);
-            playFeedbackSound('pop');
-        };
-
         window.openProfileSelector = function() {
             renderProfilesList();
+            cancelProfileEdit(); // Reset profile edit form inside modal
             document.getElementById('modal-profiles').classList.remove('hidden');
             document.getElementById('modal-profiles').classList.add('flex');
             playFeedbackSound('bubble');
@@ -800,7 +817,6 @@
         window.closeProfileSelector = function() {
             document.getElementById('modal-profiles').classList.add('hidden');
             document.getElementById('modal-profiles').classList.remove('flex');
-            resetProfileForm();
             playFeedbackSound('pop');
         };
 
@@ -821,9 +837,8 @@
                         </div>
                     </div>
                     <div class="flex items-center gap-1">
-                        <!-- Student edit profile action -->
-                        <button onclick="editProfile('${profile.id}')" class="text-indigo-400 hover:text-indigo-600 p-2 transition" title="Chỉnh sửa tên">
-                            <i class="fa-solid fa-pen text-sm"></i>
+                        <button onclick="editProfile('${profile.id}')" class="text-slate-400 hover:text-indigo-600 p-2 transition">
+                            <i class="fa-solid fa-pen-to-square"></i>
                         </button>
                         ${state.profiles.length > 1 ? `
                         <button onclick="deleteProfile('${profile.id}')" class="text-slate-300 hover:text-red-500 p-2 transition">
@@ -833,72 +848,6 @@
                 `;
                 container.appendChild(card);
             });
-        }
-
-        window.editProfile = function(profileId) {
-            const profile = state.profiles.find(p => p.id === profileId);
-            if (!profile) return;
-
-            const nameInput = document.getElementById('new-profile-name');
-            const emojiInput = document.getElementById('new-profile-emoji');
-            
-            // Fill existing info to form
-            nameInput.value = profile.name;
-            emojiInput.value = profile.emoji;
-
-            const addBtn = document.getElementById('btn-add-profile');
-            addBtn.textContent = state.currentLang === 'vi' ? 'Lưu' : 'Save';
-            addBtn.classList.replace('kids-btn-secondary', 'kids-btn-primary');
-            
-            // Wire the button action to save instead of add
-            addBtn.onclick = function() {
-                const newName = nameInput.value.trim();
-                if (!newName) {
-                    showNotification('💭 Lỗi', 'Vui lòng điền tên mới của bé!', false);
-                    return;
-                }
-                
-                profile.name = newName;
-                profile.emoji = emojiInput.value;
-
-                saveStateToStorage();
-                renderProfilesList();
-
-                // If currently active, sync headers
-                if (state.activeProfileId === profileId) {
-                    document.getElementById('active-profile-emoji').textContent = profile.emoji;
-                    document.getElementById('active-profile-name').textContent = profile.name;
-                }
-
-                showNotification('✨ Hoàn thành!', `Đã chỉnh sửa thông tin bé thành ${newName}!`);
-                resetProfileForm();
-            };
-
-            // Inject close/cancel editing button dynamically
-            let cancelBtn = document.getElementById('btn-cancel-profile-edit');
-            if (!cancelBtn) {
-                cancelBtn = document.createElement('button');
-                cancelBtn.id = 'btn-cancel-profile-edit';
-                cancelBtn.className = 'kids-btn-accent px-4 py-3 text-white font-extrabold rounded-xl bg-slate-500 border-slate-700 ml-2';
-                cancelBtn.textContent = state.currentLang === 'vi' ? 'Hủy' : 'Cancel';
-                cancelBtn.onclick = resetProfileForm;
-                addBtn.parentNode.appendChild(cancelBtn);
-            }
-        };
-
-        function resetProfileForm() {
-            const nameInput = document.getElementById('new-profile-name');
-            nameInput.value = '';
-            
-            const addBtn = document.getElementById('btn-add-profile');
-            addBtn.textContent = state.currentLang === 'vi' ? 'Thêm' : 'Add';
-            addBtn.classList.replace('kids-btn-primary', 'kids-btn-secondary');
-            addBtn.onclick = window.addNewProfile;
-
-            const cancelBtn = document.getElementById('btn-cancel-profile-edit');
-            if (cancelBtn) {
-                cancelBtn.remove();
-            }
         }
 
         window.selectProfile = function(profileId) {
@@ -940,6 +889,62 @@
             renderProfilesList();
             showNotification('✨ Tuyệt vời!', `Đã tạo hồ sơ cho bé ${name}!`);
             saveStateToStorage();
+        };
+
+        window.editProfile = function(profileId) {
+            const profile = state.profiles.find(p => p.id === profileId);
+            if (!profile) return;
+
+            state.editingProfileId = profileId;
+            document.getElementById('new-profile-name').value = profile.name;
+            document.getElementById('new-profile-emoji').value = profile.emoji;
+            
+            document.getElementById('add-new-profile-label').innerHTML = `✏️ Chỉnh Sửa Bé: <span class="text-pink-600">${profile.name}</span>`;
+            
+            // Swap Add Button with Save and Cancel buttons
+            const btnContainer = document.getElementById('add-profile-btn-container');
+            btnContainer.innerHTML = `
+                <button onclick="saveProfileEdit()" class="kids-btn-secondary px-4 py-3 text-white font-extrabold rounded-xl text-sm w-1/2">Lưu</button>
+                <button onclick="cancelProfileEdit()" class="bg-slate-100 hover:bg-slate-200 border-2 border-slate-300 px-4 py-3 text-slate-600 font-bold rounded-xl text-sm w-1/2">Hủy</button>
+            `;
+            playFeedbackSound('pop');
+        };
+
+        window.cancelProfileEdit = function() {
+            state.editingProfileId = null;
+            document.getElementById('new-profile-name').value = '';
+            document.getElementById('add-new-profile-label').innerHTML = `✨ Thêm Bé Mới`;
+            
+            const btnContainer = document.getElementById('add-profile-btn-container');
+            btnContainer.innerHTML = `<button onclick="addNewProfile()" class="kids-btn-secondary px-6 py-3 text-white font-extrabold rounded-xl text-sm w-full">Thêm Bé</button>`;
+        };
+
+        window.saveProfileEdit = function() {
+            const nameInput = document.getElementById('new-profile-name');
+            const emojiInput = document.getElementById('new-profile-emoji');
+            const name = nameInput.value.trim();
+
+            if (!name) {
+                showNotification('💭 Lỗi', 'Vui lòng điền tên của bé!', false);
+                return;
+            }
+
+            const profile = state.profiles.find(p => p.id === state.editingProfileId);
+            if (profile) {
+                profile.name = name;
+                profile.emoji = emojiInput.value;
+                
+                // Live sync current header if edited
+                if (state.activeProfileId === state.editingProfileId) {
+                    document.getElementById('active-profile-emoji').textContent = profile.emoji;
+                    document.getElementById('active-profile-name').textContent = profile.name;
+                }
+
+                showNotification('✏️ Thành công!', `Đã chỉnh sửa thông tin bé ${name}!`);
+                saveStateToStorage();
+                renderProfilesList();
+                cancelProfileEdit();
+            }
         };
 
         window.deleteProfile = function(profileId) {
@@ -1052,126 +1057,346 @@
             localStorage.setItem('wv_active_profile_id', state.activeProfileId);
         }
 
-        // UI Initial Setup
-        window.addEventListener('load', () => {
-            // Load state from local storage if available
-            const savedKey = localStorage.getItem('gemini_api_key');
-            if (savedKey) {
-                state.apiKey = savedKey;
-                document.getElementById('gemini-api-key').value = savedKey;
-            }
+        function buildVocabLevelSelectors() {
+            const container = document.getElementById('vocab-level-selectors');
+            if (!container) return;
+            container.innerHTML = '';
 
-            const savedProfiles = localStorage.getItem('wv_profiles');
-            const savedActiveId = localStorage.getItem('wv_active_profile_id');
-            if (savedProfiles && savedActiveId) {
-                state.profiles = JSON.parse(savedProfiles);
-                state.activeProfileId = savedActiveId;
-            }
+            Object.keys(vocabLevels).forEach(levelKey => {
+                const levelData = vocabLevels[levelKey];
+                const label = state.currentLang === 'vi' ? levelData.label.vi : levelData.label.en;
+                const isSelected = state.currentVocabLevel === levelKey;
+                
+                const btn = document.createElement('button');
+                btn.className = `p-3 rounded-2xl border-2 font-black text-sm text-center transition ${
+                    isSelected 
+                        ? 'bg-indigo-600 border-indigo-700 text-white shadow-md' 
+                        : 'bg-white border-slate-200 hover:border-indigo-300 text-indigo-900'
+                }`;
+                btn.textContent = label;
+                btn.onclick = () => {
+                    selectVocabLevel(levelKey);
+                };
+                container.appendChild(btn);
+            });
 
-            // Sync Header UI elements
-            const activeProfile = state.profiles.find(p => p.id === state.activeProfileId) || state.profiles[0];
-            document.getElementById('active-profile-emoji').textContent = activeProfile.emoji;
-            document.getElementById('active-profile-name').textContent = activeProfile.name;
-            state.stars = activeProfile.stars;
-            updateStarDisplay();
+            buildVocabSubthemeSelectors();
+        }
 
-            // Load default vocab theme
-            loadVocabTheme('animals');
-            setLanguage('vi'); // Start default Vietnamese helper
-        });
+        function buildVocabSubthemeSelectors() {
+            const container = document.getElementById('vocab-subtheme-selectors');
+            if (!container) return;
+            container.innerHTML = '';
 
-        // Config Controls
-        window.openConfigModal = function() {
-            document.getElementById('modal-config').classList.remove('hidden');
-            document.getElementById('modal-config').classList.add('flex');
+            const themes = vocabLevels[state.currentVocabLevel].themes;
+            Object.keys(themes).forEach(themeKey => {
+                const themeData = themes[themeKey];
+                const label = state.currentLang === 'vi' ? themeData.label.vi : themeData.label.en;
+                const isSelected = state.currentVocabTheme === themeKey;
+
+                const btn = document.createElement('button');
+                btn.className = `px-4 py-2 rounded-xl border font-bold text-xs transition ${
+                    isSelected 
+                        ? 'bg-emerald-500 border-emerald-600 text-white shadow-sm' 
+                        : 'bg-white border-slate-200 hover:bg-emerald-50 text-emerald-800'
+                }`;
+                btn.textContent = label;
+                btn.onclick = () => {
+                    selectVocabSubtheme(themeKey);
+                };
+                container.appendChild(btn);
+            });
+        }
+
+        window.selectVocabLevel = function(levelKey) {
+            state.currentVocabLevel = levelKey;
+            // Set default subtheme for the selected level automatically
+            const firstThemeKey = Object.keys(vocabLevels[levelKey].themes)[0];
+            state.currentVocabTheme = firstThemeKey;
+
+            buildVocabLevelSelectors();
+            loadVocabTheme();
             playFeedbackSound('bubble');
         };
 
-        window.closeConfigModal = function() {
-            document.getElementById('modal-config').classList.add('hidden');
-            document.getElementById('modal-config').classList.remove('flex');
+        window.selectVocabSubtheme = function(themeKey) {
+            state.currentVocabTheme = themeKey;
+            buildVocabSubthemeSelectors();
+            loadVocabTheme();
+            playFeedbackSound('bubble');
+        };
+
+        window.loadVocabTheme = function() {
+            const cardGrid = document.getElementById('vocab-cards-grid');
+            if (!cardGrid) return;
+            cardGrid.innerHTML = '';
+
+            const levelData = vocabLevels[state.currentVocabLevel];
+            const themeData = levelData.themes[state.currentVocabTheme];
+            if (!themeData) return;
+
+            const items = themeData.items;
+            items.forEach((item, index) => {
+                const subLabel = state.currentLang === 'vi' ? `<span class="text-sm font-semibold text-slate-400 block">${item.vn}</span>` : '';
+                const card = document.createElement('div');
+                card.className = "kids-card bg-white p-5 rounded-3xl border-slate-200 flex flex-col items-center gap-4 relative justify-between";
+                card.innerHTML = `
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="text-5xl mb-1">${item.emoji}</div>
+                        <div class="text-center">
+                            <h4 class="text-2xl font-black text-indigo-950" id="vocab-word-${index}">${item.word}</h4>
+                            ${subLabel}
+                        </div>
+                    </div>
+                    
+                    <div class="w-full h-32 bg-slate-50 rounded-xl overflow-hidden border border-slate-100 flex items-center justify-center relative">
+                        <img id="vocab-img-${index}" src="" alt="${item.word}" class="w-full h-full object-cover hidden" />
+                        <div id="vocab-loader-${index}" class="absolute inset-0 flex items-center justify-center bg-white/80">
+                            <i class="fa-solid fa-spinner animate-spin text-purple-600 text-lg"></i>
+                        </div>
+                    </div>
+
+                    <!-- Kid-friendly Vietnamese pronunciation helper -->
+                    <div class="w-full p-2.5 bg-indigo-50/50 rounded-2xl border border-indigo-100">
+                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Mẹo đọc cho bé:</p>
+                        <p class="text-xs text-indigo-900 font-bold leading-relaxed">${item.guide}</p>
+                    </div>
+
+                    <!-- Practice feedback dynamic element -->
+                    <div id="vocab-feedback-${index}" class="w-full p-2 bg-green-50 border border-green-200 rounded-xl text-xs font-semibold text-green-800 text-center hidden"></div>
+
+                    <div class="flex gap-2 w-full mt-2">
+                        <button onclick="speakVocabWord('${item.word}')" class="flex-1 bg-sky-100 hover:bg-sky-200 text-sky-700 py-2.5 rounded-xl font-bold border-b-2 border-sky-300 transition text-sm flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-volume-high"></i> <span>Nghe</span>
+                        </button>
+                        <button onclick="listenToVocabRepeat('${item.word}', ${index})" class="flex-1 bg-pink-100 hover:bg-pink-200 text-pink-700 py-2.5 rounded-xl font-bold border-b-2 border-pink-300 transition text-sm flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-microphone"></i> <span>Nói</span>
+                        </button>
+                    </div>
+                `;
+                cardGrid.appendChild(card);
+
+                triggerVocabStickerGen(item.prompt, index);
+            });
+        };
+
+        async function triggerVocabStickerGen(imagePrompt, index) {
+            const imgEl = document.getElementById(`vocab-img-${index}`);
+            const loader = document.getElementById(`vocab-loader-${index}`);
+            if (!imgEl) return;
+
+            try {
+                const creativePrompt = `Cute cartoon child sticker of ${imagePrompt}, solid white backdrop, clean vector 3D look, Pixar design`;
+                const payload = {
+                    instances: [{ prompt: creativePrompt }],
+                    parameters: { sampleCount: 1 }
+                };
+
+                const apiKeyParam = state.apiKey ? `?key=${state.apiKey}` : '';
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict${apiKeyParam}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+                const base64Data = result.predictions?.[0]?.bytesBase64Encoded;
+
+                if (base64Data) {
+                    imgEl.src = `data:image/png;base64,${base64Data}`;
+                    imgEl.classList.remove('hidden');
+                    loader.classList.add('hidden');
+                } else {
+                    throw new Error("No sticker image generated");
+                }
+            } catch (err) {
+                console.warn("Vocab image generation error, falling back", err);
+                if (loader) loader.classList.add('hidden');
+            }
+        }
+
+        window.speakVocabWord = function(word) {
+            const selectedVoice = document.getElementById('live-voice-name').value;
+            const isFemale = (selectedVoice === 'Aoede' || selectedVoice === 'Leda');
+
+            const synthUtterance = new SpeechSynthesisUtterance(word);
+            synthUtterance.rate = 0.8;
+            synthUtterance.lang = 'en-US';
+
+            // Select standard female voice if compatible in browser
+            if (window.speechSynthesis && isFemale) {
+                const voices = window.speechSynthesis.getVoices();
+                const femaleVoice = voices.find(v => v.lang.startsWith('en') && (v.name.toLowerCase().includes('female') || v.name.toLowerCase().includes('zira') || v.name.toLowerCase().includes('samantha') || v.name.toLowerCase().includes('google us english')));
+                if (femaleVoice) synthUtterance.voice = femaleVoice;
+            }
+
+            window.speechSynthesis.speak(synthUtterance);
+        };
+
+        window.listenToVocabRepeat = function(word, index) {
+            const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRec) {
+                showNotification('🎙️ Mic Error', 'Speech recognition not supported on this browser.', false);
+                return;
+            }
+
+            const rec = new SpeechRec();
+            rec.lang = 'en-US';
+            rec.maxAlternatives = 1;
+
+            const cardTitle = document.getElementById(`vocab-word-${index}`);
+            const originalColor = cardTitle.style.color;
+            const feedbackEl = document.getElementById(`vocab-feedback-${index}`);
+
+            rec.onstart = () => {
+                cardTitle.style.color = '#EC4899';
+                cardTitle.classList.add('animate-pulse');
+                if (feedbackEl) {
+                    feedbackEl.classList.add('hidden');
+                }
+                playFeedbackSound('bubble');
+            };
+
+            rec.onresult = (event) => {
+                const spoken = event.results[0][0].transcript.trim().toLowerCase();
+                const cleanWord = word.trim().toLowerCase();
+
+                if (spoken === cleanWord || spoken.includes(cleanWord)) {
+                    addStars(2);
+                    showNotification('⭐️ Tuyệt vời!', `Con phát âm đúng rồi: "${word}"!`);
+                    
+                    if (feedbackEl) {
+                        feedbackEl.textContent = "🎉 Chuẩn 100%!";
+                        feedbackEl.className = "w-full p-2 bg-green-50 border border-green-200 rounded-xl text-xs font-bold text-green-800 text-center mt-2";
+                        feedbackEl.classList.remove('hidden');
+                    }
+
+                    const profile = state.profiles.find(p => p.id === state.activeProfileId);
+                    if (profile && !profile.masteredWords.includes(word)) {
+                        profile.masteredWords.push(word);
+                        saveStateToStorage();
+                    }
+                } else {
+                    showNotification('✊ Cố lên con!', `Con vừa nói là: "${spoken}". Luyện tập lại nhé!`, false);
+                    playFeedbackSound('fail');
+
+                    if (feedbackEl) {
+                        feedbackEl.textContent = `Thử lại: "${spoken}"`;
+                        feedbackEl.className = "w-full p-2 bg-amber-50 border border-amber-200 rounded-xl text-xs font-bold text-amber-800 text-center mt-2";
+                        feedbackEl.classList.remove('hidden');
+                    }
+                }
+            };
+
+            rec.onend = () => {
+                cardTitle.style.color = originalColor;
+                cardTitle.classList.remove('animate-pulse');
+            };
+
+            rec.start();
+        };
+
+        window.setLanguage = function(lang) {
+            state.currentLang = lang;
+            
+            const btnVi = document.getElementById('lang-vi');
+            if (btnVi) {
+                btnVi.className = lang === 'vi' ? "px-3 py-1 text-xs font-bold rounded-full bg-indigo-600 text-white transition" : "px-3 py-1 text-xs font-bold rounded-full text-slate-600 hover:bg-slate-100 transition";
+            }
+            const btnEn = document.getElementById('lang-en');
+            if (btnEn) {
+                btnEn.className = lang === 'en' ? "px-3 py-1 text-xs font-bold rounded-full bg-indigo-600 text-white transition" : "px-3 py-1 text-xs font-bold rounded-full text-slate-600 hover:bg-slate-100 transition";
+            }
+
+            const loc = uiLocales[lang];
+            const safeSetText = (id, txt) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = txt;
+            };
+            const safeSetHTML = (id, html) => {
+                const el = document.getElementById(id);
+                if (el) el.innerHTML = html;
+            };
+            const safeSetPlaceholder = (id, placeholder) => {
+                const el = document.getElementById(id);
+                if (el) el.placeholder = placeholder;
+            };
+
+            safeSetText('header-subtitle', loc.subtitle);
+            safeSetText('btn-parent-corner', loc.parentBtn);
+            safeSetText('home-title', loc.homeTitle);
+            safeSetText('home-sub', loc.homeSub);
+            safeSetText('card-stories-title', loc.cardStoriesTitle);
+            safeSetText('card-stories-desc', loc.cardStoriesDesc);
+            safeSetText('btn-stories-start', loc.btnStoriesStart);
+            safeSetText('card-vocab-title', loc.cardVocabTitle);
+            safeSetText('card-vocab-desc', loc.cardVocabDesc);
+            safeSetText('btn-vocab-start', loc.btnVocabStart);
+            safeSetText('card-live-title', loc.cardLiveTitle);
+            safeSetText('card-live-desc', loc.cardLiveDesc);
+            safeSetText('btn-live-start', loc.btnLiveStart);
+            safeSetText('tip-title', loc.tipTitle);
+            safeSetText('tip-text', loc.tipText);
+
+            safeSetText('back-home-btn', loc.backHome);
+            safeSetText('back-home-btn2', loc.backHome);
+            safeSetText('back-home-btn3', loc.backHome);
+            safeSetText('stories-page-title', loc.storiesPageTitle);
+            safeSetText('choose-topic-label', loc.chooseTopicLabel);
+            safeSetText('story-space-title', loc.storySpaceTitle);
+            safeSetText('story-space-desc', loc.storySpaceDesc);
+            safeSetText('story-forest-title', loc.storyForestTitle);
+            safeSetText('story-forest-desc', loc.storyForestDesc);
+            safeSetText('story-ocean-title', loc.storyTheme);
+            safeSetText('story-ocean-desc', loc.storyTheme);
+            safeSetText('custom-story-title', loc.customStoryTitle);
+            safeSetPlaceholder('custom-story-prompt', loc.customStoryPlaceholder);
+            safeSetText('btn-story-listen-label', loc.btnStoryListen);
+            safeSetText('next-chapter-label', loc.nextChapter);
+            safeSetText('challenge-label', loc.challengeLabel);
+            safeSetText('listening-label', loc.listeningLabel);
+            
+            safeSetText('vocab-page-title', loc.vocabPageTitle);
+
+            safeSetText('live-page-title', loc.livePageTitle);
+            safeSetText('choose-buddy-label', loc.chooseBuddyLabel);
+            safeSetText('buddy-barnaby-desc', loc.buddyBarnabyDesc);
+            safeSetText('buddy-sparky-desc', loc.buddySparkyDesc);
+            safeSetText('select-tone-label', loc.selectToneLabel);
+            safeSetText('live-chat-headline', loc.liveChatHeadline);
+            safeSetText('live-chat-sub', loc.liveChatSub);
+            safeSetText('live-transcript-label', loc.liveTranscriptLabel);
+            
+            const liveBtn = document.getElementById('connect-live-text');
+            if (liveBtn) {
+                liveBtn.textContent = state.isLiveConnected ? loc.disconnectLive : loc.connectLive;
+            }
+
+            // Reload levels, subthemes and card components
+            buildVocabLevelSelectors();
+            loadVocabTheme();
             playFeedbackSound('pop');
         };
 
-        window.saveConfig = function() {
-            const key = document.getElementById('gemini-api-key').value.trim();
-            state.apiKey = key;
-            localStorage.setItem('gemini_api_key', key);
-            showNotification('⚙️ Settings Saved!', `Successfully integrated settings!`);
-            closeConfigModal();
-        };
-
-        const synth = new Tone.Synth({
-            oscillator: { type: "sine" },
-            envelope: { attack: 0.05, decay: 0.1, sustain: 0.3, release: 1 }
-        }).toDestination();
-
-        window.playFeedbackSound = function(type) {
-            try {
-                if (Tone.context.state !== 'running') {
-                    Tone.start();
-                }
-                
-                if (type === 'bubble') {
-                    synth.triggerAttackRelease("C5", "8n", "+0.01", 0.5);
-                    synth.triggerAttackRelease("E5", "8n", "+0.1", 0.5);
-                } else if (type === 'success') {
-                    const now = Tone.now();
-                    synth.triggerAttackRelease("C5", "16n", now);
-                    synth.triggerAttackRelease("E5", "16n", now + 0.1);
-                    synth.triggerAttackRelease("G5", "16n", now + 0.2);
-                    synth.triggerAttackRelease("C6", "4n", now + 0.3);
-                } else if (type === 'pop') {
-                    synth.triggerAttackRelease("F4", "16n", undefined, 0.4);
-                } else if (type === 'fail') {
-                    synth.triggerAttackRelease("E4", "8n", undefined, 0.5);
-                    synth.triggerAttackRelease("C4", "4n", "+0.15", 0.5);
-                }
-            } catch (err) {
-                console.warn('Audio feedback failed to initialize:', err);
+        window.navigate = function(pageId) {
+            if (state.isLiveConnected && pageId !== 'live') {
+                disconnectLive();
             }
-        };
 
-        window.showNotification = function(emoji, message, success = true) {
-            const box = document.getElementById('notification-box');
-            const em = document.getElementById('notif-emoji');
-            const msg = document.getElementById('notif-message');
-            
-            em.textContent = emoji;
-            msg.textContent = message;
-            
-            box.style.backgroundColor = success ? '#22C55E' : '#EF4444';
-            box.classList.remove('translate-y-24', 'opacity-0');
-            box.classList.add('translate-y-0', 'opacity-100');
-            
-            setTimeout(() => {
-                box.classList.add('translate-y-24', 'opacity-0');
-                box.classList.remove('translate-y-0', 'opacity-100');
-            }, 3000);
-        };
-
-        function addStars(num) {
-            state.stars += num;
-            updateStarDisplay();
-            
-            // Sync dynamically to active profile
-            const profile = state.profiles.find(p => p.id === state.activeProfileId);
-            if (profile) {
-                profile.stars = state.stars;
-            }
-            saveStateToStorage();
-
-            confetti({
-                particleCount: 50,
-                spread: 60,
-                origin: { y: 0.8 }
+            ['home', 'stories', 'vocab', 'live'].forEach(id => {
+                document.getElementById(`page-${id}`).classList.add('hidden');
+                document.getElementById(`page-${id}`).classList.remove('flex');
             });
-            playFeedbackSound('success');
-        }
 
-        function updateStarDisplay() {
-            document.getElementById('star-count').textContent = state.stars;
-        }
+            const targetPage = document.getElementById(`page-${pageId}`);
+            targetPage.classList.remove('hidden');
+            targetPage.classList.add('flex');
+            
+            state.activePage = pageId;
+            playFeedbackSound('bubble');
+        };
 
         const premadeStories = {
             space: [
@@ -1254,24 +1479,6 @@
             ]
         };
 
-        window.navigate = function(pageId) {
-            if (state.isLiveConnected && pageId !== 'live') {
-                disconnectLive();
-            }
-
-            ['home', 'stories', 'vocab', 'live'].forEach(id => {
-                document.getElementById(`page-${id}`).classList.add('hidden');
-                document.getElementById(`page-${id}`).classList.remove('flex');
-            });
-
-            const targetPage = document.getElementById(`page-${pageId}`);
-            targetPage.classList.remove('hidden');
-            targetPage.classList.add('flex');
-            
-            state.activePage = pageId;
-            playFeedbackSound('bubble');
-        };
-
         window.selectPremadeStory = async function(type) {
             state.currentStoryType = type;
             state.storyChapters = premadeStories[type];
@@ -1293,8 +1500,7 @@
 
             try {
                 const systemPrompt = "You are a professional children's storyteller who writes interactive 3-chapter tales to teach kids English. Each chapter must have exactly: 1) text: 2 simple English sentences suitable for 5-8 year old kids (under 25 words). 2) vietnamese: natural Vietnamese translation. 3) targetPhrase: 1 key vocabulary phrase of 2-3 words. 4) instruction: simple sentence instruction. 5) prompt: a highly detailed visual illustration prompt for an image generation tool (style: bright 3D vector, Pixar character, children storybook). Return a JSON array representing these 3 chapters.";
-                
-                const userQuery = `Write a magical interactive story based on this prompt: "${promptInput}". Let the character learn simple words. Make it super positive. Return exactly a JSON list of 3 items matching the schema schema.`;
+                const userQuery = `Write a magical interactive story based on this prompt: "${promptInput}". Let the character learn simple words. Make it super positive. Return exactly a JSON list of 3 items matching the schema.`;
                 
                 const payload = {
                     contents: [{ parts: [{ text: userQuery }] }],
@@ -1316,9 +1522,7 @@
                             }
                         }
                     },
-                    systemInstruction: {
-                        parts: [{ text: systemPrompt }]
-                    }
+                    systemInstruction: { parts: [{ text: systemPrompt }] }
                 };
 
                 const apiKeyParam = state.apiKey ? `?key=${state.apiKey}` : '';
@@ -1334,8 +1538,7 @@
                 const generatedJson = result.candidates?.[0]?.content?.parts?.[0]?.text;
                 
                 if (generatedJson) {
-                    const parsed = JSON.parse(generatedJson);
-                    state.storyChapters = parsed;
+                    state.storyChapters = JSON.parse(generatedJson);
                     state.currentStoryType = 'custom';
                     state.currentChapterIndex = 0;
                     loadStoryChapter();
@@ -1349,19 +1552,6 @@
                 btn.innerHTML = originalText;
                 btn.disabled = false;
             }
-        };
-
-        // Custom phonetics and guide tips to help parents instruct their children
-        const parentSpeakGuides = {
-            "rocket ship": "Phát âm: /'rɒkɪt ʃɪp/. Nhắc bé đọc dứt khoát âm 'p' ở cuối từ 'ship' và nhấn mạnh âm đầu 'rock'.",
-            "friendly alien": "Phát âm: /'frendli 'eɪliən/. Bố mẹ bảo bé đọc nối mềm 'friend-ly' và tròn âm 'alien'.",
-            "dance and sing": "Phát âm: /dæns ænd sɪŋ/. Hãy bảo bé phát âm rõ âm xì hơi 's' của từ 'dance'.",
-            "dancing squirrel": "Phát âm: /'dænsɪŋ 'skwɪrəl/. Nhắc bé đọc uốn lưỡi nhẹ ở cuối từ 'squirrel'.",
-            "magic butterfly": "Phát âm: /'mædʒɪk 'bʌtəflaɪ/. Nhắc bé bật âm gió 'j' ở giữa 'magic' và phát âm rõ 'butterfly'.",
-            "sing a song": "Phát âm: /sɪŋ eɪ sɒŋ/. Bố mẹ hãy gợi ý bé đọc lướt nhanh nối âm 'sing a' thành 'sin-gơ' thật sành điệu!",
-            "warm water": "Phát âm: /wɔːm 'wɔːtə/. Bố mẹ khuyên bé kéo dài hơi âm 'o' kéo dài khi đọc cả hai từ nhé.",
-            "treasure box": "Phát âm: /'treʒə bɒks/. Từ 'treasure' phát âm hơi gió trung, 'box' kết thúc bằng âm xì 'ks' gió mạnh.",
-            "joyful party": "Phát âm: /'dʒɔɪfʊl 'pɑːti/. Khuyên con đọc nhấn mạnh âm tiết đầu tiên của cả hai từ để tạo nhạc điệu."
         };
 
         async function loadStoryChapter() {
@@ -1379,15 +1569,6 @@
             // Render comprehension targets
             document.getElementById('story-quest-instruction').textContent = chapterData.instruction;
             document.getElementById('story-target-phrase').textContent = `"${chapterData.targetPhrase}"`;
-
-            // Setup customized parent guidelines dynamically
-            const phrase = chapterData.targetPhrase.toLowerCase();
-            const parentHintEl = document.getElementById('story-parent-hint-text');
-            if (parentSpeakGuides[phrase]) {
-                parentHintEl.textContent = parentSpeakGuides[phrase];
-            } else {
-                parentHintEl.textContent = `Hãy hướng dẫn bé bấm nút "Bấm Để Nghe Nhé!" để nghe âm chuẩn giọng nữ trước, rồi động viên bé tự tin nhấn "Nhấn Để Đọc" và phát âm chuẩn xác từ "${chapterData.targetPhrase}".`;
-            }
 
             // Reset evaluation box
             const evalBox = document.getElementById('story-evaluation-text');
@@ -1457,9 +1638,6 @@
             btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Speaking...`;
             btn.disabled = true;
 
-            // Voice settings matching selected voice tone
-            const selectedVoice = document.getElementById('live-voice-name').value;
-
             try {
                 const payload = {
                     contents: [{
@@ -1469,7 +1647,7 @@
                         responseModalities: ["AUDIO"],
                         speechConfig: {
                             voiceConfig: {
-                                prebuiltVoiceConfig: { voiceName: selectedVoice }
+                                prebuiltVoiceConfig: { voiceName: "Puck" }
                             }
                         }
                     }
@@ -1501,11 +1679,16 @@
                     const audio = new Audio(audioUrl);
                     audio.play();
                 } else {
-                    fallbackLocalSpeech(chapterData.text);
+                    const synthUtterance = new SpeechSynthesisUtterance(chapterData.text);
+                    synthUtterance.rate = 0.85;
+                    synthUtterance.lang = 'en-US';
+                    window.speechSynthesis.speak(synthUtterance);
                 }
             } catch (err) {
                 console.error("TTS failed:", err);
-                fallbackLocalSpeech(chapterData.text);
+                const synthUtterance = new SpeechSynthesisUtterance(chapterData.text);
+                synthUtterance.rate = 0.85;
+                window.speechSynthesis.speak(synthUtterance);
             } finally {
                 btn.innerHTML = originalText;
                 btn.disabled = false;
@@ -1580,21 +1763,20 @@
             evalBox.classList.remove('hidden');
 
             if (matched) {
-                evalBox.innerHTML = `🌟 Tuyệt vời! Con vừa nói: <span class="text-green-600">"${spokenText}"</span>. Thật giỏi!`;
+                evalBox.innerHTML = `🌟 Tuyệt vời! Con vừa nói: <span class="text-green-600 font-extrabold">"${spokenText}"</span>. Thật giỏi!`;
                 addStars(5);
                 
-                // Unlock Next Button
                 const nextBtn = document.getElementById('btn-story-next');
                 nextBtn.disabled = false;
                 nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
 
-                // Track Vocabulary to parent's profile
                 const profile = state.profiles.find(p => p.id === state.activeProfileId);
                 if (profile && !profile.masteredWords.includes(chapterData.targetPhrase)) {
                     profile.masteredWords.push(chapterData.targetPhrase);
                 }
             } else {
-                evalBox.innerHTML = `😅 Cố lên nào! Con vừa nói: <span class="text-amber-600">"${spokenText}"</span>.<br><span class="text-xs font-bold text-slate-500">Con hãy phát âm lại từ "${chapterData.targetPhrase}" nhé!</span>`;
+                const guide = kidsPronunciationGuides[target] || `Con hãy cố gắng phát âm lại từ "${chapterData.targetPhrase}" thật rõ ràng nhé!`;
+                evalBox.innerHTML = `😅 Cố lên nào! Con vừa nói: <span class="text-amber-600 font-bold">"${spokenText}"</span>.<br><span class="text-xs font-bold text-slate-500 block mt-1">Hướng dẫn cho con: ${guide}</span>`;
                 playFeedbackSound('fail');
             }
         }
@@ -1605,7 +1787,6 @@
                 loadStoryChapter();
                 playFeedbackSound('bubble');
             } else {
-                // Completed Story
                 showNotification('🏆 Chúc Mừng Bé!', 'Con đã hoàn thành trọn vẹn câu chuyện cổ tích!', true);
                 addStars(15);
 
@@ -1616,175 +1797,6 @@
                 saveStateToStorage();
                 navigate('home');
             }
-        };
-
-        const vocabThemes = {
-            animals: [
-                { word: "Elephant", emoji: "🐘", vn: "Con voi", prompt: "A friendly giant cartoon elephant spraying water from trunk, cute 3D vector character" },
-                { word: "Lion", emoji: "🦁", vn: "Sư tử", prompt: "A adorable young lion cub with a fluffy mane smiling on African savannah, cute pixar cartoon style" },
-                { word: "Penguin", emoji: "🐧", vn: "Chim cánh cụt", prompt: "A sweet little cartoon penguin wearing a cozy red scarf standing on ice, cartoon vector style" },
-                { word: "Giraffe", emoji: "🦒", vn: "Hươu cao cổ", prompt: "A friendly cartoon giraffe with a long neck smiling, wearing a tiny bowtie, happy colorful style" }
-            ],
-            fruits: [
-                { word: "Apple", emoji: "🍎", vn: "Quả táo", prompt: "A happy cartoon red apple with a shiny green leaf, cute smiling face, vector icon style" },
-                { word: "Banana", emoji: "🍌", vn: "Quả chuối", prompt: "A funny banana cartoon character slipping and waving, vibrant colors, bright yellow look" },
-                { word: "Watermelon", emoji: "🍉", vn: "Dưa hấu", prompt: "A giant juicy slice of watermelon cartoon with happy black eyes smiling, fresh pink seeds" },
-                { word: "Strawberry", emoji: "🍓", vn: "Dâu tây", prompt: "A sweet tiny cartoon strawberry character blushing and smiling, cute Disney vector illustration" }
-            ],
-            vehicles: [
-                { word: "Police Car", emoji: "🚓", vn: "Xe cảnh sát", prompt: "A friendly cartoon blue police car with flashing lights on top, cute big headlights" },
-                { word: "Fire Engine", emoji: "🚒", vn: "Xe cứu hỏa", prompt: "A brave little red fire truck cartoon with a ladder, smiling friendly face, cartoon style" },
-                { word: "Train", emoji: "🚂", vn: "Tàu hỏa", prompt: "A colorful steam train cartoon engine chugging down a green hill, puffy smoke clouds" },
-                { word: "Helicopter", emoji: "🚁", vn: "Máy bay trực thăng", prompt: "A cute little yellow helicopter cartoon with happy eyes flying through clouds" }
-            ],
-            space: [
-                { word: "Rocket", emoji: "🚀", vn: "Tên lửa", prompt: "A retro rocket ship flying upwards with fiery trail, starry sky, colorful cartoon style" },
-                { word: "Astronaut", emoji: "👩‍🚀", vn: "Phi hành gia", prompt: "A little cartoon child astronaut floating in space next to a cute moon, friendly Pixar look" },
-                { word: "Planet", emoji: "🪐", vn: "Hành tinh", prompt: "A whimsical pink and blue planet with a golden ring around it, sparkling stars backdrop" },
-                { word: "Telescope", emoji: "🔭", vn: "Kính viễn vọng", prompt: "A big purple cartoon telescope pointing to the starry space, cute learning design" }
-            ]
-        };
-
-        window.loadVocabTheme = function(themeId) {
-            state.currentVocabTheme = themeId;
-            const cardGrid = document.getElementById('vocab-cards-grid');
-            if (!cardGrid) return;
-            cardGrid.innerHTML = '';
-
-            const items = vocabThemes[themeId];
-            items.forEach((item, index) => {
-                const subLabel = state.currentLang === 'vi' ? `<span class="text-sm font-semibold text-slate-400 block">${item.vn}</span>` : '';
-                const card = document.createElement('div');
-                card.className = "kids-card bg-white p-5 rounded-3xl border-slate-200 flex flex-col items-center gap-4 relative";
-                card.innerHTML = `
-                    <div class="text-5xl mb-1">${item.emoji}</div>
-                    <div class="text-center">
-                        <h4 class="text-2xl font-black text-slate-800" id="vocab-word-${index}">${item.word}</h4>
-                        ${subLabel}
-                    </div>
-                    
-                    <div class="w-full h-32 bg-slate-50 rounded-xl overflow-hidden border border-slate-100 flex items-center justify-center relative">
-                        <img id="vocab-img-${index}" src="" alt="${item.word}" class="w-full h-full object-cover hidden" />
-                        <div id="vocab-loader-${index}" class="absolute inset-0 flex items-center justify-center bg-white/80">
-                            <i class="fa-solid fa-spinner animate-spin text-purple-600 text-lg"></i>
-                        </div>
-                    </div>
-
-                    <div class="flex gap-2 w-full">
-                        <button onclick="speakVocabWord('${item.word}')" class="flex-1 bg-sky-100 hover:bg-sky-200 text-sky-700 py-2 rounded-xl font-bold border-b-2 border-sky-300 transition text-sm">
-                            🔊 Speak
-                        </button>
-                        <button onclick="listenToVocabRepeat('${item.word}', ${index})" class="flex-1 bg-pink-100 hover:bg-pink-200 text-pink-700 py-2 rounded-xl font-bold border-b-2 border-pink-300 transition text-sm">
-                            🎤 Practice
-                        </button>
-                    </div>
-                `;
-                cardGrid.appendChild(card);
-
-                triggerVocabStickerGen(item.prompt, index);
-            });
-        };
-
-        async function triggerVocabStickerGen(imagePrompt, index) {
-            const imgEl = document.getElementById(`vocab-img-${index}`);
-            const loader = document.getElementById(`vocab-loader-${index}`);
-            if (!imgEl) return;
-
-            try {
-                const creativePrompt = `Cute cartoon child sticker of ${imagePrompt}, solid white backdrop, clean vector 3D look, Pixar design`;
-                const payload = {
-                    instances: [{ prompt: creativePrompt }],
-                    parameters: { sampleCount: 1 }
-                };
-
-                const apiKeyParam = state.apiKey ? `?key=${state.apiKey}` : '';
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict${apiKeyParam}`;
-
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                const result = await response.json();
-                const base64Data = result.predictions?.[0]?.bytesBase64Encoded;
-
-                if (base64Data) {
-                    imgEl.src = `data:image/png;base64,${base64Data}`;
-                    imgEl.classList.remove('hidden');
-                    loader.classList.add('hidden');
-                } else {
-                    throw new Error("No sticker image generated");
-                }
-            } catch (err) {
-                console.warn("Vocab image generation error, falling back", err);
-                if (loader) loader.classList.add('hidden');
-            }
-        }
-
-        window.speakVocabWord = function(word) {
-            const selectedVoice = document.getElementById('live-voice-name').value;
-            const isFemale = (selectedVoice === 'Aoede' || selectedVoice === 'Leda');
-
-            const synthUtterance = new SpeechSynthesisUtterance(word);
-            synthUtterance.rate = 0.8;
-            synthUtterance.lang = 'en-US';
-
-            // Select female voice locally if compatible
-            if (window.speechSynthesis && isFemale) {
-                const voices = window.speechSynthesis.getVoices();
-                const femaleVoice = voices.find(v => v.lang.startsWith('en') && (v.name.toLowerCase().includes('female') || v.name.toLowerCase().includes('zira') || v.name.toLowerCase().includes('samantha') || v.name.toLowerCase().includes('google us english')));
-                if (femaleVoice) synthUtterance.voice = femaleVoice;
-            }
-
-            window.speechSynthesis.speak(synthUtterance);
-        };
-
-        window.listenToVocabRepeat = function(word, index) {
-            const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (!SpeechRec) {
-                showNotification('🎙️ Mic Error', 'Speech recognition not supported on this browser.', false);
-                return;
-            }
-
-            const rec = new SpeechRec();
-            rec.lang = 'en-US';
-            rec.maxAlternatives = 1;
-
-            const cardTitle = document.getElementById(`vocab-word-${index}`);
-            const originalColor = cardTitle.style.color;
-
-            rec.onstart = () => {
-                cardTitle.style.color = '#EC4899';
-                cardTitle.classList.add('animate-pulse');
-                playFeedbackSound('bubble');
-            };
-
-            rec.onresult = (event) => {
-                const spoken = event.results[0][0].transcript.trim().toLowerCase();
-                const cleanWord = word.trim().toLowerCase();
-
-                if (spoken === cleanWord || spoken.includes(cleanWord)) {
-                    addStars(2);
-                    showNotification('⭐️ Yay!', `Con phát âm đúng rồi: "${word}"!`);
-                    
-                    const profile = state.profiles.find(p => p.id === state.activeProfileId);
-                    if (profile && !profile.masteredWords.includes(word)) {
-                        profile.masteredWords.push(word);
-                        saveStateToStorage();
-                    }
-                } else {
-                    showNotification('✊ Cố lên!', `Con nói là: "${spoken}". Hãy đọc lại từ "${word}" nhé!`, false);
-                    playFeedbackSound('fail');
-                }
-            };
-
-            rec.onend = () => {
-                cardTitle.style.color = originalColor;
-                cardTitle.classList.remove('animate-pulse');
-            };
-
-            rec.start();
         };
 
         window.selectBuddy = function(buddyId) {
@@ -1808,12 +1820,10 @@
 
             playFeedbackSound('pop');
             if (state.isLiveConnected) {
-                // Instantly greet with new voice when swapped
                 greetChildWithSelectedBuddy();
             }
         };
 
-        // ROBUST ZERO-WEBSOCKET REST INTERACTIVE LIVE BUDDY PATTERN
         window.toggleLiveSession = async function() {
             if (state.isLiveConnected) {
                 disconnectLive();
@@ -1841,10 +1851,7 @@
                 statusTag.textContent = "CONNECTED";
                 subtitlesContainer.classList.remove('hidden');
 
-                // Play soft welcome bubble sound
                 playFeedbackSound('bubble');
-
-                // Instantly trigger greeting sequence
                 await greetChildWithSelectedBuddy();
 
             } catch (err) {
@@ -1868,14 +1875,12 @@
                 greetingPrompt = `Greet the enthusiastic child named "${kidName}" as Sparky the energetic cartoon fire dragon. Speak high energy, playful, simple English. Ask if they are ready to talk! Under 15 words.`;
             }
 
-            document.getElementById('live-subtitles-text').textContent = "Barnaby is thinking...";
+            document.getElementById('live-subtitles-text').textContent = "Thinking...";
             document.getElementById('live-subtitles-status').classList.add('hidden');
 
             try {
                 const responseText = await queryGeminiText(greetingPrompt, getBuddySystemInstruction());
                 document.getElementById('live-subtitles-text').textContent = responseText;
-                
-                // Convert response to speech and play
                 await speakAndAnimateCompanion(responseText);
             } catch (err) {
                 console.error("Greeting generation failed:", err);
@@ -1924,9 +1929,7 @@
             const apiKeyParam = apiKey ? `?key=${apiKey}` : '';
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent${apiKeyParam}`;
 
-            // Stop any playing sound
             stopCompanionSpeech();
-
             animateBuddyAvatar(true);
 
             try {
@@ -1969,7 +1972,6 @@
                     };
                     await state.liveAudioPlayer.play();
                 } else {
-                    // Local browser TTS fallback
                     fallbackLocalSpeech(textToSpeak);
                 }
 
@@ -1984,7 +1986,6 @@
             synthUtterance.rate = 0.8;
             synthUtterance.lang = 'en-US';
 
-            // Find standard female voice if Aoede/Leda is selected as dialog voice
             const selectedVoiceName = document.getElementById('live-voice-name').value;
             const isFemaleSelected = (selectedVoiceName === 'Aoede' || selectedVoiceName === 'Leda');
 
@@ -2025,22 +2026,15 @@
 
             document.getElementById('live-subtitles-status').classList.remove('hidden');
 
-            state.liveSpeechRec.onstart = () => {
-                console.log("Listening loop active...");
-            };
-
             state.liveSpeechRec.onresult = async (event) => {
                 const spokenText = event.results[0][0].transcript.trim();
                 if (!spokenText) return;
 
-                console.log("Child spoke:", spokenText);
                 document.getElementById('live-subtitles-status').classList.add('hidden');
                 document.getElementById('live-subtitles-text').textContent = `Con: "${spokenText}"`;
 
-                // Temporarily disable listener while processing response
                 if (state.liveSpeechRec) state.liveSpeechRec.stop();
 
-                // Call Gemini for response
                 try {
                     const prompt = `The child said: "${spokenText}". Respond to them in simple, short, interactive English. Keep it cute and under 15 words.`;
                     const aiResponse = await queryGeminiText(prompt, getBuddySystemInstruction());
@@ -2054,8 +2048,6 @@
             };
 
             state.liveSpeechRec.onerror = (err) => {
-                console.warn("Speech input silent or timed out:", err);
-                // Automatically restart listening on silent timeout to keep conversation fluid
                 if (state.isLiveConnected) {
                     setTimeout(() => startListeningToChild(), 1000);
                 }
@@ -2176,6 +2168,121 @@
             animateBuddyAvatar(false);
             playFeedbackSound('pop');
         }
+
+        // Config Controls
+        window.openConfigModal = function() {
+            document.getElementById('modal-config').classList.remove('hidden');
+            document.getElementById('modal-config').classList.add('flex');
+            playFeedbackSound('bubble');
+        };
+
+        window.closeConfigModal = function() {
+            document.getElementById('modal-config').classList.add('hidden');
+            document.getElementById('modal-config').classList.remove('flex');
+            playFeedbackSound('pop');
+        };
+
+        window.saveConfig = function() {
+            const key = document.getElementById('gemini-api-key').value.trim();
+            state.apiKey = key;
+            localStorage.setItem('gemini_api_key', key);
+            showNotification('⚙️ Settings Saved!', `Successfully integrated settings!`);
+            closeConfigModal();
+        };
+
+        const synth = new Tone.Synth({
+            oscillator: { type: "sine" },
+            envelope: { attack: 0.05, decay: 0.1, sustain: 0.3, release: 1 }
+        }).toDestination();
+
+        window.playFeedbackSound = function(type) {
+            try {
+                if (Tone.context.state !== 'running') {
+                    Tone.start();
+                }
+                
+                if (type === 'bubble') {
+                    synth.triggerAttackRelease("C5", "8n", "+0.01", 0.5);
+                    synth.triggerAttackRelease("E5", "8n", "+0.1", 0.5);
+                } else if (type === 'success') {
+                    const now = Tone.now();
+                    synth.triggerAttackRelease("C5", "16n", now);
+                    synth.triggerAttackRelease("E5", "16n", now + 0.1);
+                    synth.triggerAttackRelease("G5", "16n", now + 0.2);
+                    synth.triggerAttackRelease("C6", "4n", now + 0.3);
+                } else if (type === 'pop') {
+                    synth.triggerAttackRelease("F4", "16n", undefined, 0.4);
+                } else if (type === 'fail') {
+                    synth.triggerAttackRelease("E4", "8n", undefined, 0.5);
+                    synth.triggerAttackRelease("C4", "4n", "+0.15", 0.5);
+                }
+            } catch (err) {
+                console.warn('Audio feedback failed to initialize:', err);
+            }
+        };
+
+        window.showNotification = function(emoji, message, success = true) {
+            const box = document.getElementById('notification-box');
+            const em = document.getElementById('notif-emoji');
+            const msg = document.getElementById('notif-message');
+            
+            em.textContent = emoji;
+            msg.textContent = message;
+            
+            box.style.backgroundColor = success ? '#22C55E' : '#EF4444';
+            box.classList.remove('translate-y-24', 'opacity-0');
+            box.classList.add('translate-y-0', 'opacity-100');
+            
+            setTimeout(() => {
+                box.classList.add('translate-y-24', 'opacity-0');
+                box.classList.remove('translate-y-0', 'opacity-100');
+            }, 3000);
+        };
+
+        function addStars(num) {
+            state.stars += num;
+            updateStarDisplay();
+            
+            const profile = state.profiles.find(p => p.id === state.activeProfileId);
+            if (profile) {
+                profile.stars = state.stars;
+            }
+            saveStateToStorage();
+
+            confetti({
+                particleCount: 50,
+                spread: 60,
+                origin: { y: 0.8 }
+            });
+            playFeedbackSound('success');
+        }
+
+        function updateStarDisplay() {
+            document.getElementById('star-count').textContent = state.stars;
+        }
+
+        window.addEventListener('load', () => {
+            const savedKey = localStorage.getItem('gemini_api_key');
+            if (savedKey) {
+                state.apiKey = savedKey;
+                document.getElementById('gemini-api-key').value = savedKey;
+            }
+
+            const savedProfiles = localStorage.getItem('wv_profiles');
+            const savedActiveId = localStorage.getItem('wv_active_profile_id');
+            if (savedProfiles && savedActiveId) {
+                state.profiles = JSON.parse(savedProfiles);
+                state.activeProfileId = savedActiveId;
+            }
+
+            const activeProfile = state.profiles.find(p => p.id === state.activeProfileId) || state.profiles[0];
+            document.getElementById('active-profile-emoji').textContent = activeProfile.emoji;
+            document.getElementById('active-profile-name').textContent = activeProfile.name;
+            state.stars = activeProfile.stars;
+            updateStarDisplay();
+
+            setLanguage('vi'); 
+        });
 
     </script>
 </body>
