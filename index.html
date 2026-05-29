@@ -4352,5 +4352,172 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 </script>
 
+
+<script>
+// ===== AUTO FIX GLOBAL FUNCTIONS =====
+window.currentBuddy = 'mimi';
+window.currentLiveMode = 'basic';
+
+window.navigate = function(page){
+ document.querySelectorAll('section[id^="page-"]').forEach(el=>el.classList.add('hidden'));
+ const target=document.getElementById('page-'+page);
+ if(target){target.classList.remove('hidden'); target.classList.add('flex');}
+ window.scrollTo({top:0,behavior:'smooth'});
+};
+
+window.selectBuddy = function(type){
+ window.currentBuddy = type;
+ ['mimi','barnaby','sparky'].forEach(id=>{
+   const el=document.getElementById('buddy-'+id);
+   if(el){
+      el.classList.remove('border-pink-500','bg-pink-50','border-4');
+      el.classList.add('border-2','border-slate-100');
+   }
+ });
+ const active=document.getElementById('buddy-'+type);
+ if(active){
+   active.classList.add('border-pink-500','bg-pink-50','border-4');
+ }
+ const tag=document.getElementById('buddy-status-tag');
+ if(tag){
+   const names={mimi:'Mimi',barnaby:'Barnaby',sparky:'Sparky'};
+   tag.innerText=names[type]||type;
+ }
+};
+
+window.toggleLiveSession = async function(){
+ const btn=document.getElementById('connect-live-text');
+ const sub=document.getElementById('live-subtitles-container');
+ const txt=document.getElementById('live-subtitles-text');
+ if(sub) sub.classList.remove('hidden');
+
+ if(window.liveActive){
+    window.liveActive=false;
+    if(btn) btn.innerText='Kết Nối Bạn Nói Chuyện';
+    if(txt) txt.innerText='Phiên trò chuyện đã dừng.';
+    return;
+ }
+
+ window.liveActive=true;
+ if(btn) btn.innerText='Đang trò chuyện...';
+
+ let buddyName='Mimi';
+ if(window.currentBuddy==='barnaby') buddyName='Barnaby';
+ if(window.currentBuddy==='sparky') buddyName='Sparky';
+
+ const greeting='Hello! Nice to meet you!';
+ if(txt){
+   txt.innerText='🇺🇸 '+greeting+'\n🇻🇳 Xin chào! Rất vui được gặp bé.';
+ }
+
+ try{
+   const u=new SpeechSynthesisUtterance(greeting);
+   u.lang='en-US';
+   u.rate=0.8;
+   speechSynthesis.speak(u);
+ }catch(e){console.log(e)}
+};
+
+window.setLiveCompanionMode=function(mode){
+ window.currentLiveMode=mode;
+ const basic=document.getElementById('live-mode-basic');
+ const adv=document.getElementById('live-mode-advanced');
+ if(basic && adv){
+   basic.className=basic.className.replace('bg-indigo-600 text-white','text-indigo-700');
+   adv.className=adv.className.replace('bg-indigo-600 text-white','text-indigo-700');
+ }
+ const target=document.getElementById(mode==='basic'?'live-mode-basic':'live-mode-advanced');
+ if(target){
+   target.classList.add('bg-indigo-600','text-white');
+ }
+ const topics=document.getElementById('live-advanced-topics-container');
+ if(topics){
+   if(mode==='advanced') topics.classList.remove('hidden');
+   else topics.classList.add('hidden');
+ }
+};
+
+window.selectLiveAdvancedTopic=function(topic){
+ document.querySelectorAll('[id^="lat-"]').forEach(el=>{
+   el.classList.remove('border-purple-400','bg-purple-50');
+ });
+ const active=document.getElementById('lat-'+topic);
+ if(active){
+   active.classList.add('border-purple-400','bg-purple-50');
+ }
+};
+
+window.selectSmartLevel=function(level){
+ document.querySelectorAll('.smart-level-btn').forEach(el=>{
+   el.classList.remove('border-emerald-300','bg-emerald-50');
+ });
+ const desc=document.getElementById('smart-level-description');
+ const map={
+   starter:'Bé đang học giao tiếp tự nhiên cơ bản.',
+   daily:'Bé đang luyện hội thoại thực tế mỗi ngày.',
+   advanced:'Bé đang luyện phản xạ và tranh luận tiếng Anh.',
+   expert:'Bé đang học tiếng Anh chuyên ngành học thuật.'
+ };
+ if(desc) desc.innerText=map[level]||'AI Coach đang hỗ trợ.';
+};
+
+window.selectConversationPackage=function(type){
+ const box=document.getElementById('smart-prompt-box');
+ const topic=document.getElementById('conversation-topics-container');
+ if(topic){
+   if(type==='basic'){
+      topic.innerHTML='<span class="px-3 py-2 rounded-xl bg-emerald-100 font-bold">👋 Hello</span>';
+      if(box) box.innerText='Hello! What is your name?';
+      selectBuddy('barnaby');
+   }
+   if(type==='expanded'){
+      topic.innerHTML='<span class="px-3 py-2 rounded-xl bg-indigo-100 font-bold">⚽ Sports</span><span class="px-3 py-2 rounded-xl bg-indigo-100 font-bold">🏫 School</span>';
+      if(box) box.innerText='What is the best sport to play in summer?';
+      selectBuddy('sparky');
+   }
+   if(type==='professional'){
+      topic.innerHTML='<span class="px-3 py-2 rounded-xl bg-purple-100 font-bold">🤖 AI</span><span class="px-3 py-2 rounded-xl bg-purple-100 font-bold">🚀 Space</span>';
+      if(box) box.innerText='How can artificial intelligence help education?';
+      selectBuddy('mimi');
+   }
+ }
+};
+
+window.setArenaLevel=function(level){
+ const title=document.getElementById('arena-topic-title');
+ const map={
+   basic:'👋 Chào hỏi cơ bản',
+   extended:'🎒 Trường học & Bạn bè',
+   advanced:'🚀 Giao tiếp nâng cao',
+   expert:'🎓 AI • Space • Science'
+ };
+ if(title) title.innerText=map[level]||'Từ vựng';
+};
+
+window.loginWithGoogle = async function(){
+ alert('✅ Firebase Cloud đã sẵn sàng. Có thể tích hợp Google Auth tiếp.');
+};
+
+window.logoutGoogle=function(){
+ alert('Đã đăng xuất');
+};
+
+window.openProfileSelector=function(){
+ alert('👦 Hồ sơ học sinh');
+};
+
+window.checkParentAccess=function(type){
+ const pass=prompt('Nhập mã phụ huynh:');
+ if(pass==='1234'){
+   alert('✅ Truy cập thành công');
+ }else{
+   alert('❌ Sai mật khẩu');
+ }
+};
+
+document.addEventListener('DOMContentLoaded',()=>{
+ if(!document.getElementById('page-home').classList.contains('hidden')){} else navigate('home');
+});
+</script>
 </body>
 </html>
