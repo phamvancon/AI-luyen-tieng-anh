@@ -61,6 +61,16 @@
         .animate-slide-up {
             animation: slide-up 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
+        /* Floating Bubbles Game Animation */
+        @keyframes bubble-float {
+            0% { transform: translateY(100%) scale(0.9); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-120%) scale(1.1); opacity: 0; }
+        }
+        .bubble-item {
+            animation: bubble-float 6s linear infinite;
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
@@ -93,10 +103,10 @@
             <!-- Login Form -->
             <div id="form-auth-login" class="space-y-4">
                 <div class="bg-white border border-slate-200/60 rounded-2xl p-4 shadow-sm">
-                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Nhập Mã Học Sinh của Con</label>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Nhập Mã Học Sinh ECO của Con</label>
                     <div class="relative">
-                        <input type="text" id="input-auth-student-code" placeholder="Ví dụ: ED8920" class="w-full text-center uppercase tracking-widest bg-slate-50 border border-slate-200 rounded-xl py-3.5 text-lg font-extrabold text-brand-700 focus:outline-none focus:border-brand-500 focus:bg-white transition-all">
-                        <i class="fa-solid fa-id-card text-slate-300 absolute right-4 top-4.5 text-lg"></i>
+                        <input type="text" id="input-auth-student-code" placeholder="Ví dụ: ECO8920" class="w-full text-center uppercase tracking-widest bg-slate-50 border border-slate-200 rounded-xl py-3.5 text-lg font-extrabold text-brand-700 focus:outline-none focus:border-brand-500 focus:bg-white transition-all">
+                        <i class="fa-solid fa-id-card text-slate-300 absolute right-4 top-4 text-lg"></i>
                     </div>
                     <p class="text-[10px] text-slate-400 mt-2 italic text-center">Mã học sinh do Admin cung cấp hoặc nhận được khi đăng ký.</p>
                 </div>
@@ -128,7 +138,7 @@
                 </div>
                 <button onclick="handleParentRegister()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-sm py-4 rounded-2xl shadow-lg shadow-brand-500/20 transition active:scale-95 flex items-center justify-center space-x-2">
                     <i class="fa-solid fa-user-plus text-xs"></i>
-                    <span>Tạo Tài Khoản Con</span>
+                    <span>Tạo Tài Khoản Con (Mã ECO)</span>
                 </button>
             </div>
 
@@ -138,7 +148,7 @@
                     <i class="fa-solid fa-sliders text-[10px]"></i>
                     <span>Dành cho Giáo viên / Admin</span>
                 </button>
-                <span class="text-[10px] text-slate-300">English Daily v2.0</span>
+                <span class="text-[10px] text-slate-300">English Daily ECO v3.0</span>
             </div>
         </div>
 
@@ -149,7 +159,7 @@
             <header class="bg-gradient-to-r from-brand-600 to-brand-700 text-white px-4 py-4 rounded-b-3xl shadow-lg sticky top-0 z-40 transition-all">
                 <div class="flex justify-between items-center">
                     <!-- Student Identity -->
-                    <div class="flex items-center space-x-3">
+                    <div class="flex items-center space-x-2">
                         <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center border-2 border-white/30 shadow-inner">
                             <i class="fa-solid fa-user-graduate text-xl text-white"></i>
                         </div>
@@ -159,7 +169,7 @@
                                 <span id="sync-badge" class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse" title="Chờ kết nối"></span>
                             </div>
                             <div class="flex items-center space-x-1">
-                                <select id="grade-selector" onchange="changeGrade(this.value)" class="bg-transparent text-xs font-semibold focus:outline-none cursor-pointer border border-white/20 rounded px-1 py-0.5">
+                                <select id="grade-selector" onchange="changeGrade(this.value)" class="bg-transparent text-[10px] font-bold focus:outline-none cursor-pointer border border-white/20 rounded px-1 py-0.5">
                                     <option value="cap_1" class="text-slate-800">Cấp 1 (Tiểu Học)</option>
                                     <option value="cap_2" class="text-slate-800">Cấp 2 (THCS)</option>
                                     <option value="cap_3" class="text-slate-800">Cấp 3 (THPT)</option>
@@ -168,14 +178,21 @@
                         </div>
                     </div>
 
-                    <!-- Streak Counter & Switch Account button -->
-                    <div class="flex items-center space-x-2">
-                        <div class="bg-red-500/90 text-white px-2.5 py-1.5 rounded-full flex items-center space-x-1 text-xs font-extrabold shadow-md">
+                    <!-- Points Counter, Streak & Switch Account button -->
+                    <div class="flex items-center space-x-1.5">
+                        <!-- Points Counter -->
+                        <div class="bg-amber-500 text-white px-2.5 py-1.5 rounded-full flex items-center space-x-1 text-xs font-extrabold shadow-md">
+                            <i class="fa-solid fa-gem text-yellow-200"></i>
+                            <span id="display-points-count">0</span>
+                        </div>
+                        
+                        <!-- Streak Counter -->
+                        <div class="bg-red-500/90 text-white px-2 py-1.5 rounded-full flex items-center space-x-1 text-xs font-extrabold shadow-md">
                             <i class="fa-solid fa-fire text-amber-300"></i>
-                            <span>Streak:</span>
                             <span id="display-streak-count">0</span>
                         </div>
-                        <button onclick="handleLogOutStudent()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition active:scale-95" title="Đổi tài khoản khác">
+
+                        <button onclick="handleLogOutStudent()" class="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition active:scale-95" title="Đổi tài khoản khác">
                             <i class="fa-solid fa-arrow-right-from-bracket text-xs"></i>
                         </button>
                     </div>
@@ -185,23 +202,62 @@
             <main class="flex-1 p-4 overflow-y-auto custom-scrollbar">
                 
                 <!-- Tab Controls -->
-                <div class="flex bg-slate-100 rounded-xl p-1 mb-4 shadow-inner">
-                    <button onclick="switchTab('reading')" id="tab-btn-reading" class="flex-1 py-2 text-center text-xs font-bold rounded-lg transition-all duration-300 bg-white text-brand-600 shadow-sm">
-                        <i class="fa-solid fa-book-open mr-1"></i> Bài Luyện Đọc
+                <div class="grid grid-cols-3 bg-slate-100 rounded-xl p-1 mb-4 shadow-inner">
+                    <button onclick="switchTab('reading')" id="tab-btn-reading" class="py-2 text-center text-[11px] font-extrabold rounded-lg transition-all duration-300 bg-white text-brand-600 shadow-sm">
+                        <i class="fa-solid fa-book-open mr-1"></i> Luyện Đọc
                     </button>
-                    <button onclick="switchTab('chat')" id="tab-btn-chat" class="flex-1 py-2 text-center text-xs font-bold rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-800">
+                    <button onclick="switchTab('chat')" id="tab-btn-chat" class="py-2 text-center text-[11px] font-extrabold rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-800">
                         <i class="fa-solid fa-robot mr-1"></i> Đàm Thoại AI
+                    </button>
+                    <button onclick="switchTab('game')" id="tab-btn-game" class="py-2 text-center text-[11px] font-extrabold rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-800 flex items-center justify-center space-x-1">
+                        <i class="fa-solid fa-gamepad text-emerald-500 mr-1 animate-bounce"></i>
+                        <span>Vui Chơi</span>
                     </button>
                 </div>
 
                 <!-- SECTION 1: READING PRACTICE -->
                 <section id="section-reading" class="space-y-4">
+                    
+                    <!-- Curriculum Switcher (i-Learn Smart Start vs Daily Lesson) -->
+                    <div class="bg-brand-50 rounded-2xl p-3 border border-brand-100 flex items-center justify-between">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-brand-500 animate-ping"></span>
+                            <span class="text-xs font-black text-brand-900">CHƯƠNG TRÌNH ĐANG HỌC:</span>
+                        </div>
+                        <select id="curriculum-selector" onchange="switchCurriculum(this.value)" class="bg-white text-xs font-bold text-brand-700 px-2 py-1 rounded-lg border border-brand-200 focus:outline-none">
+                            <option value="daily">Luyện Đọc Hàng Ngày</option>
+                            <option value="smart_start">i-Learn Smart Start</option>
+                        </select>
+                    </div>
+
+                    <!-- Smart Start Selector Box (Hidden unless selected) -->
+                    <div id="smart-start-selector-box" class="bg-slate-50 border border-slate-200 rounded-2xl p-3 shadow-inner hidden space-y-2">
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">Chọn Lớp Smart Start</label>
+                                <select id="smart-class-selector" onchange="loadSmartStartThemes(this.value)" class="w-full text-xs font-bold text-slate-700 bg-white border border-slate-200 rounded-lg p-2 focus:outline-none">
+                                    <option value="ss_1">Smart Start Lớp 1</option>
+                                    <option value="ss_2">Smart Start Lớp 2</option>
+                                    <option value="ss_3">Smart Start Lớp 3</option>
+                                    <option value="ss_4">Smart Start Lớp 4</option>
+                                    <option value="ss_5">Smart Start Lớp 5</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-black text-slate-400 uppercase mb-1">Chọn Chủ Đề Học</label>
+                                <select id="smart-theme-selector" onchange="loadSmartThemeContent(this.value)" class="w-full text-xs font-bold text-slate-700 bg-white border border-slate-200 rounded-lg p-2 focus:outline-none">
+                                    <!-- Dynamic Themes populated here -->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Daily Challenge Box -->
                     <div class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm relative overflow-hidden">
                         <div class="absolute top-0 right-0 bg-brand-500 text-white text-[10px] font-extrabold uppercase px-3 py-1 rounded-bl-xl tracking-wider">
-                            Hôm nay
+                            Bài học
                         </div>
-                        <span class="text-xs font-bold text-brand-500 uppercase tracking-wider block mb-1">Nhiệm Vụ Đọc Hàng Ngày</span>
+                        <span class="text-xs font-bold text-brand-500 uppercase tracking-wider block mb-1">Thực Hành Đọc To</span>
                         <h3 id="reading-title" class="text-xl font-extrabold text-slate-900 leading-tight">Đang tải bài học...</h3>
                         
                         <!-- Dynamic Illustration Image -->
@@ -214,7 +270,7 @@
 
                         <!-- English Reading Text -->
                         <div class="mt-4 bg-slate-50/80 rounded-xl p-4 border border-slate-100 relative">
-                            <p class="text-xs text-slate-400 absolute top-2 right-3 italic">Nhấp đúp chuột để tra nhanh từ mới</p>
+                            <p class="text-[10px] text-slate-400 absolute top-2 right-3 italic">Nhấp đúp chuột để tra nhanh từ mới</p>
                             <p id="reading-content" class="text-base md:text-lg text-slate-700 leading-relaxed font-normal pt-3 select-text">
                                 Đang tải văn bản tiếng Anh...
                             </p>
@@ -236,7 +292,7 @@
                     <!-- Vocabulary List Box -->
                     <div class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
                         <h4 class="font-bold text-slate-900 text-sm mb-3 flex items-center">
-                            <i class="fa-solid fa-star text-amber-400 mr-2"></i>Từ Vựng Trọng Tâm
+                            <i class="fa-solid fa-star text-amber-400 mr-2"></i>Từ Vựng Trọng Tâm (Theme Vocabulary)
                         </h4>
                         <div id="vocabulary-container" class="space-y-2.5 max-h-56 overflow-y-auto custom-scrollbar pr-1">
                             <!-- Dynamic vocabulary loaded here -->
@@ -277,6 +333,78 @@
                         <button id="btn-chat-mic" onclick="toggleChatVoiceInput()" class="w-12 h-12 rounded-2xl bg-brand-600 hover:bg-brand-700 text-white flex items-center justify-center transition active:scale-90 shadow-md shadow-brand-500/30" title="Đàm thoại trực tiếp">
                             <i class="fa-solid fa-microphone text-lg"></i>
                         </button>
+                    </div>
+                </section>
+
+                <!-- SECTION 3: MINI GAME ZONE -->
+                <section id="section-game" class="hidden space-y-4">
+                    <!-- Game Header & Info -->
+                    <div class="bg-gradient-to-r from-emerald-500 to-teal-600 text-white p-4 rounded-2xl shadow-md">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="font-extrabold text-base">Bóng Bay Từ Vựng</h3>
+                                <p class="text-[10px] text-emerald-100">Càng chơi lâu càng tăng điểm phản xạ từ vựng!</p>
+                            </div>
+                            <div class="bg-white/20 px-2.5 py-1 rounded-full text-xs font-black">
+                                <i class="fa-solid fa-stopwatch mr-1 text-yellow-300"></i>
+                                <span id="game-time-left">0</span> giây chơi
+                            </div>
+                        </div>
+
+                        <!-- Extend play time using earned Points -->
+                        <div class="mt-3 bg-black/25 rounded-xl p-2.5 flex items-center justify-between text-xs">
+                            <span class="font-medium text-emerald-100">Đổi 30 Điểm 💎 lấy 60 giây chơi</span>
+                            <button onclick="exchangePointsForTime()" class="bg-yellow-400 text-slate-900 font-extrabold px-3 py-1.5 rounded-lg active:scale-95 transition hover:bg-yellow-300 shadow-sm">
+                                Đổi Ngay
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Game Play Area Container -->
+                    <div id="game-play-area" class="w-full h-80 bg-slate-900 rounded-2xl relative overflow-hidden shadow-inner border-2 border-slate-800 flex flex-col justify-between">
+                        <!-- Play area cover or stats -->
+                        <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm z-10 flex flex-col items-center justify-center p-4 text-center" id="game-start-cover">
+                            <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mb-3 shadow-lg shadow-emerald-500/10">
+                                <i class="fa-solid fa-play text-2xl ml-1"></i>
+                            </div>
+                            <h4 class="text-white font-black text-base">Bóng Bay Từ Vựng</h4>
+                            <p class="text-xs text-slate-400 mt-1 max-w-[250px]">Luyện trí nhớ nghĩa của từ vựng. Cần tối thiểu 10 giây chơi để bắt đầu.</p>
+                            <button onclick="startGameSession()" class="mt-4 bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-xs px-5 py-2.5 rounded-xl shadow-lg transition active:scale-95">
+                                Bắt đầu chơi
+                            </button>
+                        </div>
+
+                        <!-- Top Info Bar during Game -->
+                        <div class="w-full bg-slate-950/50 p-2.5 flex justify-between items-center text-xs text-white border-b border-slate-800 z-0">
+                            <div>
+                                <span class="text-slate-400 text-[10px] uppercase block">Tìm từ tiếng Anh của:</span>
+                                <span id="game-target-meaning" class="font-black text-yellow-400 text-sm">--</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-slate-400 text-[10px] uppercase block">Điểm Game:</span>
+                                <span id="game-score" class="font-black text-emerald-400 text-sm">0</span>
+                            </div>
+                        </div>
+
+                        <!-- Dynamic floating bubbles target zone -->
+                        <div class="flex-1 w-full relative" id="game-bubbles-container">
+                            <!-- Bubbles will float up from here -->
+                        </div>
+
+                        <!-- Bottom tips -->
+                        <div class="w-full bg-slate-950/20 text-[10px] text-slate-500 p-1 text-center">
+                            Đập đúng quả bóng chứa từ vựng tương ứng nghĩa tiếng Việt
+                        </div>
+                    </div>
+
+                    <!-- Achievements & Rewards Box -->
+                    <div class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
+                        <h4 class="font-bold text-slate-900 text-sm mb-3 flex items-center">
+                            <i class="fa-solid fa-gift text-rose-500 mr-2"></i>Kho Báu & Phần Thưởng Đạt Được
+                        </h4>
+                        <div id="rewards-container" class="grid grid-cols-3 gap-2.5">
+                            <!-- Badges & Rewards will load here -->
+                        </div>
                     </div>
                 </section>
 
@@ -413,7 +541,7 @@
                         <input type="tel" id="admin-new-phone" placeholder="SĐT phụ huynh" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs font-semibold focus:outline-none focus:border-brand-500 focus:bg-white">
                     </div>
                     <button onclick="adminCreateNewStudentAccount()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-2.5 rounded-xl text-xs transition">
-                        Tạo Tài Khoản & Cấp Mã
+                        Tạo Tài Khoản & Cấp Mã ECO
                     </button>
                 </div>
 
@@ -548,11 +676,11 @@
             }
         }
 
-        // Unique Student code generator helper (format: EDXXXX)
+        // Unique Student code generator helper (format: ECOXXX) - MODIFIED: Default code prefix ECO
         function generateUniqueStudentCode() {
-            const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // Excluding easily confused characters
-            let code = "ED";
-            for (let i = 0; i < 4; i++) {
+            const chars = "1234567890"; // Pure numerical suffix matching ECO123 style
+            let code = "ECO";
+            for (let i = 0; i < 3; i++) {
                 code += chars.charAt(Math.floor(Math.random() * chars.length));
             }
             return code;
@@ -580,6 +708,9 @@
                 grade: grade,
                 phone: phone,
                 streak: 0,
+                points: 50, // Starts with 50 points dynamically
+                playTime: 30, // Starts with 30 seconds of play time
+                rewards: ["NewBie_ECO"], // Default newbie reward badge
                 lastActive: ""
             };
 
@@ -609,7 +740,7 @@
                     <div class="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-2">
                         <i class="fa-solid fa-circle-check text-3xl"></i>
                     </div>
-                    <p class="text-xs text-slate-500">Mã học sinh độc lập của con là:</p>
+                    <p class="text-xs text-slate-500">Mã học sinh ECO của con là:</p>
                     <div class="bg-brand-50 text-brand-700 font-black text-2xl tracking-widest p-3 rounded-2xl border border-brand-100 select-all">
                         ${code}
                     </div>
@@ -658,6 +789,11 @@
             if (studentProfile) {
                 activeStudentId = rawCode;
                 activeStudentData = studentProfile;
+
+                // Backward compatible safety parameters
+                if (activeStudentData.points === undefined) activeStudentData.points = 50;
+                if (activeStudentData.playTime === undefined) activeStudentData.playTime = 30;
+                if (!activeStudentData.rewards) activeStudentData.rewards = ["NewBie_ECO"];
                 
                 // Save login session state
                 localStorage.setItem("active_student_id", rawCode);
@@ -669,6 +805,7 @@
                 renderStudentInfo(activeStudentData);
                 checkDailyStreakValidation();
                 loadDailyTaskBasedOnGrade(activeStudentData.grade);
+                renderRewardsBadges();
 
                 showToast(`Chào mừng ${activeStudentData.name} vào học!`, "fa-solid fa-sparkles text-emerald-400");
             } else {
@@ -701,7 +838,7 @@
         }
 
         // =========================================================================
-        // 3. DAILY READING TASKS DATABASE
+        // 3. DAILY READING & SGK CURRICULUM DATABASE
         // =========================================================================
         const readingDatabase = {
             cap_1: {
@@ -739,11 +876,129 @@
             }
         };
 
+        const smartStartDatabase = {
+            ss_1: {
+                theme1: {
+                    title: "i-Learn Smart Start Grade 1 - Theme 1: Hello!",
+                    image: "https://placehold.co/600x440/e2e8f0/1e293b?text=Smart+Start+1+-+Hello",
+                    content: "Hello! My name is Bill. What is your name? Nice to meet you. Good-bye!",
+                    vocab: [
+                        { word: "Hello", type: "excl", ipa: "/həˈləʊ/", vi: "Xin chào", desc: "Used as a greeting." },
+                        { word: "Name", type: "noun", ipa: "/neɪm/", vi: "Tên", desc: "A word by which a person is known." },
+                        { word: "Meet", type: "verb", ipa: "/miːt/", vi: "Gặp gỡ", desc: "To come into contact with someone." },
+                        { word: "Good-bye", type: "excl", ipa: "/ˌɡʊdˈbaɪ/", vi: "Tạm biệt", desc: "Used to express good wishes when parting." }
+                    ]
+                },
+                theme2: {
+                    title: "i-Learn Smart Start Grade 1 - Theme 2: School",
+                    image: "https://placehold.co/600x440/e2e8f0/1e293b?text=Smart+Start+1+-+School",
+                    content: "This is my school. I have a book, a pencil, and a bag. This is my classroom.",
+                    vocab: [
+                        { word: "School", type: "noun", ipa: "/skuːl/", vi: "Trường học", desc: "An institution for educating children." },
+                        { word: "Pencil", type: "noun", ipa: "/ˈpensl/", vi: "Bút chì", desc: "An instrument for writing or drawing." },
+                        { word: "Book", type: "noun", ipa: "/bʊk/", vi: "Sách", desc: "A written or printed work." }
+                    ]
+                }
+            },
+            ss_2: {
+                theme1: {
+                    title: "i-Learn Smart Start Grade 2 - Theme 1: Feelings",
+                    image: "https://placehold.co/600x440/e2e8f0/1e293b?text=Smart+Start+2+-+Feelings",
+                    content: "Today, I feel happy. My friend is sad. Are you hot or cold? We are fine, thank you.",
+                    vocab: [
+                        { word: "Happy", type: "adj", ipa: "/ˈhæpi/", vi: "Vui vẻ, hạnh phúc", desc: "Feeling or showing pleasure." },
+                        { word: "Sad", type: "adj", ipa: "/sæd/", vi: "Buồn bã", desc: "Feeling or showing sorrow." },
+                        { word: "Fine", type: "adj", ipa: "/faɪn/", vi: "Khỏe, tốt", desc: "In a satisfactory state." }
+                    ]
+                }
+            },
+            ss_3: {
+                theme1: {
+                    title: "i-Learn Smart Start Grade 3 - Theme 1: Family",
+                    image: "https://placehold.co/600x440/e2e8f0/1e293b?text=Smart+Start+3+-+Family",
+                    content: "This is my beloved family. My father is tall. My mother is beautiful. I love my brother and sister.",
+                    vocab: [
+                        { word: "Father", type: "noun", ipa: "/ˈfɑːðə(r)/", vi: "Bố, Cha", desc: "A male parent." },
+                        { word: "Mother", type: "noun", ipa: "/ˈmʌðə(r)/", vi: "Mẹ", desc: "A female parent." },
+                        { word: "Beloved", type: "adj", ipa: "/bɪˈlʌvɪd/", vi: "Yêu quý, thân thương", desc: "Dearly loved." }
+                    ]
+                }
+            },
+            ss_4: {
+                theme1: {
+                    title: "i-Learn Smart Start Grade 4 - Theme 1: Weather",
+                    image: "https://placehold.co/600x440/e2e8f0/1e293b?text=Smart+Start+4+-+Weather",
+                    content: "Look outside! It is rainy and windy today. I like sunny weather because I can swim in the pool.",
+                    vocab: [
+                        { word: "Rainy", type: "adj", ipa: "/ˈreɪni/", vi: "Có mưa", desc: "Having a great deal of rainfall." },
+                        { word: "Windy", type: "adj", ipa: "/ˈwɪndi/", vi: "Có gió lớn", desc: "Exposed to or characterized by strong wind." },
+                        { word: "Pool", type: "noun", ipa: "/puːl/", vi: "Hồ bơi", desc: "An artificial area of water for swimming." }
+                    ]
+                }
+            },
+            ss_5: {
+                theme1: {
+                    title: "i-Learn Smart Start Grade 5 - Theme 1: Jobs",
+                    image: "https://placehold.co/600x440/e2e8f0/1e293b?text=Smart+Start+5+-+Jobs",
+                    content: "What does your father do? He is a doctor. My mother works as a teacher in a high school.",
+                    vocab: [
+                        { word: "Doctor", type: "noun", ipa: "/ˈdɒktə(r)/", vi: "Bác sĩ", desc: "A qualified practitioner of medicine." },
+                        { word: "Teacher", type: "noun", ipa: "/ˈtiːtʃə(r)/", vi: "Giáo viên", desc: "A person who teaches, especially in a school." }
+                    ]
+                }
+            }
+        };
+
         let currentActiveTask = readingDatabase.cap_1;
+        let currentCurriculumMode = "daily"; // "daily" or "smart_start"
+
+        function switchCurriculum(mode) {
+            currentCurriculumMode = mode;
+            const smartBox = document.getElementById("smart-start-selector-box");
+            if (mode === "smart_start") {
+                smartBox.classList.remove("hidden");
+                // Pre-populate Smart Start selectors
+                loadSmartStartThemes(document.getElementById("smart-class-selector").value);
+            } else {
+                smartBox.classList.add("hidden");
+                loadDailyTaskBasedOnGrade(activeStudentData.grade);
+            }
+        }
+
+        function loadSmartStartThemes(classKey) {
+            const themeSelector = document.getElementById("smart-theme-selector");
+            themeSelector.innerHTML = "";
+            const themes = smartStartDatabase[classKey];
+            if (themes) {
+                Object.keys(themes).forEach(key => {
+                    const option = document.createElement("option");
+                    option.value = `${classKey}_${key}`;
+                    option.innerText = themes[key].title.split(" - ")[1] || key;
+                    themeSelector.appendChild(option);
+                });
+                loadSmartThemeContent(themeSelector.value);
+            }
+        }
+
+        function loadSmartThemeContent(combinedKey) {
+            if (!combinedKey) return;
+            const parts = combinedKey.split("_");
+            const classKey = parts[0] + "_" + parts[1];
+            const themeKey = parts[2];
+            
+            const targetTask = smartStartDatabase[classKey]?.[themeKey];
+            if (targetTask) {
+                currentActiveTask = targetTask;
+                renderReadingTaskUI();
+            }
+        }
 
         function loadDailyTaskBasedOnGrade(grade) {
             currentActiveTask = readingDatabase[grade] || readingDatabase.cap_1;
-            
+            renderReadingTaskUI();
+        }
+
+        function renderReadingTaskUI() {
             document.getElementById("reading-title").innerText = currentActiveTask.title;
             document.getElementById("reading-content").innerText = currentActiveTask.content;
             document.getElementById("reading-illustration").src = currentActiveTask.image;
@@ -765,38 +1020,44 @@
                     </div>
                     <div class="text-right">
                         <p class="text-xs font-bold text-brand-600">${item.vi}</p>
-                        <span class="text-[9px] text-slate-400">Nhấp xem chi tiết <i class="fa-solid fa-chevron-right text-[8px] ml-0.5"></i></span>
+                        <span class="text-[9px] text-slate-400">Xem định nghĩa <i class="fa-solid fa-chevron-right text-[8px] ml-0.5"></i></span>
                     </div>
                 `;
                 container.appendChild(vocabCard);
             });
         }
 
+        // Handle double-click word selection for rapid lookup
+        document.addEventListener("dblclick", () => {
+            const selectedText = window.getSelection().toString().trim();
+            const sanitizedText = selectedText.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g,"");
+            if (sanitizedText.length > 0 && sanitizedText.length < 25) {
+                document.getElementById("dict-quick-input").value = sanitizedText;
+                triggerDictionarySearch(sanitizedText);
+            }
+        });
+
         // =========================================================================
-        // 4. DAILY STREAK MISSION ALGORITHM
+        // 4. DAILY STREAK & POINTS MISSION ALGORITHM
         // =========================================================================
         function renderStudentInfo(state) {
             document.getElementById("display-student-name").innerText = state.name;
             document.getElementById("display-streak-count").innerText = state.streak;
+            document.getElementById("display-points-count").innerText = state.points || 0;
             document.getElementById("grade-selector").value = state.grade;
+            document.getElementById("game-time-left").innerText = state.playTime || 0;
         }
 
         async function changeGrade(newGrade) {
             if (!activeStudentId) return;
 
             activeStudentData.grade = newGrade;
-            localStorage.setItem(`offline_student_${activeStudentId}`, JSON.stringify(activeStudentData));
-
-            if (cloudConnected && db) {
-                try {
-                    await db.collection('artifacts').doc(APP_ID).collection('students').doc(activeStudentId).update({ grade: newGrade });
-                } catch (e) {
-                    console.error("Firestore grade update error", e);
-                }
-            }
+            await syncStudentProfileToStorage();
 
             renderStudentInfo(activeStudentData);
-            loadDailyTaskBasedOnGrade(newGrade);
+            if (currentCurriculumMode === "daily") {
+                loadDailyTaskBasedOnGrade(newGrade);
+            }
             showToast(`Đã chuyển sang cấp: ${newGrade === 'cap_1' ? 'Cấp 1' : newGrade === 'cap_2' ? 'Cấp 2' : 'Cấp 3'}`);
         }
 
@@ -813,15 +1074,7 @@
             if (differenceInDays > 1) {
                 // Streak broken due to delay
                 activeStudentData.streak = 0;
-                localStorage.setItem(`offline_student_${activeStudentId}`, JSON.stringify(activeStudentData));
-
-                if (cloudConnected && db) {
-                    try {
-                        await db.collection('artifacts').doc(APP_ID).collection('students').doc(activeStudentId).update({ streak: 0 });
-                    } catch (e) {
-                        console.error(e);
-                    }
-                }
+                await syncStudentProfileToStorage();
                 renderStudentInfo(activeStudentData);
                 showToast("Chuỗi ngày luyện đọc của bạn đã bị reset do bỏ lỡ thử thách ngày hôm qua!", "fa-solid fa-triangle-exclamation text-rose-400");
             }
@@ -830,29 +1083,36 @@
         async function triggerStreakSuccess() {
             const today = new Date().toDateString();
             if (activeStudentData.lastActive === today) {
-                showToast("Hôm nay con đã được tính nhiệm vụ rồi! Đừng quên quay lại luyện tập ngày mai nhé!");
+                // Already did today, but give points for extra practice
+                const extraPoints = 10;
+                activeStudentData.points = (activeStudentData.points || 0) + extraPoints;
+                await syncStudentProfileToStorage();
+                renderStudentInfo(activeStudentData);
+                showToast(`+10 Điểm 💎 cho việc kiên trì luyện đọc thêm!`);
                 return;
             }
 
             const nextStreak = (activeStudentData.streak || 0) + 1;
+            const pointsGained = 40; // Bonus points for daily streak
             activeStudentData.streak = nextStreak;
+            activeStudentData.points = (activeStudentData.points || 0) + pointsGained;
             activeStudentData.lastActive = today;
 
-            localStorage.setItem(`offline_student_${activeStudentId}`, JSON.stringify(activeStudentData));
+            await syncStudentProfileToStorage();
+            renderStudentInfo(activeStudentData);
+            showToast(`🔥 Chuỗi ${nextStreak} ngày học liên tục! Con được cộng +40 Điểm 💎!`, "fa-solid fa-circle-check");
+        }
 
+        async function syncStudentProfileToStorage() {
+            if (!activeStudentId) return;
+            localStorage.setItem(`offline_student_${activeStudentId}`, JSON.stringify(activeStudentData));
             if (cloudConnected && db) {
                 try {
-                    await db.collection('artifacts').doc(APP_ID).collection('students').doc(activeStudentId).update({
-                        streak: nextStreak,
-                        lastActive: today
-                    });
+                    await db.collection('artifacts').doc(APP_ID).collection('students').doc(activeStudentId).set(activeStudentData);
                 } catch (e) {
-                    console.error("Cloud streak validation error:", e);
+                    console.error("Cloud profile update error", e);
                 }
             }
-
-            renderStudentInfo(activeStudentData);
-            showToast(`🔥 Chuỗi ${nextStreak} ngày học liên tục! Con xuất sắc lắm!`, "fa-solid fa-circle-check");
         }
 
         // =========================================================================
@@ -1053,11 +1313,17 @@
                             <p class="text-xs font-semibold text-slate-400">Bạn vừa đọc:</p>
                             <p class="text-sm text-slate-700 italic mt-0.5">"${spokenText}"</p>
                         </div>
-                        <p class="text-xs text-slate-500">Chúc mừng con đã hoàn thành xuất sắc thử thách đọc sách ngày hôm nay!</p>
+                        <p class="text-xs text-slate-500">Chúc mừng con đã hoàn thành xuất sắc thử thách đọc sách ngày hôm nay và tích thêm Điểm Thưởng!</p>
                     </div>
                 `);
             } else {
-                showCustomDialog("Hãy thử lại một lần nữa nhé!", `
+                // Help guide on wrong pronunciation
+                let guideTip = "Con hãy lưu ý nhấn rõ các từ vựng chính, đặc biệt là các âm cuối như /s/, /t/, /k/,... và nhấn đúng trọng âm.";
+                if (currentActiveTask.vocab && currentActiveTask.vocab.length > 0) {
+                    guideTip += ` Tập trung phát âm lại các từ trọng tâm như: <b>${currentActiveTask.vocab.map(v => v.word).join(", ")}</b>.`;
+                }
+
+                showCustomDialog("Hãy đọc kỹ lại và thử lại nhé!", `
                     <div class="text-center">
                         <div class="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-3">
                             <i class="fa-solid fa-microphone-slash text-2xl"></i>
@@ -1065,10 +1331,10 @@
                         <p class="text-xs text-slate-500 mb-1">Độ tương thích phát âm:</p>
                         <h4 class="text-3xl font-black text-amber-600 mb-4">${accuracy}%</h4>
                         <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-left mb-4">
-                            <p class="text-xs font-semibold text-slate-400">Thiết bị nhận được âm:</p>
-                            <p class="text-sm text-slate-700 italic mt-0.5">"${spokenText || 'Chưa rõ âm thoại'}"</p>
+                            <p class="text-xs font-semibold text-rose-500 font-bold">Hướng dẫn cách đọc đúng:</p>
+                            <p class="text-xs text-slate-600 mt-1 leading-relaxed">${guideTip}</p>
                         </div>
-                        <p class="text-xs text-slate-500">Con hãy nghe lại máy đọc mẫu trước rồi đọc theo nhé.</p>
+                        <p class="text-xs text-slate-500">Con hãy nhấn nút "Nghe máy đọc mẫu" trước rồi luyện đọc theo nhé.</p>
                     </div>
                 `);
             }
@@ -1182,7 +1448,202 @@
         }
 
         // =========================================================================
-        // 8. ADMIN CONTROL PANEL MODULE (Rule 2 Auth, Rule 1 Firestore, No window.confirm)
+        // 8. MINI GAME - BÓNG BAY TỪ VỰNG ENGINE (GAMIFICATION)
+        // =========================================================================
+        let gameTimerInterval = null;
+        let bubbleSpawnInterval = null;
+        let gameScore = 0;
+        let activeGameTarget = null; // Word structure to guess
+        let isGameRunning = false;
+
+        function renderRewardsBadges() {
+            const container = document.getElementById("rewards-container");
+            container.innerHTML = "";
+
+            const rewards = activeStudentData.rewards || ["NewBie_ECO"];
+            const badgesDef = {
+                "NewBie_ECO": { name: "Tân Binh ECO", icon: "fa-solid fa-seedling text-emerald-500", desc: "Tài khoản đăng ký ECO thành công" },
+                "Master_Game_30": { name: "Thần Đồng Từ Vựng", icon: "fa-solid fa-trophy text-yellow-500 animate-bounce", desc: "Đạt hơn 30 điểm Mini Game" },
+                "Streak_5": { name: "Chiến Binh Chăm Chỉ", icon: "fa-solid fa-fire-flame-curved text-orange-500", desc: "Đạt chuỗi 5 ngày học liên tiếp" },
+                "Gem_Hunter": { name: "Thợ Săn Ngọc", icon: "fa-solid fa-gem text-indigo-500", desc: "Tích lũy trên 200 điểm 💎" }
+            };
+
+            // Dynamic unlocks based on status
+            if (activeStudentData.streak >= 5 && !rewards.includes("Streak_5")) {
+                rewards.push("Streak_5");
+            }
+            if (activeStudentData.points >= 200 && !rewards.includes("Gem_Hunter")) {
+                rewards.push("Gem_Hunter");
+            }
+
+            rewards.forEach(rKey => {
+                const badge = badgesDef[rKey];
+                if (badge) {
+                    const box = document.createElement("div");
+                    box.className = "bg-slate-50 border border-slate-100 rounded-xl p-2.5 text-center flex flex-col items-center justify-center space-y-1";
+                    box.title = badge.desc;
+                    box.innerHTML = `
+                        <div class="text-xl">${`<i class="${badge.icon}"></i>`}</div>
+                        <span class="text-[9px] font-extrabold text-slate-800 truncate block w-full">${badge.name}</span>
+                        <span class="text-[8px] text-slate-400 leading-none truncate block w-full">${badge.desc}</span>
+                    `;
+                    container.appendChild(box);
+                }
+            });
+        }
+
+        async function exchangePointsForTime() {
+            const cost = 30;
+            const timeBonus = 60;
+
+            if ((activeStudentData.points || 0) < cost) {
+                showToast("Con chưa có đủ 30 Điểm 💎. Hãy tiếp tục luyện đọc và làm bài để kiếm thêm nhé!", "fa-solid fa-gem text-amber-500");
+                return;
+            }
+
+            activeStudentData.points -= cost;
+            activeStudentData.playTime = (activeStudentData.playTime || 0) + timeBonus;
+
+            await syncStudentProfileToStorage();
+            renderStudentInfo(activeStudentData);
+            showToast(`🔥 Thành công! Đã đổi 30 Điểm lấy ${timeBonus} giây chơi.`, "fa-solid fa-clock");
+        }
+
+        function startGameSession() {
+            if ((activeStudentData.playTime || 0) < 10) {
+                showToast("Vui lòng gia hạn thêm thời gian chơi (tối thiểu 10 giây) bằng Điểm Tích Lũy!", "fa-solid fa-clock-rotate-left");
+                return;
+            }
+
+            document.getElementById("game-start-cover").classList.add("hidden");
+            isGameRunning = true;
+            gameScore = 0;
+            document.getElementById("game-score").innerText = "0";
+
+            setNextGameTarget();
+
+            // Spawn loop
+            bubbleSpawnInterval = setInterval(spawnBubble, 1200);
+
+            // Timer loop
+            gameTimerInterval = setInterval(async () => {
+                if (activeStudentData.playTime > 0) {
+                    activeStudentData.playTime--;
+                    document.getElementById("game-time-left").innerText = activeStudentData.playTime;
+                } else {
+                    stopGameSession();
+                    await syncStudentProfileToStorage();
+                    renderStudentInfo(activeStudentData);
+                }
+            }, 1000);
+        }
+
+        function setNextGameTarget() {
+            // Get vocabulary pool based on current reading text
+            const pool = currentActiveTask.vocab || readingDatabase.cap_1.vocab;
+            const randomIndex = Math.floor(Math.random() * pool.length);
+            activeGameTarget = pool[randomIndex];
+
+            document.getElementById("game-target-meaning").innerText = activeGameTarget.vi;
+        }
+
+        function spawnBubble() {
+            if (!isGameRunning) return;
+
+            const container = document.getElementById("game-bubbles-container");
+            const bubble = document.createElement("div");
+            
+            // Random styling of bubble
+            const colors = ["bg-emerald-500", "bg-brand-500", "bg-rose-500", "bg-amber-500", "bg-violet-500"];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            // Get a word to place inside the bubble (either correct or dummy from the current vocab)
+            const pool = currentActiveTask.vocab || readingDatabase.cap_1.vocab;
+            const isCorrect = Math.random() > 0.4;
+            let bubbleWord = activeGameTarget.word;
+
+            if (!isCorrect && pool.length > 1) {
+                let dummy = pool[Math.floor(Math.random() * pool.length)];
+                while (dummy.word === activeGameTarget.word) {
+                    dummy = pool[Math.floor(Math.random() * pool.length)];
+                }
+                bubbleWord = dummy.word;
+            }
+
+            const randomX = Math.floor(Math.random() * 75) + 5; // Left margin percentage between 5% and 80%
+
+            bubble.className = `absolute w-14 h-14 rounded-full ${randomColor} text-white flex items-center justify-center text-[10px] font-black shadow-lg cursor-pointer transition active:scale-75 bubble-item z-0 select-none`;
+            bubble.style.left = `${randomX}%`;
+            bubble.style.bottom = "0px";
+            bubble.innerText = bubbleWord;
+
+            // Click event pop logic
+            bubble.onclick = (e) => {
+                e.stopPropagation();
+                popBubble(bubble, bubbleWord === activeGameTarget.word);
+            };
+
+            container.appendChild(bubble);
+
+            // Auto-clean bubble element after animation ends
+            setTimeout(() => {
+                bubble.remove();
+            }, 6000);
+        }
+
+        function popBubble(element, correct) {
+            element.remove();
+            if (correct) {
+                gameScore += 10;
+                showToast("Chính xác! +10 điểm game 🎉", "fa-solid fa-circle-check text-emerald-500");
+                setNextGameTarget();
+            } else {
+                gameScore = Math.max(0, gameScore - 5);
+                showToast("Sai rồi! Hãy xem kỹ nghĩa tiếng Việt ❌", "fa-solid fa-circle-xmark text-rose-500");
+            }
+            document.getElementById("game-score").innerText = gameScore;
+        }
+
+        async function stopGameSession() {
+            isGameRunning = false;
+            clearInterval(gameTimerInterval);
+            clearInterval(bubbleSpawnInterval);
+
+            // Clean floating bubbles remaining
+            document.getElementById("game-bubbles-container").innerHTML = "";
+
+            // Show start cover again
+            document.getElementById("game-start-cover").classList.remove("hidden");
+
+            // Evaluate game results and distribute reward badges
+            let rewardMsg = "";
+            if (gameScore >= 30) {
+                if (!activeStudentData.rewards.includes("Master_Game_30")) {
+                    activeStudentData.rewards.push("Master_Game_30");
+                    activeStudentData.points = (activeStudentData.points || 0) + 50; // extra bonus
+                    rewardMsg = "Con được tặng thêm 50 Điểm Thưởng 💎 và **Huy Hiệu Thần Đồng Từ Vựng**!";
+                }
+            }
+
+            await syncStudentProfileToStorage();
+            renderStudentInfo(activeStudentData);
+            renderRewardsBadges();
+
+            showCustomDialog("Hết Giờ Chơi Game!", `
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-brand-100 text-brand-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fa-solid fa-gamepad text-2xl"></i>
+                    </div>
+                    <p class="text-xs text-slate-500 mb-1">Điểm số game đạt được:</p>
+                    <h4 class="text-3xl font-black text-brand-600 mb-4">${gameScore} điểm</h4>
+                    ${rewardMsg ? `<div class="bg-rose-50 p-3 rounded-xl border border-rose-100 text-rose-700 text-xs font-semibold mb-3">${rewardMsg}</div>` : ''}
+                    <p class="text-xs text-slate-500">Hãy tiếp tục hoàn thành các nhiệm vụ đọc sách để tích điểm và gia hạn thời gian chơi tiếp nhé!</p>
+                </div>
+            `);
+        }
+
+        // =========================================================================
+        // 9. ADMIN CONTROL PANEL MODULE (Rule 2 Auth, Rule 1 Firestore, ECO Prefix Generator)
         // =========================================================================
         let adminSubTab = "students"; // "students" or "add"
 
@@ -1262,14 +1723,17 @@
                 }
             }
 
-            // If empty database, push mock defaults
+            // If empty database, push mock defaults (With ECO prefix)
             if (studentsList.length === 0) {
                 studentsList.push({
-                    code: "ED1000",
+                    code: "ECO100",
                     name: "Nguyễn Văn Mẫu",
                     grade: "cap_1",
                     phone: "0900000000",
                     streak: 3,
+                    points: 50,
+                    playTime: 30,
+                    rewards: ["NewBie_ECO"],
                     lastActive: ""
                 });
             }
@@ -1287,22 +1751,23 @@
                                 <h4 class="font-bold text-xs text-slate-900">${student.name}</h4>
                             </div>
                             <p class="text-[9px] text-slate-400 mt-1">Cấp: ${gradeLabel} | SĐT: ${student.phone || 'Chưa cập nhật'}</p>
+                            <p class="text-[9px] text-amber-600 font-bold">Điểm 💎: ${student.points || 0} | Giây chơi: ${student.playTime || 0}s</p>
                         </div>
                         <div class="bg-red-50 text-red-600 px-2 py-0.5 rounded-full font-black text-[9px]">
                             Streak: ${student.streak}
                         </div>
                     </div>
                     <div class="flex space-x-1 justify-end pt-1 border-t border-slate-200/50">
-                        <button onclick="adminIncrementStreak('${student.code}', 1)" class="bg-emerald-50 text-emerald-600 hover:bg-emerald-100 py-1 px-2.5 rounded-lg text-[9px] font-extrabold">+1 Streak</button>
-                        <button onclick="adminIncrementStreak('${student.code}', -1)" class="bg-amber-50 text-amber-600 hover:bg-amber-100 py-1 px-2.5 rounded-lg text-[9px] font-extrabold">-1 Streak</button>
-                        <button onclick="adminDeleteStudent('${student.code}')" class="bg-rose-50 text-rose-600 hover:bg-rose-100 py-1 px-2.5 rounded-lg text-[9px] font-extrabold">Xóa</button>
+                        <button onclick="adminIncrementStreak('${student.code}', 1)" class="bg-emerald-50 text-emerald-600 hover:bg-emerald-100 py-1 px-2 rounded-lg text-[9px] font-extrabold">+1 Streak</button>
+                        <button onclick="adminIncrementPoints('${student.code}', 50)" class="bg-amber-50 text-amber-600 hover:bg-amber-100 py-1 px-2 rounded-lg text-[9px] font-extrabold">+50 Điểm</button>
+                        <button onclick="adminDeleteStudent('${student.code}')" class="bg-rose-50 text-rose-600 hover:bg-rose-100 py-1 px-2 rounded-lg text-[9px] font-extrabold">Xóa</button>
                     </div>
                 `;
                 container.appendChild(row);
             });
         }
 
-        // Admin manual account registration
+        // Admin manual account registration (ECO Prefix default)
         async function adminCreateNewStudentAccount() {
             const name = document.getElementById("admin-new-name").value.trim();
             const grade = document.getElementById("admin-new-grade").value;
@@ -1320,6 +1785,9 @@
                 grade: grade,
                 phone: phone,
                 streak: 0,
+                points: 50,
+                playTime: 30,
+                rewards: ["NewBie_ECO"],
                 lastActive: ""
             };
 
@@ -1392,6 +1860,55 @@
             loadAdminStudentsList();
         }
 
+        // Add points manually via admin panel
+        async function adminIncrementPoints(code, val) {
+            let targetStudent = null;
+            const key = `offline_student_${code}`;
+            const localRaw = localStorage.getItem(key);
+            
+            if (localRaw) {
+                targetStudent = JSON.parse(localRaw);
+            }
+
+            if (cloudConnected && db) {
+                try {
+                    const snap = await db.collection('artifacts').doc(APP_ID).collection('students').doc(code).get();
+                    if (snap.exists) {
+                        targetStudent = snap.data();
+                    }
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+
+            if (!targetStudent) {
+                showToast("Không tìm thấy dữ liệu học sinh!");
+                return;
+            }
+
+            const nextPoints = Math.max(0, (targetStudent.points || 0) + val);
+            targetStudent.points = nextPoints;
+
+            localStorage.setItem(key, JSON.stringify(targetStudent));
+
+            if (cloudConnected && db) {
+                try {
+                    await db.collection('artifacts').doc(APP_ID).collection('students').doc(code).update({ points: nextPoints });
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+
+            // Sync currently logged in session view if they are edited
+            if (activeStudentId === code) {
+                activeStudentData.points = nextPoints;
+                renderStudentInfo(activeStudentData);
+            }
+
+            showToast(`Đã cộng +${val} Điểm 💎 cho học sinh ${code}!`);
+            loadAdminStudentsList();
+        }
+
         // Delete student with non-obstructive secure confirmation modal
         function adminDeleteStudent(code) {
             showConfirmDialog("Xóa tài khoản con", `Bạn có chắc chắn muốn xóa vĩnh viễn tài khoản học sinh ${code}? Toàn bộ lịch sử học tập và streak sẽ bị hủy.`, async () => {
@@ -1420,24 +1937,35 @@
         }
 
         // =========================================================================
-        // 9. PREMIUM VIEW-INTERACTIONS & UTILITY (Compliance: No alert/confirm)
+        // 10. PREMIUM VIEW-INTERACTIONS & UTILITY (Compliance: No alert/confirm)
         // =========================================================================
         function switchTab(tabId) {
             const btnReading = document.getElementById("tab-btn-reading");
             const btnChat = document.getElementById("tab-btn-chat");
+            const btnGame = document.getElementById("tab-btn-game");
+            
             const secReading = document.getElementById("section-reading");
             const secChat = document.getElementById("section-chat");
+            const secGame = document.getElementById("section-game");
+
+            // Normalize classes
+            btnReading.className = "py-2 text-center text-[11px] font-extrabold rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-800";
+            btnChat.className = "py-2 text-center text-[11px] font-extrabold rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-800";
+            btnGame.className = "py-2 text-center text-[11px] font-extrabold rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-800 flex items-center justify-center space-x-1";
+
+            secReading.classList.add("hidden");
+            secChat.classList.add("hidden");
+            secGame.classList.add("hidden");
 
             if (tabId === "reading") {
-                btnReading.className = "flex-1 py-2 text-center text-xs font-bold rounded-lg transition-all duration-300 bg-white text-brand-600 shadow-sm";
-                btnChat.className = "flex-1 py-2 text-center text-xs font-bold rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-800";
+                btnReading.className = "py-2 text-center text-[11px] font-extrabold rounded-lg transition-all duration-300 bg-white text-brand-600 shadow-sm";
                 secReading.classList.remove("hidden");
-                secChat.classList.add("hidden");
-            } else {
-                btnChat.className = "flex-1 py-2 text-center text-xs font-bold rounded-lg transition-all duration-300 bg-white text-brand-600 shadow-sm";
-                btnReading.className = "flex-1 py-2 text-center text-xs font-bold rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-800";
+            } else if (tabId === "chat") {
+                btnChat.className = "py-2 text-center text-[11px] font-extrabold rounded-lg transition-all duration-300 bg-white text-brand-600 shadow-sm";
                 secChat.classList.remove("hidden");
-                secReading.classList.add("hidden");
+            } else {
+                btnGame.className = "py-2 text-center text-[11px] font-extrabold rounded-lg transition-all duration-300 bg-white text-brand-600 shadow-sm flex items-center justify-center space-x-1";
+                secGame.classList.remove("hidden");
             }
         }
 
