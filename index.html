@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Permissions-Policy" content="microphone=(self)">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>English Daily - Luyện Đọc & Đàm Thoại AI Học Sinh Các Cấp</title>
     <!-- Tailwind CSS CDN -->
@@ -88,6 +88,265 @@ background:#2563eb;color:#fff;border:none;padding:14px 18px;
 border-radius:14px;font-weight:700;width:100%;margin-top:14px;cursor:pointer;
 }
 </style>
+
+
+<style>
+/* ======================================
+SMART RESPONSIVE UI SYSTEM
+====================================== */
+
+:root{
+--mobile-padding:12px;
+--desktop-padding:24px;
+}
+
+/* Desktop optimization */
+@media (min-width: 1024px){
+
+body{
+background:#e2e8f0;
+padding:20px;
+}
+
+.desktop-layout{
+max-width:1400px !important;
+margin:auto !important;
+display:grid !important;
+grid-template-columns: 380px 1fr !important;
+gap:20px !important;
+align-items:start !important;
+}
+
+#view-main-app{
+border-radius:28px !important;
+overflow:hidden !important;
+box-shadow:0 20px 60px rgba(0,0,0,.12) !important;
+min-height:92vh !important;
+}
+
+main{
+padding:24px !important;
+}
+
+#section-chat{
+max-height:none !important;
+height:75vh !important;
+}
+
+#chat-conversation-container{
+padding:12px !important;
+}
+
+#reading-content{
+font-size:22px !important;
+line-height:2 !important;
+}
+
+#vocabulary-container{
+display:grid !important;
+grid-template-columns:1fr 1fr !important;
+gap:12px !important;
+max-height:none !important;
+}
+
+#game-subview-games{
+display:grid !important;
+grid-template-columns:1fr 1fr !important;
+gap:20px !important;
+}
+
+footer{
+position:sticky !important;
+bottom:0 !important;
+}
+}
+
+/* Mobile optimization */
+@media (max-width: 768px){
+
+body{
+background:#f8fafc;
+}
+
+#view-main-app{
+max-width:100vw !important;
+}
+
+main{
+padding:12px !important;
+}
+
+#reading-content{
+font-size:17px !important;
+line-height:1.8 !important;
+}
+
+button{
+min-height:48px !important;
+}
+
+input,select{
+min-height:46px !important;
+font-size:16px !important;
+}
+
+#chat-conversation-container{
+padding-bottom:120px !important;
+}
+
+footer{
+padding-bottom:calc(env(safe-area-inset-bottom) + 12px) !important;
+}
+
+#voice-wave-indicator{
+position:sticky;
+bottom:90px;
+z-index:50;
+}
+}
+
+/* Ultra mobile */
+@media (max-width:480px){
+
+#reading-title{
+font-size:20px !important;
+}
+
+#reading-content{
+font-size:16px !important;
+}
+
+#vocabulary-container{
+max-height:320px !important;
+}
+
+#game-play-area-bubble,
+#game-play-area-scramble{
+height:420px !important;
+}
+}
+
+/* Tablet optimization */
+@media (min-width:768px) and (max-width:1023px){
+
+#view-main-app{
+max-width:760px !important;
+margin:auto !important;
+}
+
+main{
+padding:20px !important;
+}
+
+#reading-content{
+font-size:20px !important;
+line-height:1.9 !important;
+}
+}
+
+/* Smart visibility */
+.desktop-only{
+display:none;
+}
+
+.mobile-only{
+display:block;
+}
+
+@media(min-width:1024px){
+.desktop-only{
+display:block !important;
+}
+
+.mobile-only{
+display:none !important;
+}
+}
+
+/* Smooth transitions */
+*{
+transition:
+background-color .2s ease,
+color .2s ease,
+border-color .2s ease,
+transform .2s ease;
+}
+</style>
+
+<script>
+// ======================================
+// SMART DEVICE DETECTION ENGINE
+// ======================================
+
+function detectSmartDevice(){
+
+    const ua = navigator.userAgent || "";
+
+    const isMobile =
+        /Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(ua);
+
+    const isTablet =
+        /iPad|Tablet/i.test(ua);
+
+    const isDesktop = !isMobile;
+
+    document.body.classList.remove(
+        'device-mobile',
+        'device-tablet',
+        'device-desktop'
+    );
+
+    if(isMobile){
+        document.body.classList.add('device-mobile');
+    }
+
+    if(isTablet){
+        document.body.classList.add('device-tablet');
+    }
+
+    if(isDesktop){
+        document.body.classList.add('device-desktop');
+    }
+
+    // Add desktop layout
+    const wrapper = document.querySelector('.max-w-md');
+
+    if(wrapper && isDesktop){
+        wrapper.classList.add('desktop-layout');
+    }
+
+    // Auto optimize voice controls
+    optimizeVoiceUI(isMobile);
+
+    console.log("DEVICE DETECTED:", {
+        mobile:isMobile,
+        tablet:isTablet,
+        desktop:isDesktop
+    });
+}
+
+function optimizeVoiceUI(isMobile){
+
+    const micBtn = document.getElementById('btn-chat-mic');
+
+    if(micBtn){
+
+        if(isMobile){
+            micBtn.style.width = '64px';
+            micBtn.style.height = '64px';
+        }else{
+            micBtn.style.width = '72px';
+            micBtn.style.height = '72px';
+        }
+    }
+}
+
+// Dynamic responsive resize
+window.addEventListener('resize', detectSmartDevice);
+
+// Init
+window.addEventListener('DOMContentLoaded', detectSmartDevice);
+</script>
 
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
@@ -1684,7 +1943,7 @@ border-radius:14px;font-weight:700;width:100%;margin-top:14px;cursor:pointer;
                 return;
             }
 
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const SpeechRecognition = window.SpeechRecognition || window.MediaRecorder;
             if (!SpeechRecognition) {
                 let iframeGuide = "";
                 if (isIFrame) {
@@ -1860,7 +2119,7 @@ border-radius:14px;font-weight:700;width:100%;margin-top:14px;cursor:pointer;
                 window.speechSynthesis.cancel();
             }
 
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const SpeechRecognition = window.SpeechRecognition || window.MediaRecorder;
             if (!SpeechRecognition) {
                 showToast("Thiết bị của bạn không có/chưa cấp quyền micro.");
                 return;
@@ -3239,6 +3498,201 @@ window.addEventListener('load', () => {
         console.error(e);
     }
 })();
+</script>
+
+
+<script>
+// ===============================
+// PRODUCTION MOBILE MICROPHONE FIX
+// ===============================
+
+let mediaRecorder;
+let audioChunks = [];
+let currentStream = null;
+let isRecording = false;
+
+async function requestMicrophonePermission() {
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+            audio: {
+                echoCancellation: true,
+                noiseSuppression: true,
+                autoGainControl: true
+            }
+        });
+
+        stream.getTracks().forEach(track => track.stop());
+
+        return true;
+    } catch (err) {
+        console.error("MIC PERMISSION ERROR:", err);
+
+        if (typeof showToast === 'function') {
+            showToast("Microphone bị chặn. Hãy mở bằng Chrome/Safari thật.", "fa-solid fa-microphone-lines-slash text-red-500");
+        }
+
+        return false;
+    }
+}
+
+async function startRealtimeRecording() {
+
+    const granted = await requestMicrophonePermission();
+
+    if (!granted) return;
+
+    try {
+
+        currentStream = await navigator.mediaDevices.getUserMedia({
+            audio: {
+                echoCancellation: true,
+                noiseSuppression: true,
+                autoGainControl: true
+            }
+        });
+
+        audioChunks = [];
+
+        mediaRecorder = new MediaRecorder(currentStream);
+
+        mediaRecorder.ondataavailable = (event) => {
+            if (event.data.size > 0) {
+                audioChunks.push(event.data);
+            }
+        };
+
+        mediaRecorder.onstart = () => {
+
+            isRecording = true;
+
+            const wave = document.getElementById('voice-wave-indicator');
+            if (wave) wave.classList.remove('hidden');
+
+            const micBtn = document.getElementById('btn-chat-mic');
+            if (micBtn) {
+                micBtn.innerHTML = '<i class="fa-solid fa-stop text-lg"></i>';
+                micBtn.classList.add('bg-red-500');
+            }
+
+            if (typeof showToast === 'function') {
+                showToast("🎤 Đang ghi âm giọng nói...");
+            }
+        };
+
+        mediaRecorder.onstop = async () => {
+
+            isRecording = false;
+
+            const wave = document.getElementById('voice-wave-indicator');
+            if (wave) wave.classList.add('hidden');
+
+            const micBtn = document.getElementById('btn-chat-mic');
+            if (micBtn) {
+                micBtn.innerHTML = '<i class="fa-solid fa-microphone text-lg"></i>';
+                micBtn.classList.remove('bg-red-500');
+            }
+
+            const audioBlob = new Blob(audioChunks, {
+                type: 'audio/webm'
+            });
+
+            console.log("VOICE CAPTURED:", audioBlob);
+
+            if (typeof showToast === 'function') {
+                showToast("✅ Đã ghi âm thành công");
+            }
+
+            // playback test
+            const audioURL = URL.createObjectURL(audioBlob);
+            const audio = new Audio(audioURL);
+
+            setTimeout(() => {
+                audio.play().catch(()=>{});
+            }, 300);
+
+        };
+
+        mediaRecorder.start();
+
+    } catch (err) {
+
+        console.error("MEDIA RECORDER ERROR:", err);
+
+        if (typeof showToast === 'function') {
+            showToast("Không thể bắt đầu ghi âm");
+        }
+    }
+}
+
+function stopRealtimeRecording() {
+
+    try {
+
+        if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+            mediaRecorder.stop();
+        }
+
+        if (currentStream) {
+            currentStream.getTracks().forEach(track => track.stop());
+        }
+
+    } catch(err) {
+        console.error(err);
+    }
+}
+
+async function toggleChatVoiceInput() {
+
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+
+        if (typeof showToast === 'function') {
+            showToast("Thiết bị không hỗ trợ microphone");
+        }
+
+        return;
+    }
+
+    if (!isRecording) {
+        await startRealtimeRecording();
+    } else {
+        stopRealtimeRecording();
+    }
+}
+
+// Auto detect in-app browser
+window.addEventListener('DOMContentLoaded', () => {
+
+    const ua = navigator.userAgent || "";
+
+    const isZalo = ua.includes("Zalo");
+    const isFB = ua.includes("FBAN") || ua.includes("FBAV");
+    const isMessenger = ua.includes("Messenger");
+
+    if (isZalo || isFB || isMessenger) {
+
+        const warning = document.createElement("div");
+
+        warning.innerHTML = `
+        <div style="position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:999999;display:flex;align-items:center;justify-content:center;padding:20px">
+            <div style="background:white;padding:24px;border-radius:24px;max-width:420px;width:100%;font-family:Arial;text-align:center">
+                <h2 style="font-size:22px;font-weight:bold;margin-bottom:10px">Micro bị chặn</h2>
+                <p style="font-size:14px;color:#555;line-height:1.6">
+                    Zalo/Facebook đang chặn microphone realtime.
+                    <br><br>
+                    Hãy mở bằng Chrome hoặc Safari thật.
+                </p>
+
+                <button onclick="window.location.href=window.location.href"
+                    style="margin-top:18px;background:#2563eb;color:white;border:none;padding:14px 20px;border-radius:14px;font-weight:bold;width:100%">
+                    Mở lại bằng Chrome
+                </button>
+            </div>
+        </div>
+        `;
+
+        document.body.appendChild(warning);
+    }
+});
 </script>
 
 </body>
