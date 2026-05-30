@@ -113,6 +113,9 @@
                 <button onclick="switchTab('reading')" id="tab-btn-reading" class="flex-1 py-2 text-center text-xs font-bold rounded-lg transition-all duration-300 bg-white text-brand-600 shadow-sm">
                     <i class="fa-solid fa-book-open mr-1"></i> Bài Luyện Đọc
                 </button>
+                <button onclick="switchTab('vocab')" id="tab-btn-vocab" class="flex-1 py-2 text-center text-xs font-bold rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-800">
+                    <i class="fa-solid fa-graduation-cap mr-1"></i> Luyện Từ Vựng
+                </button>
                 <button onclick="switchTab('chat')" id="tab-btn-chat" class="flex-1 py-2 text-center text-xs font-bold rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-800">
                     <i class="fa-solid fa-robot mr-1"></i> Đàm Thoại AI
                 </button>
@@ -164,6 +167,85 @@
                     </h4>
                     <div id="vocabulary-container" class="space-y-2.5 max-h-56 overflow-y-auto custom-scrollbar pr-1">
                         <!-- Dynamic vocabulary loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 1.5: VOCABULARY DAILY PRACTICE -->
+            <section id="section-vocab" class="hidden space-y-4">
+                <!-- Mode select bar -->
+                <div class="flex bg-slate-100 rounded-xl p-1 shadow-inner">
+                    <button onclick="setVocabMode('flashcard')" id="vocab-mode-flashcard" class="flex-1 py-1.5 text-center text-xs font-bold rounded-lg transition bg-brand-600 text-white shadow-sm">
+                        <i class="fa-regular fa-clone mr-1"></i> Thẻ Ghi Nhớ
+                    </button>
+                    <button onclick="setVocabMode('quiz')" id="vocab-mode-quiz" class="flex-1 py-1.5 text-center text-xs font-bold rounded-lg transition text-slate-500 hover:text-slate-800">
+                        <i class="fa-solid fa-circle-question mr-1"></i> Trắc Nghiệm Trí Nhớ
+                    </button>
+                </div>
+
+                <!-- FLASHCARD INTERACTIVE SYSTEM -->
+                <div id="vocab-flashcard-box" class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm min-h-[320px] flex flex-col justify-between">
+                    <div class="text-center">
+                        <span id="vocab-practice-index" class="text-[10px] bg-slate-100 text-slate-500 px-2.5 py-0.5 rounded-full font-extrabold">1 / 4</span>
+                    </div>
+
+                    <!-- Flip Card Box -->
+                    <div onclick="flipVocabCard()" class="my-4 cursor-pointer transform transition-all duration-300 hover:scale-[1.01] relative min-h-[170px] flex items-center justify-center p-5 bg-gradient-to-br from-brand-50 to-indigo-50/20 rounded-2xl border border-brand-100">
+                        <!-- Card Front -->
+                        <div id="vocab-card-front" class="text-center space-y-2">
+                            <h3 id="vocab-card-word" class="text-3xl font-black text-slate-900 tracking-wide">Word</h3>
+                            <p id="vocab-card-ipa" class="text-sm text-slate-500 font-semibold">/ipa/</p>
+                            <span class="inline-block text-[9px] font-extrabold uppercase tracking-wider text-brand-500 bg-white px-2.5 py-0.5 rounded-full border border-brand-100 animate-pulse mt-4">Chạm để lật thẻ</span>
+                        </div>
+                        <!-- Card Back -->
+                        <div id="vocab-card-back" class="hidden text-center space-y-2.5">
+                            <span id="vocab-card-type" class="text-[9px] font-extrabold uppercase bg-brand-500 text-white px-2.5 py-0.5 rounded-md tracking-wider">Type</span>
+                            <h4 id="vocab-card-vi" class="text-2xl font-black text-brand-600">Dịch nghĩa</h4>
+                            <p id="vocab-card-desc" class="text-xs text-slate-500 max-w-xs mx-auto italic">Definition of the word</p>
+                        </div>
+                    </div>
+
+                    <!-- Flashcard Controller Buttons -->
+                    <div class="flex space-x-2 pt-2 border-t border-slate-50">
+                        <button onclick="speakVocabPracticeWord()" class="w-12 h-12 bg-slate-50 hover:bg-slate-100 text-brand-600 rounded-xl transition active:scale-90 flex items-center justify-center border border-slate-100" title="Phát âm từ vựng">
+                            <i class="fa-solid fa-volume-high text-lg"></i>
+                        </button>
+                        <button onclick="flipVocabCard()" class="flex-1 bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm rounded-xl transition active:scale-95">
+                            Lật Thẻ Xem Nghĩa
+                        </button>
+                        <button onclick="nextVocabCard()" class="w-12 h-12 bg-brand-600 hover:bg-brand-700 text-white rounded-xl transition active:scale-90 flex items-center justify-center shadow-md shadow-brand-500/20" title="Từ tiếp theo">
+                            <i class="fa-solid fa-arrow-right text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- TRẮC NGHIỆM TRÍ NHỚ SYSTEM -->
+                <div id="vocab-quiz-box" class="hidden bg-white border border-slate-100 rounded-2xl p-5 shadow-sm min-h-[320px] flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span id="vocab-quiz-index" class="text-[10px] bg-slate-100 text-slate-500 px-2.5 py-0.5 rounded-full font-extrabold">1 / 4</span>
+                            <span id="vocab-quiz-score" class="text-[10px] bg-emerald-50 text-emerald-600 px-2.5 py-0.5 rounded-full font-extrabold">Điểm: 0 XP</span>
+                        </div>
+
+                        <div class="text-center my-3">
+                            <span class="text-[11px] font-bold text-slate-400 block uppercase tracking-wider mb-1">Nghĩa của từ này là gì?</span>
+                            <h3 id="vocab-quiz-question-word" class="text-3xl font-black text-slate-950 tracking-wide">Word</h3>
+                            <p id="vocab-quiz-question-ipa" class="text-xs text-slate-500 mt-1">/ipa/</p>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Answer Choices -->
+                    <div id="vocab-quiz-options" class="space-y-2.5 my-3">
+                        <!-- Render quiz option buttons dynamically -->
+                    </div>
+
+                    <!-- Quiz Feedback Dialog -->
+                    <div id="vocab-quiz-action-bar" class="hidden flex items-center justify-between border-t border-slate-100 pt-3">
+                        <span id="vocab-quiz-feedback" class="text-xs font-extrabold text-slate-800">Thông báo đúng/sai</span>
+                        <button onclick="nextQuizQuestion()" class="bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition active:scale-95 flex items-center space-x-1">
+                            <span>Từ Tiếp Theo</span>
+                            <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        </button>
                     </div>
                 </div>
             </section>
@@ -335,10 +417,10 @@
         </div>
 
         <!-- CUSTOM NOTIFICATION POPUP TOAST (Replacing window.alert) -->
-        <div id="custom-toast" class="fixed bottom-24 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs font-bold py-3 px-5 rounded-2xl shadow-xl z-50 flex items-center space-x-2 transition-all duration-300 opacity-0 pointer-events-none translate-y-2">
-            <span id="toast-icon" class="text-amber-400"><i class="fa-solid fa-circle-info"></i></span>
-            <span id="toast-message">Nội dung thông báo</span>
-        </div>
+    <div id="custom-toast" class="fixed bottom-24 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs font-bold py-3 px-5 rounded-2xl shadow-xl z-50 flex items-center space-x-2 transition-all duration-300 opacity-0 pointer-events-none translate-y-2">
+        <span id="toast-icon" class="text-amber-400"><i class="fa-solid fa-circle-info"></i></span>
+        <span id="toast-message">Nội dung thông báo</span>
+    </div>
 
     </div>
 
@@ -378,6 +460,14 @@
             streak: 0,
             lastActive: ""
         };
+
+        // Vocabulary Daily Practice Module State Variables
+        let vocabPracticeIndex = 0;
+        let vocabPracticeFlipped = false;
+        let vocabPracticeMode = "flashcard"; // "flashcard" or "quiz"
+        let vocabQuizScore = 0;
+        let vocabQuizCurrentIndex = 0;
+        let quizOptionsSelected = false;
 
         // Initialize connection
         window.addEventListener('DOMContentLoaded', async () => {
@@ -564,7 +654,7 @@
             document.getElementById("reading-content").innerText = currentActiveTask.content;
             document.getElementById("reading-illustration").src = currentActiveTask.image;
 
-            // Load Vocabularies
+            // Load Vocabularies in Reading List
             const container = document.getElementById("vocabulary-container");
             container.innerHTML = "";
             currentActiveTask.vocab.forEach(item => {
@@ -586,6 +676,15 @@
                 `;
                 container.appendChild(vocabCard);
             });
+
+            // Reset vocabulary training state when task changes
+            vocabPracticeIndex = 0;
+            vocabPracticeFlipped = false;
+            vocabQuizScore = 0;
+            vocabQuizCurrentIndex = 0;
+            quizOptionsSelected = false;
+            renderFlashcardData();
+            renderQuizQuestionData();
         }
 
         // Handle double-click word selection for rapid lookup
@@ -619,38 +718,171 @@
             showToast(`Đã chuyển sang cấp: ${newGrade === 'cap_1' ? 'Cấp 1' : newGrade === 'cap_2' ? 'Cấp 2' : 'Cấp 3'}`);
         }
 
-        function checkDailyStreakValidation() {
-            if (!localState.lastActive) return;
+        // =========================================================================
+        // 4.5. INTERACTIVE VOCABULARY PRACTICE MODULE IMPLEMENTATION
+        // =========================================================================
+        function setVocabMode(mode) {
+            vocabPracticeMode = mode;
+            const btnFlashcard = document.getElementById("vocab-mode-flashcard");
+            const btnQuiz = document.getElementById("vocab-mode-quiz");
+            const boxFlashcard = document.getElementById("vocab-flashcard-box");
+            const boxQuiz = document.getElementById("vocab-quiz-box");
 
-            const today = new Date().toDateString();
-            const lastActiveDate = new Date(localState.lastActive);
-            const todayDate = new Date(today);
-
-            const differenceInTime = todayDate.getTime() - lastActiveDate.getTime();
-            const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24));
-
-            if (differenceInDays > 1) {
-                // Relapsed - missed more than one day, reset streak to zero
-                updateProfileField("streak", 0);
-                showToast("Chuỗi ngày luyện đọc của bạn đã bị reset do bỏ lỡ thử thách ngày hôm qua!", "fa-solid fa-triangle-exclamation");
+            if (mode === "flashcard") {
+                btnFlashcard.className = "flex-1 py-1.5 text-center text-xs font-bold rounded-lg transition bg-brand-600 text-white shadow-sm";
+                btnQuiz.className = "flex-1 py-1.5 text-center text-xs font-bold rounded-lg transition text-slate-500 hover:text-slate-800";
+                boxFlashcard.classList.remove("hidden");
+                boxQuiz.classList.add("hidden");
+                renderFlashcardData();
+            } else {
+                btnQuiz.className = "flex-1 py-1.5 text-center text-xs font-bold rounded-lg transition bg-brand-600 text-white shadow-sm";
+                btnFlashcard.className = "flex-1 py-1.5 text-center text-xs font-bold rounded-lg transition text-slate-500 hover:text-slate-800";
+                boxQuiz.classList.remove("hidden");
+                boxFlashcard.classList.add("hidden");
+                renderQuizQuestionData();
             }
         }
 
-        function triggerStreakSuccess() {
-            const today = new Date().toDateString();
-            if (localState.lastActive === today) {
-                showToast("Bạn đã hoàn thành thử thách đọc hôm nay rồi! Tiếp tục luyện nói bên Chat AI nhé!");
-                return;
+        function renderFlashcardData() {
+            if (!currentActiveTask.vocab || currentActiveTask.vocab.length === 0) return;
+            const item = currentActiveTask.vocab[vocabPracticeIndex];
+            
+            document.getElementById("vocab-practice-index").innerText = `${vocabPracticeIndex + 1} / ${currentActiveTask.vocab.length}`;
+            document.getElementById("vocab-card-word").innerText = item.word;
+            document.getElementById("vocab-card-ipa").innerText = item.ipa;
+            
+            document.getElementById("vocab-card-type").innerText = item.type;
+            document.getElementById("vocab-card-vi").innerText = item.vi;
+            document.getElementById("vocab-card-desc").innerText = item.desc;
+
+            // Enforce front view
+            vocabPracticeFlipped = false;
+            document.getElementById("vocab-card-front").classList.remove("hidden");
+            document.getElementById("vocab-card-back").classList.add("hidden");
+        }
+
+        function flipVocabCard() {
+            vocabPracticeFlipped = !vocabPracticeFlipped;
+            const front = document.getElementById("vocab-card-front");
+            const back = document.getElementById("vocab-card-back");
+            
+            if (vocabPracticeFlipped) {
+                front.classList.add("hidden");
+                back.classList.remove("hidden");
+            } else {
+                front.classList.remove("hidden");
+                back.classList.add("hidden");
+            }
+        }
+
+        function nextVocabCard() {
+            vocabPracticeIndex = (vocabPracticeIndex + 1) % currentActiveTask.vocab.length;
+            renderFlashcardData();
+        }
+
+        function speakVocabPracticeWord() {
+            if (!currentActiveTask.vocab || currentActiveTask.vocab.length === 0) return;
+            const word = currentActiveTask.vocab[vocabPracticeIndex].word;
+            speakTextUS(word);
+        }
+
+        // VOCABULARY TRẮC NGHIỆM QUIZ SYSTEM
+        function renderQuizQuestionData() {
+            if (!currentActiveTask.vocab || currentActiveTask.vocab.length === 0) return;
+            
+            const currentItem = currentActiveTask.vocab[vocabQuizCurrentIndex];
+            document.getElementById("vocab-quiz-index").innerText = `${vocabQuizCurrentIndex + 1} / ${currentActiveTask.vocab.length}`;
+            document.getElementById("vocab-quiz-score").innerText = `Đúng: ${vocabQuizScore} XP`;
+            
+            document.getElementById("vocab-quiz-question-word").innerText = currentItem.word;
+            document.getElementById("vocab-quiz-question-ipa").innerText = currentItem.ipa;
+
+            // Generate answer choices
+            quizOptionsSelected = false;
+            document.getElementById("vocab-quiz-action-bar").classList.add("hidden");
+
+            const correctTranslation = currentItem.vi;
+            let options = [correctTranslation];
+
+            // Build distractors from database
+            const allDatabaseWords = [...readingDatabase.cap_1.vocab, ...readingDatabase.cap_2.vocab, ...readingDatabase.cap_3.vocab];
+            const filteredViOptions = allDatabaseWords
+                .map(v => v.vi)
+                .filter(vi => vi !== correctTranslation);
+            
+            // Pick 3 unique distractors
+            const uniqueDistractors = [...new Set(filteredViOptions)];
+            const chosenDistractors = uniqueDistractors.sort(() => 0.5 - Math.random()).slice(0, 3);
+            
+            options = [...options, ...chosenDistractors];
+            // Shuffle
+            options.sort(() => 0.5 - Math.random());
+
+            // Render buttons
+            const optionsContainer = document.getElementById("vocab-quiz-options");
+            optionsContainer.innerHTML = "";
+            options.forEach(opt => {
+                const btn = document.createElement("button");
+                btn.className = "w-full text-left p-3.5 bg-slate-50 hover:bg-slate-100 border border-slate-200/60 rounded-xl font-semibold text-sm text-slate-800 transition active:scale-[0.98]";
+                btn.innerText = opt;
+                btn.onclick = () => checkQuizAnswer(opt, btn, correctTranslation);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function checkQuizAnswer(selectedOption, buttonElement, correctValue) {
+            if (quizOptionsSelected) return; // Disallow double click answers
+            quizOptionsSelected = true;
+
+            const buttons = document.getElementById("vocab-quiz-options").children;
+            for (let btn of buttons) {
+                btn.disabled = true;
+                if (btn.innerText === correctValue) {
+                    btn.className = "w-full text-left p-3.5 bg-emerald-100 text-emerald-800 border-2 border-emerald-500 rounded-xl font-bold text-sm transition";
+                } else if (btn === buttonElement) {
+                    btn.className = "w-full text-left p-3.5 bg-red-100 text-red-800 border-2 border-red-500 rounded-xl font-bold text-sm transition";
+                } else {
+                    btn.className = "w-full text-left p-3.5 bg-slate-100 text-slate-400 border border-slate-200 rounded-xl font-semibold text-sm transition";
+                }
             }
 
-            const nextStreak = localState.streak + 1;
-            updateProfileMulti({
-                streak: nextStreak,
-                lastActive: today
-            });
+            const feedbackEl = document.getElementById("vocab-quiz-feedback");
+            if (selectedOption === correctValue) {
+                vocabQuizScore += 10;
+                document.getElementById("vocab-quiz-score").innerText = `Đúng: ${vocabQuizScore} XP`;
+                feedbackEl.className = "text-xs font-black text-emerald-600";
+                feedbackEl.innerHTML = `<i class="fa-solid fa-circle-check mr-1"></i> Chính xác! (+10 XP)`;
+                speakTextUS("Correct! Well done.");
+            } else {
+                feedbackEl.className = "text-xs font-black text-red-600";
+                feedbackEl.innerHTML = `<i class="fa-solid fa-circle-xmark mr-1"></i> Sai rồi! Đáp án: ${correctValue}`;
+                speakTextUS("Wrong answer. Keep learning!");
+            }
 
-            // Colorful premium notification of Streak addition
-            showToast(`🔥 Chuỗi ${nextStreak} ngày học liên tục! Bạn giỏi lắm!`, "fa-solid fa-circle-check");
+            document.getElementById("vocab-quiz-action-bar").classList.remove("hidden");
+        }
+
+        function nextQuizQuestion() {
+            if (vocabQuizCurrentIndex + 1 < currentActiveTask.vocab.length) {
+                vocabQuizCurrentIndex++;
+                renderQuizQuestionData();
+            } else {
+                // Done with all words for today
+                triggerStreakSuccess();
+                showCustomDialog("Hoàn Thành Thử Thách Từ Vựng!", `
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-brand-100 text-brand-600 rounded-full flex items-center justify-center mx-auto mb-3 animate-bounce">
+                            <i class="fa-solid fa-award text-2xl"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-slate-900 mb-1">Thử thách từ vựng kết thúc</h4>
+                        <p class="text-xs text-slate-500 mb-4">Bạn đạt được thành tích xuất sắc:</p>
+                        <span class="text-3xl font-black text-brand-600 bg-brand-50 px-4 py-2 rounded-2xl border border-brand-100">${vocabQuizScore} XP</span>
+                        <p class="text-xs text-slate-400 mt-4">Điểm số và Streak ngày học của bạn đã được lưu tự động trên cơ sở dữ liệu!</p>
+                    </div>
+                `);
+                vocabQuizCurrentIndex = 0;
+                renderQuizQuestionData();
+            }
         }
 
         // =========================================================================
@@ -1065,20 +1297,34 @@
         // =========================================================================
         function switchTab(tabId) {
             const btnReading = document.getElementById("tab-btn-reading");
+            const btnVocab = document.getElementById("tab-btn-vocab");
             const btnChat = document.getElementById("tab-btn-chat");
             const secReading = document.getElementById("section-reading");
+            const secVocab = document.getElementById("section-vocab");
             const secChat = document.getElementById("section-chat");
 
+            // Reset active / inactive classes for premium looks
+            const activeClass = "flex-1 py-2 text-center text-xs font-bold rounded-lg transition-all duration-300 bg-white text-brand-600 shadow-sm";
+            const inactiveClass = "flex-1 py-2 text-center text-xs font-bold rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-800";
+
+            btnReading.className = inactiveClass;
+            btnVocab.className = inactiveClass;
+            btnChat.className = inactiveClass;
+
+            secReading.classList.add("hidden");
+            secVocab.classList.add("hidden");
+            secChat.classList.add("hidden");
+
             if (tabId === "reading") {
-                btnReading.className = "flex-1 py-2 text-center text-xs font-bold rounded-lg transition bg-white text-brand-600 shadow-sm";
-                btnChat.className = "flex-1 py-2 text-center text-xs font-bold rounded-lg transition text-slate-500 hover:text-slate-800";
+                btnReading.className = activeClass;
                 secReading.classList.remove("hidden");
-                secChat.classList.add("hidden");
+            } else if (tabId === "vocab") {
+                btnVocab.className = activeClass;
+                secVocab.classList.remove("hidden");
+                renderFlashcardData();
             } else {
-                btnChat.className = "flex-1 py-2 text-center text-xs font-bold rounded-lg transition bg-white text-brand-600 shadow-sm";
-                btnReading.className = "flex-1 py-2 text-center text-xs font-bold rounded-lg transition text-slate-500 hover:text-slate-800";
+                btnChat.className = activeClass;
                 secChat.classList.remove("hidden");
-                secReading.classList.add("hidden");
             }
         }
 
