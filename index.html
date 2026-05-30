@@ -466,6 +466,225 @@ word-wrap:break-word;
 }
 </style>
 
+
+<style>
+/* =========================================
+ULTIMATE CROSS DEVICE UI FIX
+Chrome + Safari + Tablet + Mobile
+========================================= */
+
+/* Global reset */
+html,
+body{
+margin:0 !important;
+padding:0 !important;
+width:100% !important;
+min-width:100% !important;
+overflow-x:hidden !important;
+-webkit-text-size-adjust:100% !important;
+text-size-adjust:100% !important;
+font-size:16px !important;
+}
+
+/* Main app wrapper */
+.max-w-md{
+width:100% !important;
+max-width:100% !important;
+min-width:100% !important;
+margin:0 auto !important;
+border-radius:0 !important;
+}
+
+/* Main views */
+#view-auth,
+#view-main-app{
+width:100% !important;
+max-width:100% !important;
+min-height:100vh !important;
+}
+
+/* Form containers */
+#form-auth-login,
+#form-auth-register,
+#admin-panel-card,
+#admin-login-card{
+width:100% !important;
+max-width:100% !important;
+}
+
+/* Input fields */
+input,
+select,
+textarea{
+width:100% !important;
+font-size:16px !important;
+padding:14px 16px !important;
+border-radius:16px !important;
+box-sizing:border-box !important;
+}
+
+/* Buttons */
+button{
+min-height:52px !important;
+font-size:15px !important;
+border-radius:16px !important;
+}
+
+/* Reading area */
+#reading-content{
+font-size:18px !important;
+line-height:1.9 !important;
+}
+
+/* Chat area */
+#chat-conversation-container{
+width:100% !important;
+overflow-x:hidden !important;
+}
+
+/* Images */
+img{
+max-width:100% !important;
+height:auto !important;
+}
+
+/* Footer safe area */
+footer{
+padding-bottom:calc(env(safe-area-inset-bottom) + 12px) !important;
+}
+
+/* =========================
+DESKTOP FIX
+========================= */
+@media(min-width:1024px){
+
+body{
+background:#e2e8f0 !important;
+padding:24px !important;
+display:flex !important;
+justify-content:center !important;
+}
+
+.max-w-md{
+max-width:1480px !important;
+border-radius:32px !important;
+overflow:hidden !important;
+box-shadow:0 25px 80px rgba(0,0,0,.12) !important;
+}
+
+main{
+padding:24px !important;
+}
+
+#reading-content{
+font-size:22px !important;
+line-height:2 !important;
+}
+
+#chat-conversation-container{
+height:70vh !important;
+}
+
+#vocabulary-container{
+display:grid !important;
+grid-template-columns:1fr 1fr !important;
+gap:12px !important;
+}
+
+}
+
+/* =========================
+TABLET FIX
+========================= */
+@media(min-width:768px) and (max-width:1023px){
+
+.max-w-md{
+max-width:100% !important;
+}
+
+main{
+padding:20px !important;
+}
+
+#reading-content{
+font-size:20px !important;
+line-height:1.9 !important;
+}
+
+button{
+min-height:54px !important;
+}
+
+}
+
+/* =========================
+MOBILE FIX
+========================= */
+@media(max-width:767px){
+
+.max-w-md{
+width:100vw !important;
+max-width:100vw !important;
+}
+
+main{
+padding:12px !important;
+}
+
+#reading-title{
+font-size:20px !important;
+}
+
+#reading-content{
+font-size:16px !important;
+line-height:1.8 !important;
+}
+
+#chat-conversation-container{
+padding-bottom:120px !important;
+}
+
+button{
+min-height:50px !important;
+}
+
+}
+
+/* =========================
+IPHONE SAFARI FIX
+========================= */
+@supports (-webkit-touch-callout:none){
+
+body{
+min-height:-webkit-fill-available !important;
+}
+
+.max-w-md{
+min-height:-webkit-fill-available !important;
+}
+
+input,
+textarea,
+select{
+font-size:16px !important;
+}
+
+}
+
+/* Fix tiny scaling */
+*{
+box-sizing:border-box !important;
+word-break:break-word;
+}
+
+/* Prevent compressed flex */
+.flex,
+.grid{
+min-width:0 !important;
+}
+
+</style>
+
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
 
