@@ -142,12 +142,18 @@
                 </button>
             </div>
 
-            <!-- Footer links -->
-            <div class="mt-8 text-center flex justify-between items-center px-4 border-t border-slate-100 pt-4">
-                <button onclick="openAdminModal()" class="text-xs text-slate-400 font-bold hover:text-brand-600 transition flex items-center space-x-1">
-                    <i class="fa-solid fa-sliders text-[10px]"></i>
-                    <span>Dành cho Giáo viên / Admin</span>
-                </button>
+            <!-- Footer links & Embed Guide Button -->
+            <div class="mt-8 text-center flex flex-col space-y-2.5 border-t border-slate-100 pt-4">
+                <div class="flex justify-between items-center px-2">
+                    <button onclick="openEmbedGuideModal()" class="text-xs text-brand-600 font-bold hover:text-brand-700 transition flex items-center space-x-1" title="Lấy mã nhúng an toàn cho Google Sites">
+                        <i class="fa-solid fa-code text-[11px]"></i>
+                        <span>Mã Nhúng Google Sites</span>
+                    </button>
+                    <button onclick="openAdminModal()" class="text-xs text-slate-400 font-bold hover:text-brand-600 transition flex items-center space-x-1">
+                        <i class="fa-solid fa-sliders text-[10px]"></i>
+                        <span>Giáo viên / Admin</span>
+                    </button>
+                </div>
                 <span class="text-[10px] text-slate-300">English Daily ECO v3.0</span>
             </div>
         </div>
@@ -612,6 +618,32 @@
             </div>
         </div>
 
+        <!-- GOOGLE SITES EMBED CODE MODAL -->
+        <div id="embed-guide-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+            <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl relative animate-slide-up">
+                <button onclick="closeEmbedGuideModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+                <div class="text-center mb-4">
+                    <div class="w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center mx-auto mb-2">
+                        <i class="fa-solid fa-code text-xl"></i>
+                    </div>
+                    <h3 class="text-base font-black text-slate-900">Mã Nhúng Google Sites</h3>
+                    <p class="text-[11px] text-slate-400 mt-0.5">Sử dụng mã nhúng đặc biệt này để kích hoạt đầy đủ quyền sử dụng Micro trên điện thoại của con.</p>
+                </div>
+                <div class="space-y-3">
+                    <div class="bg-slate-900 text-slate-100 p-3.5 rounded-2xl text-[10px] font-mono break-all relative select-all leading-relaxed" id="embed-code-text">
+                        &lt;iframe src="https://luyen-doc-tieng-anh-mobi.netlify.app" allow="microphone; speech-recognition" style="width:100%; height:650px; border:none;"&gt;&lt;/iframe&gt;
+                    </div>
+                    <button onclick="copyEmbedCode()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-xs py-3 rounded-xl shadow-md transition active:scale-95 flex items-center justify-center space-x-1.5">
+                        <i class="fa-solid fa-copy"></i>
+                        <span>Sao chép mã nhúng</span>
+                    </button>
+                    <p class="text-[10px] text-amber-600 font-medium leading-relaxed bg-amber-50 p-2.5 rounded-xl border border-amber-100/70"><i class="fa-solid fa-triangle-exclamation mr-1"></i> <b>Chú ý:</b> Thay thế địa chỉ liên kết mặc định trong mã nhúng bằng đường dẫn trang web thực tế của bạn sau khi xuất bản lên Netlify hoặc Firebase Hosting.</p>
+                </div>
+            </div>
+        </div>
+
         <!-- ADMIN MODAL SYSTEM -->
         <div id="admin-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
             <!-- Login State -->
@@ -985,6 +1017,7 @@
                     <div class="bg-brand-50 text-brand-700 font-black text-2xl tracking-widest p-3 rounded-2xl border border-brand-100 select-all">
                         ${code}
                     </div>
+                    <p class="text-[10px] text-brand-600 font-semibold"><i class="fa-solid fa-copy"></i> Đã tự động sao chép mã vào khay nhớ tạm!</p>
                     <p class="text-[10px] text-brand-600 font-semibold"><i class="fa-solid fa-copy"></i> Đã tự động sao chép mã vào khay nhớ tạm!</p>
                     <p class="text-xs text-slate-500 mt-2">Phụ huynh vui lòng lưu lại mã này để đăng nhập học và theo dõi mỗi ngày trên điện thoại của con.</p>
                 </div>
@@ -1642,7 +1675,7 @@
                         <div class="mt-3 p-3 bg-blue-50 border border-blue-100 rounded-xl text-xs text-blue-800 space-y-1 text-left">
                             <p class="font-bold"><i class="fa-solid fa-circle-info mr-1"></i> Cách khắc phục trên Google Sites:</p>
                             <p>Hãy nhúng ứng dụng bằng phương pháp <b>Mã nhúng (Embed Code)</b> để trình duyệt cho phép truyền luồng Micro qua iFrame bảo mật:</p>
-                            <pre class="bg-slate-900 text-slate-100 p-2 rounded text-[10px] overflow-x-auto select-all font-mono">&lt;iframe src="${window.location.href}" allow="microphone" style="width:100%; height:650px; border:none;"&gt;&lt;/iframe&gt;</pre>
+                            <pre class="bg-slate-900 text-slate-100 p-2 rounded text-[10px] overflow-x-auto select-all font-mono">&lt;iframe src="${window.location.href}" allow="microphone; speech-recognition" style="width:100%; height:650px; border:none;"&gt;&lt;/iframe&gt;</pre>
                         </div>
                     `;
                 }
@@ -1701,7 +1734,7 @@
                                 <div class="mt-2.5 p-3 bg-yellow-50 border border-yellow-200 rounded-xl text-[11px] text-yellow-800 space-y-1 text-left">
                                     <p class="font-extrabold"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Phát hiện ứng dụng đang nhúng trong Google Sites!</p>
                                     <p>Bạn phải cấu hình thẻ nhúng bằng <b>Mã nhúng (Embed Code)</b> kèm quyền sử dụng micro thay vì Nhúng link URL thông thường:</p>
-                                    <pre class="bg-slate-900 text-slate-100 p-2 rounded text-[10px] overflow-x-auto select-all font-mono">&lt;iframe src="${window.location.href}" allow="microphone" style="width:100%; height:650px; border:none;"&gt;&lt;/iframe&gt;</pre>
+                                    <pre class="bg-slate-900 text-slate-100 p-2 rounded text-[10px] overflow-x-auto select-all font-mono">&lt;iframe src="${window.location.href}" allow="microphone; speech-recognition" style="width:100%; height:650px; border:none;"&gt;&lt;/iframe&gt;</pre>
                                 </div>
                             `;
                         }
@@ -2171,7 +2204,7 @@
         // --- GAME 2: SENTENCE SCRAMBLE ENGINE ---
         function startScrambleGameSession() {
             if ((activeStudentData.playTime || 0) < 10) {
-                showToast("Vui lòng gia hạn thêm thời gian chơi (tối thiểu 10 giây) bằng Điểm Tích Lũy!", "fa-solid fa-clock-rotate-left");
+                showToast("Vui lòng gia hạn thêm thời gian chơi (tối thiểu 10 giây) bằng Điểm Tích Lũy!", "fa-clock-rotate-left");
                 return;
             }
 
@@ -2961,6 +2994,31 @@
                     onConfirm();
                 }
             };
+        }
+
+        // --- NEW FEATURES FOR GOOGLE SITES EMBEDDING ---
+        function openEmbedGuideModal() {
+            const currentUrl = window.location.href;
+            const embedCode = `<iframe src="${currentUrl}" allow="microphone; speech-recognition" style="width:100%; height:650px; border:none;"></iframe>`;
+            // Escape HTML for rendering safely in UI
+            const escapedCode = embedCode.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            document.getElementById("embed-code-text").innerHTML = escapedCode;
+            document.getElementById("embed-guide-modal").classList.remove("hidden");
+        }
+
+        function closeEmbedGuideModal() {
+            document.getElementById("embed-guide-modal").classList.add("hidden");
+        }
+
+        function copyEmbedCode() {
+            const codeElement = document.getElementById("embed-code-text");
+            const tempInput = document.createElement("textarea");
+            tempInput.value = codeElement.innerText;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showToast("Đã sao chép mã nhúng thành công!", "fa-solid fa-copy");
         }
     </script>
 </body>
