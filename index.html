@@ -348,6 +348,124 @@ window.addEventListener('resize', detectSmartDevice);
 window.addEventListener('DOMContentLoaded', detectSmartDevice);
 </script>
 
+
+<style>
+/* ======================================
+FINAL RESPONSIVE FORM FIX
+====================================== */
+
+/* Remove fixed mobile width causing tiny UI */
+.max-w-md{
+max-width:100% !important;
+width:100% !important;
+}
+
+/* Desktop center */
+@media(min-width:1024px){
+
+body{
+display:flex;
+justify-content:center;
+padding:20px;
+}
+
+.max-w-md{
+max-width:1400px !important;
+width:100% !important;
+border-radius:28px !important;
+overflow:hidden;
+}
+
+#view-auth,
+#view-main-app{
+width:100% !important;
+}
+
+/* Fix small forms */
+#form-auth-login,
+#form-auth-register,
+#admin-panel-card{
+max-width:720px !important;
+margin:auto !important;
+width:100% !important;
+}
+
+input,
+select,
+textarea{
+font-size:16px !important;
+padding:14px 16px !important;
+}
+
+button{
+font-size:14px !important;
+padding:14px 18px !important;
+}
+
+#reading-content{
+font-size:22px !important;
+line-height:2 !important;
+}
+
+#chat-conversation-container{
+height:65vh !important;
+}
+
+}
+
+/* Mobile full width */
+@media(max-width:768px){
+
+html,
+body{
+width:100%;
+overflow-x:hidden;
+}
+
+.max-w-md{
+max-width:100vw !important;
+min-width:100vw !important;
+border-radius:0 !important;
+}
+
+#view-auth,
+#view-main-app{
+width:100vw !important;
+}
+
+main{
+padding:12px !important;
+}
+
+input,
+select,
+textarea{
+font-size:16px !important;
+}
+
+button{
+min-height:50px !important;
+}
+
+}
+
+/* Prevent tiny scaling on Chrome mobile */
+html{
+-webkit-text-size-adjust:100%;
+text-size-adjust:100%;
+}
+
+/* Better flex scaling */
+.flex-1{
+min-width:0;
+}
+
+/* Fix overflowing text */
+*{
+word-wrap:break-word;
+}
+</style>
+
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
 
