@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Daily By Chu' Còn - Luyện Đọc & Đàm Thoại AI Học Sinh Các Cấp</title>
+    <title>English Daily By Chú Còn/0934011365 - Luyện Đọc & Đàm Thoại AI Học Sinh Các Cấp</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -86,7 +86,7 @@
                 <div class="w-16 h-16 rounded-3xl bg-brand-600 text-white flex items-center justify-center mx-auto shadow-lg shadow-brand-500/30 mb-4 animate-bounce">
                     <i class="fa-solid fa-book-open-reader text-3xl"></i>
                 </div>
-                <h1 class="text-2xl font-black text-slate-900 tracking-tight">English Daily</h1>
+                <h1 class="text-2xl font-black text-slate-900 tracking-tight">English Daily By Chú Còn/0934011365</h1>
                 <p class="text-xs text-slate-500 mt-1">Luyện đọc và Đàm thoại Tiếng Anh cùng AI thông minh</p>
             </div>
 
@@ -148,7 +148,7 @@
                     <i class="fa-solid fa-sliders text-[10px]"></i>
                     <span>Dành cho Giáo viên / Admin</span>
                 </button>
-                <span class="text-[10px] text-slate-300">English Daily ECO v3.0</span>
+                <span class="text-[10px] text-slate-300">English Daily By Chú Còn/0934011365 ECO v3.0</span>
             </div>
         </div>
 
@@ -336,74 +336,218 @@
                     </div>
                 </section>
 
-                <!-- SECTION 3: MINI GAME ZONE -->
+                <!-- SECTION 3: MINI GAME ZONE & LEADERBOARD -->
                 <section id="section-game" class="hidden space-y-4">
-                    <!-- Game Header & Info -->
-                    <div class="bg-gradient-to-r from-emerald-500 to-teal-600 text-white p-4 rounded-2xl shadow-md">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <h3 class="font-extrabold text-base">Bóng Bay Từ Vựng</h3>
-                                <p class="text-[10px] text-emerald-100">Càng chơi lâu càng tăng điểm phản xạ từ vựng!</p>
-                            </div>
-                            <div class="bg-white/20 px-2.5 py-1 rounded-full text-xs font-black">
-                                <i class="fa-solid fa-stopwatch mr-1 text-yellow-300"></i>
-                                <span id="game-time-left">0</span> giây chơi
-                            </div>
-                        </div>
-
-                        <!-- Extend play time using earned Points -->
-                        <div class="mt-3 bg-black/25 rounded-xl p-2.5 flex items-center justify-between text-xs">
-                            <span class="font-medium text-emerald-100">Đổi 30 Điểm 💎 lấy 60 giây chơi</span>
-                            <button onclick="exchangePointsForTime()" class="bg-yellow-400 text-slate-900 font-extrabold px-3 py-1.5 rounded-lg active:scale-95 transition hover:bg-yellow-300 shadow-sm">
-                                Đổi Ngay
-                            </button>
-                        </div>
+                    
+                    <!-- Game & Leaderboard Navigation Tabs -->
+                    <div class="flex bg-slate-200 rounded-xl p-1 shadow-inner">
+                        <button onclick="switchGameSubTab('games')" id="game-subtab-games" class="flex-1 py-1.5 text-center text-xs font-black rounded-lg transition bg-white text-emerald-600 shadow-sm">
+                            <i class="fa-solid fa-gamepad mr-1"></i> Trò Chơi
+                        </button>
+                        <button onclick="switchGameSubTab('leaderboard')" id="game-subtab-leaderboard" class="flex-1 py-1.5 text-center text-xs font-black rounded-lg transition text-slate-500">
+                            <i class="fa-solid fa-crown mr-1 text-yellow-500"></i> Bảng Vàng
+                        </button>
                     </div>
 
-                    <!-- Game Play Area Container -->
-                    <div id="game-play-area" class="w-full h-80 bg-slate-900 rounded-2xl relative overflow-hidden shadow-inner border-2 border-slate-800 flex flex-col justify-between">
-                        <!-- Play area cover or stats -->
-                        <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm z-10 flex flex-col items-center justify-center p-4 text-center" id="game-start-cover">
-                            <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mb-3 shadow-lg shadow-emerald-500/10">
-                                <i class="fa-solid fa-play text-2xl ml-1"></i>
-                            </div>
-                            <h4 class="text-white font-black text-base">Bóng Bay Từ Vựng</h4>
-                            <p class="text-xs text-slate-400 mt-1 max-w-[250px]">Luyện trí nhớ nghĩa của từ vựng. Cần tối thiểu 10 giây chơi để bắt đầu.</p>
-                            <button onclick="startGameSession()" class="mt-4 bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-xs px-5 py-2.5 rounded-xl shadow-lg transition active:scale-95">
-                                Bắt đầu chơi
+                    <!-- SUB-TAB A: GAMES LIST & ACTIVE PLAY AREA -->
+                    <div id="game-subview-games" class="space-y-4">
+                        
+                        <!-- Mini Game Selector Box -->
+                        <div class="bg-white border border-slate-100 rounded-2xl p-3 shadow-sm flex space-x-2">
+                            <button onclick="switchActiveGame('bubble')" id="game-select-bubble" class="flex-1 py-2 text-center text-[10px] font-black rounded-xl border-2 border-emerald-500 bg-emerald-50 text-emerald-700">
+                                <i class="fa-solid fa-circle-dot mr-1"></i> Bóng Bay Từ Vựng
+                            </button>
+                            <button onclick="switchActiveGame('scramble')" id="game-select-scramble" class="flex-1 py-2 text-center text-[10px] font-black rounded-xl border border-slate-200 text-slate-600">
+                                <i class="fa-solid fa-align-left mr-1"></i> Ghép Câu Thần Tốc
                             </button>
                         </div>
 
-                        <!-- Top Info Bar during Game -->
-                        <div class="w-full bg-slate-950/50 p-2.5 flex justify-between items-center text-xs text-white border-b border-slate-800 z-0">
-                            <div>
-                                <span class="text-slate-400 text-[10px] uppercase block">Tìm từ tiếng Anh của:</span>
-                                <span id="game-target-meaning" class="font-black text-yellow-400 text-sm">--</span>
+                        <!-- Game Header & Info -->
+                        <div class="bg-gradient-to-r from-emerald-500 to-teal-600 text-white p-4 rounded-2xl shadow-md">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 id="active-game-title" class="font-extrabold text-base">Bóng Bay Từ Vựng</h3>
+                                    <p id="active-game-desc" class="text-[10px] text-emerald-100">Càng chơi lâu càng tăng điểm phản xạ từ vựng!</p>
+                                </div>
+                                <div class="bg-white/20 px-2.5 py-1 rounded-full text-xs font-black">
+                                    <i class="fa-solid fa-stopwatch mr-1 text-yellow-300"></i>
+                                    <span id="game-time-left">0</span> giây chơi
+                                </div>
                             </div>
-                            <div class="text-right">
-                                <span class="text-slate-400 text-[10px] uppercase block">Điểm Game:</span>
-                                <span id="game-score" class="font-black text-emerald-400 text-sm">0</span>
+
+                            <!-- Extend play time using earned Points -->
+                            <div class="mt-3 bg-black/25 rounded-xl p-2.5 flex items-center justify-between text-xs">
+                                <span class="font-medium text-emerald-100">Đổi 30 Điểm 💎 lấy 60 giây chơi</span>
+                                <button onclick="exchangePointsForTime()" class="bg-yellow-400 text-slate-900 font-extrabold px-3 py-1.5 rounded-lg active:scale-95 transition hover:bg-yellow-300 shadow-sm">
+                                    Đổi Ngay
+                                </button>
                             </div>
                         </div>
 
-                        <!-- Dynamic floating bubbles target zone -->
-                        <div class="flex-1 w-full relative" id="game-bubbles-container">
-                            <!-- Bubbles will float up from here -->
+                        <!-- GAME 1: BUBBLE POP AREA -->
+                        <div id="game-play-area-bubble" class="w-full h-80 bg-slate-900 rounded-2xl relative overflow-hidden shadow-inner border-2 border-slate-800 flex flex-col justify-between">
+                            <!-- Play area cover or stats -->
+                            <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm z-10 flex flex-col items-center justify-center p-4 text-center" id="game-start-cover">
+                                <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mb-3 shadow-lg shadow-emerald-500/10">
+                                    <i class="fa-solid fa-play text-2xl ml-1"></i>
+                                </div>
+                                <h4 class="text-white font-black text-base">Bóng Bay Từ Vựng</h4>
+                                <p class="text-xs text-slate-400 mt-1 max-w-[250px]">Luyện trí nhớ nghĩa của từ vựng. Cần tối thiểu 10 giây chơi để bắt đầu.</p>
+                                <button onclick="startGameSession()" class="mt-4 bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-xs px-5 py-2.5 rounded-xl shadow-lg transition active:scale-95">
+                                    Bắt đầu chơi
+                                </button>
+                            </div>
+
+                            <!-- Top Info Bar during Game -->
+                            <div class="w-full bg-slate-950/50 p-2.5 flex justify-between items-center text-xs text-white border-b border-slate-800 z-0">
+                                <div>
+                                    <span class="text-slate-400 text-[10px] uppercase block">Tìm từ tiếng Anh của:</span>
+                                    <span id="game-target-meaning" class="font-black text-yellow-400 text-sm">--</span>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-slate-400 text-[10px] uppercase block">Điểm Game:</span>
+                                    <span id="game-score" class="font-black text-emerald-400 text-sm">0</span>
+                                </div>
+                            </div>
+
+                            <!-- Dynamic floating bubbles target zone -->
+                            <div class="flex-1 w-full relative" id="game-bubbles-container">
+                                <!-- Bubbles will float up from here -->
+                            </div>
+
+                            <!-- Bottom tips -->
+                            <div class="w-full bg-slate-950/20 text-[10px] text-slate-500 p-1 text-center">
+                                Đập đúng quả bóng chứa từ vựng tương ứng nghĩa tiếng Việt
+                            </div>
                         </div>
 
-                        <!-- Bottom tips -->
-                        <div class="w-full bg-slate-950/20 text-[10px] text-slate-500 p-1 text-center">
-                            Đập đúng quả bóng chứa từ vựng tương ứng nghĩa tiếng Việt
+                        <!-- GAME 2: SENTENCE SCRAMBLE AREA -->
+                        <div id="game-play-area-scramble" class="w-full h-80 bg-slate-900 rounded-2xl relative overflow-hidden shadow-inner border-2 border-slate-800 flex flex-col justify-between hidden">
+                            <!-- Play area cover or stats -->
+                            <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm z-10 flex flex-col items-center justify-center p-4 text-center" id="game-scramble-start-cover">
+                                <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-3 shadow-lg">
+                                    <i class="fa-solid fa-align-left text-2xl"></i>
+                                </div>
+                                <h4 class="text-white font-black text-base">Ghép Câu Thần Tốc</h4>
+                                <p class="text-xs text-slate-400 mt-1 max-w-[250px]">Sắp xếp các từ bị xáo trộn thành câu tiếng Anh có nghĩa của bài đọc.</p>
+                                <button onclick="startScrambleGameSession()" class="mt-4 bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-xs px-5 py-2.5 rounded-xl shadow-lg transition active:scale-95">
+                                    Bắt đầu ghép câu
+                                </button>
+                            </div>
+
+                            <!-- Score and level bar -->
+                            <div class="w-full bg-slate-950/50 p-2.5 flex justify-between items-center text-xs text-white border-b border-slate-800">
+                                <div>
+                                    <span class="text-slate-400 text-[10px] uppercase block">Dịch Nghĩa:</span>
+                                    <span id="game-scramble-hint" class="font-black text-yellow-400 text-xs">--</span>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-slate-400 text-[10px] uppercase block">Điểm Game:</span>
+                                    <span id="game-scramble-score" class="font-black text-emerald-400 text-sm">0</span>
+                                </div>
+                            </div>
+
+                            <!-- Scramble Gameplay Area -->
+                            <div class="flex-1 w-full p-3 flex flex-col justify-between space-y-2">
+                                <!-- Reassembled sentence preview container -->
+                                <div class="bg-slate-950/40 border border-slate-800 rounded-xl p-3 flex-1 flex flex-wrap gap-1.5 content-start items-center">
+                                    <div id="game-scramble-answer-container" class="w-full flex flex-wrap gap-1.5 min-h-[40px]">
+                                        <!-- Word cards will snap here -->
+                                        <p class="text-[10px] text-slate-600 italic">Nhấn vào các từ bên dưới để ghép câu...</p>
+                                    </div>
+                                </div>
+
+                                <!-- Clickable Word Chips Container -->
+                                <div id="game-scramble-chips-container" class="flex flex-wrap justify-center gap-2 py-2 border-t border-slate-800">
+                                    <!-- Scrambled word cards appear here -->
+                                </div>
+                            </div>
+
+                            <!-- Sentence game control actions -->
+                            <div class="w-full bg-slate-950/30 p-2 flex justify-between items-center text-[10px] border-t border-slate-800">
+                                <button onclick="resetCurrentScramble()" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-white font-bold transition">Xóa hết</button>
+                                <button onclick="submitScrambleSolution()" class="px-3.5 py-1 rounded bg-emerald-500 hover:bg-emerald-600 text-white font-bold transition">Kiểm tra câu</button>
+                            </div>
+                        </div>
+
+                        <!-- Achievements & Rewards Box -->
+                        <div class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
+                            <h4 class="font-bold text-slate-900 text-sm mb-3 flex items-center">
+                                <i class="fa-solid fa-gift text-rose-500 mr-2"></i>Kho Báu & Phần Thưởng Đạt Được
+                            </h4>
+                            <div id="rewards-container" class="grid grid-cols-3 gap-2.5">
+                                <!-- Badges & Rewards will load here -->
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Achievements & Rewards Box -->
-                    <div class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
-                        <h4 class="font-bold text-slate-900 text-sm mb-3 flex items-center">
-                            <i class="fa-solid fa-gift text-rose-500 mr-2"></i>Kho Báu & Phần Thưởng Đạt Được
-                        </h4>
-                        <div id="rewards-container" class="grid grid-cols-3 gap-2.5">
-                            <!-- Badges & Rewards will load here -->
+                    <!-- SUB-TAB B: LEARNING LEADERBOARDS (BẢNG VÀNG DANH VỌNG) -->
+                    <div id="game-subview-leaderboard" class="space-y-4 hidden">
+                        <!-- Leaderboard filters -->
+                        <div class="bg-white border border-slate-100 rounded-2xl p-3 shadow-sm flex items-center justify-between">
+                            <span class="text-xs font-black text-brand-900 uppercase tracking-wide">Xếp hạng theo:</span>
+                            <div class="flex space-x-1.5">
+                                <button onclick="loadLeaderboardData('points')" id="leaderboard-filter-points" class="px-3 py-1 text-[10px] font-black rounded-lg bg-brand-500 text-white transition">
+                                    Điểm 💎
+                                </button>
+                                <button onclick="loadLeaderboardData('streak')" id="leaderboard-filter-streak" class="px-3 py-1 text-[10px] font-black rounded-lg border border-slate-200 text-slate-500 transition">
+                                    Chuỗi 🔥
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Top 3 Podium Displays -->
+                        <div class="grid grid-cols-3 gap-2 bg-gradient-to-b from-brand-50 to-white p-3 rounded-2xl border border-brand-100/50">
+                            <!-- Hạng 2 -->
+                            <div class="flex flex-col items-center justify-end text-center pb-2 pt-4">
+                                <div class="relative mb-1">
+                                    <div class="w-10 h-10 rounded-full bg-slate-200 border-2 border-slate-300 flex items-center justify-center font-bold text-slate-600 text-sm shadow">
+                                        🥈
+                                    </div>
+                                    <span class="absolute -bottom-1 -right-1 bg-slate-400 text-white text-[8px] font-black px-1.5 rounded-full">2</span>
+                                </div>
+                                <span id="podium-2-name" class="text-[9px] font-bold text-slate-700 block max-w-full truncate">Chưa có</span>
+                                <span id="podium-2-score" class="text-[9px] font-semibold text-slate-500 block">--</span>
+                            </div>
+                            <!-- Hạng 1 -->
+                            <div class="flex flex-col items-center justify-end text-center pb-2">
+                                <div class="relative mb-1">
+                                    <div class="w-12 h-12 rounded-full bg-yellow-100 border-2 border-yellow-400 flex items-center justify-center text-lg shadow-md animate-bounce">
+                                        🥇
+                                    </div>
+                                    <span class="absolute -bottom-1 -right-1 bg-yellow-500 text-white text-[9px] font-black px-1.5 rounded-full">1</span>
+                                </div>
+                                <span id="podium-1-name" class="text-[10px] font-black text-slate-900 block max-w-full truncate">Chưa có</span>
+                                <span id="podium-1-score" class="text-[10px] font-bold text-brand-600 block">--</span>
+                            </div>
+                            <!-- Hạng 3 -->
+                            <div class="flex flex-col items-center justify-end text-center pb-2 pt-4">
+                                <div class="relative mb-1">
+                                    <div class="w-10 h-10 rounded-full bg-amber-50 border-2 border-amber-600/30 flex items-center justify-center font-bold text-amber-700 text-sm shadow">
+                                        🥉
+                                    </div>
+                                    <span class="absolute -bottom-1 -right-1 bg-amber-600 text-white text-[8px] font-black px-1.5 rounded-full">3</span>
+                                </div>
+                                <span id="podium-3-name" class="text-[9px] font-bold text-slate-700 block max-w-full truncate">Chưa có</span>
+                                <span id="podium-3-score" class="text-[9px] font-semibold text-slate-500 block">--</span>
+                            </div>
+                        </div>
+
+                        <!-- Leaderboard List Items -->
+                        <div id="leaderboard-list-container" class="space-y-2 max-h-72 overflow-y-auto custom-scrollbar pr-1">
+                            <!-- Rank rows will load here -->
+                        </div>
+
+                        <!-- User's current rank display -->
+                        <div id="leaderboard-my-rank" class="bg-brand-600 text-white rounded-2xl p-3 shadow-md flex justify-between items-center">
+                            <div class="flex items-center space-x-2.5">
+                                <span id="my-rank-pos" class="bg-white/20 px-2 py-0.5 rounded-md font-black text-xs">--</span>
+                                <div>
+                                    <p class="text-[10px] opacity-80 uppercase font-bold">Thứ hạng của bạn</p>
+                                    <p id="my-rank-name" class="text-xs font-black">---</p>
+                                </div>
+                            </div>
+                            <span id="my-rank-score" class="font-extrabold text-sm">--</span>
                         </div>
                     </div>
                 </section>
@@ -561,6 +705,49 @@
 
     </div>
 
+    <!-- ADMIN EDIT STUDENT PROFILE MODAL -->
+    <div id="admin-edit-student-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl relative animate-slide-up">
+            <button onclick="closeAdminEditModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="text-center mb-4">
+                <div class="w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center mx-auto mb-2">
+                    <i class="fa-solid fa-user-pen text-xl"></i>
+                </div>
+                <h3 class="text-base font-black text-slate-900">Sửa đổi thông tin con</h3>
+                <p class="text-[11px] text-slate-400 mt-0.5">Thay đổi mã ECO, tên hiển thị hoặc thông tin liên hệ của con</p>
+            </div>
+            <div class="space-y-3.5">
+                <input type="hidden" id="edit-student-old-code">
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-wider mb-1">Mã Học Sinh ECO (Mã Đăng Nhập)</label>
+                    <input type="text" id="edit-student-new-code" placeholder="Ví dụ: ECO889" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm font-black text-brand-700 uppercase focus:outline-none focus:border-brand-500 focus:bg-white transition">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-wider mb-1">Tên đầy đủ của con</label>
+                    <input type="text" id="edit-student-name" placeholder="Ví dụ: Nguyễn Minh Thư" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm font-semibold focus:outline-none focus:border-brand-500 focus:bg-white transition">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-wider mb-1">Cấp Lớp Học Tập</label>
+                    <select id="edit-student-grade" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm font-semibold focus:outline-none focus:border-brand-500 focus:bg-white transition">
+                        <option value="cap_1">Cấp 1 (Lớp 1 - Lớp 5)</option>
+                        <option value="cap_2">Cấp 2 (Lớp 6 - Lớp 9)</option>
+                        <option value="cap_3">Cấp 3 (Lớp 10 - Lớp 12)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-wider mb-1">Số Điện Thoại Phụ Huynh</label>
+                    <input type="tel" id="edit-student-phone" placeholder="Nhập số điện thoại" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm font-semibold focus:outline-none focus:border-brand-500 focus:bg-white transition">
+                </div>
+                <button onclick="adminSaveEditedStudent()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs py-3.5 rounded-2xl shadow-lg transition active:scale-95 flex items-center justify-center space-x-1.5">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    <span>Lưu thông tin cập nhật</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Firebase Core v8 CDN imports -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
@@ -596,9 +783,13 @@
         // Auth Sub-tab switcher state
         let activeAuthTab = "login"; // "login" or "register"
 
+        // Audio Context for local synthesized Sound Effects
+        let audioCtx = null;
+
         // Initialize connection
         window.addEventListener('DOMContentLoaded', async () => {
             initSystem();
+            initAudioContext();
         });
 
         async function initSystem() {
@@ -631,6 +822,56 @@
             } catch (e) {
                 console.warn("Firebase not loaded/configured correctly. Running in Offline Mode.", e);
                 useOfflineFallback();
+            }
+        }
+
+        function initAudioContext() {
+            try {
+                window.addEventListener('click', () => {
+                    if (!audioCtx) {
+                        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    }
+                }, { once: true });
+            } catch (e) {
+                console.warn("Audio Context init error:", e);
+            }
+        }
+
+        function playSoundEffect(type) {
+            if (!audioCtx) return;
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                if (type === 'success') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(440, audioCtx.currentTime); // A4
+                    osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.15); // A5
+                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.25);
+                } else if (type === 'fail') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(220, audioCtx.currentTime); // A3
+                    osc.frequency.exponentialRampToValueAtTime(110, audioCtx.currentTime + 0.25); // A2
+                    gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.3);
+                } else if (type === 'bubble') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.08);
+                    gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.1);
+                }
+            } catch (err) {
+                console.warn(err);
             }
         }
 
@@ -1027,16 +1268,6 @@
             });
         }
 
-        // Handle double-click word selection for rapid lookup
-        document.addEventListener("dblclick", () => {
-            const selectedText = window.getSelection().toString().trim();
-            const sanitizedText = selectedText.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g,"");
-            if (sanitizedText.length > 0 && sanitizedText.length < 25) {
-                document.getElementById("dict-quick-input").value = sanitizedText;
-                triggerDictionarySearch(sanitizedText);
-            }
-        });
-
         // =========================================================================
         // 4. DAILY STREAK & POINTS MISSION ALGORITHM
         // =========================================================================
@@ -1302,6 +1533,7 @@
             
             if (accuracy >= 55) {
                 triggerStreakSuccess();
+                playSoundEffect('success');
                 showCustomDialog("Kết Quả Đọc Tuyệt Vời!", `
                     <div class="text-center">
                         <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-3">
@@ -1317,7 +1549,7 @@
                     </div>
                 `);
             } else {
-                // Help guide on wrong pronunciation
+                playSoundEffect('fail');
                 let guideTip = "Con hãy lưu ý nhấn rõ các từ vựng chính, đặc biệt là các âm cuối như /s/, /t/, /k/,... và nhấn đúng trọng âm.";
                 if (currentActiveTask.vocab && currentActiveTask.vocab.length > 0) {
                     guideTip += ` Tập trung phát âm lại các từ trọng tâm như: <b>${currentActiveTask.vocab.map(v => v.word).join(", ")}</b>.`;
@@ -1448,13 +1680,71 @@
         }
 
         // =========================================================================
-        // 8. MINI GAME - BÓNG BAY TỪ VỰNG ENGINE (GAMIFICATION)
+        // 8. MINI GAME - GAMIFICATION & LEADERBOARD SYSTEM
         // =========================================================================
         let gameTimerInterval = null;
         let bubbleSpawnInterval = null;
         let gameScore = 0;
         let activeGameTarget = null; // Word structure to guess
         let isGameRunning = false;
+        let activeGameSubTab = 'games'; // 'games' or 'leaderboard'
+        let currentActiveGameMode = 'bubble'; // 'bubble' or 'scramble'
+
+        // Game 2: Scramble Mode specific variables
+        let scrambleOriginalWords = [];
+        let scrambleCurrentAnswer = [];
+        let scrambleHint = "";
+        let scrambleScore = 0;
+
+        function switchGameSubTab(sub) {
+            activeGameSubTab = sub;
+            const btnGames = document.getElementById("game-subtab-games");
+            const btnLeaderboard = document.getElementById("game-subtab-leaderboard");
+            const viewGames = document.getElementById("game-subview-games");
+            const viewLeaderboard = document.getElementById("game-subview-leaderboard");
+
+            if (sub === 'games') {
+                btnGames.className = "flex-1 py-1.5 text-center text-xs font-black rounded-lg transition bg-white text-emerald-600 shadow-sm";
+                btnLeaderboard.className = "flex-1 py-1.5 text-center text-xs font-black rounded-lg transition text-slate-500";
+                viewGames.classList.remove("hidden");
+                viewLeaderboard.classList.add("hidden");
+            } else {
+                btnLeaderboard.className = "flex-1 py-1.5 text-center text-xs font-black rounded-lg transition bg-white text-emerald-600 shadow-sm";
+                btnGames.className = "flex-1 py-1.5 text-center text-xs font-black rounded-lg transition text-slate-500";
+                viewLeaderboard.classList.remove("hidden");
+                viewGames.classList.add("hidden");
+                loadLeaderboardData('points'); // Default load sorted by Points
+            }
+        }
+
+        function switchActiveGame(mode) {
+            currentActiveGameMode = mode;
+            const btnBubble = document.getElementById("game-select-bubble");
+            const btnScramble = document.getElementById("game-select-scramble");
+            const playBubble = document.getElementById("game-play-area-bubble");
+            const playScramble = document.getElementById("game-play-area-scramble");
+            const gameTitle = document.getElementById("active-game-title");
+            const gameDesc = document.getElementById("active-game-desc");
+
+            // Reset actively running bubble loops if switching
+            stopGameSession();
+
+            if (mode === 'bubble') {
+                btnBubble.className = "flex-1 py-2 text-center text-[10px] font-black rounded-xl border-2 border-emerald-500 bg-emerald-50 text-emerald-700";
+                btnScramble.className = "flex-1 py-2 text-center text-[10px] font-black rounded-xl border border-slate-200 text-slate-600";
+                playBubble.classList.remove("hidden");
+                playScramble.classList.add("hidden");
+                gameTitle.innerText = "Bóng Bay Từ Vựng";
+                gameDesc.innerText = "Càng chơi lâu càng tăng điểm phản xạ từ vựng!";
+            } else {
+                btnScramble.className = "flex-1 py-2 text-center text-[10px] font-black rounded-xl border-2 border-emerald-500 bg-emerald-50 text-emerald-700";
+                btnBubble.className = "flex-1 py-2 text-center text-[10px] font-black rounded-xl border border-slate-200 text-slate-600";
+                playScramble.classList.remove("hidden");
+                playBubble.classList.add("hidden");
+                gameTitle.innerText = "Ghép Câu Thần Tốc";
+                gameDesc.innerText = "Xếp các từ bị xáo trộn thành câu hoàn chỉnh.";
+            }
+        }
 
         function renderRewardsBadges() {
             const container = document.getElementById("rewards-container");
@@ -1468,7 +1758,6 @@
                 "Gem_Hunter": { name: "Thợ Săn Ngọc", icon: "fa-solid fa-gem text-indigo-500", desc: "Tích lũy trên 200 điểm 💎" }
             };
 
-            // Dynamic unlocks based on status
             if (activeStudentData.streak >= 5 && !rewards.includes("Streak_5")) {
                 rewards.push("Streak_5");
             }
@@ -1509,6 +1798,7 @@
             showToast(`🔥 Thành công! Đã đổi 30 Điểm lấy ${timeBonus} giây chơi.`, "fa-solid fa-clock");
         }
 
+        // --- GAME 1: BUBBLE POP ENGINE ---
         function startGameSession() {
             if ((activeStudentData.playTime || 0) < 10) {
                 showToast("Vui lòng gia hạn thêm thời gian chơi (tối thiểu 10 giây) bằng Điểm Tích Lũy!", "fa-solid fa-clock-rotate-left");
@@ -1521,11 +1811,8 @@
             document.getElementById("game-score").innerText = "0";
 
             setNextGameTarget();
-
-            // Spawn loop
             bubbleSpawnInterval = setInterval(spawnBubble, 1200);
 
-            // Timer loop
             gameTimerInterval = setInterval(async () => {
                 if (activeStudentData.playTime > 0) {
                     activeStudentData.playTime--;
@@ -1539,7 +1826,6 @@
         }
 
         function setNextGameTarget() {
-            // Get vocabulary pool based on current reading text
             const pool = currentActiveTask.vocab || readingDatabase.cap_1.vocab;
             const randomIndex = Math.floor(Math.random() * pool.length);
             activeGameTarget = pool[randomIndex];
@@ -1553,11 +1839,9 @@
             const container = document.getElementById("game-bubbles-container");
             const bubble = document.createElement("div");
             
-            // Random styling of bubble
             const colors = ["bg-emerald-500", "bg-brand-500", "bg-rose-500", "bg-amber-500", "bg-violet-500"];
             const randomColor = colors[Math.floor(Math.random() * colors.length)];
             
-            // Get a word to place inside the bubble (either correct or dummy from the current vocab)
             const pool = currentActiveTask.vocab || readingDatabase.cap_1.vocab;
             const isCorrect = Math.random() > 0.4;
             let bubbleWord = activeGameTarget.word;
@@ -1570,14 +1854,13 @@
                 bubbleWord = dummy.word;
             }
 
-            const randomX = Math.floor(Math.random() * 75) + 5; // Left margin percentage between 5% and 80%
+            const randomX = Math.floor(Math.random() * 75) + 5;
 
             bubble.className = `absolute w-14 h-14 rounded-full ${randomColor} text-white flex items-center justify-center text-[10px] font-black shadow-lg cursor-pointer transition active:scale-75 bubble-item z-0 select-none`;
             bubble.style.left = `${randomX}%`;
             bubble.style.bottom = "0px";
             bubble.innerText = bubbleWord;
 
-            // Click event pop logic
             bubble.onclick = (e) => {
                 e.stopPropagation();
                 popBubble(bubble, bubbleWord === activeGameTarget.word);
@@ -1585,7 +1868,6 @@
 
             container.appendChild(bubble);
 
-            // Auto-clean bubble element after animation ends
             setTimeout(() => {
                 bubble.remove();
             }, 6000);
@@ -1595,10 +1877,12 @@
             element.remove();
             if (correct) {
                 gameScore += 10;
+                playSoundEffect('bubble');
                 showToast("Chính xác! +10 điểm game 🎉", "fa-solid fa-circle-check text-emerald-500");
                 setNextGameTarget();
             } else {
                 gameScore = Math.max(0, gameScore - 5);
+                playSoundEffect('fail');
                 showToast("Sai rồi! Hãy xem kỹ nghĩa tiếng Việt ❌", "fa-solid fa-circle-xmark text-rose-500");
             }
             document.getElementById("game-score").innerText = gameScore;
@@ -1609,37 +1893,258 @@
             clearInterval(gameTimerInterval);
             clearInterval(bubbleSpawnInterval);
 
-            // Clean floating bubbles remaining
-            document.getElementById("game-bubbles-container").innerHTML = "";
+            const bubbles = document.getElementById("game-bubbles-container");
+            if (bubbles) bubbles.innerHTML = "";
 
-            // Show start cover again
-            document.getElementById("game-start-cover").classList.remove("hidden");
+            const cover = document.getElementById("game-start-cover");
+            if (cover) cover.classList.remove("hidden");
+        }
 
-            // Evaluate game results and distribute reward badges
-            let rewardMsg = "";
-            if (gameScore >= 30) {
-                if (!activeStudentData.rewards.includes("Master_Game_30")) {
-                    activeStudentData.rewards.push("Master_Game_30");
-                    activeStudentData.points = (activeStudentData.points || 0) + 50; // extra bonus
-                    rewardMsg = "Con được tặng thêm 50 Điểm Thưởng 💎 và **Huy Hiệu Thần Đồng Từ Vựng**!";
+        // --- GAME 2: SENTENCE SCRAMBLE ENGINE ---
+        function startScrambleGameSession() {
+            if ((activeStudentData.playTime || 0) < 10) {
+                showToast("Vui lòng gia hạn thêm thời gian chơi (tối thiểu 10 giây) bằng Điểm Tích Lũy!", "fa-solid fa-clock-rotate-left");
+                return;
+            }
+
+            document.getElementById("game-scramble-start-cover").classList.add("hidden");
+            scrambleScore = 0;
+            document.getElementById("game-scramble-score").innerText = "0";
+
+            setNextScrambleTarget();
+
+            // Run countdown timer for play session
+            gameTimerInterval = setInterval(async () => {
+                if (activeStudentData.playTime > 0) {
+                    activeStudentData.playTime--;
+                    document.getElementById("game-time-left").innerText = activeStudentData.playTime;
+                } else {
+                    stopScrambleGameSession();
+                    await syncStudentProfileToStorage();
+                    renderStudentInfo(activeStudentData);
+                }
+            }, 1000);
+        }
+
+        function setNextScrambleTarget() {
+            // Split current active reading task content into sentences
+            const sentences = currentActiveTask.content.split(/[.!?]+/).map(s => s.trim()).filter(s => s.length > 10);
+            if (sentences.length === 0) {
+                // Fallback sentence
+                sentences.push("The weather is very beautiful today");
+            }
+
+            // Pick a random sentence
+            const rawSentence = sentences[Math.floor(Math.random() * sentences.length)];
+            scrambleOriginalWords = rawSentence.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g,"").split(/\s+/).filter(w => w.length > 0);
+            scrambleCurrentAnswer = [];
+
+            // Grab a translation hint
+            document.getElementById("game-scramble-hint").innerText = "Đang dịch câu...";
+            fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(rawSentence)}&langpair=en|vi`)
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("game-scramble-hint").innerText = data.responseData.translatedText;
+                })
+                .catch(() => {
+                    document.getElementById("game-scramble-hint").innerText = "Hãy sắp xếp câu sao cho chuẩn nghĩa.";
+                });
+
+            renderScrambleInterface();
+        }
+
+        function renderScrambleInterface() {
+            const chipsContainer = document.getElementById("game-scramble-chips-container");
+            const answerContainer = document.getElementById("game-scramble-answer-container");
+
+            chipsContainer.innerHTML = "";
+            answerContainer.innerHTML = "";
+
+            // Create scrambled list copies
+            let scrambled = [...scrambleOriginalWords].sort(() => Math.random() - 0.5);
+
+            scrambled.forEach((word, index) => {
+                const chip = document.createElement("button");
+                chip.className = "bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold px-3 py-1.5 rounded-xl transition active:scale-95 shadow-md border border-slate-700";
+                chip.innerText = word;
+                chip.onclick = () => {
+                    moveWordToAnswer(word, chip);
+                };
+                chipsContainer.appendChild(chip);
+            });
+        }
+
+        function moveWordToAnswer(word, chipElement) {
+            scrambleCurrentAnswer.push(word);
+            chipElement.remove();
+
+            const answerContainer = document.getElementById("game-scramble-answer-container");
+            // Clear placeholder text if first word
+            if (scrambleCurrentAnswer.length === 1) answerContainer.innerHTML = "";
+
+            const ansChip = document.createElement("span");
+            ansChip.className = "bg-brand-500 text-white text-xs font-black px-3 py-1.5 rounded-xl cursor-pointer animate-pulse";
+            ansChip.innerText = word;
+            answerContainer.appendChild(ansChip);
+        }
+
+        function resetCurrentScramble() {
+            scrambleCurrentAnswer = [];
+            document.getElementById("game-scramble-answer-container").innerHTML = `<p class="text-[10px] text-slate-600 italic">Nhấn vào các từ bên dưới để ghép câu...</p>`;
+            renderScrambleInterface();
+        }
+
+        async function submitScrambleSolution() {
+            const rawUserAnswer = scrambleCurrentAnswer.join(" ").toLowerCase();
+            const rawOriginalAnswer = scrambleOriginalWords.join(" ").toLowerCase();
+
+            if (rawUserAnswer === rawOriginalAnswer) {
+                scrambleScore += 20;
+                playSoundEffect('success');
+                showToast("Ghép câu chuẩn xác! +20 Điểm 🎉", "fa-solid fa-circle-check text-emerald-500");
+                document.getElementById("game-scramble-score").innerText = scrambleScore;
+
+                // Grant reward points to student profile directly
+                activeStudentData.points = (activeStudentData.points || 0) + 10;
+                await syncStudentProfileToStorage();
+                renderStudentInfo(activeStudentData);
+
+                setNextScrambleTarget();
+            } else {
+                playSoundEffect('fail');
+                showToast("Chưa đúng trật tự câu! Hãy thử sắp xếp lại.", "fa-solid fa-circle-xmark text-rose-500");
+                resetCurrentScramble();
+            }
+        }
+
+        function stopScrambleGameSession() {
+            clearInterval(gameTimerInterval);
+            document.getElementById("game-scramble-start-cover").classList.remove("hidden");
+            
+            showCustomDialog("Ghép Câu Hoàn Tất!", `
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fa-solid fa-align-left text-2xl"></i>
+                    </div>
+                    <p class="text-xs text-slate-500 mb-1">Điểm số đạt được:</p>
+                    <h4 class="text-3xl font-black text-brand-600 mb-4">${scrambleScore} điểm</h4>
+                    <p class="text-xs text-slate-500">Con được cộng trực tiếp điểm thưởng tích lũy vào tài khoản!</p>
+                </div>
+            `);
+        }
+
+        // --- REALTIME LEADERBOARD QUERIES & MOCK FALLBACKS ---
+        async function loadLeaderboardData(sortByField = 'points') {
+            // Set filter button styles
+            const btnPoints = document.getElementById("leaderboard-filter-points");
+            const btnStreak = document.getElementById("leaderboard-filter-streak");
+
+            if (sortByField === 'points') {
+                btnPoints.className = "px-3 py-1 text-[10px] font-black rounded-lg bg-brand-500 text-white transition";
+                btnStreak.className = "px-3 py-1 text-[10px] font-black rounded-lg border border-slate-200 text-slate-500 transition";
+            } else {
+                btnStreak.className = "px-3 py-1 text-[10px] font-black rounded-lg bg-brand-500 text-white transition";
+                btnPoints.className = "px-3 py-1 text-[10px] font-black rounded-lg border border-slate-200 text-slate-500 transition";
+            }
+
+            const container = document.getElementById("leaderboard-list-container");
+            container.innerHTML = `<div class="text-center py-6 text-xs text-slate-400 font-bold"><i class="fa-solid fa-spinner animate-spin"></i> Đang tải bảng vàng...</div>`;
+
+            let studentsList = [];
+
+            // Query cloud students
+            if (cloudConnected && db) {
+                try {
+                    const snap = await db.collection('artifacts').doc(APP_ID).collection('students').get();
+                    snap.forEach(doc => {
+                        studentsList.push(doc.data());
+                    });
+                } catch (e) {
+                    console.error("Cloud leaderboard fetch error", e);
                 }
             }
 
-            await syncStudentProfileToStorage();
-            renderStudentInfo(activeStudentData);
-            renderRewardsBadges();
+            // Mix local fallback students if array is thin
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith("offline_student_")) {
+                    const student = JSON.parse(localStorage.getItem(key));
+                    if (!studentsList.some(s => s.code === student.code)) {
+                        studentsList.push(student);
+                    }
+                }
+            }
 
-            showCustomDialog("Hết Giờ Chơi Game!", `
-                <div class="text-center">
-                    <div class="w-16 h-16 bg-brand-100 text-brand-600 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <i class="fa-solid fa-gamepad text-2xl"></i>
+            // Add logged-in student to list if not present
+            if (activeStudentData && !studentsList.some(s => s.code === activeStudentData.code)) {
+                studentsList.push(activeStudentData);
+            }
+
+            // Add mock entries if list has too few members to show competition
+            if (studentsList.length < 3) {
+                studentsList.push(
+                    { code: "ECO001", name: "Phạm Minh Hoàng", points: 280, streak: 8, grade: "cap_1" },
+                    { code: "ECO002", name: "Trần Bảo Ngọc", points: 190, streak: 4, grade: "cap_2" }
+                );
+            }
+
+            // Sort students according to filter
+            studentsList.sort((a, b) => {
+                const valA = a[sortByField] || 0;
+                const valB = b[sortByField] || 0;
+                return valB - valA;
+            });
+
+            // Render Podium top 3
+            const p1 = studentsList[0] || { name: "Chưa có", points: 0, streak: 0 };
+            const p2 = studentsList[1] || { name: "Chưa có", points: 0, streak: 0 };
+            const p3 = studentsList[2] || { name: "Chưa có", points: 0, streak: 0 };
+
+            document.getElementById("podium-1-name").innerText = p1.name;
+            document.getElementById("podium-1-score").innerText = sortByField === 'points' ? `${p1.points || 0} 💎` : `${p1.streak || 0} 🔥`;
+
+            document.getElementById("podium-2-name").innerText = p2.name;
+            document.getElementById("podium-2-score").innerText = sortByField === 'points' ? `${p2.points || 0} 💎` : `${p2.streak || 0} 🔥`;
+
+            document.getElementById("podium-3-name").innerText = p3.name;
+            document.getElementById("podium-3-score").innerText = sortByField === 'points' ? `${p3.points || 0} 💎` : `${p3.streak || 0} 🔥`;
+
+            // Render the rest of the ranks
+            container.innerHTML = "";
+            let myRankIndex = -1;
+
+            studentsList.forEach((student, index) => {
+                const isMe = activeStudentData && student.code === activeStudentData.code;
+                if (isMe) myRankIndex = index + 1;
+
+                // Create a row item
+                const row = document.createElement("div");
+                row.className = `p-3 rounded-2xl flex justify-between items-center border transition ${isMe ? 'bg-brand-50 border-brand-200 shadow-sm' : 'bg-white border-slate-100'}`;
+                
+                let medal = `${index + 1}`;
+                if (index === 0) medal = "🥇";
+                else if (index === 1) medal = "🥈";
+                else if (index === 2) medal = "🥉";
+
+                row.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <span class="w-6 text-center font-black text-slate-400 text-xs">${medal}</span>
+                        <div>
+                            <span class="font-extrabold text-xs text-slate-800">${student.name}</span>
+                            <span class="text-[9px] text-slate-400 uppercase block">${student.code}</span>
+                        </div>
                     </div>
-                    <p class="text-xs text-slate-500 mb-1">Điểm số game đạt được:</p>
-                    <h4 class="text-3xl font-black text-brand-600 mb-4">${gameScore} điểm</h4>
-                    ${rewardMsg ? `<div class="bg-rose-50 p-3 rounded-xl border border-rose-100 text-rose-700 text-xs font-semibold mb-3">${rewardMsg}</div>` : ''}
-                    <p class="text-xs text-slate-500">Hãy tiếp tục hoàn thành các nhiệm vụ đọc sách để tích điểm và gia hạn thời gian chơi tiếp nhé!</p>
-                </div>
-            `);
+                    <span class="font-black text-xs text-brand-600">${sortByField === 'points' ? `${student.points || 0} 💎` : `${student.streak || 0} ngày 🔥`}</span>
+                `;
+                container.appendChild(row);
+            });
+
+            // Update user ranking footer card
+            if (myRankIndex !== -1 && activeStudentData) {
+                document.getElementById("my-rank-pos").innerText = `#${myRankIndex}`;
+                document.getElementById("my-rank-name").innerText = `${activeStudentData.name} (Con)`;
+                document.getElementById("my-rank-score").innerText = sortByField === 'points' ? `${activeStudentData.points || 0} 💎` : `${activeStudentData.streak || 0} ngày 🔥`;
+            }
         }
 
         // =========================================================================
@@ -1758,6 +2263,7 @@
                         </div>
                     </div>
                     <div class="flex space-x-1 justify-end pt-1 border-t border-slate-200/50">
+                        <button onclick="adminOpenEditModal('${student.code}')" class="bg-blue-50 text-blue-600 hover:bg-blue-100 py-1 px-2 rounded-lg text-[9px] font-extrabold"><i class="fa-solid fa-user-pen mr-0.5"></i> Sửa</button>
                         <button onclick="adminIncrementStreak('${student.code}', 1)" class="bg-emerald-50 text-emerald-600 hover:bg-emerald-100 py-1 px-2 rounded-lg text-[9px] font-extrabold">+1 Streak</button>
                         <button onclick="adminIncrementPoints('${student.code}', 50)" class="bg-amber-50 text-amber-600 hover:bg-amber-100 py-1 px-2 rounded-lg text-[9px] font-extrabold">+50 Điểm</button>
                         <button onclick="adminDeleteStudent('${student.code}')" class="bg-rose-50 text-rose-600 hover:bg-rose-100 py-1 px-2 rounded-lg text-[9px] font-extrabold">Xóa</button>
@@ -1765,6 +2271,189 @@
                 `;
                 container.appendChild(row);
             });
+        }
+
+        // Admin Open edit student modal
+        function adminOpenEditModal(studentCode) {
+            let student = null;
+            const offlineRecord = localStorage.getItem(`offline_student_${studentCode}`);
+            if (offlineRecord) {
+                student = JSON.parse(offlineRecord);
+            }
+
+            // Fallback checking in cache or offline structure
+            if (!student && activeStudentData && activeStudentData.code === studentCode) {
+                student = activeStudentData;
+            }
+
+            if (!student) {
+                // If cloud connected, search active students list cache
+                showToast("Đang tìm dữ liệu học sinh...", "fa-solid fa-spinner animate-spin");
+                if (cloudConnected && db) {
+                    db.collection('artifacts').doc(APP_ID).collection('students').doc(studentCode).get().then((doc) => {
+                        if (doc.exists) {
+                            populateAndShowEditModal(doc.data());
+                        } else {
+                            showToast("Không thấy thông tin học sinh trong bộ nhớ!", "fa-solid fa-exclamation-circle");
+                        }
+                    }).catch(err => {
+                        showToast("Lỗi kết nối khi lấy dữ liệu con!", "fa-solid fa-exclamation-circle");
+                    });
+                }
+            } else {
+                populateAndShowEditModal(student);
+            }
+        }
+
+        function populateAndShowEditModal(student) {
+            document.getElementById("edit-student-old-code").value = student.code;
+            document.getElementById("edit-student-new-code").value = student.code;
+            document.getElementById("edit-student-name").value = student.name;
+            document.getElementById("edit-student-grade").value = student.grade;
+            document.getElementById("edit-student-phone").value = student.phone || "";
+
+            document.getElementById("admin-edit-student-modal").classList.remove("hidden");
+        }
+
+        function closeAdminEditModal() {
+            document.getElementById("admin-edit-student-modal").classList.add("hidden");
+        }
+
+        // Logic core updating both Code & Name concurrently, migrating key documents
+        async function adminSaveEditedStudent() {
+            const oldCode = document.getElementById("edit-student-old-code").value.trim().toUpperCase();
+            const newCode = document.getElementById("edit-student-new-code").value.trim().toUpperCase();
+            const newName = document.getElementById("edit-student-name").value.trim();
+            const newGrade = document.getElementById("edit-student-grade").value;
+            const newPhone = document.getElementById("edit-student-phone").value.trim();
+
+            if (!newCode || !newName) {
+                showToast("Vui lòng không để trống Mã học sinh hoặc Tên hiển thị!");
+                return;
+            }
+
+            showToast("Đang cập nhật hồ sơ...", "fa-solid fa-spinner animate-spin text-brand-500");
+
+            let originalStudent = null;
+            // Fetch original data to preserve scores, play time, and rewards
+            const offlineRecord = localStorage.getItem(`offline_student_${oldCode}`);
+            if (offlineRecord) {
+                originalStudent = JSON.parse(offlineRecord);
+            }
+
+            if (cloudConnected && db && !originalStudent) {
+                try {
+                    const doc = await db.collection('artifacts').doc(APP_ID).collection('students').doc(oldCode).get();
+                    if (doc.exists) {
+                        originalStudent = doc.data();
+                    }
+                } catch (e) {
+                    console.error("Cloud fetching original data error", e);
+                }
+            }
+
+            // Create standard profile fallback if not found
+            if (!originalStudent) {
+                originalStudent = {
+                    code: oldCode,
+                    name: newName,
+                    grade: newGrade,
+                    phone: newPhone,
+                    streak: 0,
+                    points: 50,
+                    playTime: 30,
+                    rewards: ["NewBie_ECO"],
+                    lastActive: ""
+                };
+            }
+
+            // Construct new updated profile
+            const updatedProfile = {
+                ...originalStudent,
+                code: newCode,
+                name: newName,
+                grade: newGrade,
+                phone: newPhone
+            };
+
+            // CASE 1: Student code (key) is CHANGED
+            if (newCode !== oldCode) {
+                // Ensure newCode is not conflicting with another existing student
+                let codeConflict = false;
+                if (localStorage.getItem(`offline_student_${newCode}`)) {
+                    codeConflict = true;
+                }
+
+                if (cloudConnected && db && !codeConflict) {
+                    try {
+                        const conflictDoc = await db.collection('artifacts').doc(APP_ID).collection('students').doc(newCode).get();
+                        if (conflictDoc.exists) {
+                            codeConflict = true;
+                        }
+                    } catch (e) {
+                        console.error(e);
+                    }
+                }
+
+                if (codeConflict) {
+                    showToast("Mã học sinh mới đã trùng với tài khoản khác! Hãy đổi mã khác.", "fa-solid fa-circle-exclamation text-rose-500");
+                    return;
+                }
+
+                // Delete old keys and create new ones
+                localStorage.removeItem(`offline_student_${oldCode}`);
+                localStorage.setItem(`offline_student_${newCode}`, JSON.stringify(updatedProfile));
+
+                if (cloudConnected && db) {
+                    try {
+                        // Create new document first
+                        await db.collection('artifacts').doc(APP_ID).collection('students').doc(newCode).set(updatedProfile);
+                        // Delete old document
+                        await db.collection('artifacts').doc(APP_ID).collection('students').doc(oldCode).delete();
+                    } catch (e) {
+                        console.error("Cloud key migration failed", e);
+                    }
+                }
+
+                // If currently logged-in student matches edited student, update the active session
+                if (activeStudentId === oldCode) {
+                    activeStudentId = newCode;
+                    activeStudentData = updatedProfile;
+                    localStorage.setItem("active_student_id", newCode);
+                    renderStudentInfo(activeStudentData);
+                }
+
+            } else {
+                // CASE 2: Only metadata changed (Name, Grade, SĐT)
+                localStorage.setItem(`offline_student_${oldCode}`, JSON.stringify(updatedProfile));
+                if (cloudConnected && db) {
+                    try {
+                        await db.collection('artifacts').doc(APP_ID).collection('students').doc(oldCode).set(updatedProfile);
+                    } catch (e) {
+                        console.error("Cloud meta update error", e);
+                    }
+                }
+
+                if (activeStudentId === oldCode) {
+                    activeStudentData = updatedProfile;
+                    renderStudentInfo(activeStudentData);
+                }
+            }
+
+            // Reload UI views
+            closeAdminEditModal();
+            loadAdminStudentsList();
+            
+            // Re-sync SGK Smart start or reading challenge if the grade was modified
+            if (activeStudentId === newCode) {
+                if (currentCurriculumMode === "daily") {
+                    loadDailyTaskBasedOnGrade(newGrade);
+                } else {
+                    loadSmartStartThemes(document.getElementById("smart-class-selector").value);
+                }
+            }
+
+            showToast("Hồ sơ học sinh đã được cập nhật thành công!", "fa-solid fa-circle-check text-emerald-500");
         }
 
         // Admin manual account registration (ECO Prefix default)
@@ -1966,6 +2655,8 @@
             } else {
                 btnGame.className = "py-2 text-center text-[11px] font-extrabold rounded-lg transition-all duration-300 bg-white text-brand-600 shadow-sm flex items-center justify-center space-x-1";
                 secGame.classList.remove("hidden");
+                // Reset Game views to default state when tab loads
+                switchGameSubTab('games');
             }
         }
 
