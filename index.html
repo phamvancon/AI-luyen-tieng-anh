@@ -650,7 +650,7 @@ border-radius:14px;font-weight:700;width:100%;margin-top:14px;cursor:pointer;
                 </div>
                 <div class="space-y-3">
                     <div class="bg-slate-900 text-slate-100 p-3.5 rounded-2xl text-[10px] font-mono break-all relative select-all leading-relaxed" id="embed-code-text">
-                        &lt;iframe src="https://luyen-doc-tieng-anh-mobi.netlify.app" allow="microphone; camera; autoplay; display-capture; speech-recognition" style="width:100%; height:650px; border:none;"&gt;&lt;/iframe&gt;
+                        &lt;iframe src="https://luyen-doc-tieng-anh-mobi.netlify.app" allow="microphone; camera; autoplay; display-capture; " style="width:100%; height:650px; border:none;"&gt;&lt;/iframe&gt;
                     </div>
                     <button onclick="copyEmbedCode()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-xs py-3 rounded-xl shadow-md transition active:scale-95 flex items-center justify-center space-x-1.5">
                         <i class="fa-solid fa-copy"></i>
@@ -1692,7 +1692,7 @@ border-radius:14px;font-weight:700;width:100%;margin-top:14px;cursor:pointer;
                         <div class="mt-3 p-3 bg-blue-50 border border-blue-100 rounded-xl text-xs text-blue-800 space-y-1 text-left">
                             <p class="font-bold"><i class="fa-solid fa-circle-info mr-1"></i> Cách khắc phục trên Google Sites:</p>
                             <p>Hãy nhúng ứng dụng bằng phương pháp <b>Mã nhúng (Embed Code)</b> để trình duyệt cho phép truyền luồng Micro qua iFrame bảo mật:</p>
-                            <pre class="bg-slate-900 text-slate-100 p-2 rounded text-[10px] overflow-x-auto select-all font-mono">&lt;iframe src="${window.location.href}" allow="microphone; camera; autoplay; display-capture; speech-recognition" style="width:100%; height:650px; border:none;"&gt;&lt;/iframe&gt;</pre>
+                            <pre class="bg-slate-900 text-slate-100 p-2 rounded text-[10px] overflow-x-auto select-all font-mono">&lt;iframe src="${window.location.href}" allow="microphone; camera; autoplay; display-capture; " style="width:100%; height:650px; border:none;"&gt;&lt;/iframe&gt;</pre>
                         </div>
                     `;
                 }
@@ -1751,7 +1751,7 @@ border-radius:14px;font-weight:700;width:100%;margin-top:14px;cursor:pointer;
                                 <div class="mt-2.5 p-3 bg-yellow-50 border border-yellow-200 rounded-xl text-[11px] text-yellow-800 space-y-1 text-left">
                                     <p class="font-extrabold"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Phát hiện ứng dụng đang nhúng trong Google Sites!</p>
                                     <p>Bạn phải cấu hình thẻ nhúng bằng <b>Mã nhúng (Embed Code)</b> kèm quyền sử dụng micro thay vì Nhúng link URL thông thường:</p>
-                                    <pre class="bg-slate-900 text-slate-100 p-2 rounded text-[10px] overflow-x-auto select-all font-mono">&lt;iframe src="${window.location.href}" allow="microphone; camera; autoplay; display-capture; speech-recognition" style="width:100%; height:650px; border:none;"&gt;&lt;/iframe&gt;</pre>
+                                    <pre class="bg-slate-900 text-slate-100 p-2 rounded text-[10px] overflow-x-auto select-all font-mono">&lt;iframe src="${window.location.href}" allow="microphone; camera; autoplay; display-capture; " style="width:100%; height:650px; border:none;"&gt;&lt;/iframe&gt;</pre>
                                 </div>
                             `;
                         }
@@ -3016,7 +3016,7 @@ border-radius:14px;font-weight:700;width:100%;margin-top:14px;cursor:pointer;
         // --- NEW FEATURES FOR GOOGLE SITES EMBEDDING ---
         function openEmbedGuideModal() {
             const currentUrl = window.location.href;
-            const embedCode = `<iframe src="${currentUrl}" allow="microphone; camera; autoplay; display-capture; speech-recognition" style="width:100%; height:650px; border:none;"></iframe>`;
+            const embedCode = `<iframe src="${currentUrl}" allow="microphone; camera; autoplay; display-capture; " style="width:100%; height:650px; border:none;"></iframe>`;
             // Escape HTML for rendering safely in UI
             const escapedCode = embedCode.replace(/</g, "&lt;").replace(/>/g, "&gt;");
             document.getElementById("embed-code-text").innerHTML = escapedCode;
@@ -3214,6 +3214,31 @@ async function autoRequestMicrophone() {
 window.addEventListener('load', () => {
     autoRequestMicrophone();
 });
+</script>
+
+
+<script>
+// FORCE MICROPHONE POLICY CHECK
+(async function(){
+    try{
+        if(window.top !== window.self){
+            console.warn("Running inside iframe");
+        }
+
+        if(location.protocol !== 'https:'){
+            alert('Website cần HTTPS để dùng microphone');
+        }
+
+        navigator.permissions?.query({name:'microphone'})
+        .then(result=>{
+            console.log('Microphone permission:', result.state);
+        })
+        .catch(()=>{});
+
+    }catch(e){
+        console.error(e);
+    }
+})();
 </script>
 
 </body>
