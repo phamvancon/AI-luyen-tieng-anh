@@ -86,7 +86,7 @@
                 <div class="w-16 h-16 rounded-3xl bg-brand-600 text-white flex items-center justify-center mx-auto shadow-lg shadow-brand-500/30 mb-4 animate-bounce">
                     <i class="fa-solid fa-book-open-reader text-3xl"></i>
                 </div>
-                <h1 class="text-2xl font-black text-slate-900 tracking-tight">English Daily By Chú Còn-0934.011.365</h1>
+                <h1 class="text-2xl font-black text-slate-900 tracking-tight">English Daily - BY - 0934.011.365 </h1>
                 <p class="text-xs text-slate-500 mt-1">Luyện đọc và Đàm thoại Tiếng Anh cùng AI thông minh</p>
             </div>
 
@@ -105,7 +105,7 @@
                 <div class="bg-white border border-slate-200/60 rounded-2xl p-4 shadow-sm">
                     <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Nhập Mã Học Sinh ECO của Con</label>
                     <div class="relative">
-                        <input type="text" id="input-auth-student-code" placeholder="Ví dụ: ECO8920" class="w-full text-center uppercase tracking-widest bg-slate-50 border border-slate-200 rounded-xl py-3.5 text-lg font-extrabold text-brand-700 focus:outline-none focus:border-brand-500 focus:bg-white transition-all">
+                        <input type="text" id="input-auth-student-code" placeholder="Ví dụ: ECO892" class="w-full text-center uppercase tracking-widest bg-slate-50 border border-slate-200 rounded-xl py-3.5 text-lg font-extrabold text-brand-700 focus:outline-none focus:border-brand-500 focus:bg-white transition-all">
                         <i class="fa-solid fa-id-card text-slate-300 absolute right-4 top-4 text-lg"></i>
                     </div>
                     <p class="text-[10px] text-slate-400 mt-2 italic text-center">Mã học sinh do Admin cung cấp hoặc nhận được khi đăng ký.</p>
@@ -238,7 +238,7 @@
                                 <select id="smart-class-selector" onchange="loadSmartStartThemes(this.value)" class="w-full text-xs font-bold text-slate-700 bg-white border border-slate-200 rounded-lg p-2 focus:outline-none">
                                     <option value="ss_1">Smart Start Lớp 1</option>
                                     <option value="ss_2">Smart Start Lớp 2</option>
-                                    <option value="ss_3">Smart Start Lớp 3</option>
+                                    <option value="ss_3" selected>Smart Start Lớp 3</option>
                                     <option value="ss_4">Smart Start Lớp 4</option>
                                     <option value="ss_5">Smart Start Lớp 5</option>
                                 </select>
@@ -1079,7 +1079,7 @@
         }
 
         // =========================================================================
-        // 3. DAILY READING & SGK CURRICULUM DATABASE
+        // 3. DAILY READING & SGK CURRICULUM DATABASE (Smart Start Lớp 3)
         // =========================================================================
         const readingDatabase = {
             cap_1: {
@@ -1117,6 +1117,7 @@
             }
         };
 
+        // Complete i-Learn Smart Start Grade 3 syllabus aligned with online.flipbuilder.com/sdtta/skiv
         const smartStartDatabase = {
             ss_1: {
                 theme1: {
@@ -1128,16 +1129,6 @@
                         { word: "Name", type: "noun", ipa: "/neɪm/", vi: "Tên", desc: "A word by which a person is known." },
                         { word: "Meet", type: "verb", ipa: "/miːt/", vi: "Gặp gỡ", desc: "To come into contact with someone." },
                         { word: "Good-bye", type: "excl", ipa: "/ˌɡʊdˈbaɪ/", vi: "Tạm biệt", desc: "Used to express good wishes when parting." }
-                    ]
-                },
-                theme2: {
-                    title: "i-Learn Smart Start Grade 1 - Theme 2: School",
-                    image: "https://placehold.co/600x440/e2e8f0/1e293b?text=Smart+Start+1+-+School",
-                    content: "This is my school. I have a book, a pencil, and a bag. This is my classroom.",
-                    vocab: [
-                        { word: "School", type: "noun", ipa: "/skuːl/", vi: "Trường học", desc: "An institution for educating children." },
-                        { word: "Pencil", type: "noun", ipa: "/ˈpensl/", vi: "Bút chì", desc: "An instrument for writing or drawing." },
-                        { word: "Book", type: "noun", ipa: "/bʊk/", vi: "Sách", desc: "A written or printed work." }
                     ]
                 }
             },
@@ -1155,18 +1146,18 @@
             },
             ss_3: {
                 theme1: {
-                    title: "i-Learn Smart Start Grade 3 - Theme 1: My Friends",
+                    title: "Smart Start 3 - Theme 1: My Friends",
                     image: "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=600&auto=format&fit=crop&q=80",
                     content: "Hello! I am from Vietnam. My friend is Alfie. He is from Alpha. We like to paint and dance together. He has many friends from Japan and India.",
                     vocab: [
                         { word: "Friend", type: "noun", ipa: "/frend/", vi: "Bạn bè", desc: "A person who you like and trust." },
                         { word: "Dance", type: "verb", ipa: "/dɑːns/", vi: "Nhảy, múa", desc: "To move the body and feet to music." },
                         { word: "Paint", type: "verb", ipa: "/peɪnt/", vi: "Vẽ tranh", desc: "To cover a surface with paint." },
-                        { word: "Alphabet", type: "noun", ipa: "/ˈælfəbet/", vi: "Bảng chữ cái", desc: "A set of letters used for writing a language." }
+                        { word: "Japan", type: "noun", ipa: "/dʒəˈpæn/", vi: "Nước Nhật Bản", desc: "An island country in East Asia." }
                     ]
                 },
                 theme2: {
-                    title: "i-Learn Smart Start Grade 3 - Theme 2: Family",
+                    title: "Smart Start 3 - Theme 2: Family",
                     image: "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=600&auto=format&fit=crop&q=80",
                     content: "This is my beloved family. My grandfather and grandmother are very kind. I love my father, my mother, and my little brother.",
                     vocab: [
@@ -1176,7 +1167,7 @@
                     ]
                 },
                 theme3: {
-                    title: "i-Learn Smart Start Grade 3 - Theme 3: School",
+                    title: "Smart Start 3 - Theme 3: School",
                     image: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&auto=format&fit=crop&q=80",
                     content: "I go to school every day. I put my notebook, ruler, and pencils into my bag. I love reading books in my classroom.",
                     vocab: [
@@ -1186,7 +1177,7 @@
                     ]
                 },
                 theme4: {
-                    title: "i-Learn Smart Start Grade 3 - Theme 4: Home",
+                    title: "Smart Start 3 - Theme 4: Home",
                     image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&auto=format&fit=crop&q=80",
                     content: "Welcome to my home. There is a comfortable living room, a bedroom, and a small kitchen. I like playing with my dog in the yard.",
                     vocab: [
@@ -1196,7 +1187,7 @@
                     ]
                 },
                 theme5: {
-                    title: "i-Learn Smart Start Grade 3 - Theme 5: Sports & Hobbies",
+                    title: "Smart Start 3 - Theme 5: Sports & Hobbies",
                     image: "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=600&auto=format&fit=crop&q=80",
                     content: "We love playing sports! My brother is good at kicking and catching the ball. In the evening, we watch TV, play chess, or go swimming.",
                     vocab: [
@@ -1206,7 +1197,7 @@
                     ]
                 },
                 theme6: {
-                    title: "i-Learn Smart Start Grade 3 - Theme 6: Clothes",
+                    title: "Smart Start 3 - Theme 6: Clothes",
                     image: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=600&auto=format&fit=crop&q=80",
                     content: "Today is cold, so I wear a warm red sweater and a long scarf. In the summer, I prefer wearing a comfortable shirt, shorts, and cool sneakers.",
                     vocab: [
@@ -1500,46 +1491,104 @@
         }
 
         // =========================================================================
-        // 6. SPEECH RECOGNITION & SPEECH SYNTHESIS ENGINE
+        // 6. SPEECH RECOGNITION & SPEECH SYNTHESIS ENGINE (Mobile & iFrame Fixes)
         // =========================================================================
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        let speechRecognizer = null;
+        let activeRecognizer = null;
         let isOralListening = false;
         let currentTargetSpeechSection = "reading"; // "reading" or "chat"
 
-        if (SpeechRecognition) {
-            speechRecognizer = new SpeechRecognition();
-            speechRecognizer.lang = "en-US";
-            speechRecognizer.interimResults = false;
-            speechRecognizer.maxAlternatives = 1;
+        function startOralReadingChallenge() {
+            // Cancel active text-to-speech to release audio channels on iOS/Android
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
 
-            speechRecognizer.onstart = () => {
-                isOralListening = true;
-                if (currentTargetSpeechSection === "reading") {
+            // Secure Context and Google Sites diagnostics
+            const isSecure = window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            if (!isSecure) {
+                showCustomDialog("⚠️ Yêu Cầu Kết Nối Bảo Mật (HTTPS)", `
+                    <div class="text-sm text-slate-600 space-y-2">
+                        <p>Trình duyệt di động của điện thoại chỉ cho phép mở Micro khi ứng dụng chạy trên giao thức <b>HTTPS</b> bảo mật hoặc môi trường <b>Localhost</b>.</p>
+                        <p class="font-semibold text-brand-600">Cách sửa lỗi:</p>
+                        <ul class="list-disc pl-4 space-y-1 text-xs">
+                            <li>Hãy đảm bảo bạn đã đẩy app lên Netlify/Firebase và truy cập link có dạng <span class="bg-slate-100 px-1 py-0.5 rounded text-red-500 font-mono">https://...</span></li>
+                            <li>Nếu nhúng trên <b>Google Sites</b>, hãy chắc chắn nhúng bằng phương pháp <b>Mã Nhúng (Embed Code)</b> kèm quyền <span class="bg-slate-100 px-1 py-0.5 rounded text-red-500 font-mono">allow="microphone"</span>.</li>
+                        </ul>
+                    </div>
+                `);
+                return;
+            }
+
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                showCustomDialog("❌ Trình duyệt Không Hỗ Trợ Micro", `
+                    <div class="text-sm text-slate-600 space-y-2">
+                        <p>Trình duyệt web hiện tại không hỗ trợ hoặc bị chặn tính năng nhận giọng nói.</p>
+                        <p class="font-semibold text-brand-600">Hướng dẫn kích hoạt:</p>
+                        <ul class="list-disc pl-4 text-xs space-y-1">
+                            <li><b>Trên iPhone/iPad (iOS):</b> Bắt buộc mở bằng trình duyệt <b>Safari gốc</b>. Tránh mở trực tiếp trong khung chat Zalo/Facebook.</li>
+                            <li><b>Trên Android:</b> Sử dụng trình duyệt <b>Google Chrome</b> mới nhất.</li>
+                        </ul>
+                    </div>
+                `);
+                return;
+            }
+
+            // Stop active session if busy
+            if (isOralListening && activeRecognizer) {
+                try {
+                    activeRecognizer.stop();
+                } catch(e) {}
+                return;
+            }
+
+            // INSTANTIATING FRESH OBJECT (iOS Multi-click safari fix)
+            try {
+                activeRecognizer = new SpeechRecognition();
+                activeRecognizer.lang = "en-US";
+                activeRecognizer.interimResults = false;
+                activeRecognizer.maxAlternatives = 1;
+
+                currentTargetSpeechSection = "reading";
+
+                activeRecognizer.onstart = () => {
+                    isOralListening = true;
                     showToast("🎙️ Đang nghe... Hãy đọc to đoạn văn!", "fa-solid fa-microphone-lines animate-pulse text-red-500");
-                } else {
-                    document.getElementById("voice-wave-indicator").classList.remove("hidden");
-                }
-            };
+                };
 
-            speechRecognizer.onend = () => {
-                isOralListening = false;
-                document.getElementById("voice-wave-indicator").classList.add("hidden");
-            };
+                activeRecognizer.onend = () => {
+                    isOralListening = false;
+                };
 
-            speechRecognizer.onresult = (e) => {
-                const resultText = e.results[0][0].transcript;
-                if (currentTargetSpeechSection === "reading") {
+                activeRecognizer.onresult = (e) => {
+                    const resultText = e.results[0][0].transcript;
                     handleOralReadingResult(resultText);
-                } else {
-                    handleChatVoiceResult(resultText);
-                }
-            };
+                };
 
-            speechRecognizer.onerror = (e) => {
-                console.error("Speech error", e);
-                showToast("Không nghe thấy rõ, vui lòng thử lại!", "fa-solid fa-circle-exclamation");
-            };
+                activeRecognizer.onerror = (e) => {
+                    console.error("Speech Recognition Error:", e);
+                    if (e.error === "not-allowed") {
+                        showCustomDialog("🚫 Quyền Truy Cập Micro Bị Chặn", `
+                            <div class="text-xs text-slate-600 space-y-2">
+                                <p>Trình duyệt chưa được cho phép sử dụng Micro trên thiết bị.</p>
+                                <p class="font-semibold text-brand-600">Hướng dẫn khắc phục:</p>
+                                <ol class="list-decimal pl-4 space-y-1">
+                                    <li>Nhìn lên thanh địa chỉ trình duyệt, click vào <b>Biểu tượng ổ khóa/Cài đặt trang web</b> và chọn "Cho phép Micro".</li>
+                                    <li>Nếu bạn đang nhúng trong Google Sites, hãy chắc chắn iFrame được cấu hình chuẩn với thẻ nhúng có <span class="bg-slate-100 px-1 rounded text-red-500 font-mono">allow="microphone"</span>.</li>
+                                </ol>
+                            </div>
+                        `);
+                    } else {
+                        showToast("Vui lòng đọc lại rõ hơn!");
+                    }
+                };
+
+                activeRecognizer.start();
+
+            } catch (err) {
+                console.error("SpeechEngine init failed:", err);
+                showToast("Không thể khởi động bộ thu âm.");
+            }
         }
 
         function speakTextUS(text) {
@@ -1558,15 +1607,6 @@
 
         function readAloudTaskText() {
             speakTextUS(currentActiveTask.content);
-        }
-
-        function startOralReadingChallenge() {
-            if (!speechRecognizer) {
-                showToast("Trình duyệt không hỗ trợ micro thu giọng!");
-                return;
-            }
-            currentTargetSpeechSection = "reading";
-            speechRecognizer.start();
         }
 
         function handleOralReadingResult(spokenText) {
@@ -1627,15 +1667,53 @@
         // 7. AI CONVERSATIONAL DIRECT CHAT
         // =========================================================================
         function toggleChatVoiceInput() {
-            if (!speechRecognizer) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
                 showToast("Thiết bị của bạn không có/chưa cấp quyền micro.");
                 return;
             }
-            if (isOralListening) {
-                speechRecognizer.stop();
-            } else {
+            if (isOralListening && activeRecognizer) {
+                try { activeRecognizer.stop(); } catch(e){}
+                return;
+            }
+
+            try {
+                activeRecognizer = new SpeechRecognition();
+                activeRecognizer.lang = "en-US";
+                activeRecognizer.interimResults = false;
+                activeRecognizer.maxAlternatives = 1;
+
                 currentTargetSpeechSection = "chat";
-                speechRecognizer.start();
+
+                activeRecognizer.onstart = () => {
+                    isOralListening = true;
+                    document.getElementById("voice-wave-indicator").classList.remove("hidden");
+                };
+
+                activeRecognizer.onend = () => {
+                    isOralListening = false;
+                    document.getElementById("voice-wave-indicator").classList.add("hidden");
+                };
+
+                activeRecognizer.onresult = (e) => {
+                    const resultText = e.results[0][0].transcript;
+                    handleChatVoiceResult(resultText);
+                };
+
+                activeRecognizer.onerror = (e) => {
+                    console.error("Chat voice recognition error:", e);
+                    showToast("Mời con thử lại!");
+                };
+
+                activeRecognizer.start();
+
+            } catch (err) {
+                console.error("Chat SpeechEngine initiation error:", err);
+                showToast("Lỗi micro đàm thoại.");
             }
         }
 
@@ -1978,19 +2056,15 @@
         }
 
         function setNextScrambleTarget() {
-            // Split current active reading task content into sentences
             const sentences = currentActiveTask.content.split(/[.!?]+/).map(s => s.trim()).filter(s => s.length > 10);
             if (sentences.length === 0) {
-                // Fallback sentence
                 sentences.push("The weather is very beautiful today");
             }
 
-            // Pick a random sentence
             const rawSentence = sentences[Math.floor(Math.random() * sentences.length)];
             scrambleOriginalWords = rawSentence.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g,"").split(/\s+/).filter(w => w.length > 0);
             scrambleCurrentAnswer = [];
 
-            // Grab a translation hint
             document.getElementById("game-scramble-hint").innerText = "Đang dịch câu...";
             fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(rawSentence)}&langpair=en|vi`)
                 .then(res => res.json())
@@ -2011,7 +2085,6 @@
             chipsContainer.innerHTML = "";
             answerContainer.innerHTML = "";
 
-            // Create scrambled list copies
             let scrambled = [...scrambleOriginalWords].sort(() => Math.random() - 0.5);
 
             scrambled.forEach((word, index) => {
@@ -2030,7 +2103,6 @@
             chipElement.remove();
 
             const answerContainer = document.getElementById("game-scramble-answer-container");
-            // Clear placeholder text if first word
             if (scrambleCurrentAnswer.length === 1) answerContainer.innerHTML = "";
 
             const ansChip = document.createElement("span");
@@ -2055,7 +2127,6 @@
                 showToast("Ghép câu chuẩn xác! +20 Điểm 🎉", "fa-solid fa-circle-check text-emerald-500");
                 document.getElementById("game-scramble-score").innerText = scrambleScore;
 
-                // Grant reward points to student profile directly
                 activeStudentData.points = (activeStudentData.points || 0) + 10;
                 await syncStudentProfileToStorage();
                 renderStudentInfo(activeStudentData);
@@ -2086,7 +2157,6 @@
 
         // --- REALTIME LEADERBOARD QUERIES & MOCK FALLBACKS ---
         async function loadLeaderboardData(sortByField = 'points') {
-            // Set filter button styles
             const btnPoints = document.getElementById("leaderboard-filter-points");
             const btnStreak = document.getElementById("leaderboard-filter-streak");
 
@@ -2103,7 +2173,6 @@
 
             let studentsList = [];
 
-            // Query cloud students
             if (cloudConnected && db) {
                 try {
                     const snap = await db.collection('artifacts').doc(APP_ID).collection('students').get();
@@ -2115,7 +2184,6 @@
                 }
             }
 
-            // Mix local fallback students if array is thin
             for (let i = 0; i < localStorage.length; i++) {
                 const key = localStorage.key(i);
                 if (key.startsWith("offline_student_")) {
@@ -2126,12 +2194,10 @@
                 }
             }
 
-            // Add logged-in student to list if not present
             if (activeStudentData && !studentsList.some(s => s.code === activeStudentData.code)) {
                 studentsList.push(activeStudentData);
             }
 
-            // Add mock entries if list has too few members to show competition
             if (studentsList.length < 3) {
                 studentsList.push(
                     { code: "ECO001", name: "Phạm Minh Hoàng", points: 280, streak: 8, grade: "cap_1" },
@@ -2139,14 +2205,12 @@
                 );
             }
 
-            // Sort students according to filter
             studentsList.sort((a, b) => {
                 const valA = a[sortByField] || 0;
                 const valB = b[sortByField] || 0;
                 return valB - valA;
             });
 
-            // Render Podium top 3
             const p1 = studentsList[0] || { name: "Chưa có", points: 0, streak: 0 };
             const p2 = studentsList[1] || { name: "Chưa có", points: 0, streak: 0 };
             const p3 = studentsList[2] || { name: "Chưa có", points: 0, streak: 0 };
@@ -2160,7 +2224,6 @@
             document.getElementById("podium-3-name").innerText = p3.name;
             document.getElementById("podium-3-score").innerText = sortByField === 'points' ? `${p3.points || 0} 💎` : `${p3.streak || 0} 🔥`;
 
-            // Render the rest of the ranks
             container.innerHTML = "";
             let myRankIndex = -1;
 
@@ -2168,7 +2231,6 @@
                 const isMe = activeStudentData && student.code === activeStudentData.code;
                 if (isMe) myRankIndex = index + 1;
 
-                // Create a row item
                 const row = document.createElement("div");
                 row.className = `p-3 rounded-2xl flex justify-between items-center border transition ${isMe ? 'bg-brand-50 border-brand-200 shadow-sm' : 'bg-white border-slate-100'}`;
                 
@@ -2190,7 +2252,6 @@
                 container.appendChild(row);
             });
 
-            // Update user ranking footer card
             if (myRankIndex !== -1 && activeStudentData) {
                 document.getElementById("my-rank-pos").innerText = `#${myRankIndex}`;
                 document.getElementById("my-rank-name").innerText = `${activeStudentData.name} (Con)`;
@@ -2199,7 +2260,7 @@
         }
 
         // =========================================================================
-        // 9. ADMIN CONTROL PANEL MODULE (Rule 2 Auth, Rule 1 Firestore, ECO Prefix Generator)
+        // 9. ADMIN CONTROL PANEL MODULE
         // =========================================================================
         let adminSubTab = "students"; // "students" or "add"
 
@@ -2220,7 +2281,6 @@
                 document.getElementById("admin-login-card").classList.add("hidden");
                 document.getElementById("admin-panel-card").classList.remove("hidden");
                 
-                // Show default tab & trigger query list load
                 switchAdminSubTab("students");
                 showToast("Khởi chạy quyền quản trị viên thành công!", "fa-solid fa-unlock-keyhole");
             } else {
@@ -2249,14 +2309,12 @@
             }
         }
 
-        // Retrieve and compile all active students in Firestore/Localstorage
         async function loadAdminStudentsList() {
             const container = document.getElementById("admin-students-list-container");
             container.innerHTML = `<div class="text-center py-6 text-xs text-slate-400 font-bold"><i class="fa-solid fa-spinner animate-spin"></i> Đang tải danh sách học sinh...</div>`;
 
             let studentsList = [];
 
-            // Query Cloud
             if (cloudConnected && db) {
                 try {
                     const snap = await db.collection('artifacts').doc(APP_ID).collection('students').get();
@@ -2268,7 +2326,6 @@
                 }
             }
 
-            // Mix localstorage items if any not found
             for (let i = 0; i < localStorage.length; i++) {
                 const key = localStorage.key(i);
                 if (key.startsWith("offline_student_")) {
@@ -2279,7 +2336,6 @@
                 }
             }
 
-            // If empty database, push mock defaults (With ECO prefix)
             if (studentsList.length === 0) {
                 studentsList.push({
                     code: "ECO100",
@@ -2324,7 +2380,6 @@
             });
         }
 
-        // Admin Open edit student modal
         function adminOpenEditModal(studentCode) {
             let student = null;
             const offlineRecord = localStorage.getItem(`offline_student_${studentCode}`);
@@ -2332,13 +2387,11 @@
                 student = JSON.parse(offlineRecord);
             }
 
-            // Fallback checking in cache or offline structure
             if (!student && activeStudentData && activeStudentData.code === studentCode) {
                 student = activeStudentData;
             }
 
             if (!student) {
-                // If cloud connected, search active students list cache
                 showToast("Đang tìm dữ liệu học sinh...", "fa-solid fa-spinner animate-spin");
                 if (cloudConnected && db) {
                     db.collection('artifacts').doc(APP_ID).collection('students').doc(studentCode).get().then((doc) => {
@@ -2370,7 +2423,6 @@
             document.getElementById("admin-edit-student-modal").classList.add("hidden");
         }
 
-        // Logic core updating both Code & Name concurrently, migrating key documents
         async function adminSaveEditedStudent() {
             const oldCode = document.getElementById("edit-student-old-code").value.trim().toUpperCase();
             const newCode = document.getElementById("edit-student-new-code").value.trim().toUpperCase();
@@ -2386,7 +2438,6 @@
             showToast("Đang cập nhật hồ sơ...", "fa-solid fa-spinner animate-spin text-brand-500");
 
             let originalStudent = null;
-            // Fetch original data to preserve scores, play time, and rewards
             const offlineRecord = localStorage.getItem(`offline_student_${oldCode}`);
             if (offlineRecord) {
                 originalStudent = JSON.parse(offlineRecord);
@@ -2403,7 +2454,6 @@
                 }
             }
 
-            // Create standard profile fallback if not found
             if (!originalStudent) {
                 originalStudent = {
                     code: oldCode,
@@ -2418,7 +2468,6 @@
                 };
             }
 
-            // Construct new updated profile
             const updatedProfile = {
                 ...originalStudent,
                 code: newCode,
@@ -2427,9 +2476,7 @@
                 phone: newPhone
             };
 
-            // CASE 1: Student code (key) is CHANGED
             if (newCode !== oldCode) {
-                // Ensure newCode is not conflicting with another existing student
                 let codeConflict = false;
                 if (localStorage.getItem(`offline_student_${newCode}`)) {
                     codeConflict = true;
@@ -2451,22 +2498,18 @@
                     return;
                 }
 
-                // Delete old keys and create new ones
                 localStorage.removeItem(`offline_student_${oldCode}`);
                 localStorage.setItem(`offline_student_${newCode}`, JSON.stringify(updatedProfile));
 
                 if (cloudConnected && db) {
                     try {
-                        // Create new document first
                         await db.collection('artifacts').doc(APP_ID).collection('students').doc(newCode).set(updatedProfile);
-                        // Delete old document
                         await db.collection('artifacts').doc(APP_ID).collection('students').doc(oldCode).delete();
                     } catch (e) {
                         console.error("Cloud key migration failed", e);
                     }
                 }
 
-                // If currently logged-in student matches edited student, update the active session
                 if (activeStudentId === oldCode) {
                     activeStudentId = newCode;
                     activeStudentData = updatedProfile;
@@ -2475,7 +2518,6 @@
                 }
 
             } else {
-                // CASE 2: Only metadata changed (Name, Grade, SĐT)
                 localStorage.setItem(`offline_student_${oldCode}`, JSON.stringify(updatedProfile));
                 if (cloudConnected && db) {
                     try {
@@ -2491,11 +2533,9 @@
                 }
             }
 
-            // Reload UI views
             closeAdminEditModal();
             loadAdminStudentsList();
             
-            // Re-sync SGK Smart start or reading challenge if the grade was modified
             if (activeStudentId === newCode) {
                 if (currentCurriculumMode === "daily") {
                     loadDailyTaskBasedOnGrade(newGrade);
@@ -2507,7 +2547,6 @@
             showToast("Hồ sơ học sinh đã được cập nhật thành công!", "fa-solid fa-circle-check text-emerald-500");
         }
 
-        // Admin manual account registration (ECO Prefix default)
         async function adminCreateNewStudentAccount() {
             const name = document.getElementById("admin-new-name").value.trim();
             const grade = document.getElementById("admin-new-grade").value;
@@ -2543,15 +2582,12 @@
 
             showToast(`Tạo thành công tài khoản con. Mã: ${code}`);
             
-            // Clean fields
             document.getElementById("admin-new-name").value = "";
             document.getElementById("admin-new-phone").value = "";
 
-            // Switch to students tab to show results
             switchAdminSubTab("students");
         }
 
-        // Increment or decrement streak via admin panel
         async function adminIncrementStreak(code, val) {
             let targetStudent = null;
             const key = `offline_student_${code}`;
@@ -2590,7 +2626,6 @@
                 }
             }
 
-            // Sync currently logged in session view if they are edited
             if (activeStudentId === code) {
                 activeStudentData.streak = nextStreak;
                 renderStudentInfo(activeStudentData);
@@ -2600,7 +2635,6 @@
             loadAdminStudentsList();
         }
 
-        // Add points manually via admin panel
         async function adminIncrementPoints(code, val) {
             let targetStudent = null;
             const key = `offline_student_${code}`;
@@ -2639,7 +2673,6 @@
                 }
             }
 
-            // Sync currently logged in session view if they are edited
             if (activeStudentId === code) {
                 activeStudentData.points = nextPoints;
                 renderStudentInfo(activeStudentData);
@@ -2649,7 +2682,6 @@
             loadAdminStudentsList();
         }
 
-        // Delete student with non-obstructive secure confirmation modal
         function adminDeleteStudent(code) {
             showConfirmDialog("Xóa tài khoản con", `Bạn có chắc chắn muốn xóa vĩnh viễn tài khoản học sinh ${code}? Toàn bộ lịch sử học tập và streak sẽ bị hủy.`, async () => {
                 localStorage.removeItem(`offline_student_${code}`);
@@ -2662,7 +2694,6 @@
                     }
                 }
 
-                // If currently active student is deleted, force logout
                 if (activeStudentId === code) {
                     localStorage.removeItem("active_student_id");
                     activeStudentId = null;
@@ -2688,7 +2719,6 @@
             const secChat = document.getElementById("section-chat");
             const secGame = document.getElementById("section-game");
 
-            // Normalize classes
             btnReading.className = "py-2 text-center text-[11px] font-extrabold rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-800";
             btnChat.className = "py-2 text-center text-[11px] font-extrabold rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-800";
             btnGame.className = "py-2 text-center text-[11px] font-extrabold rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-800 flex items-center justify-center space-x-1";
@@ -2706,7 +2736,6 @@
             } else {
                 btnGame.className = "py-2 text-center text-[11px] font-extrabold rounded-lg transition-all duration-300 bg-white text-brand-600 shadow-sm flex items-center justify-center space-x-1";
                 secGame.classList.remove("hidden");
-                // Reset Game views to default state when tab loads
                 switchGameSubTab('games');
             }
         }
@@ -2749,7 +2778,6 @@
             document.body.appendChild(overlay);
         }
 
-        // Custom non-blocking interactive confirmation dialog
         function showConfirmDialog(title, message, onConfirm) {
             const overlay = document.createElement("div");
             overlay.className = "fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4";
@@ -2774,7 +2802,6 @@
             overlay.appendChild(card);
             document.body.appendChild(overlay);
 
-            // Bind interactions
             card.querySelector("#btn-dialog-cancel").onclick = () => overlay.remove();
             card.querySelector("#btn-dialog-confirm").onclick = () => {
                 overlay.remove();
