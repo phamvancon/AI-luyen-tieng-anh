@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Daily - Luyện Đọc Tiếng Anh Thông Minh</title>
+    <title>English Daily - Luyện Đọc & Phát Âm Tiếng Anh Thông Minh</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -68,7 +68,6 @@
     <!-- APP WRAPPER (Tối ưu hóa thiết bị di động, căn giữa trên Desktop) -->
     <div class="w-full max-w-md mx-auto bg-white min-h-screen flex flex-col shadow-2xl relative pb-20">
         
-        <!-- TOP NAVIGATION BAR -->
         <header class="bg-gradient-to-r from-brand-600 to-brand-700 text-white px-4 py-4 rounded-b-3xl shadow-lg sticky top-0 z-40 transition-all">
             <div class="flex justify-between items-center">
                 <!-- User Profile Info -->
@@ -105,7 +104,6 @@
             </div>
         </header>
 
-        <!-- MAIN TAB-BASED CONTENT -->
         <main class="flex-1 p-4 overflow-y-auto custom-scrollbar">
             
             <!-- Tab Buttons -->
@@ -121,21 +119,56 @@
                 </button>
             </div>
 
+            <!-- PROGRAMME SELECTOR (DAILY CHALLENGE vs i-LEARN SMART START) -->
+            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 rounded-2xl p-3 mb-4 flex flex-col space-y-2">
+                <span class="text-[10px] font-extrabold text-blue-600 uppercase tracking-widest flex items-center">
+                    <i class="fa-solid fa-graduation-cap mr-1.5"></i> Chương trình học tập
+                </span>
+                <div class="grid grid-cols-2 gap-2">
+                    <button id="mode-btn-daily" onclick="switchCurriculumMode('daily')" class="py-2 px-3 text-xs font-black rounded-xl border transition-all text-center bg-blue-600 text-white border-blue-600 shadow-sm">
+                        <i class="fa-solid fa-calendar-day mr-1"></i> Đọc Hàng Ngày
+                    </button>
+                    <button id="mode-btn-smartstart" onclick="switchCurriculumMode('smartstart')" class="py-2 px-3 text-xs font-black rounded-xl border transition-all text-center bg-white text-slate-600 border-slate-200">
+                        <i class="fa-solid fa-book mr-1"></i> i-Learn Smart Start
+                    </button>
+                </div>
+
+                <!-- i-Learn Smart Start Sub-Selectors -->
+                <div id="smartstart-sub-selectors" class="hidden grid grid-cols-2 gap-2 pt-1 border-t border-blue-200/40">
+                    <div>
+                        <label class="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">Chọn Lớp học</label>
+                        <select id="smartstart-grade-select" onchange="loadSmartStartLesson()" class="w-full bg-white border border-slate-200 rounded-lg p-1.5 text-xs font-bold focus:outline-none focus:border-brand-500 text-slate-800">
+                            <option value="grade_1">Lớp 1 (Smart Start)</option>
+                            <option value="grade_2">Lớp 2 (Smart Start)</option>
+                            <option value="grade_3">Lớp 3 (Smart Start)</option>
+                            <option value="grade_4">Lớp 4 (Smart Start)</option>
+                            <option value="grade_5">Lớp 5 (Smart Start)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">Chọn Chủ đề</label>
+                        <select id="smartstart-theme-select" onchange="loadSmartStartLesson()" class="w-full bg-white border border-slate-200 rounded-lg p-1.5 text-xs font-bold focus:outline-none focus:border-brand-500 text-slate-800">
+                            <!-- Populated dynamically -->
+                        </select>
+                    </div>
+                </div>
+            </div>
+
             <!-- SECTION 1: READING PRACTICE -->
             <section id="section-reading" class="space-y-4">
                 <!-- Daily Challenge Box -->
                 <div class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm relative overflow-hidden">
-                    <div class="absolute top-0 right-0 bg-brand-500 text-white text-[10px] font-extrabold uppercase px-3 py-1 rounded-bl-xl tracking-wider">
+                    <div id="reading-badge-tag" class="absolute top-0 right-0 bg-brand-500 text-white text-[10px] font-extrabold uppercase px-3 py-1 rounded-bl-xl tracking-wider">
                         Hôm nay
                     </div>
-                    <span class="text-xs font-bold text-brand-500 uppercase tracking-wider block mb-1">Nhiệm Vụ Đọc Hàng Ngày</span>
+                    <span id="reading-meta-subtitle" class="text-xs font-bold text-brand-500 uppercase tracking-wider block mb-1">Nhiệm Vụ Đọc Hàng Ngày</span>
                     <h3 id="reading-title" class="text-xl font-extrabold text-slate-900 leading-tight">Đang tải bài học...</h3>
                     
                     <!-- Dynamic Illustration Image -->
                     <div class="w-full h-44 rounded-xl mt-3 overflow-hidden relative group bg-slate-100">
                         <img id="reading-illustration" src="" alt="Minh họa bài đọc" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.src='https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600&auto=format&fit=crop&q=60'">
                         <div class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] px-2 py-1 rounded-md backdrop-blur-sm">
-                            <i class="fa-solid fa-image mr-1"></i>AI Illustration
+                            <i class="fa-solid fa-image mr-1"></i>Illustration
                         </div>
                     </div>
 
@@ -171,15 +204,17 @@
                 </div>
             </section>
 
-            <!-- SECTION 1.5: VOCABULARY DAILY PRACTICE -->
             <section id="section-vocab" class="hidden space-y-4">
                 <!-- Mode select bar -->
                 <div class="flex bg-slate-100 rounded-xl p-1 shadow-inner">
-                    <button onclick="setVocabMode('flashcard')" id="vocab-mode-flashcard" class="flex-1 py-1.5 text-center text-xs font-bold rounded-lg transition bg-brand-600 text-white shadow-sm">
+                    <button onclick="setVocabMode('flashcard')" id="vocab-mode-flashcard" class="flex-1 py-1.5 text-center text-[11px] font-bold rounded-lg transition bg-brand-600 text-white shadow-sm">
                         <i class="fa-regular fa-clone mr-1"></i> Thẻ Ghi Nhớ
                     </button>
-                    <button onclick="setVocabMode('quiz')" id="vocab-mode-quiz" class="flex-1 py-1.5 text-center text-xs font-bold rounded-lg transition text-slate-500 hover:text-slate-800">
-                        <i class="fa-solid fa-circle-question mr-1"></i> Trắc Nghiệm Trí Nhớ
+                    <button onclick="setVocabMode('pronounce')" id="vocab-mode-pronounce" class="flex-1 py-1.5 text-center text-[11px] font-bold rounded-lg transition text-slate-500 hover:text-slate-800">
+                        <i class="fa-solid fa-microphone mr-1"></i> Luyện Phát Âm
+                    </button>
+                    <button onclick="setVocabMode('quiz')" id="vocab-mode-quiz" class="flex-1 py-1.5 text-center text-[11px] font-bold rounded-lg transition text-slate-500 hover:text-slate-800">
+                        <i class="fa-solid fa-circle-question mr-1"></i> Trắc Nghiệm
                     </button>
                 </div>
 
@@ -219,6 +254,42 @@
                     </div>
                 </div>
 
+                <!-- VOCABULARY PRONUNCIATION COACH SYSTEM -->
+                <div id="vocab-pronounce-box" class="hidden bg-white border border-slate-100 rounded-2xl p-5 shadow-sm min-h-[320px] flex flex-col justify-between">
+                    <div class="text-center">
+                        <span id="vocab-pronounce-index" class="text-[10px] bg-slate-100 text-slate-500 px-2.5 py-0.5 rounded-full font-extrabold">1 / 4</span>
+                    </div>
+
+                    <div class="text-center my-2 space-y-1.5">
+                        <span class="text-[10px] font-bold text-slate-400 block uppercase tracking-wider">MỤC TIÊU PHÁT ÂM CHUẨN</span>
+                        <h3 id="vocab-pronounce-word" class="text-3xl font-black text-slate-950 tracking-wide">Word</h3>
+                        <p id="vocab-pronounce-ipa" class="text-sm text-brand-600 font-bold">/ipa/</p>
+                        <p id="vocab-pronounce-vi" class="text-xs text-slate-500 italic">Dịch nghĩa</p>
+                    </div>
+
+                    <!-- Visual Guide and Assessment feedback -->
+                    <div class="bg-slate-50 border border-slate-100 rounded-2xl p-3.5 space-y-2 min-h-[100px] flex flex-col justify-center">
+                        <p id="pronounce-feedback-title" class="text-xs font-extrabold text-slate-400 uppercase tracking-wide">Hướng dẫn phát âm từ AI:</p>
+                        <p id="pronounce-feedback-content" class="text-xs text-slate-700 leading-relaxed">
+                            Nhấn nút Micro phía dưới, đọc to và rõ ràng từ vựng mẫu để bắt đầu quá trình kiểm tra.
+                        </p>
+                    </div>
+
+                    <!-- Controller buttons including the big mic -->
+                    <div class="flex items-center space-x-2 pt-2 border-t border-slate-100">
+                        <button onclick="speakVocabPronounceWord()" class="w-12 h-12 bg-brand-50 hover:bg-brand-100 text-brand-600 rounded-xl transition active:scale-90 flex items-center justify-center border border-brand-100" title="Nghe mẫu">
+                            <i class="fa-solid fa-volume-high text-lg"></i>
+                        </button>
+                        <button id="btn-vocab-pronounce-mic" onclick="startVocabPronounceChallenge()" class="flex-1 bg-brand-600 hover:bg-brand-700 text-white font-bold text-sm py-3.5 rounded-xl transition active:scale-95 shadow-md shadow-brand-500/20 flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-microphone"></i>
+                            <span id="btn-vocab-pronounce-text">Chạm & Đọc Phát Âm</span>
+                        </button>
+                        <button onclick="nextVocabPronounceCard()" class="w-12 h-12 bg-slate-900 hover:bg-slate-800 text-white rounded-xl transition active:scale-90 flex items-center justify-center" title="Từ tiếp theo">
+                            <i class="fa-solid fa-arrow-right text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+
                 <!-- TRẮC NGHIỆM TRÍ NHỚ SYSTEM -->
                 <div id="vocab-quiz-box" class="hidden bg-white border border-slate-100 rounded-2xl p-5 shadow-sm min-h-[320px] flex flex-col justify-between">
                     <div>
@@ -250,7 +321,7 @@
                 </div>
             </section>
 
-            <!-- SECTION 2: AI DIALOGUE CHAT -->
+            <!-- SECTION 3: AI DIALOGUE CHAT -->
             <section id="section-chat" class="hidden flex flex-col h-[calc(100vh-210px)] max-h-[500px]">
                 <!-- Chat Message Box -->
                 <div id="chat-conversation-container" class="flex-1 overflow-y-auto custom-scrollbar p-1 space-y-3 mb-4 select-text">
@@ -417,10 +488,10 @@
         </div>
 
         <!-- CUSTOM NOTIFICATION POPUP TOAST (Replacing window.alert) -->
-    <div id="custom-toast" class="fixed bottom-24 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs font-bold py-3 px-5 rounded-2xl shadow-xl z-50 flex items-center space-x-2 transition-all duration-300 opacity-0 pointer-events-none translate-y-2">
-        <span id="toast-icon" class="text-amber-400"><i class="fa-solid fa-circle-info"></i></span>
-        <span id="toast-message">Nội dung thông báo</span>
-    </div>
+        <div id="custom-toast" class="fixed bottom-24 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs font-bold py-3 px-5 rounded-2xl shadow-xl z-50 flex items-center space-x-2 transition-all duration-300 opacity-0 pointer-events-none translate-y-2">
+            <span id="toast-icon" class="text-amber-400"><i class="fa-solid fa-circle-info"></i></span>
+            <span id="toast-message">Nội dung thông báo</span>
+        </div>
 
     </div>
 
@@ -461,10 +532,15 @@
             lastActive: ""
         };
 
-        // Vocabulary Daily Practice Module State Variables
+        // Curriculum control variables
+        let currentCurriculumMode = "daily"; // "daily" or "smartstart"
+        let currentSmartStartGrade = "grade_1";
+        let currentSmartStartThemeKey = "theme_1";
+
+        // Vocabulary Practice Module State Variables
         let vocabPracticeIndex = 0;
         let vocabPracticeFlipped = false;
-        let vocabPracticeMode = "flashcard"; // "flashcard" or "quiz"
+        let vocabPracticeMode = "flashcard"; // "flashcard", "pronounce" or "quiz"
         let vocabQuizScore = 0;
         let vocabQuizCurrentIndex = 0;
         let quizOptionsSelected = false;
@@ -472,6 +548,7 @@
         // Initialize connection
         window.addEventListener('DOMContentLoaded', async () => {
             initSystem();
+            initSmartStartDropdowns();
         });
 
         async function initSystem() {
@@ -481,7 +558,7 @@
                     auth = firebase.auth();
                     db = firebase.firestore();
                     
-                    // Rule 3: Auth Before Queries
+                    // Auth Before Queries
                     if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
                         await auth.signInWithCustomToken(__initial_auth_token);
                     } else {
@@ -516,7 +593,7 @@
                 localState = JSON.parse(saved);
             }
             renderStudentInfo(localState);
-            loadDailyTaskBasedOnGrade(localState.grade);
+            loadActiveLesson();
         }
 
         function updateSyncBadge(online) {
@@ -533,12 +610,11 @@
         }
 
         // =========================================================================
-        // 2. CORE FIRESTORE ACCESS LOGIC (Rules 1, 2, 3 Compliant)
+        // 2. CORE FIRESTORE ACCESS LOGIC
         // =========================================================================
         async function syncStudentDataWithCloud() {
             if (!cloudConnected || !currentUser) return;
             
-            // Rule 1: Strict Paths
             const docRef = db.collection('artifacts').doc(APP_ID).collection('users').doc(currentUser.uid).collection('profile').doc('meta');
             
             try {
@@ -568,7 +644,7 @@
                 localStorage.setItem('english_reading_local_state', JSON.stringify(localState));
                 renderStudentInfo(localState);
                 checkDailyStreakValidation();
-                loadDailyTaskBasedOnGrade(localState.grade);
+                loadActiveLesson();
                 
             } catch (error) {
                 console.error("Firestore sync error:", error);
@@ -607,7 +683,7 @@
         }
 
         // =========================================================================
-        // 3. DAILY READING TASKS DATABASE
+        // 3. DAILY READING TASKS DATABASE & i-LEARN SMART START CURRICULUM
         // =========================================================================
         const readingDatabase = {
             cap_1: {
@@ -615,10 +691,10 @@
                 image: "https://images.unsplash.com/photo-1526406915894-7bcd65f60845?w=600&auto=format&fit=crop&q=80",
                 content: "Today, the weather is very beautiful. My family goes to the park for a picnic. We bring apples, bread, and milk. My dog Max is running happily on the green grass.",
                 vocab: [
-                    { word: "Beautiful", type: "adj", ipa: "/ˈbjuːtɪfl/", vi: "Đẹp, rực rỡ", desc: "Very pleasing to see or hear." },
-                    { word: "Picnic", type: "noun", ipa: "/ˈpɪknɪk/", vi: "Dã ngoại", desc: "A meal eaten outdoors." },
-                    { word: "Happily", type: "adv", ipa: "/ˈhæpɪli/", vi: "Một cách vui vẻ", desc: "In a happy and joyful way." },
-                    { word: "Grass", type: "noun", ipa: "/ɡrɑːs/", vi: "Bãi cỏ", desc: "Green plants with narrow leaves." }
+                    { word: "Beautiful", type: "adj", ipa: "/ˈbjuːtɪfl/", vi: "Đẹp, rực rỡ", desc: "Very pleasing to see or hear.", guide: "Chú ý nhấn mạnh vào âm tiết đầu tiên 'BEAU' /ˈbjuː/ và lướt nhanh âm cuối 'ful'." },
+                    { word: "Picnic", type: "noun", ipa: "/ˈpɪknɪk/", vi: "Dã ngoại", desc: "A meal eaten outdoors.", guide: "Chú ý bật âm /k/ thật rõ ở cuối từ 'pic-niK' để âm phát ra nghe tự nhiên và chuẩn xác." },
+                    { word: "Happily", type: "adv", ipa: "/ˈhæpɪli/", vi: "Một cách vui vẻ", desc: "In a happy and joyful way.", guide: "Phát âm rõ âm /h/ ở đầu, nhấn mạnh vào âm tiết đầu tiên 'HAP-pi-ly'." },
+                    { word: "Grass", type: "noun", ipa: "/ɡrɑːs/", vi: "Bãi cỏ", desc: "Green plants with narrow leaves.", guide: "Rất quan trọng! Bạn cần phát âm kéo dài âm đuôi gió /s/ ở cuối từ 'grasS'." }
                 ]
             },
             cap_2: {
@@ -626,10 +702,10 @@
                 image: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600&auto=format&fit=crop&q=80",
                 content: "Reading books is an excellent way to gain knowledge and improve your English vocabulary. When you open a book daily, your imagination grows and you discover incredible things about science and human history.",
                 vocab: [
-                    { word: "Excellent", type: "adj", ipa: "/ˈeksələnt/", vi: "Xuất sắc, tuyệt vời", desc: "Extremely good or outstanding." },
-                    { word: "Vocabulary", type: "noun", ipa: "/vəˈkæbjuləri/", vi: "Vốn từ vựng", desc: "All the words known by a person." },
-                    { word: "Imagination", type: "noun", ipa: "/ɪˌmædʒɪˈneɪʃn/", vi: "Trí tưởng tượng", desc: "The ability to form mental pictures." },
-                    { word: "Discover", type: "verb", ipa: "/dɪˈskʌvə(r)//", vi: "Khám phá, phát hiện", desc: "To find something for the first time." }
+                    { word: "Excellent", type: "adj", ipa: "/ˈeksələnt/", vi: "Xuất sắc, tuyệt vời", desc: "Extremely good or outstanding.", guide: "Chú ý phát âm rõ tổ hợp âm /ks/ ở giữa 'eK-Sə-lənt' và âm bật hơi nhẹ /t/ ở cuối từ." },
+                    { word: "Vocabulary", type: "noun", ipa: "/vəˈkæbjuləri/", vi: "Vốn từ vựng", desc: "All the words known by a person.", guide: "Từ này khá dài, hãy chia thành các âm tiết 'vo-CAB-u-lar-y' và nhấn trọng âm mạnh vào âm 'CAB'." },
+                    { word: "Imagination", type: "noun", ipa: "/ɪˌmædʒɪˈneɪʃn/", vi: "Trí tưởng tượng", desc: "The ability to form mental pictures.", guide: "Nhấn mạnh trọng âm chính vào âm tiết 'NA' (i-ma-gi-NA-tion) và đọc âm /ʃn/ ở đuôi 'tion'." },
+                    { word: "Discover", type: "verb", ipa: "/dɪˈskʌvə(r)/", vi: "Khám phá, phát hiện", desc: "To find something for the first time.", guide: "Nhấn mạnh vào âm tiết thứ hai 'dis-COV-er' và hơi uốn lưỡi nhẹ âm /r/ ở cuối." }
                 ]
             },
             cap_3: {
@@ -637,24 +713,121 @@
                 image: "https://images.unsplash.com/photo-1677442136019-21780efad99a?w=600&auto=format&fit=crop&q=80",
                 content: "Artificial Intelligence is transforming our modern society in profound ways. From healthcare diagnostics to autonomous vehicles, complex algorithms analyze vast amounts of data to assist human activities, raising ethical questions about future employment.",
                 vocab: [
-                    { word: "Transforming", type: "verb/adj", ipa: "/trænsˈfɔːmɪŋ/", vi: "Biến đổi sâu sắc", desc: "Changing completely in form or look." },
-                    { word: "Diagnostics", type: "noun", ipa: "/ˌdaɪəɡˈnɒstɪks/", vi: "Chẩn đoán bệnh học", desc: "Methods used to identify diseases." },
-                    { word: "Autonomous", type: "adj", ipa: "/ɔːˈtɒnəməs/", vi: "Tự chủ, tự động lái", desc: "Independent and having self-government." },
-                    { word: "Algorithms", type: "noun", ipa: "/ˈælɡərɪðəmz/", vi: "Thuật toán", desc: "Step-by-step rules for calculations." }
+                    { word: "Transforming", type: "verb/adj", ipa: "/trænsˈfɔːmɪŋ/", vi: "Biến đổi sâu sắc", desc: "Changing completely in form or look.", guide: "Phát âm rõ âm gió /s/ ở giữa từ 'tranS-forming' và kết thúc bằng âm mũi 'ng'." },
+                    { word: "Diagnostics", type: "noun", ipa: "/ˌdaɪəɡˈnɒstɪks/", vi: "Chẩn đoán bệnh học", desc: "Methods used to identify diseases.", guide: "Chú ý nhấn trọng âm rơi vào âm tiết 'NOS' (di-ag-NOS-tics) và xì nhẹ âm /s/ ở cuối." },
+                    { word: "Autonomous", type: "adj", ipa: "/ɔːˈtɒnəməs/", vi: "Tự chủ, tự động lái", desc: "Independent and having self-government.", guide: "Nhấn trọng âm vào âm tiết thứ hai 'au-TON-o-mous' và kết thúc bằng âm gió /s/ kéo nhẹ." },
+                    { word: "Algorithms", type: "noun", ipa: "/ˈælɡərɪðəmz/", vi: "Thuật toán", desc: "Step-by-step rules for calculations.", guide: "Chú ý phát âm âm 'th' /ð/ bằng cách đặt đầu lưỡi giữa hai hàm răng và kết thúc với âm rung /z/ của đuôi 's'." }
                 ]
+            }
+        };
+
+        const smartStartDatabase = {
+            grade_1: {
+                theme_1: {
+                    themeName: "Theme 1: Hello!",
+                    title: "Greeting my teacher and friends",
+                    image: "https://images.unsplash.com/photo-1577896851231-70ef18881754?w=600&auto=format&fit=crop&q=80",
+                    content: "Hello! My name is Bill. This is my teacher, Miss Hoa. Stand up, please. Sit down, please. Let's sing a song together and say goodbye!",
+                    vocab: [
+                        { word: "Hello", type: "interj", ipa: "/həˈləʊ/", vi: "Xin chào", desc: "Used as a greeting.", guide: "Chú ý kéo nhẹ âm /oʊ/ ở cuối: 'Hơ-lầu'." },
+                        { word: "Teacher", type: "noun", ipa: "/ˈtiːtʃə(r)/", vi: "Giáo viên", desc: "A person who teaches.", guide: "Nhấn mạnh trọng âm ở 'TEA' và phát âm âm ch /tʃ/ thật chuẩn xác." },
+                        { word: "Goodbye", type: "interj", ipa: "/ˌɡʊdˈbaɪ/", vi: "Tạm biệt", desc: "Used to express good wishes when parting.", guide: "Đọc dứt khoát hai âm: 'Gút-bai'." }
+                    ]
+                },
+                theme_2: {
+                    themeName: "Theme 2: My School",
+                    title: "My school bag and classroom",
+                    image: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600&auto=format&fit=crop&q=80",
+                    content: "This is my classroom. I have a big school bag. Look! This is my pencil. This is my book. I love my clean school.",
+                    vocab: [
+                        { word: "Classroom", type: "noun", ipa: "/ˈklɑːsruːm/", vi: "Lớp học", desc: "A room where a class of students is taught.", guide: "Nhấn mạnh âm 'CLASS' /ˈklɑːs/ và bật nhẹ âm đuôi /m/." },
+                        { word: "Pencil", type: "noun", ipa: "/ˈpensl/", vi: "Bút chì", desc: "An instrument for writing or drawing.", guide: "Đọc rõ âm tiết đầu 'PEN' và lướt nhanh âm cuối 'sil'." },
+                        { word: "Book", type: "noun", ipa: "/bʊk/", vi: "Quyển sách", desc: "A written or printed work.", guide: "Chú ý phát âm bật hơi /k/ thật rõ ở cuối từ." }
+                    ]
+                }
+            },
+            grade_2: {
+                theme_1: {
+                    themeName: "Theme 1: Shapes & Colors",
+                    title: "My beautiful colorful shapes",
+                    image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&auto=format&fit=crop&q=80",
+                    content: "Look at my drawing! It is a red circle. This is a blue square. I also have a green triangle. Let's color the nice shapes together.",
+                    vocab: [
+                        { word: "Circle", type: "noun", ipa: "/ˈsɜːkl/", vi: "Hình tròn", desc: "A round plane figure.", guide: "Đọc âm đầu 'cir' uốn lưỡi nhẹ và kết thúc bằng âm 'kl'." },
+                        { word: "Square", type: "noun", ipa: "/skweə(r)/", vi: "Hình vuông", desc: "A plane figure with four equal straight sides.", guide: "Chú ý phát âm âm gió /skw/ ở đầu thật gọn gàng." },
+                        { word: "Triangle", type: "noun", ipa: "/ˈtraɪæŋɡl/", vi: "Hình tam giác", desc: "A plane figure with three straight sides.", guide: "Phát âm chia rõ các âm 'TRY-an-gồ' và nhấn mạnh âm đầu." }
+                    ]
+                },
+                theme_2: {
+                    themeName: "Theme 2: My Toys",
+                    title: "Playing with toys in my room",
+                    image: "https://images.unsplash.com/photo-1531346878377-a5be20888e57?w=600&auto=format&fit=crop&q=80",
+                    content: "I have many beautiful toys. This is my new doll. That is my fast car. I love my blue kite. Let's play with our toys!",
+                    vocab: [
+                        { word: "Doll", type: "noun", ipa: "/dɒl/", vi: "Búp bê", desc: "A toy model of a person.", guide: "Uốn đầu lưỡi chạm hàm răng trên ở cuối từ để phát ra âm /l/ chuẩn." },
+                        { word: "Kite", type: "noun", ipa: "/kaɪt/", vi: "Con diều", desc: "A toy that flies in the wind.", guide: "Chú ý bật âm gió hơi /t/ thật rõ ở cuối từ." }
+                    ]
+                }
+            },
+            grade_3: {
+                theme_1: {
+                    themeName: "Theme 1: My Family",
+                    title: "A weekend with my happy family",
+                    image: "https://images.unsplash.com/photo-1506869640319-fe1a24fd76dc?w=600&auto=format&fit=crop&q=80",
+                    content: "I love my happy family. This is my father. He is very tall. This is my mother. She is beautiful. I have a baby brother. We play together on Sunday.",
+                    vocab: [
+                        { word: "Father", type: "noun", ipa: "/ˈfɑːðə(r)/", vi: "Bố, cha", desc: "A male parent.", guide: "Chú ý âm 'th' /ð/ đặt đầu lưỡi giữa hai hàm răng và hơi rung." },
+                        { word: "Mother", type: "noun", ipa: "/ˈmʌðə(r)/", vi: "Mẹ", desc: "A female parent.", guide: "Đọc âm 'th' nhẹ nhàng, đặt lưỡi giữa hai răng." },
+                        { word: "Beautiful", type: "adj", ipa: "/ˈbjuːtɪfl/", vi: "Xinh đẹp", desc: "Very pleasing to see.", guide: "Trọng âm chính rơi vào âm thứ nhất 'BEAU'." }
+                    ]
+                }
+            },
+            grade_4: {
+                theme_1: {
+                    themeName: "Theme 1: At the Weather Station",
+                    title: "Checking today's weather report",
+                    image: "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=600&auto=format&fit=crop&q=80",
+                    content: "What is the weather like today? It is sunny and hot in Ho Chi Minh City. In Hanoi, it is cloudy and rainy. Don't forget your umbrella before going outside!",
+                    vocab: [
+                        { word: "Weather", type: "noun", ipa: "/ˈweðə(r)/", vi: "Thời tiết", desc: "The state of the atmosphere.", guide: "Đọc rõ âm đầu 'WE', uốn lưỡi nhẹ âm cuối." },
+                        { word: "Umbrella", type: "noun", ipa: "/ʌmˈbrelə/", vi: "Cây dù, ô", desc: "A device used for protection against rain.", guide: "Nhấn mạnh trọng âm ở âm tiết thứ hai 'BREL'." }
+                    ]
+                }
+            },
+            grade_5: {
+                theme_1: {
+                    themeName: "Theme 1: My Future Dream Job",
+                    title: "What do you want to be?",
+                    image: "https://images.unsplash.com/photo-1521791136368-1a46827d0a36?w=600&auto=format&fit=crop&q=80",
+                    content: "What do you want to be in the future? I want to be an astronaut. I want to fly into outer space and discover incredible planets. What about you?",
+                    vocab: [
+                        { word: "Astronaut", type: "noun", ipa: "/ˈæstrənɔːt/", vi: "Phi hành gia", desc: "A person trained to travel in a spacecraft.", guide: "Đọc rõ ba âm 'AS-tro-not' và nhấn trọng âm đầu tiên." },
+                        { word: "Future", type: "noun/adj", ipa: "/ˈfjuːtʃə(r)/", vi: "Tương lai", desc: "The time yet to come.", guide: "Nhấn mạnh âm 'FU' /ˈfjuː/ và đọc nhẹ âm 'ture'." }
+                    ]
+                }
             }
         };
 
         let currentActiveTask = readingDatabase.cap_1;
 
-        function loadDailyTaskBasedOnGrade(grade) {
-            currentActiveTask = readingDatabase[grade] || readingDatabase.cap_1;
-            
+        function loadActiveLesson() {
+            if (currentCurriculumMode === "daily") {
+                currentActiveTask = readingDatabase[localState.grade] || readingDatabase.cap_1;
+                document.getElementById("reading-badge-tag").innerText = "Hàng Ngày";
+                document.getElementById("reading-meta-subtitle").innerText = "Nhiệm vụ học tập ngẫu nhiên";
+            } else {
+                const gradeSet = smartStartDatabase[currentSmartStartGrade] || smartStartDatabase.grade_1;
+                currentActiveTask = gradeSet[currentSmartStartThemeKey] || gradeSet.theme_1;
+                
+                document.getElementById("reading-badge-tag").innerText = "Smart Start";
+                document.getElementById("reading-meta-subtitle").innerText = `${currentActiveTask.themeName}`;
+            }
+
             document.getElementById("reading-title").innerText = currentActiveTask.title;
             document.getElementById("reading-content").innerText = currentActiveTask.content;
             document.getElementById("reading-illustration").src = currentActiveTask.image;
 
-            // Load Vocabularies in Reading List
+            // Load Vocabularies
             const container = document.getElementById("vocabulary-container");
             container.innerHTML = "";
             currentActiveTask.vocab.forEach(item => {
@@ -671,32 +844,79 @@
                     </div>
                     <div class="text-right">
                         <p class="text-xs font-bold text-brand-600">${item.vi}</p>
-                        <span class="text-[9px] text-slate-400">Nhấp để xem định nghĩa <i class="fa-solid fa-chevron-right text-[8px] ml-0.5"></i></span>
+                        <span class="text-[9px] text-slate-400">Nhấp xem chi tiết <i class="fa-solid fa-chevron-right text-[8px] ml-0.5"></i></span>
                     </div>
                 `;
                 container.appendChild(vocabCard);
             });
 
-            // Reset vocabulary training state when task changes
+            // Reset vocabulary training state
             vocabPracticeIndex = 0;
             vocabPracticeFlipped = false;
             vocabQuizScore = 0;
             vocabQuizCurrentIndex = 0;
             quizOptionsSelected = false;
             renderFlashcardData();
+            renderPronounceData();
             renderQuizQuestionData();
         }
 
-        // Handle double-click word selection for rapid lookup
-        document.addEventListener("dblclick", (e) => {
-            const selectedText = window.getSelection().toString().trim();
-            // Standardizing selected text
-            const sanitizedText = selectedText.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g,"");
-            if (sanitizedText.length > 0 && sanitizedText.length < 25) {
-                document.getElementById("dict-quick-input").value = sanitizedText;
-                triggerDictionarySearch(sanitizedText);
+        // Initialize i-Learn Smart Start Grade Theme Options
+        function initSmartStartDropdowns() {
+            const gradeSelect = document.getElementById("smartstart-grade-select");
+            const selectedGradeValue = gradeSelect.value;
+            currentSmartStartGrade = selectedGradeValue;
+
+            const themeSelect = document.getElementById("smartstart-theme-select");
+            themeSelect.innerHTML = "";
+
+            const gradeThemes = smartStartDatabase[selectedGradeValue] || {};
+            Object.keys(gradeThemes).forEach(themeKey => {
+                const opt = document.createElement("option");
+                opt.value = themeKey;
+                opt.innerText = gradeThemes[themeKey].themeName;
+                themeSelect.appendChild(opt);
+            });
+
+            if (Object.keys(gradeThemes).length > 0) {
+                currentSmartStartThemeKey = Object.keys(gradeThemes)[0];
             }
-        });
+        }
+
+        function loadSmartStartLesson() {
+            const gradeSelect = document.getElementById("smartstart-grade-select");
+            const themeSelect = document.getElementById("smartstart-theme-select");
+            
+            if (currentSmartStartGrade !== gradeSelect.value) {
+                currentSmartStartGrade = gradeSelect.value;
+                initSmartStartDropdowns();
+            } else {
+                currentSmartStartThemeKey = themeSelect.value;
+            }
+
+            loadActiveLesson();
+            showToast("Đã cập nhật bài học i-Learn Smart Start!");
+        }
+
+        function switchCurriculumMode(mode) {
+            currentCurriculumMode = mode;
+            const btnDaily = document.getElementById("mode-btn-daily");
+            const btnSmartStart = document.getElementById("mode-btn-smartstart");
+            const smartStartSelectors = document.getElementById("smartstart-sub-selectors");
+
+            if (mode === "daily") {
+                btnDaily.className = "py-2 px-3 text-xs font-black rounded-xl border transition-all text-center bg-blue-600 text-white border-blue-600 shadow-sm";
+                btnSmartStart.className = "py-2 px-3 text-xs font-black rounded-xl border transition-all text-center bg-white text-slate-600 border-slate-200";
+                smartStartSelectors.classList.add("hidden");
+            } else {
+                btnSmartStart.className = "py-2 px-3 text-xs font-black rounded-xl border transition-all text-center bg-blue-600 text-white border-blue-600 shadow-sm";
+                btnDaily.className = "py-2 px-3 text-xs font-black rounded-xl border transition-all text-center bg-white text-slate-600 border-slate-200";
+                smartStartSelectors.classList.remove("hidden");
+                initSmartStartDropdowns();
+            }
+
+            loadActiveLesson();
+        }
 
         // =========================================================================
         // 4. DAILY STREAK MISSION ALGORITHM
@@ -714,31 +934,79 @@
 
         function changeGrade(newGrade) {
             updateProfileField("grade", newGrade);
-            loadDailyTaskBasedOnGrade(newGrade);
+            if (currentCurriculumMode === "daily") {
+                loadActiveLesson();
+            }
             showToast(`Đã chuyển sang cấp: ${newGrade === 'cap_1' ? 'Cấp 1' : newGrade === 'cap_2' ? 'Cấp 2' : 'Cấp 3'}`);
         }
 
+        function checkDailyStreakValidation() {
+            if (!localState.lastActive) return;
+
+            const today = new Date().toDateString();
+            const lastActiveDate = new Date(localState.lastActive);
+            const todayDate = new Date(today);
+
+            const differenceInTime = todayDate.getTime() - lastActiveDate.getTime();
+            const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24));
+
+            if (differenceInDays > 1) {
+                updateProfileField("streak", 0);
+                showToast("Chuỗi ngày luyện đọc của bạn đã bị reset do bỏ lỡ thử thách ngày hôm qua!", "fa-solid fa-triangle-exclamation");
+            }
+        }
+
+        function triggerStreakSuccess() {
+            const today = new Date().toDateString();
+            if (localState.lastActive === today) {
+                showToast("Bạn đã hoàn thành thử thách hôm nay! Quay lại luyện tiếp ngày mai nhé!");
+                return;
+            }
+
+            const nextStreak = localState.streak + 1;
+            updateProfileMulti({
+                streak: nextStreak,
+                lastActive: today
+            });
+
+            showToast(`🔥 Chuỗi ${nextStreak} ngày học liên tục! Bạn giỏi lắm!`, "fa-solid fa-circle-check");
+        }
+
         // =========================================================================
-        // 4.5. INTERACTIVE VOCABULARY PRACTICE MODULE IMPLEMENTATION
+        // 5. INTERACTIVE VOCABULARY PRACTICE MODULE IMPLEMENTATION
         // =========================================================================
         function setVocabMode(mode) {
             vocabPracticeMode = mode;
             const btnFlashcard = document.getElementById("vocab-mode-flashcard");
+            const btnPronounce = document.getElementById("vocab-mode-pronounce");
             const btnQuiz = document.getElementById("vocab-mode-quiz");
+            
             const boxFlashcard = document.getElementById("vocab-flashcard-box");
+            const boxPronounce = document.getElementById("vocab-pronounce-box");
             const boxQuiz = document.getElementById("vocab-quiz-box");
 
+            const inactiveTabCls = "flex-1 py-1.5 text-center text-[11px] font-bold rounded-lg transition text-slate-500 hover:text-slate-800";
+            const activeTabCls = "flex-1 py-1.5 text-center text-[11px] font-bold rounded-lg transition bg-brand-600 text-white shadow-sm";
+
+            btnFlashcard.className = inactiveTabCls;
+            btnPronounce.className = inactiveTabCls;
+            btnQuiz.className = inactiveTabCls;
+
+            boxFlashcard.classList.add("hidden");
+            boxPronounce.classList.add("hidden");
+            boxQuiz.classList.add("hidden");
+
             if (mode === "flashcard") {
-                btnFlashcard.className = "flex-1 py-1.5 text-center text-xs font-bold rounded-lg transition bg-brand-600 text-white shadow-sm";
-                btnQuiz.className = "flex-1 py-1.5 text-center text-xs font-bold rounded-lg transition text-slate-500 hover:text-slate-800";
+                btnFlashcard.className = activeTabCls;
                 boxFlashcard.classList.remove("hidden");
-                boxQuiz.classList.add("hidden");
                 renderFlashcardData();
+            } else if (mode === "pronounce") {
+                btnPronounce.className = activeTabCls;
+                boxPronounce.classList.remove("hidden");
+                renderPronounceData();
             } else {
-                btnQuiz.className = "flex-1 py-1.5 text-center text-xs font-bold rounded-lg transition bg-brand-600 text-white shadow-sm";
-                btnFlashcard.className = "flex-1 py-1.5 text-center text-xs font-bold rounded-lg transition text-slate-500 hover:text-slate-800";
+                btnQuiz.className = activeTabCls;
                 boxQuiz.classList.remove("hidden");
-                boxFlashcard.classList.add("hidden");
                 renderQuizQuestionData();
             }
         }
@@ -786,6 +1054,74 @@
             speakTextUS(word);
         }
 
+        // PRONUNCIATION COACH SYSTEM
+        function renderPronounceData() {
+            if (!currentActiveTask.vocab || currentActiveTask.vocab.length === 0) return;
+            const item = currentActiveTask.vocab[vocabPracticeIndex];
+
+            document.getElementById("vocab-pronounce-index").innerText = `${vocabPracticeIndex + 1} / ${currentActiveTask.vocab.length}`;
+            document.getElementById("vocab-pronounce-word").innerText = item.word;
+            document.getElementById("vocab-pronounce-ipa").innerText = item.ipa;
+            document.getElementById("vocab-pronounce-vi").innerText = item.vi;
+
+            document.getElementById("pronounce-feedback-title").innerText = "Hướng dẫn phát âm từ AI:";
+            document.getElementById("pronounce-feedback-title").className = "text-xs font-extrabold text-slate-400 uppercase tracking-wide";
+            document.getElementById("pronounce-feedback-content").innerText = item.guide || "Hãy nhấp nút Micro rồi đọc to rõ ràng từ vựng này.";
+        }
+
+        function speakVocabPronounceWord() {
+            if (!currentActiveTask.vocab || currentActiveTask.vocab.length === 0) return;
+            const word = currentActiveTask.vocab[vocabPracticeIndex].word;
+            speakTextUS(word);
+        }
+
+        function nextVocabPronounceCard() {
+            vocabPracticeIndex = (vocabPracticeIndex + 1) % currentActiveTask.vocab.length;
+            renderPronounceData();
+        }
+
+        function startVocabPronounceChallenge() {
+            if (!speechRecognizer) {
+                showToast("Trình duyệt không hỗ trợ micro thu giọng!");
+                return;
+            }
+            currentTargetSpeechSection = "vocab-pronounce";
+            speechRecognizer.start();
+        }
+
+        function handleVocabPronounceResult(spokenText) {
+            if (!currentActiveTask.vocab || currentActiveTask.vocab.length === 0) return;
+            const currentItem = currentActiveTask.vocab[vocabPracticeIndex];
+            const targetWord = currentItem.word;
+
+            const cleanSpoken = spokenText.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g,"");
+            const cleanTarget = targetWord.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g,"");
+
+            const feedbackTitleEl = document.getElementById("pronounce-feedback-title");
+            const feedbackContentEl = document.getElementById("pronounce-feedback-content");
+
+            if (cleanSpoken === cleanTarget) {
+                feedbackTitleEl.innerText = "CHÍNH XÁC! (Độ tương thích 100%)";
+                feedbackTitleEl.className = "text-xs font-extrabold text-emerald-600 uppercase tracking-wide";
+                feedbackContentEl.innerHTML = `Chúc mừng con! Phát âm từ <span class="font-extrabold text-brand-600">"${targetWord}"</span> rất xuất sắc và tròn âm.`;
+                
+                speakTextUS("Excellent, beautiful pronunciation!");
+                showToast("Tuyệt vời! Phát âm chuẩn xác.", "fa-solid fa-circle-check text-emerald-500");
+            } else if (cleanTarget.includes(cleanSpoken) && cleanSpoken.length > 2) {
+                feedbackTitleEl.innerText = "GẦN ĐÚNG RỒI! (Hãy hoàn thiện hơn)";
+                feedbackTitleEl.className = "text-xs font-extrabold text-amber-500 uppercase tracking-wide";
+                feedbackContentEl.innerHTML = `Con đọc nghe giống <span class="font-extrabold text-red-500">"${spokenText}"</span>. Hướng dẫn sửa: <span class="text-slate-800 font-medium">${currentItem.guide || "Chú ý phát âm rõ và chuẩn xác hơn."}</span>`;
+                
+                speakTextUS(`Almost right. You said ${spokenText}. Try again.`);
+            } else {
+                feedbackTitleEl.innerText = "CHƯA KHỚP ÂM PHÁT!";
+                feedbackTitleEl.className = "text-xs font-extrabold text-rose-500 uppercase tracking-wide";
+                feedbackContentEl.innerHTML = `AI ghi nhận âm: <span class="font-extrabold text-rose-600">"${spokenText || 'Chưa rõ từ'}"</span>. Hướng dẫn sửa: <span class="text-slate-800 font-medium">${currentItem.guide || "Thử nghe máy phát mẫu rồi nhại lại."}</span>`;
+                
+                speakTextUS("Try again. Listen to the native sound.");
+            }
+        }
+
         // VOCABULARY TRẮC NGHIỆM QUIZ SYSTEM
         function renderQuizQuestionData() {
             if (!currentActiveTask.vocab || currentActiveTask.vocab.length === 0) return;
@@ -797,7 +1133,6 @@
             document.getElementById("vocab-quiz-question-word").innerText = currentItem.word;
             document.getElementById("vocab-quiz-question-ipa").innerText = currentItem.ipa;
 
-            // Generate answer choices
             quizOptionsSelected = false;
             document.getElementById("vocab-quiz-action-bar").classList.add("hidden");
 
@@ -810,15 +1145,12 @@
                 .map(v => v.vi)
                 .filter(vi => vi !== correctTranslation);
             
-            // Pick 3 unique distractors
             const uniqueDistractors = [...new Set(filteredViOptions)];
             const chosenDistractors = uniqueDistractors.sort(() => 0.5 - Math.random()).slice(0, 3);
             
             options = [...options, ...chosenDistractors];
-            // Shuffle
             options.sort(() => 0.5 - Math.random());
 
-            // Render buttons
             const optionsContainer = document.getElementById("vocab-quiz-options");
             optionsContainer.innerHTML = "";
             options.forEach(opt => {
@@ -831,7 +1163,7 @@
         }
 
         function checkQuizAnswer(selectedOption, buttonElement, correctValue) {
-            if (quizOptionsSelected) return; // Disallow double click answers
+            if (quizOptionsSelected) return;
             quizOptionsSelected = true;
 
             const buttons = document.getElementById("vocab-quiz-options").children;
@@ -867,17 +1199,16 @@
                 vocabQuizCurrentIndex++;
                 renderQuizQuestionData();
             } else {
-                // Done with all words for today
                 triggerStreakSuccess();
                 showCustomDialog("Hoàn Thành Thử Thách Từ Vựng!", `
                     <div class="text-center">
                         <div class="w-16 h-16 bg-brand-100 text-brand-600 rounded-full flex items-center justify-center mx-auto mb-3 animate-bounce">
                             <i class="fa-solid fa-award text-2xl"></i>
                         </div>
-                        <h4 class="text-lg font-bold text-slate-900 mb-1">Thử thách từ vựng kết thúc</h4>
-                        <p class="text-xs text-slate-500 mb-4">Bạn đạt được thành tích xuất sắc:</p>
+                        <h4 class="text-lg font-bold text-slate-900 mb-1">Thử thách kết thúc</h4>
+                        <p class="text-xs text-slate-500 mb-4">Con vừa đạt được thành tích học bổng:</p>
                         <span class="text-3xl font-black text-brand-600 bg-brand-50 px-4 py-2 rounded-2xl border border-brand-100">${vocabQuizScore} XP</span>
-                        <p class="text-xs text-slate-400 mt-4">Điểm số và Streak ngày học của bạn đã được lưu tự động trên cơ sở dữ liệu!</p>
+                        <p class="text-xs text-slate-400 mt-4">Điểm số và Streak của con đã được đồng bộ hóa trên Cloud Realtime.</p>
                     </div>
                 `);
                 vocabQuizCurrentIndex = 0;
@@ -886,7 +1217,7 @@
         }
 
         // =========================================================================
-        // 5. ENGLISH DICTIONARY API SEARCH
+        // 6. ENGLISH DICTIONARY API SEARCH
         // =========================================================================
         let dictionaryAudioUrl = "";
 
@@ -901,7 +1232,6 @@
         }
 
         async function triggerDictionarySearch(word) {
-            // Setup Sheet UI
             document.getElementById("dict-result-word").innerText = word;
             document.getElementById("dict-result-phonetic").innerText = "🔄 Đang tìm...";
             document.getElementById("dict-result-vi").innerText = "Đang tra nghĩa Việt...";
@@ -910,14 +1240,12 @@
             openDictSheet();
 
             try {
-                // Direct call to international dictionary api
                 const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
                 if (!res.ok) throw new Error("Word not found");
                 
                 const data = await res.json();
                 const dictEntry = data[0];
 
-                // Render Phonetic & Definition
                 const phoneticText = dictEntry.phonetic || (dictEntry.phonetics && dictEntry.phonetics.find(p => p.text)?.text) || "/.../";
                 document.getElementById("dict-result-phonetic").innerText = phoneticText;
 
@@ -927,7 +1255,6 @@
                 const firstAudioObj = dictEntry.phonetics.find(p => p.audio && p.audio !== "");
                 dictionaryAudioUrl = firstAudioObj ? firstAudioObj.audio : "";
 
-                // Translate definition or word into Vietnamese
                 const translateRes = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(word)}&langpair=en|vi`);
                 if (translateRes.ok) {
                     const transData = await translateRes.json();
@@ -937,7 +1264,6 @@
                 }
 
             } catch (err) {
-                // Graceful failure
                 document.getElementById("dict-result-phonetic").innerText = "/Not Found/";
                 document.getElementById("dict-result-vi").innerText = "Không tìm thấy từ này trong cơ sở từ điển.";
                 document.getElementById("dict-result-en").innerText = "Bạn có thể kiểm tra lại chính tả hoặc tìm từ khác.";
@@ -964,7 +1290,7 @@
             document.getElementById("dict-result-phonetic").innerText = item.ipa;
             document.getElementById("dict-result-vi").innerText = item.vi;
             document.getElementById("dict-result-en").innerText = item.desc;
-            dictionaryAudioUrl = ""; // Standardize via speech synthesis
+            dictionaryAudioUrl = "";
             openDictSheet();
         }
 
@@ -972,12 +1298,11 @@
             const word = document.getElementById("dict-result-word").innerText;
             const vi = document.getElementById("dict-result-vi").innerText;
             
-            // Format to copy
             const tempInput = document.createElement("textarea");
             tempInput.value = `${word} - ${vi}`;
             document.body.appendChild(tempInput);
             tempInput.select();
-            document.execCommand("copy"); // ExecCommand prioritized due to iframe rules
+            document.execCommand("copy");
             document.body.removeChild(tempInput);
             
             showToast("Đã sao chép từ vựng thành công!", "fa-solid fa-copy");
@@ -994,12 +1319,10 @@
         }
 
         // =========================================================================
-        // 6. SPEECH RECOGNITION & SPEECH SYNTHESIS ENGINE
+        // 7. SPEECH RECOGNITION & SPEECH SYNTHESIS ENGINE
         // =========================================================================
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        let speechRecognizer = null;
         let isOralListening = false;
-        let currentTargetSpeechSection = "reading"; // "reading" or "chat"
+        let currentTargetSpeechSection = "reading"; // "reading", "chat" or "vocab-pronounce"
 
         if (SpeechRecognition) {
             speechRecognizer = new SpeechRecognition();
@@ -1011,6 +1334,9 @@
                 isOralListening = true;
                 if (currentTargetSpeechSection === "reading") {
                     showToast("🎙️ Đang nghe... Hãy đọc to đoạn văn!", "fa-solid fa-microphone-lines animate-pulse text-red-500");
+                } else if (currentTargetSpeechSection === "vocab-pronounce") {
+                    document.getElementById("btn-vocab-pronounce-text").innerText = "Đang lắng nghe âm...";
+                    document.getElementById("btn-vocab-pronounce-mic").className = "flex-1 bg-red-600 hover:bg-red-700 text-white font-bold text-sm py-3.5 rounded-xl transition active:scale-95 shadow-md animate-pulse flex items-center justify-center space-x-2";
                 } else {
                     document.getElementById("voice-wave-indicator").classList.remove("hidden");
                 }
@@ -1019,12 +1345,19 @@
             speechRecognizer.onend = () => {
                 isOralListening = false;
                 document.getElementById("voice-wave-indicator").classList.add("hidden");
+                
+                const btnPronounceText = document.getElementById("btn-vocab-pronounce-text");
+                const btnPronounceMic = document.getElementById("btn-vocab-pronounce-mic");
+                if (btnPronounceText) btnPronounceText.innerText = "Chạm & Đọc Phát Âm";
+                if (btnPronounceMic) btnPronounceMic.className = "flex-1 bg-brand-600 hover:bg-brand-700 text-white font-bold text-sm py-3.5 rounded-xl transition active:scale-95 shadow-md shadow-brand-500/20 flex items-center justify-center space-x-2";
             };
 
             speechRecognizer.onresult = (e) => {
                 const resultText = e.results[0][0].transcript;
                 if (currentTargetSpeechSection === "reading") {
                     handleOralReadingResult(resultText);
+                } else if (currentTargetSpeechSection === "vocab-pronounce") {
+                    handleVocabPronounceResult(resultText);
                 } else {
                     handleChatVoiceResult(resultText);
                 }
@@ -1039,12 +1372,10 @@
         // Text-To-Speech (US Pronunciation)
         function speakTextUS(text) {
             if ('speechSynthesis' in window) {
-                // Stripping HTML tags if any
                 const clean = text.replace(/<\/?[^>]+(>|$)/g, "");
                 const utterance = new SpeechSynthesisUtterance(clean);
                 utterance.lang = 'en-US';
                 
-                // Fine-tune natural Google voices if loaded
                 const voices = window.speechSynthesis.getVoices();
                 const usVoice = voices.find(v => v.lang === 'en-US' && v.name.includes('Google'));
                 if (usVoice) utterance.voice = usVoice;
@@ -1066,12 +1397,10 @@
             speechRecognizer.start();
         }
 
-        // Intelligent analyzer of reading performance
         function handleOralReadingResult(spokenText) {
             const originalWords = currentActiveTask.content.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g,"").split(/\s+/);
             const spokenWords = spokenText.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g,"").split(/\s+/);
             
-            // Calculate overlap matches
             let matches = 0;
             originalWords.forEach(word => {
                 if (spokenWords.includes(word)) {
@@ -1081,8 +1410,7 @@
 
             const accuracy = Math.round((matches / originalWords.length) * 100);
             
-            // Interactive notification and AI feedback switch
-            if (accuracy >= 60) {
+            if (accuracy >= 50) {
                 triggerStreakSuccess();
                 showCustomDialog("Kết Quả Đọc Tuyệt Vời!", `
                     <div class="text-center">
@@ -1095,7 +1423,7 @@
                             <p class="text-xs font-semibold text-slate-400">Bạn vừa đọc:</p>
                             <p class="text-sm text-slate-700 italic mt-0.5">"${spokenText}"</p>
                         </div>
-                        <p class="text-xs text-slate-500">Mục tiêu ngày hôm nay hoàn thành tốt! Hãy nói tiếp với AI để tăng thêm tự tin nói.</p>
+                        <p class="text-xs text-slate-500">Thử thách luyện đọc sách hoàn tất tốt! Giờ con có thể chuyển sang Luyện Từ Vựng hoặc Đàm thoại nhé.</p>
                     </div>
                 `);
             } else {
@@ -1110,14 +1438,14 @@
                             <p class="text-xs font-semibold text-slate-400">Thiết bị nhận được âm:</p>
                             <p class="text-sm text-slate-700 italic mt-0.5">"${spokenText || 'Chưa rõ âm thoại'}"</p>
                         </div>
-                        <p class="text-xs text-slate-500">Bạn hãy thử nhấn nút "Nghe máy đọc mẫu" trước để cải thiện thanh điệu và ngữ điệu nói.</p>
+                        <p class="text-xs text-slate-500">Con hãy nhấn nút "Nghe máy đọc mẫu" trước để làm quen thanh điệu trước khi đọc lại.</p>
                     </div>
                 `);
             }
         }
 
         // =========================================================================
-        // 7. AI CONVERSATIONAL DIRECT CHAT
+        // 8. AI CONVERSATIONAL DIRECT CHAT
         // =========================================================================
         function toggleChatVoiceInput() {
             if (!speechRecognizer) {
@@ -1176,9 +1504,7 @@
             container.scrollTop = container.scrollHeight;
         }
 
-        // Gemini AI Smart Conversation Model Mock
         function generateAIResponse(userQuery) {
-            // Loading element
             const container = document.getElementById("chat-conversation-container");
             const loadingDiv = document.createElement("div");
             loadingDiv.id = "chat-loading-placeholder";
@@ -1194,9 +1520,7 @@
             container.appendChild(loadingDiv);
             container.scrollTop = container.scrollHeight;
 
-            // Trigger actual Gemini API or fallback smart teacher response
             setTimeout(() => {
-                // Delete loading state
                 const currentLoader = document.getElementById("chat-loading-placeholder");
                 if (currentLoader) currentLoader.remove();
 
@@ -1204,13 +1528,12 @@
                 let aiEnglishResponse = "";
                 let aiVietnameseHint = "";
 
-                // Logic responses matching common language learner inquiries
                 if (normalized.includes("hello") || normalized.includes("hi")) {
                     aiEnglishResponse = "Hello there! It is wonderful to hear from you. How was your reading lesson today?";
                     aiVietnameseHint = "Chào con! Rất vui được trò chuyện cùng con. Buổi học đọc hôm nay thế nào rồi?";
-                } else if (normalized.includes("beautiful") || normalized.includes("weather") || normalized.includes("picnic")) {
-                    aiEnglishResponse = "Yes! Having a family picnic in such beautiful weather is super fun. Do you like picnics?";
-                    aiVietnameseHint = "Đúng rồi! Đi dã ngoại cùng gia đình trong thời tiết đẹp thế này thì cực kỳ vui luôn. Con có thích đi dã ngoại không?";
+                } else if (normalized.includes("beautiful") || normalized.includes("weather") || normalized.includes("picnic") || normalized.includes("shapes") || normalized.includes("family")) {
+                    aiEnglishResponse = "Fantastic! Practice makes perfect. What was your favorite vocabulary in today's lesson?";
+                    aiVietnameseHint = "Tuyệt cú mèo! Luyện tập hàng ngày sẽ giúp giỏi hơn. Từ vựng yêu thích nhất của con trong bài hôm nay là gì?";
                 } else if (normalized.includes("difficult") || normalized.includes("hard") || normalized.includes("không biết")) {
                     aiEnglishResponse = "Don't worry, my friend. Learning English takes time. You can ask me any word you don't understand.";
                     aiVietnameseHint = "Đừng lo lắng nhé. Học tiếng Anh cần có thời gian. Con có thể hỏi thầy bất cứ từ nào con chưa hiểu.";
@@ -1218,21 +1541,18 @@
                     aiEnglishResponse = "You are welcome! Keep practicing every day to complete your daily streaks.";
                     aiVietnameseHint = "Không có chi! Con nhớ luyện tập hàng ngày để hoàn thành chuỗi streak của mình nhé.";
                 } else {
-                    aiEnglishResponse = `I hear you loud and clear. That was interesting! Tell me more about what you want to learn today in English.`;
-                    aiVietnameseHint = `Thầy nghe rõ câu trả lời của con rồi. Rất thú vị! Hãy chia sẻ thêm về những điều con muốn luyện học hôm nay bằng tiếng Anh nhé.`;
+                    aiEnglishResponse = "I hear you loud and clear. That was interesting! Tell me more about what you want to learn today in English.";
+                    aiVietnameseHint = "Thầy nghe rõ câu trả lời của con rồi. Rất thú vị! Hãy chia sẻ thêm về những điều con muốn luyện học hôm nay bằng tiếng Anh nhé.";
                 }
 
-                // Add to dialogue chat window
                 addChatMessage("ai", aiEnglishResponse, aiVietnameseHint);
-                
-                // Voice out the english part
                 speakTextUS(aiEnglishResponse);
 
             }, 1300);
         }
 
         // =========================================================================
-        // 8. ADMIN CONTROL PANEL MODULE
+        // 9. ADMIN CONTROL PANEL MODULE
         // =========================================================================
         function openAdminModal() {
             document.getElementById("admin-password-input").value = "";
@@ -1273,16 +1593,13 @@
                 return;
             }
 
-            // Sync with profile core update function
             updateProfileMulti({
                 name: name,
                 grade: grade,
                 streak: streak
             });
 
-            // Reload daily reading text if grade changed
-            loadDailyTaskBasedOnGrade(grade);
-
+            loadActiveLesson();
             showToast("Đã lưu cập nhật thông tin học sinh thành công!");
             closeAdminModal();
         }
@@ -1293,7 +1610,7 @@
         }
 
         // =========================================================================
-        // 9. PREMIUM VIEW-INTERACTIONS & UTILITY
+        // 10. PREMIUM VIEW-INTERACTIONS & UTILITY
         // =========================================================================
         function switchTab(tabId) {
             const btnReading = document.getElementById("tab-btn-reading");
@@ -1303,7 +1620,6 @@
             const secVocab = document.getElementById("section-vocab");
             const secChat = document.getElementById("section-chat");
 
-            // Reset active / inactive classes for premium looks
             const activeClass = "flex-1 py-2 text-center text-xs font-bold rounded-lg transition-all duration-300 bg-white text-brand-600 shadow-sm";
             const inactiveClass = "flex-1 py-2 text-center text-xs font-bold rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-800";
 
@@ -1321,14 +1637,13 @@
             } else if (tabId === "vocab") {
                 btnVocab.className = activeClass;
                 secVocab.classList.remove("hidden");
-                renderFlashcardData();
+                setVocabMode('flashcard');
             } else {
                 btnChat.className = activeClass;
                 secChat.classList.remove("hidden");
             }
         }
 
-        // Beautiful toast notification
         function showToast(message, iconClass = "fa-solid fa-info-circle") {
             const toast = document.getElementById("custom-toast");
             document.getElementById("toast-icon").innerHTML = `<i class="${iconClass}"></i>`;
@@ -1343,7 +1658,6 @@
             }, 3000);
         }
 
-        // Custom detailed popup dialog instead of alert/confirm
         function showCustomDialog(title, bodyHTML) {
             const overlay = document.createElement("div");
             overlay.className = "fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4";
