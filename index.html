@@ -86,7 +86,7 @@
                 <div class="w-16 h-16 rounded-3xl bg-brand-600 text-white flex items-center justify-center mx-auto shadow-lg shadow-brand-500/30 mb-4 animate-bounce">
                     <i class="fa-solid fa-book-open-reader text-3xl"></i>
                 </div>
-                <h1 class="text-2xl font-black text-slate-900 tracking-tight">English Daily - BY - 0934.011.365 </h1>
+                <h1 class="text-2xl font-black text-slate-900 tracking-tight">English Daily - BY Chú Còn ECO - 0934.011.365</h1>
                 <p class="text-xs text-slate-500 mt-1">Luyện đọc và Đàm thoại Tiếng Anh cùng AI thông minh</p>
             </div>
 
@@ -238,8 +238,8 @@
                                 <select id="smart-class-selector" onchange="loadSmartStartThemes(this.value)" class="w-full text-xs font-bold text-slate-700 bg-white border border-slate-200 rounded-lg p-2 focus:outline-none">
                                     <option value="ss_1">Smart Start Lớp 1</option>
                                     <option value="ss_2">Smart Start Lớp 2</option>
-                                    <option value="ss_3" selected>Smart Start Lớp 3</option>
-                                    <option value="ss_4">Smart Start Lớp 4</option>
+                                    <option value="ss_3">Smart Start Lớp 3</option>
+                                    <option value="ss_4" selected>Smart Start Lớp 4</option>
                                     <option value="ss_5">Smart Start Lớp 5</option>
                                 </select>
                             </div>
@@ -466,7 +466,7 @@
                             <!-- Sentence game control actions -->
                             <div class="w-full bg-slate-950/30 p-2 flex justify-between items-center text-[10px] border-t border-slate-800">
                                 <button onclick="resetCurrentScramble()" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-white font-bold transition">Xóa hết</button>
-                                <button onclick="submitScrambleSolution()" class="px-3.5 py-1 rounded bg-emerald-500 hover:bg-emerald-600 text-white font-bold transition">Kiểm tra câu</button>
+                                <button onclick="submitScrambleSolution()" class="px-3.5 py-1 rounded bg-emerald-50 hover:bg-emerald-600 text-white font-bold transition">Kiểm tra câu</button>
                             </div>
                         </div>
 
@@ -917,7 +917,7 @@
             }
         }
 
-        // Unique Student code generator helper (format: ECOXXX) - MODIFIED: Default code prefix ECO
+        // Unique Student code generator helper (format: ECOXXX) - Default code prefix ECO
         function generateUniqueStudentCode() {
             const chars = "1234567890"; // Pure numerical suffix matching ECO123 style
             let code = "ECO";
@@ -960,8 +960,8 @@
 
             if (cloudConnected && db) {
                 try {
-                    // Safe unified schema path
-                    await db.collection('artifacts').doc(APP_ID).collection('students').doc(code).set(studentObject);
+                    // Safe unified schema path - Rule 1 Compliant: public/data/students/{studentId}
+                    await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').doc(code).set(studentObject);
                 } catch (e) {
                     console.error("Cloud registry error:", e);
                 }
@@ -1007,10 +1007,10 @@
 
             let studentProfile = null;
 
-            // Search online db first
+            // Search online db first - Rule 1 Compliant: public/data/students/{studentId}
             if (cloudConnected && db) {
                 try {
-                    const doc = await db.collection('artifacts').doc(APP_ID).collection('students').doc(rawCode).get();
+                    const doc = await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').doc(rawCode).get();
                     if (doc.exists) {
                         studentProfile = doc.data();
                     }
@@ -1079,7 +1079,7 @@
         }
 
         // =========================================================================
-        // 3. DAILY READING & SGK CURRICULUM DATABASE (Smart Start Lớp 3)
+        // 3. DAILY READING & SGK CURRICULUM DATABASE
         // =========================================================================
         const readingDatabase = {
             cap_1: {
@@ -1117,12 +1117,12 @@
             }
         };
 
-        // Complete i-Learn Smart Start Grade 3 syllabus aligned with online.flipbuilder.com/sdtta/skiv
+        // Complete i-Learn Smart Start Grade 1-5 syllabus, with updated Grade 4 and Grade 5
         const smartStartDatabase = {
             ss_1: {
                 theme1: {
                     title: "i-Learn Smart Start Grade 1 - Theme 1: Hello!",
-                    image: "https://placehold.co/600x440/e2e8f0/1e293b?text=Smart+Start+1+-+Hello",
+                    image: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=600&auto=format&fit=crop&q=80",
                     content: "Hello! My name is Bill. What is your name? Nice to meet you. Good-bye!",
                     vocab: [
                         { word: "Hello", type: "excl", ipa: "/həˈləʊ/", vi: "Xin chào", desc: "Used as a greeting." },
@@ -1135,7 +1135,7 @@
             ss_2: {
                 theme1: {
                     title: "i-Learn Smart Start Grade 2 - Theme 1: Feelings",
-                    image: "https://placehold.co/600x440/e2e8f0/1e293b?text=Smart+Start+2+-+Feelings",
+                    image: "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=600&auto=format&fit=crop&q=80",
                     content: "Today, I feel happy. My friend is sad. Are you hot or cold? We are fine, thank you.",
                     vocab: [
                         { word: "Happy", type: "adj", ipa: "/ˈhæpi/", vi: "Vui vẻ, hạnh phúc", desc: "Feeling or showing pleasure." },
@@ -1209,24 +1209,137 @@
             },
             ss_4: {
                 theme1: {
-                    title: "i-Learn Smart Start Grade 4 - Theme 1: Weather",
-                    image: "https://placehold.co/600x440/e2e8f0/1e293b?text=Smart+Start+4+-+Weather",
-                    content: "Look outside! It is rainy and windy today. I like sunny weather because I can swim in the pool.",
+                    title: "Smart Start 4 - Theme 1: Animals",
+                    image: "https://images.unsplash.com/photo-1534567153574-2b12153a87f0?w=600&auto=format&fit=crop&q=80",
+                    content: "Look at the animals in the zoo. The monkeys are swinging on the trees. The giraffes are eating leaves. The lions are roaring loudly under the warm sun.",
+                    vocab: [
+                        { word: "Zoo", type: "noun", ipa: "/zuː/", vi: "Sở thú", desc: "A place where many kinds of wild animals are kept." },
+                        { word: "Giraffe", type: "noun", ipa: "/dʒəˈrɑːf/", vi: "Hươu cao cổ", desc: "A large African animal with a very long neck." },
+                        { word: "Swinging", type: "verb", ipa: "/ˈswɪŋɪŋ/", vi: "Đu đưa, đánh đu", desc: "Moving back and forth while suspended." },
+                        { word: "Roaring", type: "verb/noun", ipa: "/ˈrɔːrɪŋ/", vi: "Tiếng gầm", desc: "Making a loud, deep sound, especially a lion." }
+                    ]
+                },
+                theme2: {
+                    title: "Smart Start 4 - Theme 2: Weather",
+                    image: "https://images.unsplash.com/photo-1530908268418-ec1f886bc67e?w=600&auto=format&fit=crop&q=80",
+                    content: "Look outside! It is rainy and windy today. I like sunny weather because I can swim in the pool, but my sister likes snowy weather because she can make a big snowman.",
                     vocab: [
                         { word: "Rainy", type: "adj", ipa: "/ˈreɪni/", vi: "Có mưa", desc: "Having a great deal of rainfall." },
                         { word: "Windy", type: "adj", ipa: "/ˈwɪndi/", vi: "Có gió lớn", desc: "Exposed to or characterized by strong wind." },
-                        { word: "Pool", type: "noun", ipa: "/puːl/", vi: "Hồ bơi", desc: "An artificial area of water for swimming." }
+                        { word: "Sunny", type: "adj", ipa: "/ˈsʌni/", vi: "Có nắng rực rỡ", desc: "Bright with sunlight." },
+                        { word: "Snowman", type: "noun", ipa: "/ˈsnəʊmæn/", vi: "Người tuyết", desc: "A figure of a person made of packed snow." }
+                    ]
+                },
+                theme3: {
+                    title: "Smart Start 4 - Theme 3: Clothes",
+                    image: "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=600&auto=format&fit=crop&q=80",
+                    content: "What are you wearing today? I am wearing a blue T-shirt, brown shorts, and red sneakers. My mother wears a beautiful long dress, and my father wears a smart jacket.",
+                    vocab: [
+                        { word: "Shorts", type: "noun", ipa: "/ʃɔːts/", vi: "Quần đùi, quần soóc", desc: "Short trousers reaching only to the knees or thighs." },
+                        { word: "Dress", type: "noun", ipa: "/dres/", vi: "Váy liền thân", desc: "A one-piece garment for a woman or girl." },
+                        { word: "Jacket", type: "noun", ipa: "/ˈdʒækɪt/", vi: "Áo khoác ngắn", desc: "A short coat, in particular one that is lightweight." },
+                        { word: "Wearing", type: "verb", ipa: "/ˈweərɪŋ/", vi: "Đang mặc", desc: "Having on one's body as clothing." }
+                    ]
+                },
+                theme4: {
+                    title: "Smart Start 4 - Theme 4: Activities",
+                    image: "https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=600&auto=format&fit=crop&q=80",
+                    content: "On the weekend, we do many fun activities. My brother likes playing video games. I enjoy reading comic books and riding my bicycle in the garden with my friends.",
+                    vocab: [
+                        { word: "Weekend", type: "noun", ipa: "/ˌwiːkˈend/", vi: "Cuối tuần", desc: "Saturday and Sunday." },
+                        { word: "Bicycle", type: "noun", ipa: "/ˈbaɪsɪkl/", vi: "Xe đạp", desc: "A vehicle with two wheels that you ride by pushing pedals." },
+                        { word: "Garden", type: "noun", ipa: "/ˈɡɑːdn/", vi: "Khu vườn", desc: "A piece of ground next to a house for growing flowers or vegetables." },
+                        { word: "Activities", type: "noun", ipa: "/ækˈtɪvətiz/", vi: "Các hoạt động", desc: "Things that people do for enjoyment or purpose." }
+                    ]
+                },
+                theme5: {
+                    title: "Smart Start 4 - Theme 5: Food and Drinks",
+                    image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&auto=format&fit=crop&q=80",
+                    content: "What would you like to eat? I would like some noodles and chicken. For dessert, I love eating sweet chocolate ice cream. My favorite drink is fresh orange juice.",
+                    vocab: [
+                        { word: "Noodles", type: "noun", ipa: "/ˈnuːdlz/", vi: "Mì, bún", desc: "A food in the form of long, thin strips." },
+                        { word: "Dessert", type: "noun", ipa: "/dɪˈzɜːt/", vi: "Món tráng miệng", desc: "Sweet food eaten at the end of a meal." },
+                        { word: "Favorite", type: "adj", ipa: "/ˈfeɪvərɪt/", vi: "Được yêu thích nhất", desc: "Preferred before all others." },
+                        { word: "Orange juice", type: "noun", ipa: "/ˈɒrɪndʒ dʒuːs/", vi: "Nước cam", desc: "Juice squeezed from fresh oranges." }
+                    ]
+                },
+                theme6: {
+                    title: "Smart Start 4 - Theme 6: Home",
+                    image: "https://images.unsplash.com/photo-1558036117-15d82a90b9b1?w=600&auto=format&fit=crop&q=80",
+                    content: "My house is cozy and beautiful. It has a spacious living room, three clean bedrooms, and a modern kitchen. My family loves gathering in the living room to watch TV.",
+                    vocab: [
+                        { word: "Cozy", type: "adj", ipa: "/ˈkəʊzi/", vi: "Ấm cúng", desc: "Warm, comfortable, and safe." },
+                        { word: "Spacious", type: "adj", ipa: "/ˈspeɪʃəs/", vi: "Rộng rãi", desc: "Having ample space." },
+                        { word: "Gathering", type: "verb/noun", ipa: "/ˈɡæðərɪŋ/", vi: "Tụ họp, quây quần", desc: "Coming together as a group." },
+                        { word: "Kitchen", type: "noun", ipa: "/ˈkɪtʃɪn/", vi: "Nhà bếp", desc: "A room where food is cooked and prepared." }
                     ]
                 }
             },
             ss_5: {
                 theme1: {
-                    title: "i-Learn Smart Start Grade 5 - Theme 1: Jobs",
-                    image: "https://placehold.co/600x440/e2e8f0/1e293b?text=Smart+Start+5+-+Jobs",
-                    content: "What does your father do? He is a doctor. My mother works as a teacher in a high school.",
+                    title: "Smart Start 5 - Theme 1: School",
+                    image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=600&auto=format&fit=crop&q=80",
+                    content: "Welcome back to school! Our school has a large playground, a modern computer room, and a big library. My favorite subject is Science because I love doing interesting experiments.",
                     vocab: [
-                        { word: "Doctor", type: "noun", ipa: "/ˈdɒktə(r)/", vi: "Bác sĩ", desc: "A qualified practitioner of medicine." },
-                        { word: "Teacher", type: "noun", ipa: "/ˈtiːtʃə(r)/", vi: "Giáo viên", desc: "A person who teaches, especially in a school." }
+                        { word: "Playground", type: "noun", ipa: "/ˈpleɪɡraʊnd/", vi: "Sân chơi", desc: "An outdoor area provided for children to play on." },
+                        { word: "Library", type: "noun", ipa: "/ˈlaɪbrəri/", vi: "Thư viện", desc: "A building or room containing collections of books for reading." },
+                        { word: "Subject", type: "noun", ipa: "/ˈsʌbdʒɪkt/", vi: "Môn học", desc: "An area of knowledge studied in a school." },
+                        { word: "Experiment", type: "noun", ipa: "/ɪkˈsperɪmənt/", vi: "Thí nghiệm", desc: "A scientific test done to find out or prove something." }
+                    ]
+                },
+                theme2: {
+                    title: "Smart Start 5 - Theme 2: Sports and Hobbies",
+                    image: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=600&auto=format&fit=crop&q=80",
+                    content: "Playing sports keeps us healthy and strong. Many boys in my class play soccer after school, while girls prefer playing badminton. My hobby is taking beautiful photos of nature.",
+                    vocab: [
+                        { word: "Healthy", type: "adj", ipa: "/ˈhelθi/", vi: "Khỏe mạnh", desc: "In good physical or mental condition." },
+                        { word: "Soccer", type: "noun", ipa: "/ˈsɒkə(r)/", vi: "Bóng đá", desc: "A game played by two teams of eleven players with a round ball." },
+                        { word: "Badminton", type: "noun", ipa: "/ˈbædmɪntən/", vi: "Cầu lông", desc: "A game with rackets and a shuttlecock." },
+                        { word: "Hobby", type: "noun", ipa: "/ˈhɒbi/", vi: "Sở thích", desc: "An activity done regularly in one's leisure time for pleasure." }
+                    ]
+                },
+                theme3: {
+                    title: "Smart Start 5 - Theme 3: Health",
+                    image: "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=600&auto=format&fit=crop&q=80",
+                    content: "To stay healthy, we should eat fresh vegetables, drink plenty of water, and wash our hands carefully. Sleeping early and exercising daily will prevent us from catching a cold.",
+                    vocab: [
+                        { word: "Vegetables", type: "noun", ipa: "/ˈvedʒtəblz/", vi: "Rau củ quả", desc: "Plants or parts of plants eaten as food." },
+                        { word: "Exercising", type: "verb", ipa: "/ˈeksəsaɪzɪŋ/", vi: "Tập thể dục", desc: "Engaging in physical activity to sustain health." },
+                        { word: "Prevent", type: "verb", ipa: "/prɪˈvent/", vi: "Ngăn ngừa, phòng tránh", desc: "Keep something from happening." },
+                        { word: "Catching a cold", type: "phrase", ipa: "/ˈkætʃɪŋ ə kəʊld/", vi: "Cảm lạnh", desc: "Becoming sick with a common mild virus." }
+                    ]
+                },
+                theme4: {
+                    title: "Smart Start 5 - Theme 4: Travel",
+                    image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&auto=format&fit=crop&q=80",
+                    content: "Last summer, my family traveled to Da Nang City. We visited the beautiful beach, went sightseeing on the Dragon Bridge, and tasted delicious local food. It was a memorable trip.",
+                    vocab: [
+                        { word: "Traveled", type: "verb", ipa: "/ˈtrævəld/", vi: "Đã đi du lịch", desc: "Went from one place to another." },
+                        { word: "Sightseeing", type: "noun", ipa: "/ˈsaɪtsiːɪŋ/", vi: "Ngắm cảnh", desc: "The activity of visiting places of interest in a particular location." },
+                        { word: "Delicious", type: "adj", ipa: "/dɪˈlɪʃəs/", vi: "Thơm ngon", desc: "Highly pleasant to the taste." },
+                        { word: "Memorable", type: "adj", ipa: "/ˈmemərəbl/", vi: "Đáng nhớ", desc: "Worth remembering or easily remembered." }
+                    ]
+                },
+                theme5: {
+                    title: "Smart Start 5 - Theme 5: My Future Job",
+                    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&auto=format&fit=crop&q=80",
+                    content: "In the future, I want to be an astronaut because I love exploring outer space and visiting distant planets. My brother wants to be a talented chef cooking delicious meals.",
+                    vocab: [
+                        { word: "Astronaut", type: "noun", ipa: "/ˈæstrənɔːt/", vi: "Phi hành gia", desc: "A person trained to travel in a spacecraft." },
+                        { word: "Exploring", type: "verb", ipa: "/ɪkˈsplɔːrɪŋ/", vi: "Thám hiểm, khám phá", desc: "Traveling in or through an unfamiliar area to learn about it." },
+                        { word: "Talented", type: "adj", ipa: "/ˈtæləntɪd/", vi: "Tài năng, có khiếu", desc: "Having a natural aptitude or skill." },
+                        { word: "Chef", type: "noun", ipa: "/ʃef/", vi: "Đầu bếp trưởng", desc: "A professional cook, typically of a restaurant." }
+                    ]
+                },
+                theme6: {
+                    title: "Smart Start 5 - Theme 6: Food and Drinks",
+                    image: "https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=600&auto=format&fit=crop&q=80",
+                    content: "A balanced diet is essential for growing children. We need protein from meat and fish, vitamins from fresh fruits, and calcium from milk to build strong bones and teeth.",
+                    vocab: [
+                        { word: "Balanced diet", type: "noun", ipa: "/ˌbælənst ˈdaɪət/", vi: "Chế độ ăn cân đối", desc: "A diet that contains proper proportions of nutrients." },
+                        { word: "Essential", type: "adj", ipa: "/ɪˈsenʃl/", vi: "Thiết yếu, cần thiết", desc: "Absolutely necessary or extremely important." },
+                        { word: "Calcium", type: "noun", ipa: "/ˈkælsiəm/", vi: "Canxi", desc: "A mineral needed for healthy teeth and bones." },
+                        { word: "Vitamins", type: "noun", ipa: "/ˈvɪtəmɪnz/", vi: "Các vitamin", desc: "Organic compounds essential for normal growth and nutrition." }
                     ]
                 }
             }
@@ -1381,7 +1494,8 @@
             localStorage.setItem(`offline_student_${activeStudentId}`, JSON.stringify(activeStudentData));
             if (cloudConnected && db) {
                 try {
-                    await db.collection('artifacts').doc(APP_ID).collection('students').doc(activeStudentId).set(activeStudentData);
+                    // Safe unified schema path - Rule 1 Compliant: public/data/students/{studentId}
+                    await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').doc(activeStudentId).set(activeStudentData);
                 } catch (e) {
                     console.error("Cloud profile update error", e);
                 }
@@ -1505,6 +1619,8 @@
 
             // Secure Context and Google Sites diagnostics
             const isSecure = window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            const isIFrame = window.self !== window.top;
+
             if (!isSecure) {
                 showCustomDialog("⚠️ Yêu Cầu Kết Nối Bảo Mật (HTTPS)", `
                     <div class="text-sm text-slate-600 space-y-2">
@@ -1512,7 +1628,6 @@
                         <p class="font-semibold text-brand-600">Cách sửa lỗi:</p>
                         <ul class="list-disc pl-4 space-y-1 text-xs">
                             <li>Hãy đảm bảo bạn đã đẩy app lên Netlify/Firebase và truy cập link có dạng <span class="bg-slate-100 px-1 py-0.5 rounded text-red-500 font-mono">https://...</span></li>
-                            <li>Nếu nhúng trên <b>Google Sites</b>, hãy chắc chắn nhúng bằng phương pháp <b>Mã Nhúng (Embed Code)</b> kèm quyền <span class="bg-slate-100 px-1 py-0.5 rounded text-red-500 font-mono">allow="microphone"</span>.</li>
                         </ul>
                     </div>
                 `);
@@ -1521,6 +1636,17 @@
 
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             if (!SpeechRecognition) {
+                let iframeGuide = "";
+                if (isIFrame) {
+                    iframeGuide = `
+                        <div class="mt-3 p-3 bg-blue-50 border border-blue-100 rounded-xl text-xs text-blue-800 space-y-1 text-left">
+                            <p class="font-bold"><i class="fa-solid fa-circle-info mr-1"></i> Cách khắc phục trên Google Sites:</p>
+                            <p>Hãy nhúng ứng dụng bằng phương pháp <b>Mã nhúng (Embed Code)</b> để trình duyệt cho phép truyền luồng Micro qua iFrame bảo mật:</p>
+                            <pre class="bg-slate-900 text-slate-100 p-2 rounded text-[10px] overflow-x-auto select-all font-mono">&lt;iframe src="${window.location.href}" allow="microphone" style="width:100%; height:650px; border:none;"&gt;&lt;/iframe&gt;</pre>
+                        </div>
+                    `;
+                }
+
                 showCustomDialog("❌ Trình duyệt Không Hỗ Trợ Micro", `
                     <div class="text-sm text-slate-600 space-y-2">
                         <p>Trình duyệt web hiện tại không hỗ trợ hoặc bị chặn tính năng nhận giọng nói.</p>
@@ -1529,6 +1655,7 @@
                             <li><b>Trên iPhone/iPad (iOS):</b> Bắt buộc mở bằng trình duyệt <b>Safari gốc</b>. Tránh mở trực tiếp trong khung chat Zalo/Facebook.</li>
                             <li><b>Trên Android:</b> Sử dụng trình duyệt <b>Google Chrome</b> mới nhất.</li>
                         </ul>
+                        ${iframeGuide}
                     </div>
                 `);
                 return;
@@ -1568,14 +1695,26 @@
                 activeRecognizer.onerror = (e) => {
                     console.error("Speech Recognition Error:", e);
                     if (e.error === "not-allowed") {
+                        let iframeInstructions = "";
+                        if (isIFrame) {
+                            iframeInstructions = `
+                                <div class="mt-2.5 p-3 bg-yellow-50 border border-yellow-200 rounded-xl text-[11px] text-yellow-800 space-y-1 text-left">
+                                    <p class="font-extrabold"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Phát hiện ứng dụng đang nhúng trong Google Sites!</p>
+                                    <p>Bạn phải cấu hình thẻ nhúng bằng <b>Mã nhúng (Embed Code)</b> kèm quyền sử dụng micro thay vì Nhúng link URL thông thường:</p>
+                                    <pre class="bg-slate-900 text-slate-100 p-2 rounded text-[10px] overflow-x-auto select-all font-mono">&lt;iframe src="${window.location.href}" allow="microphone" style="width:100%; height:650px; border:none;"&gt;&lt;/iframe&gt;</pre>
+                                </div>
+                            `;
+                        }
+
                         showCustomDialog("🚫 Quyền Truy Cập Micro Bị Chặn", `
                             <div class="text-xs text-slate-600 space-y-2">
                                 <p>Trình duyệt chưa được cho phép sử dụng Micro trên thiết bị.</p>
                                 <p class="font-semibold text-brand-600">Hướng dẫn khắc phục:</p>
-                                <ol class="list-decimal pl-4 space-y-1">
+                                <ol class="list-decimal pl-4 space-y-1 text-left">
                                     <li>Nhìn lên thanh địa chỉ trình duyệt, click vào <b>Biểu tượng ổ khóa/Cài đặt trang web</b> và chọn "Cho phép Micro".</li>
-                                    <li>Nếu bạn đang nhúng trong Google Sites, hãy chắc chắn iFrame được cấu hình chuẩn với thẻ nhúng có <span class="bg-slate-100 px-1 rounded text-red-500 font-mono">allow="microphone"</span>.</li>
+                                    <li>Nếu dùng điện thoại, hãy mở trực tiếp bằng <b>Safari (iOS)</b> hoặc <b>Chrome (Android)</b> thay vì trình duyệt nội bộ của Zalo/Facebook.</li>
                                 </ol>
+                                ${iframeInstructions}
                             </div>
                         `);
                     } else {
@@ -2173,9 +2312,10 @@
 
             let studentsList = [];
 
+            // Rule 1 Compliant path for Leaderboard query
             if (cloudConnected && db) {
                 try {
-                    const snap = await db.collection('artifacts').doc(APP_ID).collection('students').get();
+                    const snap = await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').get();
                     snap.forEach(doc => {
                         studentsList.push(doc.data());
                     });
@@ -2315,9 +2455,10 @@
 
             let studentsList = [];
 
+            // Rule 1 Compliant path for fetching students list
             if (cloudConnected && db) {
                 try {
-                    const snap = await db.collection('artifacts').doc(APP_ID).collection('students').get();
+                    const snap = await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').get();
                     snap.forEach(doc => {
                         studentsList.push(doc.data());
                     });
@@ -2393,8 +2534,9 @@
 
             if (!student) {
                 showToast("Đang tìm dữ liệu học sinh...", "fa-solid fa-spinner animate-spin");
+                // Rule 1 Compliant path
                 if (cloudConnected && db) {
-                    db.collection('artifacts').doc(APP_ID).collection('students').doc(studentCode).get().then((doc) => {
+                    db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').doc(studentCode).get().then((doc) => {
                         if (doc.exists) {
                             populateAndShowEditModal(doc.data());
                         } else {
@@ -2443,9 +2585,10 @@
                 originalStudent = JSON.parse(offlineRecord);
             }
 
+            // Rule 1 Compliant Path
             if (cloudConnected && db && !originalStudent) {
                 try {
-                    const doc = await db.collection('artifacts').doc(APP_ID).collection('students').doc(oldCode).get();
+                    const doc = await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').doc(oldCode).get();
                     if (doc.exists) {
                         originalStudent = doc.data();
                     }
@@ -2482,9 +2625,10 @@
                     codeConflict = true;
                 }
 
+                // Rule 1 Compliant Path
                 if (cloudConnected && db && !codeConflict) {
                     try {
-                        const conflictDoc = await db.collection('artifacts').doc(APP_ID).collection('students').doc(newCode).get();
+                        const conflictDoc = await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').doc(newCode).get();
                         if (conflictDoc.exists) {
                             codeConflict = true;
                         }
@@ -2501,10 +2645,11 @@
                 localStorage.removeItem(`offline_student_${oldCode}`);
                 localStorage.setItem(`offline_student_${newCode}`, JSON.stringify(updatedProfile));
 
+                // Rule 1 Compliant Path
                 if (cloudConnected && db) {
                     try {
-                        await db.collection('artifacts').doc(APP_ID).collection('students').doc(newCode).set(updatedProfile);
-                        await db.collection('artifacts').doc(APP_ID).collection('students').doc(oldCode).delete();
+                        await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').doc(newCode).set(updatedProfile);
+                        await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').doc(oldCode).delete();
                     } catch (e) {
                         console.error("Cloud key migration failed", e);
                     }
@@ -2519,9 +2664,10 @@
 
             } else {
                 localStorage.setItem(`offline_student_${oldCode}`, JSON.stringify(updatedProfile));
+                // Rule 1 Compliant Path
                 if (cloudConnected && db) {
                     try {
-                        await db.collection('artifacts').doc(APP_ID).collection('students').doc(oldCode).set(updatedProfile);
+                        await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').doc(oldCode).set(updatedProfile);
                     } catch (e) {
                         console.error("Cloud meta update error", e);
                     }
@@ -2572,9 +2718,10 @@
 
             localStorage.setItem(`offline_student_${code}`, JSON.stringify(studentObject));
 
+            // Rule 1 Compliant Path
             if (cloudConnected && db) {
                 try {
-                    await db.collection('artifacts').doc(APP_ID).collection('students').doc(code).set(studentObject);
+                    await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').doc(code).set(studentObject);
                 } catch (e) {
                     console.error("Cloud entry error", e);
                 }
@@ -2597,9 +2744,10 @@
                 targetStudent = JSON.parse(localRaw);
             }
 
+            // Rule 1 Compliant Path
             if (cloudConnected && db) {
                 try {
-                    const snap = await db.collection('artifacts').doc(APP_ID).collection('students').doc(code).get();
+                    const snap = await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').doc(code).get();
                     if (snap.exists) {
                         targetStudent = snap.data();
                     }
@@ -2618,9 +2766,10 @@
 
             localStorage.setItem(key, JSON.stringify(targetStudent));
 
+            // Rule 1 Compliant Path
             if (cloudConnected && db) {
                 try {
-                    await db.collection('artifacts').doc(APP_ID).collection('students').doc(code).update({ streak: nextStreak });
+                    await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').doc(code).update({ streak: nextStreak });
                 } catch (e) {
                     console.error(e);
                 }
@@ -2644,9 +2793,10 @@
                 targetStudent = JSON.parse(localRaw);
             }
 
+            // Rule 1 Compliant Path
             if (cloudConnected && db) {
                 try {
-                    const snap = await db.collection('artifacts').doc(APP_ID).collection('students').doc(code).get();
+                    const snap = await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').doc(code).get();
                     if (snap.exists) {
                         targetStudent = snap.data();
                     }
@@ -2665,9 +2815,10 @@
 
             localStorage.setItem(key, JSON.stringify(targetStudent));
 
+            // Rule 1 Compliant Path
             if (cloudConnected && db) {
                 try {
-                    await db.collection('artifacts').doc(APP_ID).collection('students').doc(code).update({ points: nextPoints });
+                    await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').doc(code).update({ points: nextPoints });
                 } catch (e) {
                     console.error(e);
                 }
@@ -2686,9 +2837,10 @@
             showConfirmDialog("Xóa tài khoản con", `Bạn có chắc chắn muốn xóa vĩnh viễn tài khoản học sinh ${code}? Toàn bộ lịch sử học tập và streak sẽ bị hủy.`, async () => {
                 localStorage.removeItem(`offline_student_${code}`);
 
+                // Rule 1 Compliant Path
                 if (cloudConnected && db) {
                     try {
-                        await db.collection('artifacts').doc(APP_ID).collection('students').doc(code).delete();
+                        await db.collection('artifacts').doc(APP_ID).collection('public').doc('data').collection('students').doc(code).delete();
                     } catch (e) {
                         console.error(e);
                     }
