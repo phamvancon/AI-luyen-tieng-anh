@@ -2,6 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Permissions-Policy" content="microphone=(self)">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>English Daily - Luyện Đọc & Đàm Thoại AI Học Sinh Các Cấp</title>
     <!-- Tailwind CSS CDN -->
@@ -3145,6 +3146,73 @@ document.addEventListener('DOMContentLoaded', async () => {
             return originalVoiceInput.apply(this, arguments);
         }
     }
+});
+</script>
+
+
+<script>
+// ===== AUTO REQUEST MICRO ON CHROME/SAFARI =====
+async function autoRequestMicrophone() {
+    try {
+        const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            console.warn('Microphone API not supported');
+            return false;
+        }
+
+        // Auto request immediately after first touch/click
+        const requestPermission = async () => {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    audio: {
+                        echoCancellation: true,
+                        noiseSuppression: true,
+                        autoGainControl: true
+                    }
+                });
+
+                localStorage.setItem('mic_permission_granted', 'true');
+
+                // Stop tracks after permission granted
+                stream.getTracks().forEach(track => track.stop());
+
+                console.log('Microphone permission granted');
+
+                if (typeof showToast === 'function') {
+                    showToast('Đã cấp quyền micro thành công!', 'fa-solid fa-microphone text-emerald-500');
+                }
+
+                return true;
+
+            } catch (err) {
+                console.error(err);
+
+                if (typeof showToast === 'function') {
+                    showToast('Hãy bấm "Cho phép" để sử dụng AI Voice');
+                }
+
+                return false;
+            }
+        };
+
+        // iPhone Safari requires user gesture
+        if (isIOS || isSafari) {
+            document.addEventListener('touchstart', requestPermission, { once: true });
+            document.addEventListener('click', requestPermission, { once: true });
+        } else {
+            document.addEventListener('click', requestPermission, { once: true });
+        }
+
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+// Auto init
+window.addEventListener('load', () => {
+    autoRequestMicrophone();
 });
 </script>
 
